@@ -150,1412 +150,6 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="https://chenzhan20050128.github.io/notes.github.io/2025/06/23/LP%E5%AE%9A%E7%82%B9%E7%AC%94%E8%AE%B0/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/notes.github.io/images/woshicaigou.jpg">
-      <meta itemprop="name" content="Chen Zhan">
-      <meta itemprop="description" content="">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="cz Blog">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/notes.github.io/2025/06/23/LP%E5%AE%9A%E7%82%B9%E7%AC%94%E8%AE%B0/" class="post-title-link" itemprop="url">LP定点笔记</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
-
-              <time title="创建时间：2025-06-23 12:22:32" itemprop="dateCreated datePublished" datetime="2025-06-23T12:22:32+08:00">2025-06-23</time>
-            </span>
-
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <h2 id="边角（corner）、极值点（extreme-point）和基本解（basic-solution）："><strong>边角（corner）</strong>、<strong>极值点（extreme point）<strong>和</strong>基本解（basic solution）</strong>：</h2>
-<hr>
-<h3 id="1-边角（Corner）">1. <strong>边角（Corner）</strong></h3>
-<p><strong>定义</strong>：点$x$是集合$P$的边角，若不存在非零向量$y \neq 0$，使得$x + y \in P$且$x - y \in P$。<br>
-<strong>几何意义</strong>：</p>
-<ul>
-<li>边角是集合$P$的“尖锐”部分，无法在$x$的邻域内沿任何方向$y$同时向$x \pm y$移动而保持在$P$内。</li>
-<li>在凸集理论中，边角等价于<strong>极点（extreme point）</strong>，即不能表示为集合中其他两点严格凸组合的点。<br>
-<strong>示例</strong>：
-<ul>
-<li>多边形的顶点是边角，因为无法沿任何方向移动同时保持在多边形内。</li>
-</ul>
-</li>
-</ul>
-<hr>
-<h3 id="2-极值点（Extreme-Point）">2. <strong>极值点（Extreme Point）</strong></h3>
-<p><strong>定义</strong>：点$x$是极值点，若存在目标方向$c$，使得$x$是优化问题$\max c^T x \ \text{s.t.} \ x \in P$的唯一最优解。<br>
-<strong>性质</strong>：</p>
-<ul>
-<li>极值点一定是边角，反之亦然（在凸集下）。</li>
-<li>在凸优化中，极值点对应可行域的顶点，是线性规划潜在的最优解候选。<br>
-<strong>示例</strong>：
-<ul>
-<li>线性规划中，最优解通常出现在可行多面体的极值点（顶点）处。</li>
-</ul>
-</li>
-</ul>
-<hr>
-<h3 id="3-基本解（Basic-Solution）">3. <strong>基本解（Basic Solution）</strong></h3>
-<p><strong>定义</strong>：对于线性约束$Ax = b$，设$x \in P$，记$A_=$为$x$的紧致约束（即$A_i x = b_i$的行）构成的子矩阵。若$A_=$满秩（$\text{rank}(A_=) = n$），则$x$为基本解。<br>
-<strong>关键点</strong>：</p>
-<ul>
-<li><strong>紧致约束</strong>：在$x$处取等号的约束，几何上表示$x$位于这些约束对应的超平面上。</li>
-<li><strong>满秩条件</strong>：$A_=$的列线性独立，确保$x$是唯一确定的（非退化解）。</li>
-<li><strong>与极值点的关系</strong>：在标准线性规划中，基本可行解对应可行多面体的顶点（极值点）。</li>
-</ul>
-<p><strong>求解方法</strong>：</p>
-<ol>
-<li>从$A$中选取$n$个线性无关的行构成$A_=$。</li>
-<li>解$A_= x = b_=$得到$x$，其余变量设为0（非基变量）。</li>
-</ol>
-<h2 id="证明：在凸多面体-P-x-mid-Ax-leq-b-中，若-x-是边角（corner），则-x-是基本解（basic-solution）。"><strong>证明：在凸多面体 ( P = {x \mid Ax \leq b} ) 中，若 ( x ) 是边角（corner），则 ( x ) 是基本解（basic solution）。</strong></h2>
-<p>等价地，我们证明其逆否命题：</p>
-<blockquote>
-<p><strong>若 ( x ) 不是基本解（即 ( \text{rank}(A_=) &lt; n )），则 ( x ) 不是边角。</strong></p>
-</blockquote>
-<hr>
-<h3 id="证明过程"><strong>证明过程</strong></h3>
-<ol>
-<li>
-<p><strong>设定与假设</strong>：</p>
-<ul>
-<li>设 ( x \in P )，且 ( A_= ) 是 ( x ) 的紧致约束（即 ( A_i x = b_i ) 的行构成的子矩阵）。</li>
-<li>假设 ( \text{rank}(A_=) &lt; n )，即 ( A_= ) 的行不满秩（列线性相关）。</li>
-<li>由线性代数，存在非零向量 ( y \neq 0 )，使得 ( A_= y = 0 )。</li>
-</ul>
-</li>
-<li>
-<p><strong>构造扰动点 ( x \pm \epsilon y )</strong>：</p>
-<ul>
-<li>对于紧致约束 ( A_= )，有：<br>
-[<br>
-A_= (x \pm \epsilon y) = A_= x \pm \epsilon A_= y = b_= \pm 0 = b_=,<br>
-]<br>
-因此 ( x \pm \epsilon y ) 仍然满足紧致约束。</li>
-<li>对于非紧致约束 ( A_j x &lt; b_j )，由于 ( x ) 严格满足不等式，且 ( y ) 是固定向量，存在足够小的 ( \epsilon &gt; 0 )，使得：<br>
-[<br>
-A_j (x \pm \epsilon y) \leq b_j.<br>
-]<br>
-（因为 ( A_j x &lt; b_j )，而 ( \epsilon ) 足够小时，扰动不会违反不等式。）</li>
-</ul>
-</li>
-<li>
-<p><strong>验证 ( x \pm \epsilon y \in P )</strong>：</p>
-<ul>
-<li>由上述分析，( x \pm \epsilon y ) 满足所有约束 ( Ax \leq b )，因此 ( x \pm \epsilon y \in P )。</li>
-</ul>
-</li>
-<li>
-<p><strong>说明 ( x ) 不是边角</strong>：</p>
-<ul>
-<li>我们找到了 ( y \neq 0 )，使得 ( x + \epsilon y \in P ) 且 ( x - \epsilon y \in P )。</li>
-<li>根据边角的定义，( x ) 不是边角。</li>
-</ul>
-</li>
-</ol>
-<h3 id="证明：在凸多面体-P-x-mid-Ax-leq-b-中，若-x-是基本解（basic-solution），则-x-是边角（corner）。"><strong>证明：在凸多面体 ( P = {x \mid Ax \leq b} ) 中，若 ( x ) 是基本解（basic solution），则 ( x ) 是边角（corner）。</strong></h3>
-<p>等价地，我们证明其逆否命题：</p>
-<blockquote>
-<p><strong>若 ( x ) 不是边角（即存在 ( y \neq 0 ) 使得 ( x \pm y \in P )），则 ( x ) 不是基本解（即 ( \text{rank}(A_=) &lt; n )）。</strong></p>
-</blockquote>
-<hr>
-<h3 id="证明过程-2"><strong>证明过程</strong></h3>
-<ol>
-<li>
-<p><strong>设定与假设</strong>：</p>
-<ul>
-<li>设 ( x \in P )，且 ( A_= ) 是 ( x ) 的紧致约束（即 ( A_i x = b_i ) 的行构成的子矩阵）。</li>
-<li>假设 ( x ) 不是边角，即存在 ( y \neq 0 )，使得 ( x + y \in P ) 且 ( x - y \in P )。</li>
-</ul>
-</li>
-<li>
-<p><strong>分析紧致约束 ( A_= ) 的作用</strong>：</p>
-<ul>
-<li>由于 ( x \pm y \in P )，且 ( A_= x = b_= )，我们有：<br>
-[<br>
-A_= (x + y) \leq b_= \quad \Rightarrow \quad A_= x + A_= y \leq b_= \quad \Rightarrow \quad A_= y \leq 0,<br>
-]<br>
-[<br>
-A_= (x - y) \leq b_= \quad \Rightarrow \quad A_= x - A_= y \leq b_= \quad \Rightarrow \quad -A_= y \leq 0.<br>
-]</li>
-<li>结合 ( A_= y \leq 0 ) 和 ( -A_= y \leq 0 )，可得：<br>
-[<br>
-A_= y = 0.<br>
-]</li>
-<li>因此，( y ) 是 ( A_= ) 的零空间中的非零向量（因为 ( y \neq 0 )）。</li>
-</ul>
-</li>
-<li>
-<p><strong>说明 ( A_= ) 不满秩</strong>：</p>
-<ul>
-<li>存在 ( y \neq 0 ) 使得 ( A_= y = 0 )，说明 ( A_= ) 的列线性相关。</li>
-<li>因此，( \text{rank}(A_=) &lt; n )，即 ( x ) 不是基本解。</li>
-</ul>
-</li>
-</ol>
-<h2 id="定理：考虑二分图完美匹配的线性规划">定理：考虑二分图完美匹配的线性规划</h2>
-<p>给定的线性规划（LP）是：</p>
-<p>[<br>
-\text{maximize} \sum_{e \in E} c_e x_e<br>
-]<br>
-[<br>
-\text{subject to} \quad \sum_{e \in \delta(v)} x_e = 1 \quad \forall v \in V<br>
-]<br>
-[<br>
-0 \leq x_e \leq 1 \quad \forall e \in E<br>
-]</p>
-<p>其中：</p>
-<ul>
-<li>( \delta(v) ) 表示与顶点 ( v ) 相关联的所有边的集合。</li>
-<li>( x_e ) 可以看作是边 ( e ) 是否被选入匹配中的“程度”，理论上可以取 0 到 1 之间的任何实数。</li>
-<li>约束 ( \sum_{e \in \delta(v)} x_e = 1 ) 表示每个顶点恰好被“覆盖”一次（即完美匹配的要求）。</li>
-</ul>
-<h2 id="最小生成树（MST）的线性规划（LP）表述">最小生成树（MST）的线性规划（LP）表述</h2>
-<p>最小生成树问题（Minimum Spanning Tree, MST）是图论中的一个经典问题，其目标是在一个连通无向图 ( G = (V, E) ) 中找到一个边的子集 ( T \subseteq E )，使得 ( T ) 构成一棵树（即无环且连通），并且所有边的权重之和最小。这里我们讨论的是如何将MST问题表述为一个线性规划（LP），并解释其性质和求解方法。</p>
-<h4 id="MST的LP表述">MST的LP表述</h4>
-<p>以下是MST问题的一个LP松弛：</p>
-<p>[<br>
-\text{maximize} \sum_{e \in E} c_e x_e<br>
-]<br>
-[<br>
-\text{subject to} \quad \sum_{e \in E(S)} x_e \leq |S| - 1 \quad \forall S \subset V, S \neq \emptyset<br>
-]<br>
-[<br>
-\sum_{e \in E} x_e = |V| - 1<br>
-]<br>
-[<br>
-0 \leq x_e \leq 1 \quad \forall e \in E<br>
-]</p>
-<p>其中：</p>
-<ul>
-<li>( c_e ) 是边 ( e ) 的权重（这里最大化是因为可以等价地将最小化问题转化为最大化负权重）。</li>
-<li>( x_e ) 表示边 ( e ) 是否被选入生成树（( x_e = 1 )）或不被选入（( x_e = 0 )）。</li>
-<li>( E(S) ) 是子集 ( S ) 的导出子图中的边集，即所有两端点都在 ( S ) 中的边。</li>
-<li>约束 ( \sum_{e \in E(S)} x_e \leq |S| - 1 ) 称为<strong>子集消除约束（subtour elimination constraints）</strong>，确保任何顶点子集 ( S ) 的导出子图中选择的边不会形成环（即不会多于 ( |S| - 1 ) 条边，否则会形成环）。</li>
-<li>约束 ( \sum_{e \in E} x_e = |V| - 1 ) 确保选择的边数恰好是 ( |V| - 1 )（生成树的边数）。</li>
-<li>( 0 \leq x_e \leq 1 ) 是变量的边界约束。</li>
-</ul>
-<h3 id="弱对偶性定理的详细解释">弱对偶性定理的详细解释</h3>
-<p>弱对偶性（Weak Duality）是线性规划（Linear Programming, LP）中一个基本且重要的定理。它描述了原始问题（Primal Problem）和对偶问题（Dual Problem）的解之间的关系。具体来说，对于任何原始问题的可行解和对偶问题的可行解，原始问题的目标函数值不超过对偶问题的目标函数值。</p>
-<h4 id="原始问题和对偶问题的标准形式">原始问题和对偶问题的标准形式</h4>
-<p>首先，我们需要明确原始问题和对偶问题的标准形式。通常，我们有以下定义：</p>
-<ol>
-<li>
-<p><strong>原始问题（Primal Problem）</strong>：</p>
-<ul>
-<li>形式：最大化问题</li>
-<li>目标函数：( \max , c^\top x )</li>
-<li>约束条件：
-<ul>
-<li>( A x \leq b )</li>
-<li>( x \geq 0 )</li>
-</ul>
-</li>
-<li>其中：
-<ul>
-<li>( c \in \mathbb{R}^n )：目标函数的系数向量</li>
-<li>( x \in \mathbb{R}^n )：决策变量</li>
-<li>( A \in \mathbb{R}^{m \times n} )：约束矩阵</li>
-<li>( b \in \mathbb{R}^m )：约束条件的右端向量</li>
-</ul>
-</li>
-</ul>
-</li>
-<li>
-<p><strong>对偶问题（Dual Problem）</strong>：</p>
-<ul>
-<li>形式：最小化问题</li>
-<li>目标函数：( \min , b^\top y )</li>
-<li>约束条件：
-<ul>
-<li>( A^\top y \geq c )</li>
-<li>( y \geq 0 )</li>
-</ul>
-</li>
-<li>其中：
-<ul>
-<li>( y \in \mathbb{R}^m )：对偶变量</li>
-</ul>
-</li>
-</ul>
-</li>
-</ol>
-<h4 id="弱对偶性定理的陈述">弱对偶性定理的陈述</h4>
-<p>弱对偶性定理指出：</p>
-<p>对于原始问题的任何可行解 ( x ) 和对偶问题的任何可行解 ( y )，都有：<br>
-[ c^\top x \leq b^\top y ]</p>
-<p>即，原始问题的目标函数值（最大化）不超过对偶问题的目标函数值（最小化）。</p>
-<h4 id="证明过程-3">证明过程</h4>
-<p>让我们逐步证明这个定理。</p>
-<ol>
-<li>
-<p><strong>原始问题的约束</strong>：</p>
-<ul>
-<li>( A x \leq b )</li>
-<li>因为 ( y \geq 0 )，我们可以两边左乘 ( y^\top )（因为 ( y ) 非负，不等号方向不变）：<br>
-[ y^\top A x \leq y^\top b ]<br>
-[ y^\top A x \leq b^\top y ] （因为 ( y^\top b = b^\top y )）</li>
-</ul>
-</li>
-<li>
-<p><strong>对偶问题的约束</strong>：</p>
-<ul>
-<li>( A^\top y \geq c )</li>
-<li>因为 ( x \geq 0 )，我们可以两边右乘 ( x )（因为 ( x ) 非负，不等号方向不变）：<br>
-[ (A^\top y)^\top x \geq c^\top x ]<br>
-[ y^\top A x \geq c^\top x ] （因为 ( (A^\top y)^\top = y^\top A )）</li>
-</ul>
-</li>
-<li>
-<p><strong>结合两个不等式</strong>：</p>
-<ul>
-<li>从对偶约束得到：( c^\top x \leq y^\top A x )</li>
-<li>从原始约束得到：( y^\top A x \leq b^\top y )</li>
-<li>因此：<br>
-[ c^\top x \leq y^\top A x \leq b^\top y ]<br>
-[ c^\top x \leq b^\top y ]</li>
-</ul>
-</li>
-</ol>
-<h4 id="直观理解">直观理解</h4>
-<ul>
-<li>原始问题是最大化 ( c^\top x )，对偶问题是最小化 ( b^\top y )。</li>
-<li>弱对偶性表明，任何原始可行解的目标值都不会超过任何对偶可行解的目标值。</li>
-<li>这意味着对偶问题的目标值提供了一个原始问题目标值的上界，反之亦然。</li>
-</ul>
-<h2 id="最大流与最小割">最大流与最小割</h2>
-<hr>
-<h2 id="1-原始问题-Primal-：最大流">1. 原始问题 (Primal)：最大流</h2>
-<h3 id="1-1-决策变量">1.1 决策变量</h3>
-<ul>
-<li>对于每条有向边 (e=(u\to v)\in E)，定义流量变量 (f_e)（也常写成 (f_{uv}) 或者简写 (f_e)）。</li>
-</ul>
-<h3 id="1-2-目标函数">1.2 目标函数</h3>
-<ul>
-<li>我们要从源点 (s) 向汇点 (t) 发送尽可能多的流：<br>
-[<br>
-\max; f_{ts}.<br>
-]<br>
-这里 (f_{ts}) 可以理解为“从 (s) 到 (t) 的净流量”——在实际写法中通常是最大化<br>
-[<br>
-\sum_{e\in \delta^+(s)} f_e ;-; \sum_{e\in \delta^-(s)} f_e.<br>
-]</li>
-</ul>
-<h3 id="1-3-约束条件">1.3 约束条件</h3>
-<ol>
-<li>
-<p><strong>流量守恒（除了源点和汇点）</strong><br>
-对任意 (v\in V) 都要满足<br>
-[<br>
-f\bigl(\delta^{\mathrm{in}}(v)\bigr);-; f\bigl(\delta^{\mathrm{out}}(v)\bigr);\le;0,<br>
-]<br>
-也就是对于中间节点 (v)，它的进入流不超过离开流，源点 (s) 可以是“净输出”&gt;0，汇点 (t) 可以是“净输入”&gt;0。</p>
-</li>
-<li>
-<p><strong>容量上界</strong><br>
-对每条边 (e\in E)，<br>
-[<br>
-0 ;\le; f_e ;\le; 1.<br>
-]<br>
-（这里假设每条边的容量都是 1。）</p>
-</li>
-</ol>
-<hr>
-<h2 id="2-对偶问题-Dual-：最小割">2. 对偶问题 (Dual)：最小割</h2>
-<p>对上述最大流 LP 做对偶，就得到下面这个最小割的线性规划。</p>
-<h3 id="2-1-对偶变量">2.1 对偶变量</h3>
-<ul>
-<li>每条边 (e=(u\to v)) 对应一个非负变量 (d_{uv})。<br>
-直观上，(d_{uv}) 表示“是否把这条边切掉”（如果切掉，对偶解中通常取 1，否则取 0）。</li>
-<li>每个顶点 (v) 对应一个变量 (y_v\ge0)，可以看作是“点 (v) 的潜在高度”或“归属子集 S/T 的标记”。</li>
-</ul>
-<h3 id="2-2-对偶目标">2.2 对偶目标</h3>
-<p>[<br>
-\min;\sum_{(u,v)\in E} d_{uv}.<br>
-]<br>
-也就是要切掉尽量少的边，使得 (s) 与 (t) 分离。</p>
-<h3 id="2-3-对偶约束">2.3 对偶约束</h3>
-<ol>
-<li>
-<p><strong>边上的松弛条件</strong><br>
-对每条边 ((u\to v)\in E)，要求<br>
-[<br>
-d_{uv};+;y_u;-;y_v;\ge;0.<br>
-]<br>
-合理的解释是：如果 (u) 和 (v) 在同一侧（(y_u\approx y_v)），则只要 (d_{uv}=0) 就能满足；但如果 (u) 在 (s) 侧而 (v) 在 (t) 侧，我们需要 (d_{uv}\ge1) 才能保证“不打通”这条通道。</p>
-</li>
-<li>
-<p><strong>源点与汇点分离</strong><br>
-[<br>
-y_s - y_t ;\ge; 1.<br>
-]<br>
-这保证了在“潜在高度”意义上，(s) 必须明显高于 (t)，从而在路径上至少要经过一条被切掉的边。</p>
-</li>
-<li>
-<p><strong>非负性</strong><br>
-[<br>
-y_v ;\ge;0,\quad d_{uv};\ge;0.<br>
-]</p>
-</li>
-</ol>
-<hr>
-<h2 id="3-从对偶到“最小割”的直观理解">3. 从对偶到“最小割”的直观理解</h2>
-<ul>
-<li>
-<p>我们可以把所有顶点根据 (y_v) 的大小分成两部分：</p>
-<ul>
-<li>(S = {v: y_v &gt; \alpha})</li>
-<li>(T = V\setminus S)</li>
-</ul>
-<p>通过适当选取阈值 (\alpha)（例如 (\alpha = 0.5,y_s + 0.5,y_t)），可以使得 (s\in S)，(t\in T) 并且对任何跨 (S) 到 (T) 的边 ((u,v))，对应的对偶约束<br>
-[<br>
-d_{uv} + y_u - y_v \ge 0<br>
-]<br>
-要求 (d_{uv} \ge y_v - y_u \ge 1)。由于 (d_{uv}\ge0)，最优解中就会把每条跨割的边设为 (d_{uv}=1)，而同侧的边可以取 (d_{uv}=0)。</p>
-</li>
-<li>
-<p>因此对偶问题的最优值恰好等于“从 (s) 到 (t) 的最小割所需切掉的边数”——这就是经典的最小割容量。</p>
-</li>
-</ul>
-<hr>
-<h2 id="4-最大流-最小割">4. 最大流 = 最小割</h2>
-<ul>
-<li>
-<p><strong>弱对偶</strong>（任何可行流值 ≤ 任何可行割容量）</p>
-</li>
-<li>
-<p><strong>强对偶</strong>（线性规划对偶性）保证最优流值 = 最优割容量。</p>
-</li>
-<li>
-<p>于是得到著名的 <strong>最大流–最小割定理</strong>：</p>
-<p>“在一个容量为整数（此处为 1）的网络中，最大流的值等于最小割的容量。”</p>
-</li>
-</ul>
-<hr>
-<h2 id="5-整数性">5. 整数性</h2>
-<ul>
-<li>由于这个线性规划的约束矩阵是<strong>完全整数</strong>（即 totally unimodular），原始 LP 和对偶 LP 在最优解时都会取到整数解。</li>
-<li>因此最大流问题可以得到整数流（每条边 (f_e\in{0,1})），最小割也可以得到整数切割（每条边 (d_{uv}\in{0,1})），完美对应。</li>
-</ul>
-<hr>
-<p><strong>总结：</strong></p>
-<ul>
-<li>原始问题（Primal）是标准的最大流 LP。</li>
-<li>对偶问题（Dual）恰好对应最小割 LP。</li>
-<li>二者在最优时取相同的数值，且均有整数最优解，成就了最大流–最小割这一经典定理。</li>
-</ul>
-<h3 id="冯·诺依曼极小极大定理（Von-Neumann-Minimax-Theorem）的解释"><strong>冯·诺依曼极小极大定理（Von Neumann Minimax Theorem）的解释</strong></h3>
-<p>冯·诺依曼极小极大定理是博弈论中的一个核心定理，它描述了<strong>两人零和博弈（Two-player Zero-sum Game）<strong>中</strong>最优策略的存在性和均衡性</strong>。具体来说，它表明：</p>
-<p>[<br>
-\max_{x \in \Delta_m} \min_{y \in \Delta_n} x^\top A y = \min_{y \in \Delta_n} \max_{x \in \Delta_m} x^\top A y<br>
-]</p>
-<p>其中：</p>
-<ul>
-<li>( A \in \mathbb{R}^{m \times n} ) 是<strong>支付矩阵（Payoff Matrix）</strong>，表示行玩家（Player 1）的收益（列玩家的损失）。</li>
-<li>( x \in \Delta_m ) 是行玩家的混合策略（概率分布），( \Delta_m ) 是 ( m )-维单纯形（即 ( x_i \geq 0 ), ( \sum_{i=1}^m x_i = 1 )）。</li>
-<li>( y \in \Delta_n ) 是列玩家的混合策略（概率分布），( \Delta_n ) 是 ( n )-维单纯形（即 ( y_j \geq 0 ), ( \sum_{j=1}^n y_j = 1 )）。</li>
-<li>( x^\top A y ) 是<strong>期望收益</strong>（行玩家希望最大化，列玩家希望最小化）。</li>
-</ul>
-<hr>
-<h2 id="1-定理的直观解释"><strong>1. 定理的直观解释</strong></h2>
-<h3 id="1-行玩家的视角（先选策略）"><strong>(1) 行玩家的视角（先选策略）</strong></h3>
-<ul>
-<li>行玩家希望<strong>最大化自己的最小收益</strong>（即“最坏情况下最好能得多少”）。</li>
-<li>他选择一个策略 ( x )，然后列玩家会选择一个 ( y ) 使得 ( x^\top A y ) 最小（因为列玩家希望最小化行玩家的收益）。</li>
-<li>因此，行玩家要解决：<br>
-[<br>
-\max_{x} \left( \min_{y} x^\top A y \right)<br>
-]</li>
-</ul>
-<h3 id="2-列玩家的视角（先选策略）"><strong>(2) 列玩家的视角（先选策略）</strong></h3>
-<ul>
-<li>列玩家希望<strong>最小化行玩家的最大收益</strong>（即“最好情况下最坏能损失多少”）。</li>
-<li>他选择一个策略 ( y )，然后行玩家会选择一个 ( x ) 使得 ( x^\top A y ) 最大（因为行玩家希望最大化自己的收益）。</li>
-<li>因此，列玩家要解决：<br>
-[<br>
-\min_{y} \left( \max_{x} x^\top A y \right)<br>
-]</li>
-</ul>
-<h3 id="3-定理的核心结论"><strong>(3) 定理的核心结论</strong></h3>
-<p><strong>无论谁先选择策略，最终都会达到相同的均衡值</strong>：<br>
-[<br>
-\max_{x} \min_{y} x^\top A y = \min_{y} \max_{x} x^\top A y = v<br>
-]<br>
-这个共同的值 ( v ) 称为<strong>博弈的值（Value of the Game）</strong>，而对应的 ( x^* ) 和 ( y^* ) 称为<strong>纳什均衡策略（Nash Equilibrium Strategies）</strong>。</p>
-<hr>
-<h2 id="2-为什么这个定理成立？"><strong>2. 为什么这个定理成立？</strong></h2>
-<h3 id="1-从线性规划角度看"><strong>(1) 从线性规划角度看</strong></h3>
-<p>极小极大定理可以看作是<strong>线性规划对偶性</strong>的一个特例：</p>
-<ul>
-<li>行玩家的优化问题可以写成：<br>
-[<br>
-\max_{x} \left( \min_{y} x^\top A y \right) = \max_{x} \left( \min_{j} (A x)_j \right)<br>
-]<br>
-即行玩家希望最大化自己最差情况下的收益（因为列玩家会选择最不利的 ( y )）。</li>
-<li>列玩家的优化问题可以写成：<br>
-[<br>
-\min_{y} \left( \max_{x} x^\top A y \right) = \min_{y} \left( \max_{i} (A^\top y)_i \right)<br>
-]<br>
-即列玩家希望最小化行玩家最好情况下的收益（因为行玩家会选择最有利的 ( x )）。</li>
-</ul>
-<p>由于线性规划的对偶性，这两个问题的解是相同的。</p>
-<h3 id="2-从博弈论角度看"><strong>(2) 从博弈论角度看</strong></h3>
-<ul>
-<li>在零和博弈中，<strong>行玩家的收益就是列玩家的损失</strong>，因此双方的目标完全对立。</li>
-<li><strong>纳什均衡</strong>（Nash Equilibrium）在这种博弈中表现为：
-<ul>
-<li>行玩家选择 ( x^* )，使得无论列玩家怎么选 ( y )，自己的收益至少是 ( v )。</li>
-<li>列玩家选择 ( y^* )，使得无论行玩家怎么选 ( x )，行玩家的收益至多是 ( v )。</li>
-</ul>
-</li>
-<li>因此，双方都无法通过单方面改变策略来获得更好的结果，达到均衡。</li>
-</ul>
-<hr>
-
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="https://chenzhan20050128.github.io/notes.github.io/2025/06/23/MarkovNote/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/notes.github.io/images/woshicaigou.jpg">
-      <meta itemprop="name" content="Chen Zhan">
-      <meta itemprop="description" content="">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="cz Blog">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/notes.github.io/2025/06/23/MarkovNote/" class="post-title-link" itemprop="url">MarkovNote</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
-
-              <time title="创建时间：2025-06-23 12:22:32" itemprop="dateCreated datePublished" datetime="2025-06-23T12:22:32+08:00">2025-06-23</time>
-            </span>
-
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <h1>幂迭代的特例：随机游走与马尔可夫链</h1>
-<h3 id="1-马尔可夫链的基本概念">1. 马尔可夫链的基本概念</h3>
-<p>**马尔可夫链（Markov Chain）**是一种随机过程，具有“无记忆性”或“马尔可夫性质”。这意味着未来状态的概率分布只依赖于当前状态，而与之前的历史状态无关。形式上，对于一个离散时间的马尔可夫链，满足：</p>
-<p>[ P(X_{n+1} = x | X_n = x_n, X_{n-1} = x_{n-1}, \dots, X_0 = x_0) = P(X_{n+1} = x | X_n = x_n) ]</p>
-<p>对于有限的马尔可夫链，状态空间（所有可能的状态）是有限的，可以表示为 ( S = {s_1, s_2, \dots, s_n} )。</p>
-<h3 id="2-有向图与马尔可夫链的关系">2. 有向图与马尔可夫链的关系</h3>
-<p>一个有限的马尔可夫链可以表示为一个<strong>有向图（directed graph）</strong>，其中：</p>
-<ul>
-<li><strong>顶点（Vertices）</strong>：代表马尔可夫链的状态。</li>
-<li><strong>边（Edges）</strong>：如果从状态 ( i ) 到状态 ( j ) 的转移概率 ( P_{ij} &gt; 0 )，则存在一条从 ( i ) 到 ( j ) 的有向边。</li>
-</ul>
-<p>这个有向图称为马尔可夫链的<strong>状态转移图</strong>。</p>
-<h3 id="3-强连通图的定义与性质">3. 强连通图的定义与性质</h3>
-<p>**强连通图（Strongly Connected Graph）**是指：</p>
-<ul>
-<li>对于图中的任意两个顶点 ( u ) 和 ( v )，存在从 ( u ) 到 ( v ) 的路径，也存在从 ( v ) 到 ( u ) 的路径。</li>
-</ul>
-<p>换句话说，强连通图意味着图中的任何两个状态都是相互可达的。</p>
-<h3 id="4-不可约马尔可夫链的含义与重要性">4. 不可约马尔可夫链的含义与重要性</h3>
-<p>**不可约马尔可夫链（Irreducible Markov Chain）**的定义是：如果其对应的有向图是强连通的，则称该马尔可夫链是不可约的。</p>
-<p><strong>解释</strong>：</p>
-<ul>
-<li>
-<p><strong>不可约性</strong>意味着马尔可夫链的状态空间不能被分成两个或更多的不相交的子集，使得链一旦进入某个子集就永远无法离开。换句话说，从任何状态出发，都有到达任何其他状态的可能（可能在多步之后）。</p>
-</li>
-<li>
-<p><strong>重要性</strong>：</p>
-<ul>
-<li>不可约性是马尔可夫链许多重要性质的基础。例如，不可约的有限马尔可夫链总是具有唯一的平稳分布。</li>
-<li>它确保了链的“遍历性”（ergodicity），即在长期运行中，链会访问所有状态，且频率趋于稳定。</li>
-</ul>
-</li>
-</ul>
-<h2 id="对于一个不可约且非周期的马尔可夫链，我们证明存在足够大的常数-T-infty-，使得对任意状态-i-j-和所有时间-t-geq-T-，有-P-t-i-j-0-。以下是详细证明过程：">对于一个不可约且非周期的马尔可夫链，我们证明存在足够大的常数( T &lt; \infty )，使得对任意状态( i, j )和所有时间( t \geq T )，有( P^t_{i,j} &gt; 0 )。以下是详细证明过程：</h2>
-<hr>
-<p><strong>定理</strong>：若一个马尔可夫链不可约且非周期，则存在常数( T &lt; \infty )，使得对任意状态( i, j )及所有时间( t \geq T )，有( P^t_{i,j} &gt; 0 )。</p>
-<hr>
-<p><strong>证明</strong>：</p>
-<p><strong>步骤1：非周期性的应用——证明每个状态的自返回时间无上界</strong></p>
-<p>设状态空间为有限集( \mathcal{S} )，每个状态( i )的周期定义为：<br>
-[<br>
-d(i) = \gcd{ t \geq 1 \mid P^t_{i,i} &gt; 0 }.<br>
-]<br>
-由于链是非周期的，故对任意( i \in \mathcal{S} )，有( d(i) = 1 )。令：<br>
-[<br>
-S_i = { t \geq 1 \mid P^t_{i,i} &gt; 0 },<br>
-]<br>
-则( \gcd(S_i) = 1 )。根据数论中的<strong>Schur定理</strong>，若一组正整数的最大公约数为1，则存在整数( N_i )，使得对所有( t \geq N_i )，( t )可表示为( S_i )中元素的线性组合（系数为非负整数）。因此：<br>
-[<br>
-\forall t \geq N_i, \quad P^t_{i,i} &gt; 0.<br>
-]</p>
-<p><strong>步骤2：统一自返回时间的下界</strong></p>
-<p>由于状态空间有限，设( \mathcal{S} = {1, 2, \dots, n} )，取：<br>
-[<br>
-K = \max{ N_1, N_2, \dots, N_n }.<br>
-]<br>
-则对所有( i \in \mathcal{S} )和( t \geq K )，均有：<br>
-[<br>
-P^t_{i,i} &gt; 0.<br>
-]</p>
-<p><strong>步骤3：不可约性的应用——确定状态间转移步数</strong></p>
-<p>由不可约性，对任意状态( i, j )，存在正整数( m_{i,j} )使得：<br>
-[<br>
-P^{m_{i,j}}<em>{i,j} &gt; 0.<br>
-]<br>
-定义：<br>
-[<br>
-M = \max{ m</em>{i,j} \mid \forall i, j \in \mathcal{S} }.<br>
-]<br>
-由于状态空间有限，( M )为有限值。</p>
-<p><strong>步骤4：构造全局常数( T )并验证结论</strong></p>
-<p>令：<br>
-[<br>
-T = K + M.<br>
-]<br>
-对任意( t \geq T )，可分解( t )为：<br>
-[<br>
-t = m_{i,j} + s, \quad \text{其中} \ s = t - m_{i,j} \geq T - M = K.<br>
-]<br>
-根据<strong>Chapman-Kolmogorov方程</strong>：<br>
-[<br>
-P^t_{i,j} = \sum_{k \in \mathcal{S}} P^{m_{i,j}}<em>{i,k} P^{s}</em>{k,j} \geq P^{m_{i,j}}<em>{i,j} \cdot P^{s}</em>{j,j}.<br>
-]<br>
-由于：</p>
-<ol>
-<li>( P^{m_{i,j}}_{i,j} &gt; 0 )（不可约性），</li>
-<li>( s \geq K \implies P^{s}_{j,j} &gt; 0 )（步骤2），</li>
-</ol>
-<p>因此：<br>
-[<br>
-P^t_{i,j} \geq P^{m_{i,j}}<em>{i,j} \cdot P^{s}</em>{j,j} &gt; 0, \quad \forall t \geq T.<br>
-]</p>
-<hr>
-<p><strong>关键点总结</strong>：</p>
-<ol>
-<li><strong>非周期性</strong>通过Schur定理确保自返回时间覆盖所有充分大的整数。</li>
-<li><strong>有限状态空间</strong>允许统一自返回时间下界( K )和最大转移步数( M )。</li>
-<li><strong>不可约性</strong>保证任意状态间存在有限步转移路径，结合自返回正概率，导出全局正概率。</li>
-</ol>
-<hr>
-<p><strong>注</strong>：若状态空间为无限，需额外论证( K )和( M )的存在性，但本证明默认有限状态空间。</p>
-<hr>
-<p><strong>马尔可夫链基本定理的直观解释与严格证明</strong></p>
-<p>对于有限状态空间、不可约且非周期的马尔可夫链，其核心性质可总结如下：</p>
-<hr>
-<h3 id="1-存在唯一的稳态分布𝜋"><strong>1. 存在唯一的稳态分布𝜋</strong></h3>
-<ul>
-<li><strong>不可约性</strong>：任意两状态可通过有限步转移到达，保证了链的连通性。</li>
-<li><strong>非周期性</strong>：每个状态的自返回时间无周期限制，避免震荡。</li>
-<li><strong>有限状态空间</strong>：结合上述两点，转移矩阵( P )最终成为正则矩阵（存在( T )使得( P^T )所有元素正）。</li>
-</ul>
-<p><strong>严格结论</strong>：</p>
-<ul>
-<li>存在唯一平稳分布( \pi )，满足( \pi P = \pi )。</li>
-<li>稳态概率( \pi(i) )等于状态( i )的长期访问频率，即：<br>
-[<br>
-\pi(i) = \frac{1}{h_i},<br>
-]<br>
-其中( h_i = \mathbb{E}[\text{首次返回状态} , i , \text{的时间} , | , X_0 = i] )。</li>
-</ul>
-<hr>
-<h3 id="2-收敛到稳态分布"><strong>2. 收敛到稳态分布</strong></h3>
-<p>无论初始分布( p_0 )如何，随着时间( t \to \infty )，分布( p_t = p_0 P^t )必然收敛到( \pi )。</p>
-<p><strong>直观理解</strong>：</p>
-<ul>
-<li>非周期性和不可约性使得链在足够长时间后“忘记”初始状态。</li>
-<li>状态间的频繁转移导致分布趋于平衡。</li>
-</ul>
-<hr>
-<h3 id="3-耦合论证（Coupling-Argument）"><strong>3. 耦合论证（Coupling Argument）</strong></h3>
-<p>通过构造两个独立运行的马尔可夫链( X_t )和( Y_t )，证明它们最终会相遇并同步，从而严格推导收敛性。</p>
-<p>以下是基于耦合论证（Coupling Argument）的马尔可夫链收敛性证明的完整严谨过程：</p>
-<hr>
-<h3 id="耦合论证的构造与证明步骤"><strong>耦合论证的构造与证明步骤</strong></h3>
-<h4 id="1-基本假设与条件"><strong>1. 基本假设与条件</strong></h4>
-<p>设马尔可夫链满足以下条件：</p>
-<ul>
-<li><strong>不可约性</strong>（Irreducible）：任意两状态互通。</li>
-<li><strong>非周期性</strong>（Aperiodic）：不存在固定周期循环。</li>
-<li><strong>正常返性</strong>（Positive Recurrent）：所有状态的平均返回时间有限。</li>
-</ul>
-<h4 id="2-构造耦合马尔可夫链"><strong>2. 构造耦合马尔可夫链</strong></h4>
-<p>定义两个独立运行的马尔可夫链 ( X_t ) 和 ( Y_t )，其状态空间相同：</p>
-<ul>
-<li>( X_t )：初始分布为任意概率分布 ( \mu_0 )。</li>
-<li>( Y_t )：初始分布为平稳分布 ( \pi )。</li>
-</ul>
-<p>构造联合马尔可夫链 ( (X_t, Y_t) )，其转移概率满足：</p>
-<ul>
-<li>当 ( X_t \neq Y_t ) 时，两链独立转移，即联合转移概率为 ( P(X_{t+1}=x’, Y_{t+1}=y’) = P(x, x’) \cdot P(y, y’) )。</li>
-<li>当 ( X_t = Y_t ) 时，强制同步转移，即 ( X_{t+1} = Y_{t+1} )。</li>
-</ul>
-<h4 id="3-定义相遇时间"><strong>3. 定义相遇时间</strong></h4>
-<p>设首次相遇时间为停时 ( T = \inf{ t \geq 0: X_t = Y_t } )。根据不可约性和正常返性，可证明 ( T &lt; \infty ) 几乎必然成立。</p>
-<h4 id="4-同步后的行为一致性"><strong>4. 同步后的行为一致性</strong></h4>
-<p>当 ( t \geq T ) 时，由于同步机制，( X_t = Y_t ) 对所有后续时间成立。因此，两链在 ( T ) 后的演化完全一致。</p>
-<h4 id="5-收敛性推导"><strong>5. 收敛性推导</strong></h4>
-<p>通过比较两链的分布差异：</p>
-<ul>
-<li>对任意时间 ( t )，有：<br>
-[<br>
-| \mu_t - \pi |_{\text{TV}} \leq 2P(T &gt; t),<br>
-]<br>
-其中 ( \mu_t ) 是 ( X_t ) 的分布，( \pi ) 是 ( Y_t ) 的平稳分布。</li>
-<li>由于 ( T ) 几乎必然有限，当 ( t \to \infty ) 时，( P(T &gt; t) \to 0 )，故：<br>
-[<br>
-\lim_{t \to \infty} | \mu_t - \pi |_{\text{TV}} = 0.<br>
-]</li>
-</ul>
-<h4 id="6-平稳分布的唯一性"><strong>6. 平稳分布的唯一性</strong></h4>
-<p>若存在另一平稳分布 ( \pi’ )，通过耦合 ( Y_t )（初始化为 ( \pi’ )）与 ( X_t )（初始化为 ( \pi )），可证 ( \pi = \pi’ )，从而唯一性得证。</p>
-<hr>
-<h3 id="关键引理与数学工具"><strong>关键引理与数学工具</strong></h3>
-<ol>
-<li><strong>不可约性与正常返性</strong>：确保状态空间连通且所有状态可无限次访问。</li>
-<li><strong>停时理论</strong>：通过 ( T ) 的有限性将收敛性问题转化为概率衰减问题。</li>
-<li><strong>全变差距离（Total Variation Distance）</strong>：量化分布差异的上界。</li>
-<li><strong>Perron-Frobenius定理</strong>：用于证明转移矩阵主特征值对应平稳分布的存在性（有限状态空间）。</li>
-</ol>
-<hr>
-<h3 id="应用条件与反例"><strong>应用条件与反例</strong></h3>
-<ul>
-<li><strong>正则马尔可夫链</strong>：若转移矩阵 ( P ) 满足存在 ( n ) 使 ( P^n ) 无零元素，则收敛性成立。</li>
-<li><strong>反例</strong>：周期性链（如 ( P = \begin{pmatrix}0 &amp; 1 \ 1 &amp; 0\end{pmatrix} )）或可约链（如吸收态存在）不满足收敛条件。</li>
-</ul>
-<hr>
-<h3 id="4-稳态分布与期望回归时间的关系"><strong>4. 稳态分布与期望回归时间的关系</strong></h3>
-<p><strong>直观解释</strong>：</p>
-<ul>
-<li><strong>期望回归时间( h_i )</strong>：从状态( i )出发，首次返回( i )的平均时间。</li>
-<li><strong>长期访问频率</strong>：在无限时间中，访问状态( i )的频率为( 1/h_i )，故稳态概率( \pi(i) = 1/h_i )。</li>
-</ul>
-<p><strong>严格推导</strong>（Kac引理）：</p>
-<ul>
-<li>对于不可约常返链，有：<br>
-[<br>
-\pi(i) = \frac{1}{h_i}, \quad \text{其中} \quad h_i = \mathbb{E}[T_i \mid X_0 = i].<br>
-]</li>
-<li><strong>证明思路</strong>：通过更新过程计算长期平均访问次数，利用强大数定律得到频率极限。</li>
-</ul>
-<hr>
-<h3 id="5-唯一性的保证"><strong>5. 唯一性的保证</strong></h3>
-<p>若存在两个不同的平稳分布( \pi )和( \pi’ )，通过耦合论证：</p>
-<ul>
-<li>构造初始分布为( \pi )和( \pi’ )的两个链，它们最终必相遇并同步。</li>
-<li>因此( \pi = \pi’ )，矛盾，唯一性得证。</li>
-</ul>
-<hr>
-<p><strong>总结</strong>：</p>
-<ul>
-<li><strong>不可约性与非周期性</strong>确保链的遍历性，消除周期性震荡。</li>
-<li><strong>耦合技术</strong>将直观的“相遇”转化为严格收敛性证明。</li>
-<li><strong>期望回归时间</strong>量化了状态的访问频率，直接决定稳态分布。</li>
-</ul>
-<p>此框架不仅适用于有限状态链，还可推广到某些可数状态空间的情形，但需额外验证回归时间的有限性。</p>
-
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="https://chenzhan20050128.github.io/notes.github.io/2025/06/23/note1/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/notes.github.io/images/woshicaigou.jpg">
-      <meta itemprop="name" content="Chen Zhan">
-      <meta itemprop="description" content="">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="cz Blog">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/notes.github.io/2025/06/23/note1/" class="post-title-link" itemprop="url">note1</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
-
-              <time title="创建时间：2025-06-23 12:22:32" itemprop="dateCreated datePublished" datetime="2025-06-23T12:22:32+08:00">2025-06-23</time>
-            </span>
-
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <ul>
-<li>
-<p><strong>距离与纠错能力</strong>：通过上述讨论，我们知道：</p>
-<ul>
-<li>要处理 ( k ) 个擦除错误，需要最小距离 ( \ge k+1 )。</li>
-<li>要处理 ( k ) 个一般错误，需要最小距离 ( \ge 2k+1 )。</li>
-</ul>
-</li>
-<li>
-<p><strong>Reed-Solomon码的性质</strong>：</p>
-<ul>
-<li>Reed-Solomon 码通过将 ( n ) 个消息映射到一个具有 ( n + 2k ) 个符号的码字，其理论最小距离正好是 ( 2k+1 )。</li>
-<li>我们通过构造两个在 ( n-1 ) 点相同的不同码字得到了上界 ( 2k+1 )，同时从译码正确性（错误不能互相混淆）知下界也为 ( 2k+1 )，因此二者相等。</li>
-</ul>
-</li>
-<li>
-<p><strong>侧记</strong>：这种证明方式实际上等价于利用了Singleton界，是衡量码设计中极限性能的重要工具。</p>
-</li>
-</ul>
-
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="https://chenzhan20050128.github.io/notes.github.io/2025/06/23/noteCircut/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/notes.github.io/images/woshicaigou.jpg">
-      <meta itemprop="name" content="Chen Zhan">
-      <meta itemprop="description" content="">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="cz Blog">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/notes.github.io/2025/06/23/noteCircut/" class="post-title-link" itemprop="url">noteCircut</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
-
-              <time title="创建时间：2025-06-23 12:22:32" itemprop="dateCreated datePublished" datetime="2025-06-23T12:22:32+08:00">2025-06-23</time>
-            </span>
-
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <h3 id="电路网络中的电流与电压求解方法"><strong>电路网络中的电流与电压求解方法</strong></h3>
-<p>给定一个电阻网络，每条边 ( e ) 的电阻为 ( r_e )（或电导率 ( w_e = 1/r_e )），假设从节点 ( s ) 注入 1A 电流，并从节点 ( t ) 流出，如何计算网络内部的电流分布和电压分布？</p>
-<p>更一般地，设 ( b_v ) 表示从外部流入节点 ( v \in V ) 的净电流：</p>
-<ul>
-<li>( b_v &gt; 0 )：电流<strong>注入</strong>节点 ( v )（如源节点 ( s )）</li>
-<li>( b_v &lt; 0 )：电流<strong>流出</strong>节点 ( v )（如汇节点 ( t )）</li>
-<li>其他内部节点满足 ( b_v = 0 )（基尔霍夫电流定律）</li>
-</ul>
-<hr>
-<h3 id="1-电路定律"><strong>1. 电路定律</strong></h3>
-<h4 id="1-基尔霍夫电流定律（KCL）"><strong>(1) 基尔霍夫电流定律（KCL）</strong></h4>
-<blockquote>
-<p><strong>流入节点的电流 = 流出节点的电流</strong><br>
-即，对任意节点 ( v )，所有相邻边的电流 ( i_{vu} ) 满足：<br>
-[<br>
-\sum_{u: (v,u) \in E} i_{vu} = b_v \quad \forall v \in V<br>
-]<br>
-（( i_{vu} ) 表示从 ( v ) 流向 ( u ) 的电流）</p>
-</blockquote>
-<h4 id="2-欧姆定律"><strong>(2) 欧姆定律</strong></h4>
-<blockquote>
-<p><strong>电压差 = 电流 × 电阻</strong><br>
-即，对任意边 ( (u,v) )，有：<br>
-[<br>
-\phi(u) - \phi(v) = i_{uv} \cdot r_{uv} \quad \Leftrightarrow \quad i_{uv} = w_{uv} \cdot (\phi(u) - \phi(v))<br>
-]<br>
-（( \phi(v) ) 表示节点 ( v ) 的电压，( w_{uv} = 1/r_{uv} ) 是电导率）</p>
-</blockquote>
-<hr>
-<h3 id="2-合并定律，建立方程"><strong>2. 合并定律，建立方程</strong></h3>
-<p>将欧姆定律代入基尔霍夫定律：<br>
-[<br>
-b_v = \sum_{u: (v,u) \in E} i_{vu} = \sum_{u: (v,u) \in E} w_{vu} (\phi(v) - \phi(u))<br>
-]<br>
-整理后得到：<br>
-[<br>
-b_v = \text{deg}<em>w(v) \cdot \phi(v) - \sum</em>{u: (v,u) \in E} w_{vu} \phi(u)<br>
-]<br>
-其中：</p>
-<ul>
-<li>( \text{deg}<em>w(v) = \sum</em>{u: (v,u) \in E} w_{vu} ) 是节点 ( v ) 的<strong>加权度数</strong>（即所有邻边电导率之和）</li>
-</ul>
-<p>特别地，如果所有电导率 ( w_{uv} = 1 )，则方程简化为：<br>
-[<br>
-b = L \phi<br>
-]<br>
-其中 ( L ) 是图的<strong>拉普拉斯矩阵（Laplacian Matrix）</strong>：<br>
-[<br>
-L_{uv} =<br>
-\begin{cases}<br>
-\text{deg}(v) &amp; \text{如果 } u = v \<br>
--1 &amp; \text{如果 } (u,v) \in E \<br>
-0 &amp; \text{否则}<br>
-\end{cases}<br>
-]</p>
-<p>这就把电路方程和拉普拉斯矩阵建立了联系！</p>
-<h3 id="电路网络方程的可解性与唯一性分析"><strong>电路网络方程的可解性与唯一性分析</strong></h3>
-<h4 id="1-问题建模与矩阵表示"><strong>1. 问题建模与矩阵表示</strong></h4>
-<p>给定电阻网络 ( G=(V,E) )，每条边 ( e \in E ) 的电导率为 ( w_e = 1/r_e )，定义以下矩阵：</p>
-<ul>
-<li>
-<p><strong>关联矩阵（Incidence Matrix）( B )</strong>：<br>
-( B \in \mathbb{R}^{|V| \times |E|} )，每列对应一条边 ( e = (u,v) )，其中 ( B_{u,e} = +1 )，( B_{v,e} = -1 )，其余为 0。</p>
-</li>
-<li>
-<p><strong>电导率对角阵 ( W )</strong>：<br>
-( W \in \mathbb{R}^{|E| \times |E|} )，( W_{e,e} = w_e )。</p>
-</li>
-<li>
-<p><strong>拉普拉斯矩阵 ( L )</strong>：<br>
-( L = B W B^\top = \sum_{e} w_e b_e b_e^\top )，其中 ( b_e ) 是边 ( e ) 对应的关联矩阵列。</p>
-</li>
-<li>
-<p><strong>为什么 (L = B W B^\top)？</strong></p>
-</li>
-<li>
-<p><strong>直观理解</strong>：<br>
-(B) 提取电压差，(W) 转为电流，(B^\top) 将电流汇总到节点。</p>
-</li>
-<li>
-<p><strong>数学推导</strong>：<br>
-[<br>
-(B W B^\top \phi)<em>v = \sum</em>{e} B_{v,e} w_e (B^\top \phi)<em>e = \sum</em>{u} w_{vu} (\phi_v - \phi_u)<br>
-]<br>
-这正是节点 (v) 的净流出电流。<br>
-<strong>电流-电压关系</strong>：<br>
-[<br>
-i = W B^\top \phi, \quad b = L \phi = B i<br>
-]<br>
-其中 ( b ) 是外部注入电流向量（( b_s = 1 ), ( b_t = -1 ), 其余为 0），( \phi ) 是节点电压向量。</p>
-</li>
-<li>
-<p><strong>解释</strong>：</p>
-<ul>
-<li>(B^\top \phi) 计算每条边的电压差（(\phi_u - \phi_v)）。</li>
-<li>(W) 乘以电压差，得到电流 (i_e = w_e (\phi_u - \phi_v))（欧姆定律）。</li>
-</ul>
-</li>
-<li>
-<p><strong>解释</strong>：</p>
-<ul>
-<li>(L \phi)：计算每个节点的净流出电流（应等于外部注入 (b)）。</li>
-<li>(B i)：直接对边电流求和，验证节点电流守恒。</li>
-</ul>
-</li>
-</ul>
-<hr>
-<h4 id="2-方程的可解性"><strong>2. 方程的可解性</strong></h4>
-<p><strong>问题</strong>：方程 ( b = L \phi ) 何时有解？<br>
-<strong>结论</strong>：</p>
-<ul>
-<li><strong>可解条件</strong>：( b ) 必须满足 ( \sum_{v \in V} b_v = 0 )（即净注入电流为零，符合物理守恒律）。</li>
-<li><strong>物理意义</strong>：电流从源节点 ( s ) 注入后必须全部从汇节点 ( t ) 流出，系统才能达到稳态。</li>
-</ul>
-<p><strong>数学证明</strong>：<br>
-拉普拉斯矩阵 ( L ) 的行和为零（因 ( L \mathbf{1} = 0 )），故 ( b ) 必须正交于 ( \mathbf{1} )（即 ( \mathbf{1}^\top b = 0 )）。</p>
-<hr>
-<h4 id="3-解的唯一性"><strong>3. 解的唯一性</strong></h4>
-<p><strong>问题</strong>：解 ( \phi ) 是否唯一？<br>
-<strong>结论</strong>：</p>
-<ul>
-<li><strong>解不唯一</strong>：若 ( \phi ) 是解，则 ( \phi + c \mathbf{1} )（( c ) 为任意常数）也是解。</li>
-<li><strong>唯一性约束</strong>：需固定一个参考电压（如设 ( \phi_t = 0 )），此时解唯一。</li>
-</ul>
-<p><strong>数学解释</strong>：<br>
-拉普拉斯矩阵 ( L ) 的秩为 ( |V|-1 )，核空间（null space）为 ( \text{span}(\mathbf{1}) )。因此，解仅在相差一个全局电压常数时唯一。</p>
-<hr>
-<h4 id="4-与图论问题的联系"><strong>4. 与图论问题的联系</strong></h4>
-<p><strong>随机游走</strong>：</p>
-<ul>
-<li>电压 ( \phi ) 可解释为从节点 ( s ) 到 ( t ) 的逃逸概率（escape probability）。</li>
-<li>电导率 ( w_e ) 对应转移概率。</li>
-</ul>
-<p><strong>网络流</strong>：</p>
-<ul>
-<li>电流 ( i ) 是满足流量守恒的最小能量流（欧姆定律等价于能量最小化）。</li>
-</ul>
-<p><strong>谱图理论</strong>：</p>
-<ul>
-<li>拉普拉斯矩阵 ( L ) 的特征值反映了网络的连通性（如代数连通度 ( \lambda_2 ) 与 Cheeger 不等式相关）。</li>
-</ul>
-<hr>
-<h3 id="拉普拉斯矩阵的秩与解的唯一性分析"><strong>拉普拉斯矩阵的秩与解的唯一性分析</strong></h3>
-<h4 id="1-拉普拉斯矩阵的秩缺陷性"><strong>1. 拉普拉斯矩阵的秩缺陷性</strong></h4>
-<ul>
-<li>
-<p><strong>核心性质</strong>：<br>
-拉普拉斯矩阵 ( L ) <strong>不是满秩矩阵</strong>，因为 ( L \mathbf{1} = 0 )（其中 (\mathbf{1}) 是全1向量）。</p>
-<ul>
-<li><strong>物理意义</strong>：全局电压平移（(\phi \to \phi + c\mathbf{1})）不影响电流分布，符合电压的相对性。</li>
-</ul>
-</li>
-<li>
-<p><strong>零空间（Nullspace）</strong>：<br>
-若图是<strong>连通</strong>的，( L ) 的零空间仅由 (\text{span}(\mathbf{1})) 构成，即：<br>
-[<br>
-\text{null}(L) = { c \mathbf{1} \mid c \in \mathbb{R} }<br>
-]</p>
-</li>
-</ul>
-<h4 id="2-方程-L-phi-b-的解存在条件"><strong>2. 方程 ( L \phi = b ) 的解存在条件</strong></h4>
-<ul>
-<li>
-<p><strong>引理</strong>：若 ( L \phi = b ) 有解，则必须满足 ( b \perp \mathbf{1} )（即 (\sum_v b_v = 0)）。</p>
-<ul>
-<li><strong>证明</strong>：<br>
-由于 ( L \mathbf{1} = 0 )，对任意解 (\phi)，有：<br>
-[<br>
-\mathbf{1}^\top b = \mathbf{1}^\top (L \phi) = (L \mathbf{1})^\top \phi = 0<br>
-]</li>
-<li><strong>物理对应</strong>：外部注入电流的代数和为零（电流守恒）。</li>
-</ul>
-</li>
-<li>
-<p><strong>连通图的解结构</strong>：<br>
-若图连通且 ( b \perp \mathbf{1} )，则解存在且可表示为：<br>
-[<br>
-\phi = \phi_0 + c \mathbf{1}, \quad c \in \mathbb{R}<br>
-]<br>
-其中 (\phi_0) 是特解（如固定 (\phi_t = 0) 后唯一解）。</p>
-</li>
-</ul>
-<h4 id="3-特征值视角的解释"><strong>3. 特征值视角的解释</strong></h4>
-<ul>
-<li><strong>谱分解</strong>：<br>
-设 ( L ) 的特征值为 ( 0 = \lambda_1 &lt; \lambda_2 \leq \cdots \leq \lambda_n )，对应正交特征向量 ( \mathbf{1}, v_2, \dots, v_n )。
-<ul>
-<li><strong>解的存在性</strong>：<br>
-将 ( b ) 投影到特征空间，若 ( b ) 不含 ( \mathbf{1} ) 分量（即 ( b \perp \mathbf{1} )），则解存在。</li>
-<li><strong>解的表达式</strong>：<br>
-[<br>
-\phi = \sum_{i=2}^n \frac{\langle b, v_i \rangle}{\lambda_i} v_i + c \mathbf{1}<br>
-]<br>
-（( \lambda_2 &gt; 0 ) 保证连通图的可解性）</li>
-</ul>
-</li>
-</ul>
-<h4 id="4-物理意义与电路网络"><strong>4. 物理意义与电路网络</strong></h4>
-<ul>
-<li>
-<p><strong>电流平衡</strong>：<br>
-条件 ( \sum_v b_v = 0 ) 对应电路中的<strong>基尔霍夫电流定律</strong>（KCL），即注入电流等于流出电流。</p>
-<ul>
-<li><strong>示例</strong>：<br>
-若从节点 ( s ) 注入 ( 1\text{A} )，则必须有节点 ( t ) 流出 ( 1\text{A} )，其余 ( b_v = 0 )。</li>
-</ul>
-</li>
-<li>
-<p><strong>电压唯一性</strong>：<br>
-通过固定参考电压（如接地 ( \phi_t = 0 )），消除零空间自由度，得到唯一解。</p>
-</li>
-</ul>
-<h3 id="拉普拉斯矩阵的伪逆与解的结构"><strong>拉普拉斯矩阵的伪逆与解的结构</strong></h3>
-<h4 id="引理"><strong>引理</strong></h4>
-<p>若 ( b \perp \mathbf{1} )，则存在向量 ( \phi ) 使得 ( L \phi = b )。</p>
-<h4 id="证明"><strong>证明</strong></h4>
-<ol>
-<li>
-<p><strong>谱分解</strong>：<br>
-由于 ( L ) 是对称半正定矩阵，可分解为：<br>
-[<br>
-L = \sum_{i=2}^n \lambda_i v_i v_i^\top<br>
-]<br>
-其中 ( \lambda_1 = 0 )，对应特征向量 ( v_1 = \frac{1}{\sqrt{n}} \mathbf{1} )，且 ( \lambda_2, \dots, \lambda_n &gt; 0 )（若图连通）。</p>
-</li>
-<li>
-<p><strong>条件 ( b \perp \mathbf{1} )</strong>：<br>
-由正交性，( b ) 可表示为非零特征向量的线性组合：<br>
-[<br>
-b = \sum_{i=2}^n a_i v_i<br>
-]</p>
-</li>
-<li>
-<p><strong>构造解 ( \phi )</strong>：<br>
-取：<br>
-[<br>
-\phi = \sum_{i=2}^n \frac{a_i}{\lambda_i} v_i<br>
-]<br>
-验证：<br>
-[<br>
-L \phi = \sum_{i=2}^n \lambda_i v_i v_i^\top \left( \sum_{j=2}^n \frac{a_j}{\lambda_j} v_j \right) = \sum_{i=2}^n a_i v_i = b<br>
-]</p>
-</li>
-</ol>
-<hr>
-<h4 id="伪逆-L-dagger-的定义与性质"><strong>伪逆 ( L^\dagger ) 的定义与性质</strong></h4>
-<p>定义伪逆：<br>
-[<br>
-L^\dagger = \sum_{i=2}^n \frac{1}{\lambda_i} v_i v_i^\top<br>
-]</p>
-<p><strong>性质</strong>：</p>
-<ol>
-<li><strong>唯一性</strong>：
-<ul>
-<li>对任意 ( b \perp \mathbf{1} )，( \phi = L^\dagger b ) 是唯一满足 ( L \phi = b ) 且 ( \phi \perp \mathbf{1} ) 的解。</li>
-</ul>
-</li>
-<li><strong>通解结构</strong>：
-<ul>
-<li>方程 ( L \phi = b ) 的全体解为：<br>
-[<br>
-\phi = L^\dagger b + c \mathbf{1}, \quad c \in \mathbb{R}<br>
-]</li>
-</ul>
-</li>
-<li><strong>固定电压的唯一解</strong>：
-<ul>
-<li>若指定某节点电压（如 ( \phi_v = 0 )），则解唯一。</li>
-</ul>
-</li>
-</ol>
-<hr>
-<h4 id="物理意义"><strong>物理意义</strong></h4>
-<ol>
-<li><strong>伪逆的作用</strong>：
-<ul>
-<li>( L^\dagger ) 将电流分布 ( b ) 映射到<strong>最小范数电压解</strong>（即 ( \phi \perp \mathbf{1} )）。</li>
-</ul>
-</li>
-<li><strong>平移自由度</strong>：
-<ul>
-<li>解中的 ( c \mathbf{1} ) 反映电压的全局参考点可任意选择，不影响电流分布。</li>
-</ul>
-</li>
-</ol>
-<hr>
-<h2 id="一个引理">一个引理</h2>
-<p>引理：$R_{\text{eff}}(s, t) = b_{st}^\top L^\dagger b_{st}$，其中向量$b_{st} \in \mathbb{R}^n$满足<br>
-$b_{st}(s) = 1$, $b_{st}(t) = -1$，并且其它位置都为0。<br>
-<strong>等效电阻的表达式</strong>：</p>
-<ul>
-<li>从 ( \phi = L^\dagger b ) 和 ( R_{\text{eff}}(s, t) = \phi(s) - \phi(t) ) 出发：<br>
-[<br>
-\phi(s) = (L^\dagger b)(s) = \sum_j L^\dagger(s, j) b(j) = L^\dagger(s, s) \cdot 1 + L^\dagger(s, t) \cdot (-1),<br>
-]<br>
-[<br>
-\phi(t) = (L^\dagger b)(t) = \sum_j L^\dagger(t, j) b(j) = L^\dagger(t, s) \cdot 1 + L^\dagger(t, t) \cdot (-1).<br>
-]</li>
-<li>因此：<br>
-[<br>
-R_{\text{eff}}(s, t) = \phi(s) - \phi(t) = \left[ L^\dagger(s, s) - L^\dagger(s, t) \right] - \left[ L^\dagger(t, s) - L^\dagger(t, t) \right].<br>
-]</li>
-<li>由于 ( L^\dagger ) 对称，( L^\dagger(s, t) = L^\dagger(t, s) )，所以：<br>
-[<br>
-R_{\text{eff}}(s, t) = L^\dagger(s, s) + L^\dagger(t, t) - 2 L^\dagger(s, t).<br>
-]</li>
-<li>另一方面，( b_{st}^\top L^\dagger b_{st} ) 可以展开为：<br>
-[<br>
-b_{st}^\top L^\dagger b_{st} = \sum_i \sum_j b_{st}(i) L^\dagger(i, j) b_{st}(j) = L^\dagger(s, s) - L^\dagger(s, t) - L^\dagger(t, s) + L^\dagger(t, t).<br>
-]</li>
-<li>由于 ( L^\dagger ) 对称，因此：<br>
-[<br>
-b_{st}^\top L^\dagger b_{st} = L^\dagger(s, s) + L^\dagger(t, t) - 2 L^\dagger(s, t) = R_{\text{eff}}(s, t).<br>
-]</li>
-<li>引理得证。</li>
-</ul>
-<h1>拉普拉斯矩阵二次型的展开证明</h1>
-<p>设图$G=(V,E)$的边带有电阻$r_e$，对应的电导为$c_e = 1/r_e$。拉普拉斯矩阵$L$定义为：</p>
-<p>[<br>
-L_{uv} =<br>
-\begin{cases}<br>
-\sum_{w \sim u} c_{uw} &amp; \text{若 } u=v \<br>
-c_{uv} &amp; \text{若 } u \neq v \text{ 且 } (u,v)\in E \<br>
-0 &amp; \text{其他情况}<br>
-\end{cases}<br>
-]</p>
-<h2 id="步骤1：展开二次型">步骤1：展开二次型</h2>
-<p>考虑电势向量$\phi$的二次型：</p>
-<p>[<br>
-\phi^\top L\phi = \sum_{u \in V} \sum_{v \in V} \phi_u L_{uv} \phi_v<br>
-]</p>
-<h2 id="步骤2：分离对角线项和非对角线项">步骤2：分离对角线项和非对角线项</h2>
-<p>将求和分为$u=v$和$u\neq v$的情况：</p>
-<p>[<br>
-= \underbrace{\sum_{u \in V} \phi_u^2 L_{uu}}<em>{\text{对角线项}} + \underbrace{\sum</em>{u \neq v} \phi_u L_{uv} \phi_v}_{\text{非对角线项}}<br>
-]</p>
-<h2 id="步骤3：代入拉普拉斯矩阵定义">步骤3：代入拉普拉斯矩阵定义</h2>
-<p>对于对角线项：<br>
-[<br>
-\sum_{u \in V} \phi_u^2 \left(\sum_{w \sim u} c_{uw}\right) = \sum_{u \in V} \sum_{e=(u,w)\in E} \phi_u^2 c_e<br>
-]</p>
-<p>对于非对角线项：<br>
-[<br>
-\sum_{u \neq v} \phi_u (-c_{uv}) \phi_v = -\sum_{e=(u,v)\in E} \phi_u \phi_v c_e \quad (\text{每条边计算两次})<br>
-]</p>
-<h2 id="步骤4：合并对角线与非对角线项">步骤4：合并对角线与非对角线项</h2>
-<p>[<br>
-\phi^\top L\phi = \sum_{e=(u,v)\in E} \left[ \phi_u^2 c_e + \phi_v^2 c_e - 2\phi_u \phi_v c_e \right]<br>
-]</p>
-<h2 id="步骤5：重组为平方项">步骤5：重组为平方项</h2>
-<p>观察到：<br>
-[<br>
-\phi_u^2 c_e + \phi_v^2 c_e - 2\phi_u \phi_v c_e = c_e (\phi_u - \phi_v)^2<br>
-]</p>
-<p>因此：<br>
-[<br>
-\phi^\top L\phi = \sum_{e=(u,v)\in E} \frac{(\phi_u - \phi_v)^2}{r_e}<br>
-]</p>
-<h2 id="几何解释">几何解释</h2>
-<p>这个过程实现了从节点空间到边空间的转换：</p>
-<ol>
-<li>初始的二次型计算所有节点间的电势交互</li>
-<li>拉普拉斯矩阵的结构保证最终结果仅与相邻节点电势差相关</li>
-<li>每个边贡献的项可以理解为该边上的能量耗散</li>
-</ol>
-<h2 id="最终结论">最终结论</h2>
-<p>$\displaystyle \phi^\top L\phi = \sum_{e=(u,v)\in E} \frac{(\phi_u - \phi_v)^2}{r_e}$</p>
-<p>这个等式揭示了图拉普拉斯矩阵的物理意义：它编码了网络中所有边上的电势差能量。在电路理论中，这正好对应焦耳定律给出的能量耗散公式。</p>
-<h1>有效电阻与能量耗散的关系</h1>
-<p>设$G=(V,E)$为一个无向图，$r_e$为边$e$的电阻值，$i_e$为边$e$上的电流。考虑从源点$s$到汇点$t$的单位电流。</p>
-<h2 id="能量耗散表达式">能量耗散表达式</h2>
-<p>网络中的总能量耗散可以表示为：<br>
-[<br>
-\mathcal{E}(i) = \sum_{e\in E} i_e^2 \cdot r_e<br>
-]</p>
-<h2 id="电势表示">电势表示</h2>
-<p>根据欧姆定律，电流可以表示为电势差：<br>
-[<br>
-i_e = \frac{\phi_u - \phi_v}{r_e}<br>
-]<br>
-其中$\phi$是电势函数，满足基尔霍夫电流定律$L\phi = b_{st}$，这里$b_{st} = \mathbf{1}_s - \mathbf{1}_t$。</p>
-<p>因此能量耗散可改写为：<br>
-[<br>
-\mathcal{E}(i) = \sum_{e=(u,v)\in E} \left(\frac{\phi_u - \phi_v}{r_e}\right)^2 \cdot r_e = \sum_{e=(u,v)\in E} \frac{(\phi_u - \phi_v)^2}{r_e}<br>
-]</p>
-<h2 id="拉普拉斯矩阵形式">拉普拉斯矩阵形式</h2>
-<p>注意到：<br>
-[<br>
-\phi^\top L\phi = \sum_{u,v} \phi_u L_{uv} \phi_v = \sum_{e=(u,v)\in E} \frac{(\phi_u - \phi_v)^2}{r_e}<br>
-]<br>
-因此：<br>
-[<br>
-\mathcal{E}(i) = \phi^\top L\phi<br>
-]</p>
-<h2 id="有效电阻计算">有效电阻计算</h2>
-<p>由于$L\phi = b_{st}$，且$L$的伪逆$L^\dagger$满足$\phi = L^\dagger b_{st}$，代入得：<br>
-[<br>
-\mathcal{E}(i) = (L^\dagger b_{st})^\top L (L^\dagger b_{st}) = b_{st}^\top L^\dagger b_{st}<br>
-]</p>
-<p>这正是$s$和$t$之间的有效电阻$R_{\text{eff}}(s,t)$的定义：<br>
-[<br>
-R_{\text{eff}}(s,t) = b_{st}^\top L^\dagger b_{st} = (\mathbf{1}_s - \mathbf{1}_t)^\top L^\dagger (\mathbf{1}_s - \mathbf{1}_t)<br>
-]</p>
-<h2 id="结论">结论</h2>
-<p>因此我们证明了：<br>
-[<br>
-\mathcal{E}(i) = R_{\text{eff}}(s,t)<br>
-]<br>
-即<strong>单位电流下的能量耗散等于$s$和$t$之间的有效电阻。</strong></p>
-<h1>有效电阻与单位流的能量最小化定理</h1>
-<h2 id="Thompson’s-Principle-定理陈述">Thompson’s Principle 定理陈述</h2>
-<h2 id="对于任意图-G-V-E-和边上的电阻-r-e-1-（-forall-e-in-E-），有效电阻满足：-R-text-eff-s-t-leq-mathcal-E-g-其中-g-是任意单位-s-t-流。">对于任意图 $G=(V,E)$ 和边上的电阻 $r_e = 1$（$\forall e \in E$），有效电阻满足：<br>
-$$<br>
-R_{\text{eff}}(s,t) \leq \mathcal{E}(g)<br>
-$$<br>
-其中 $g$ 是任意单位 $s$-$t$ 流。</h2>
-<h3 id="1-问题形式化"><strong>1. 问题形式化</strong></h3>
-<p><strong>目标函数与约束条件</strong><br>
-考虑最小化能量：<br>
-[<br>
-\min_{g} \mathcal{E}(g) = \min_{g} \sum_{e \in E} g_e^2 \quad \text{s.t.} \quad B g = b_{st}<br>
-]<br>
-其中：</p>
-<ul>
-<li>( B ) 是图的关联矩阵（节点-边矩阵），维度为 ( n \times |E| )。</li>
-<li>( b_{st} ) 是单位流需求向量，满足 ( b_{st}(s) = +1 )，( b_{st}(t) = -1 )，其余节点为 0。</li>
-<li>流 ( g ) 满足基尔霍夫电流定律（流守恒）。</li>
-</ul>
-<hr>
-<h3 id="2-拉格朗日乘子法与KKT条件"><strong>2. 拉格朗日乘子法与KKT条件</strong></h3>
-<p><strong>拉格朗日函数</strong><br>
-引入拉格朗日乘子 ( \phi \in \mathbb{R}^n )，构造拉格朗日函数：<br>
-[<br>
-\mathcal{L}(g, \phi) = \sum_{e} g_e^2 + \phi^\top (B g - b_{st})<br>
-]</p>
-<p><strong>梯度条件</strong><br>
-对 ( g ) 求导并令导数为零：<br>
-[<br>
-\nabla_g \mathcal{L} = 2g + B^\top \phi = 0 \quad \implies \quad g = -\frac{1}{2} B^\top \phi<br>
-]<br>
-这表明最优流 ( g ) 由某个电势向量 ( \phi ) 通过 ( B^\top \phi ) 确定，符号由电阻方向决定。</p>
-<hr>
-<h3 id="3-代入约束条件"><strong>3. 代入约束条件</strong></h3>
-<p>将 ( g = -\frac{1}{2} B^\top \phi ) 代入约束 ( B g = b_{st} )：<br>
-[<br>
-B \left(-\frac{1}{2} B^\top \phi \right) = b_{st} \quad \implies \quad -\frac{1}{2} B B^\top \phi = b_{st}<br>
-]<br>
-注意到 ( L = B B^\top ) 是图的拉普拉斯矩阵，因此：<br>
-[<br>
-L \phi = -2 b_{st}<br>
-]<br>
-由于拉普拉斯矩阵 ( L ) 秩为 ( n-1 )，需设定参考点（如 ( \phi_t = 0 )）后解得：<br>
-[<br>
-\phi = -2 L^+ b_{st}<br>
-]<br>
-其中 ( L^+ ) 是 ( L ) 的伪逆矩阵。</p>
-<hr>
-<h3 id="4-最优能量与有效电阻的关系"><strong>4. 最优能量与有效电阻的关系</strong></h3>
-<p><strong>最优流的能量</strong><br>
-将 ( g = -\frac{1}{2} B^\top \phi ) 代入目标函数：<br>
-[<br>
-\mathcal{E}(g) = g^\top g = \left(-\frac{1}{2} B^\top \phi \right)^\top \left(-\frac{1}{2} B^\top \phi \right) = \frac{1}{4} \phi^\top B B^\top \phi<br>
-]<br>
-利用 ( L = B B^\top ) 和 ( \phi = -2 L^+ b_{st} )：<br>
-[<br>
-\mathcal{E}(g) = \frac{1}{4} \phi^\top L \phi = \frac{1}{4} (-2 b_{st}^\top L^+) L (-2 L^+ b_{st}) = b_{st}^\top L^+ b_{st}<br>
-]</p>
-<p><strong>有效电阻的定义</strong><br>
-有效电阻 ( R_{\text{eff}}(s, t) ) 定义为电势差除以单位电流：<br>
-[<br>
-R_{\text{eff}}(s, t) = \phi_s - \phi_t = (\chi_s - \chi_t)^\top \phi<br>
-]<br>
-其中 ( \chi_s ) 和 ( \chi_t ) 是 ( s ) 和 ( t ) 的指示向量。结合 ( \phi = -2 L^+ b_{st} )，有：<br>
-[<br>
-R_{\text{eff}}(s, t) = (\chi_s - \chi_t)^\top (-2 L^+ b_{st}) = -2 (\chi_s - \chi_t)^\top L^+ (\chi_s - \chi_t)<br>
-]<br>
-由于 ( b_{st} = \chi_s - \chi_t )，且 ( L^+ ) 对称，可得：<br>
-[<br>
-R_{\text{eff}}(s, t) = b_{st}^\top L^+ b_{st}<br>
-]<br>
-因此，最优能量 ( \mathcal{E}(g) = R_{\text{eff}}(s, t) )。</p>
-<hr>
-<h3 id="5-结论"><strong>5. 结论</strong></h3>
-<p>对任意单位 ( s )-( t ) 流 ( g )，其能量 ( \mathcal{E}(g) ) 满足：<br>
-[<br>
-\mathcal{E}(g) \geq \mathcal{E}(g^<em>) = R_{\text{eff}}(s, t)<br>
-]<br>
-其中 ( g^</em> ) 是最优流，由电势差通过欧姆定律生成。这表明有效电阻是所有可能单位流能量的最小值。</p>
-<hr>
-<h3 id="最终结论-2"><strong>最终结论</strong></h3>
-<p>[<br>
-R_{\text{eff}}(s, t) = \min_{g: Bg = b_{st}} \sum_{e} g_e^2 \quad \implies \quad R_{\text{eff}}(s, t) \leq \mathcal{E}(g) \quad \forall \text{单位 } s\text{-}t \text{流 } g.<br>
-]</p>
-<hr>
-<p><strong>关键点总结</strong></p>
-<ol>
-<li><strong>KKT条件</strong> 导出了最优流与电势的关系，符合欧姆定律。</li>
-<li><strong>拉普拉斯矩阵伪逆</strong> 将电势差与有效电阻直接关联。</li>
-<li><strong>凸优化唯一性</strong> 保证了最小能量的存在性，且等于有效电阻。</li>
-</ol>
-
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
     <link itemprop="mainEntityOfPage" href="https://chenzhan20050128.github.io/notes.github.io/2025/06/23/FFT_Notes/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -2708,6 +1302,507 @@ y_j = c_0 + 2 \sum_{k=1}^{m} \left[ \text{Re}(c_k) \cos(k x_j) - \text{Im}(c_k) 
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://chenzhan20050128.github.io/notes.github.io/2025/06/23/LP%E5%AE%9A%E7%82%B9%E7%AC%94%E8%AE%B0/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/notes.github.io/images/woshicaigou.jpg">
+      <meta itemprop="name" content="Chen Zhan">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="cz Blog">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/notes.github.io/2025/06/23/LP%E5%AE%9A%E7%82%B9%E7%AC%94%E8%AE%B0/" class="post-title-link" itemprop="url">LP定点笔记</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2025-06-23 12:22:32" itemprop="dateCreated datePublished" datetime="2025-06-23T12:22:32+08:00">2025-06-23</time>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <h2 id="边角（corner）、极值点（extreme-point）和基本解（basic-solution）："><strong>边角（corner）</strong>、<strong>极值点（extreme point）<strong>和</strong>基本解（basic solution）</strong>：</h2>
+<hr>
+<h3 id="1-边角（Corner）">1. <strong>边角（Corner）</strong></h3>
+<p><strong>定义</strong>：点$x$是集合$P$的边角，若不存在非零向量$y \neq 0$，使得$x + y \in P$且$x - y \in P$。<br>
+<strong>几何意义</strong>：</p>
+<ul>
+<li>边角是集合$P$的“尖锐”部分，无法在$x$的邻域内沿任何方向$y$同时向$x \pm y$移动而保持在$P$内。</li>
+<li>在凸集理论中，边角等价于<strong>极点（extreme point）</strong>，即不能表示为集合中其他两点严格凸组合的点。<br>
+<strong>示例</strong>：
+<ul>
+<li>多边形的顶点是边角，因为无法沿任何方向移动同时保持在多边形内。</li>
+</ul>
+</li>
+</ul>
+<hr>
+<h3 id="2-极值点（Extreme-Point）">2. <strong>极值点（Extreme Point）</strong></h3>
+<p><strong>定义</strong>：点$x$是极值点，若存在目标方向$c$，使得$x$是优化问题$\max c^T x \ \text{s.t.} \ x \in P$的唯一最优解。<br>
+<strong>性质</strong>：</p>
+<ul>
+<li>极值点一定是边角，反之亦然（在凸集下）。</li>
+<li>在凸优化中，极值点对应可行域的顶点，是线性规划潜在的最优解候选。<br>
+<strong>示例</strong>：
+<ul>
+<li>线性规划中，最优解通常出现在可行多面体的极值点（顶点）处。</li>
+</ul>
+</li>
+</ul>
+<hr>
+<h3 id="3-基本解（Basic-Solution）">3. <strong>基本解（Basic Solution）</strong></h3>
+<p><strong>定义</strong>：对于线性约束$Ax = b$，设$x \in P$，记$A_=$为$x$的紧致约束（即$A_i x = b_i$的行）构成的子矩阵。若$A_=$满秩（$\text{rank}(A_=) = n$），则$x$为基本解。<br>
+<strong>关键点</strong>：</p>
+<ul>
+<li><strong>紧致约束</strong>：在$x$处取等号的约束，几何上表示$x$位于这些约束对应的超平面上。</li>
+<li><strong>满秩条件</strong>：$A_=$的列线性独立，确保$x$是唯一确定的（非退化解）。</li>
+<li><strong>与极值点的关系</strong>：在标准线性规划中，基本可行解对应可行多面体的顶点（极值点）。</li>
+</ul>
+<p><strong>求解方法</strong>：</p>
+<ol>
+<li>从$A$中选取$n$个线性无关的行构成$A_=$。</li>
+<li>解$A_= x = b_=$得到$x$，其余变量设为0（非基变量）。</li>
+</ol>
+<h2 id="证明：在凸多面体-P-x-mid-Ax-leq-b-中，若-x-是边角（corner），则-x-是基本解（basic-solution）。"><strong>证明：在凸多面体 ( P = {x \mid Ax \leq b} ) 中，若 ( x ) 是边角（corner），则 ( x ) 是基本解（basic solution）。</strong></h2>
+<p>等价地，我们证明其逆否命题：</p>
+<blockquote>
+<p><strong>若 ( x ) 不是基本解（即 ( \text{rank}(A_=) &lt; n )），则 ( x ) 不是边角。</strong></p>
+</blockquote>
+<hr>
+<h3 id="证明过程"><strong>证明过程</strong></h3>
+<ol>
+<li>
+<p><strong>设定与假设</strong>：</p>
+<ul>
+<li>设 ( x \in P )，且 ( A_= ) 是 ( x ) 的紧致约束（即 ( A_i x = b_i ) 的行构成的子矩阵）。</li>
+<li>假设 ( \text{rank}(A_=) &lt; n )，即 ( A_= ) 的行不满秩（列线性相关）。</li>
+<li>由线性代数，存在非零向量 ( y \neq 0 )，使得 ( A_= y = 0 )。</li>
+</ul>
+</li>
+<li>
+<p><strong>构造扰动点 ( x \pm \epsilon y )</strong>：</p>
+<ul>
+<li>对于紧致约束 ( A_= )，有：<br>
+[<br>
+A_= (x \pm \epsilon y) = A_= x \pm \epsilon A_= y = b_= \pm 0 = b_=,<br>
+]<br>
+因此 ( x \pm \epsilon y ) 仍然满足紧致约束。</li>
+<li>对于非紧致约束 ( A_j x &lt; b_j )，由于 ( x ) 严格满足不等式，且 ( y ) 是固定向量，存在足够小的 ( \epsilon &gt; 0 )，使得：<br>
+[<br>
+A_j (x \pm \epsilon y) \leq b_j.<br>
+]<br>
+（因为 ( A_j x &lt; b_j )，而 ( \epsilon ) 足够小时，扰动不会违反不等式。）</li>
+</ul>
+</li>
+<li>
+<p><strong>验证 ( x \pm \epsilon y \in P )</strong>：</p>
+<ul>
+<li>由上述分析，( x \pm \epsilon y ) 满足所有约束 ( Ax \leq b )，因此 ( x \pm \epsilon y \in P )。</li>
+</ul>
+</li>
+<li>
+<p><strong>说明 ( x ) 不是边角</strong>：</p>
+<ul>
+<li>我们找到了 ( y \neq 0 )，使得 ( x + \epsilon y \in P ) 且 ( x - \epsilon y \in P )。</li>
+<li>根据边角的定义，( x ) 不是边角。</li>
+</ul>
+</li>
+</ol>
+<h3 id="证明：在凸多面体-P-x-mid-Ax-leq-b-中，若-x-是基本解（basic-solution），则-x-是边角（corner）。"><strong>证明：在凸多面体 ( P = {x \mid Ax \leq b} ) 中，若 ( x ) 是基本解（basic solution），则 ( x ) 是边角（corner）。</strong></h3>
+<p>等价地，我们证明其逆否命题：</p>
+<blockquote>
+<p><strong>若 ( x ) 不是边角（即存在 ( y \neq 0 ) 使得 ( x \pm y \in P )），则 ( x ) 不是基本解（即 ( \text{rank}(A_=) &lt; n )）。</strong></p>
+</blockquote>
+<hr>
+<h3 id="证明过程-2"><strong>证明过程</strong></h3>
+<ol>
+<li>
+<p><strong>设定与假设</strong>：</p>
+<ul>
+<li>设 ( x \in P )，且 ( A_= ) 是 ( x ) 的紧致约束（即 ( A_i x = b_i ) 的行构成的子矩阵）。</li>
+<li>假设 ( x ) 不是边角，即存在 ( y \neq 0 )，使得 ( x + y \in P ) 且 ( x - y \in P )。</li>
+</ul>
+</li>
+<li>
+<p><strong>分析紧致约束 ( A_= ) 的作用</strong>：</p>
+<ul>
+<li>由于 ( x \pm y \in P )，且 ( A_= x = b_= )，我们有：<br>
+[<br>
+A_= (x + y) \leq b_= \quad \Rightarrow \quad A_= x + A_= y \leq b_= \quad \Rightarrow \quad A_= y \leq 0,<br>
+]<br>
+[<br>
+A_= (x - y) \leq b_= \quad \Rightarrow \quad A_= x - A_= y \leq b_= \quad \Rightarrow \quad -A_= y \leq 0.<br>
+]</li>
+<li>结合 ( A_= y \leq 0 ) 和 ( -A_= y \leq 0 )，可得：<br>
+[<br>
+A_= y = 0.<br>
+]</li>
+<li>因此，( y ) 是 ( A_= ) 的零空间中的非零向量（因为 ( y \neq 0 )）。</li>
+</ul>
+</li>
+<li>
+<p><strong>说明 ( A_= ) 不满秩</strong>：</p>
+<ul>
+<li>存在 ( y \neq 0 ) 使得 ( A_= y = 0 )，说明 ( A_= ) 的列线性相关。</li>
+<li>因此，( \text{rank}(A_=) &lt; n )，即 ( x ) 不是基本解。</li>
+</ul>
+</li>
+</ol>
+<h2 id="定理：考虑二分图完美匹配的线性规划">定理：考虑二分图完美匹配的线性规划</h2>
+<p>给定的线性规划（LP）是：</p>
+<p>[<br>
+\text{maximize} \sum_{e \in E} c_e x_e<br>
+]<br>
+[<br>
+\text{subject to} \quad \sum_{e \in \delta(v)} x_e = 1 \quad \forall v \in V<br>
+]<br>
+[<br>
+0 \leq x_e \leq 1 \quad \forall e \in E<br>
+]</p>
+<p>其中：</p>
+<ul>
+<li>( \delta(v) ) 表示与顶点 ( v ) 相关联的所有边的集合。</li>
+<li>( x_e ) 可以看作是边 ( e ) 是否被选入匹配中的“程度”，理论上可以取 0 到 1 之间的任何实数。</li>
+<li>约束 ( \sum_{e \in \delta(v)} x_e = 1 ) 表示每个顶点恰好被“覆盖”一次（即完美匹配的要求）。</li>
+</ul>
+<h2 id="最小生成树（MST）的线性规划（LP）表述">最小生成树（MST）的线性规划（LP）表述</h2>
+<p>最小生成树问题（Minimum Spanning Tree, MST）是图论中的一个经典问题，其目标是在一个连通无向图 ( G = (V, E) ) 中找到一个边的子集 ( T \subseteq E )，使得 ( T ) 构成一棵树（即无环且连通），并且所有边的权重之和最小。这里我们讨论的是如何将MST问题表述为一个线性规划（LP），并解释其性质和求解方法。</p>
+<h4 id="MST的LP表述">MST的LP表述</h4>
+<p>以下是MST问题的一个LP松弛：</p>
+<p>[<br>
+\text{maximize} \sum_{e \in E} c_e x_e<br>
+]<br>
+[<br>
+\text{subject to} \quad \sum_{e \in E(S)} x_e \leq |S| - 1 \quad \forall S \subset V, S \neq \emptyset<br>
+]<br>
+[<br>
+\sum_{e \in E} x_e = |V| - 1<br>
+]<br>
+[<br>
+0 \leq x_e \leq 1 \quad \forall e \in E<br>
+]</p>
+<p>其中：</p>
+<ul>
+<li>( c_e ) 是边 ( e ) 的权重（这里最大化是因为可以等价地将最小化问题转化为最大化负权重）。</li>
+<li>( x_e ) 表示边 ( e ) 是否被选入生成树（( x_e = 1 )）或不被选入（( x_e = 0 )）。</li>
+<li>( E(S) ) 是子集 ( S ) 的导出子图中的边集，即所有两端点都在 ( S ) 中的边。</li>
+<li>约束 ( \sum_{e \in E(S)} x_e \leq |S| - 1 ) 称为<strong>子集消除约束（subtour elimination constraints）</strong>，确保任何顶点子集 ( S ) 的导出子图中选择的边不会形成环（即不会多于 ( |S| - 1 ) 条边，否则会形成环）。</li>
+<li>约束 ( \sum_{e \in E} x_e = |V| - 1 ) 确保选择的边数恰好是 ( |V| - 1 )（生成树的边数）。</li>
+<li>( 0 \leq x_e \leq 1 ) 是变量的边界约束。</li>
+</ul>
+<h3 id="弱对偶性定理的详细解释">弱对偶性定理的详细解释</h3>
+<p>弱对偶性（Weak Duality）是线性规划（Linear Programming, LP）中一个基本且重要的定理。它描述了原始问题（Primal Problem）和对偶问题（Dual Problem）的解之间的关系。具体来说，对于任何原始问题的可行解和对偶问题的可行解，原始问题的目标函数值不超过对偶问题的目标函数值。</p>
+<h4 id="原始问题和对偶问题的标准形式">原始问题和对偶问题的标准形式</h4>
+<p>首先，我们需要明确原始问题和对偶问题的标准形式。通常，我们有以下定义：</p>
+<ol>
+<li>
+<p><strong>原始问题（Primal Problem）</strong>：</p>
+<ul>
+<li>形式：最大化问题</li>
+<li>目标函数：( \max , c^\top x )</li>
+<li>约束条件：
+<ul>
+<li>( A x \leq b )</li>
+<li>( x \geq 0 )</li>
+</ul>
+</li>
+<li>其中：
+<ul>
+<li>( c \in \mathbb{R}^n )：目标函数的系数向量</li>
+<li>( x \in \mathbb{R}^n )：决策变量</li>
+<li>( A \in \mathbb{R}^{m \times n} )：约束矩阵</li>
+<li>( b \in \mathbb{R}^m )：约束条件的右端向量</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>
+<p><strong>对偶问题（Dual Problem）</strong>：</p>
+<ul>
+<li>形式：最小化问题</li>
+<li>目标函数：( \min , b^\top y )</li>
+<li>约束条件：
+<ul>
+<li>( A^\top y \geq c )</li>
+<li>( y \geq 0 )</li>
+</ul>
+</li>
+<li>其中：
+<ul>
+<li>( y \in \mathbb{R}^m )：对偶变量</li>
+</ul>
+</li>
+</ul>
+</li>
+</ol>
+<h4 id="弱对偶性定理的陈述">弱对偶性定理的陈述</h4>
+<p>弱对偶性定理指出：</p>
+<p>对于原始问题的任何可行解 ( x ) 和对偶问题的任何可行解 ( y )，都有：<br>
+[ c^\top x \leq b^\top y ]</p>
+<p>即，原始问题的目标函数值（最大化）不超过对偶问题的目标函数值（最小化）。</p>
+<h4 id="证明过程-3">证明过程</h4>
+<p>让我们逐步证明这个定理。</p>
+<ol>
+<li>
+<p><strong>原始问题的约束</strong>：</p>
+<ul>
+<li>( A x \leq b )</li>
+<li>因为 ( y \geq 0 )，我们可以两边左乘 ( y^\top )（因为 ( y ) 非负，不等号方向不变）：<br>
+[ y^\top A x \leq y^\top b ]<br>
+[ y^\top A x \leq b^\top y ] （因为 ( y^\top b = b^\top y )）</li>
+</ul>
+</li>
+<li>
+<p><strong>对偶问题的约束</strong>：</p>
+<ul>
+<li>( A^\top y \geq c )</li>
+<li>因为 ( x \geq 0 )，我们可以两边右乘 ( x )（因为 ( x ) 非负，不等号方向不变）：<br>
+[ (A^\top y)^\top x \geq c^\top x ]<br>
+[ y^\top A x \geq c^\top x ] （因为 ( (A^\top y)^\top = y^\top A )）</li>
+</ul>
+</li>
+<li>
+<p><strong>结合两个不等式</strong>：</p>
+<ul>
+<li>从对偶约束得到：( c^\top x \leq y^\top A x )</li>
+<li>从原始约束得到：( y^\top A x \leq b^\top y )</li>
+<li>因此：<br>
+[ c^\top x \leq y^\top A x \leq b^\top y ]<br>
+[ c^\top x \leq b^\top y ]</li>
+</ul>
+</li>
+</ol>
+<h4 id="直观理解">直观理解</h4>
+<ul>
+<li>原始问题是最大化 ( c^\top x )，对偶问题是最小化 ( b^\top y )。</li>
+<li>弱对偶性表明，任何原始可行解的目标值都不会超过任何对偶可行解的目标值。</li>
+<li>这意味着对偶问题的目标值提供了一个原始问题目标值的上界，反之亦然。</li>
+</ul>
+<h2 id="最大流与最小割">最大流与最小割</h2>
+<hr>
+<h2 id="1-原始问题-Primal-：最大流">1. 原始问题 (Primal)：最大流</h2>
+<h3 id="1-1-决策变量">1.1 决策变量</h3>
+<ul>
+<li>对于每条有向边 (e=(u\to v)\in E)，定义流量变量 (f_e)（也常写成 (f_{uv}) 或者简写 (f_e)）。</li>
+</ul>
+<h3 id="1-2-目标函数">1.2 目标函数</h3>
+<ul>
+<li>我们要从源点 (s) 向汇点 (t) 发送尽可能多的流：<br>
+[<br>
+\max; f_{ts}.<br>
+]<br>
+这里 (f_{ts}) 可以理解为“从 (s) 到 (t) 的净流量”——在实际写法中通常是最大化<br>
+[<br>
+\sum_{e\in \delta^+(s)} f_e ;-; \sum_{e\in \delta^-(s)} f_e.<br>
+]</li>
+</ul>
+<h3 id="1-3-约束条件">1.3 约束条件</h3>
+<ol>
+<li>
+<p><strong>流量守恒（除了源点和汇点）</strong><br>
+对任意 (v\in V) 都要满足<br>
+[<br>
+f\bigl(\delta^{\mathrm{in}}(v)\bigr);-; f\bigl(\delta^{\mathrm{out}}(v)\bigr);\le;0,<br>
+]<br>
+也就是对于中间节点 (v)，它的进入流不超过离开流，源点 (s) 可以是“净输出”&gt;0，汇点 (t) 可以是“净输入”&gt;0。</p>
+</li>
+<li>
+<p><strong>容量上界</strong><br>
+对每条边 (e\in E)，<br>
+[<br>
+0 ;\le; f_e ;\le; 1.<br>
+]<br>
+（这里假设每条边的容量都是 1。）</p>
+</li>
+</ol>
+<hr>
+<h2 id="2-对偶问题-Dual-：最小割">2. 对偶问题 (Dual)：最小割</h2>
+<p>对上述最大流 LP 做对偶，就得到下面这个最小割的线性规划。</p>
+<h3 id="2-1-对偶变量">2.1 对偶变量</h3>
+<ul>
+<li>每条边 (e=(u\to v)) 对应一个非负变量 (d_{uv})。<br>
+直观上，(d_{uv}) 表示“是否把这条边切掉”（如果切掉，对偶解中通常取 1，否则取 0）。</li>
+<li>每个顶点 (v) 对应一个变量 (y_v\ge0)，可以看作是“点 (v) 的潜在高度”或“归属子集 S/T 的标记”。</li>
+</ul>
+<h3 id="2-2-对偶目标">2.2 对偶目标</h3>
+<p>[<br>
+\min;\sum_{(u,v)\in E} d_{uv}.<br>
+]<br>
+也就是要切掉尽量少的边，使得 (s) 与 (t) 分离。</p>
+<h3 id="2-3-对偶约束">2.3 对偶约束</h3>
+<ol>
+<li>
+<p><strong>边上的松弛条件</strong><br>
+对每条边 ((u\to v)\in E)，要求<br>
+[<br>
+d_{uv};+;y_u;-;y_v;\ge;0.<br>
+]<br>
+合理的解释是：如果 (u) 和 (v) 在同一侧（(y_u\approx y_v)），则只要 (d_{uv}=0) 就能满足；但如果 (u) 在 (s) 侧而 (v) 在 (t) 侧，我们需要 (d_{uv}\ge1) 才能保证“不打通”这条通道。</p>
+</li>
+<li>
+<p><strong>源点与汇点分离</strong><br>
+[<br>
+y_s - y_t ;\ge; 1.<br>
+]<br>
+这保证了在“潜在高度”意义上，(s) 必须明显高于 (t)，从而在路径上至少要经过一条被切掉的边。</p>
+</li>
+<li>
+<p><strong>非负性</strong><br>
+[<br>
+y_v ;\ge;0,\quad d_{uv};\ge;0.<br>
+]</p>
+</li>
+</ol>
+<hr>
+<h2 id="3-从对偶到“最小割”的直观理解">3. 从对偶到“最小割”的直观理解</h2>
+<ul>
+<li>
+<p>我们可以把所有顶点根据 (y_v) 的大小分成两部分：</p>
+<ul>
+<li>(S = {v: y_v &gt; \alpha})</li>
+<li>(T = V\setminus S)</li>
+</ul>
+<p>通过适当选取阈值 (\alpha)（例如 (\alpha = 0.5,y_s + 0.5,y_t)），可以使得 (s\in S)，(t\in T) 并且对任何跨 (S) 到 (T) 的边 ((u,v))，对应的对偶约束<br>
+[<br>
+d_{uv} + y_u - y_v \ge 0<br>
+]<br>
+要求 (d_{uv} \ge y_v - y_u \ge 1)。由于 (d_{uv}\ge0)，最优解中就会把每条跨割的边设为 (d_{uv}=1)，而同侧的边可以取 (d_{uv}=0)。</p>
+</li>
+<li>
+<p>因此对偶问题的最优值恰好等于“从 (s) 到 (t) 的最小割所需切掉的边数”——这就是经典的最小割容量。</p>
+</li>
+</ul>
+<hr>
+<h2 id="4-最大流-最小割">4. 最大流 = 最小割</h2>
+<ul>
+<li>
+<p><strong>弱对偶</strong>（任何可行流值 ≤ 任何可行割容量）</p>
+</li>
+<li>
+<p><strong>强对偶</strong>（线性规划对偶性）保证最优流值 = 最优割容量。</p>
+</li>
+<li>
+<p>于是得到著名的 <strong>最大流–最小割定理</strong>：</p>
+<p>“在一个容量为整数（此处为 1）的网络中，最大流的值等于最小割的容量。”</p>
+</li>
+</ul>
+<hr>
+<h2 id="5-整数性">5. 整数性</h2>
+<ul>
+<li>由于这个线性规划的约束矩阵是<strong>完全整数</strong>（即 totally unimodular），原始 LP 和对偶 LP 在最优解时都会取到整数解。</li>
+<li>因此最大流问题可以得到整数流（每条边 (f_e\in{0,1})），最小割也可以得到整数切割（每条边 (d_{uv}\in{0,1})），完美对应。</li>
+</ul>
+<hr>
+<p><strong>总结：</strong></p>
+<ul>
+<li>原始问题（Primal）是标准的最大流 LP。</li>
+<li>对偶问题（Dual）恰好对应最小割 LP。</li>
+<li>二者在最优时取相同的数值，且均有整数最优解，成就了最大流–最小割这一经典定理。</li>
+</ul>
+<h3 id="冯·诺依曼极小极大定理（Von-Neumann-Minimax-Theorem）的解释"><strong>冯·诺依曼极小极大定理（Von Neumann Minimax Theorem）的解释</strong></h3>
+<p>冯·诺依曼极小极大定理是博弈论中的一个核心定理，它描述了<strong>两人零和博弈（Two-player Zero-sum Game）<strong>中</strong>最优策略的存在性和均衡性</strong>。具体来说，它表明：</p>
+<p>[<br>
+\max_{x \in \Delta_m} \min_{y \in \Delta_n} x^\top A y = \min_{y \in \Delta_n} \max_{x \in \Delta_m} x^\top A y<br>
+]</p>
+<p>其中：</p>
+<ul>
+<li>( A \in \mathbb{R}^{m \times n} ) 是<strong>支付矩阵（Payoff Matrix）</strong>，表示行玩家（Player 1）的收益（列玩家的损失）。</li>
+<li>( x \in \Delta_m ) 是行玩家的混合策略（概率分布），( \Delta_m ) 是 ( m )-维单纯形（即 ( x_i \geq 0 ), ( \sum_{i=1}^m x_i = 1 )）。</li>
+<li>( y \in \Delta_n ) 是列玩家的混合策略（概率分布），( \Delta_n ) 是 ( n )-维单纯形（即 ( y_j \geq 0 ), ( \sum_{j=1}^n y_j = 1 )）。</li>
+<li>( x^\top A y ) 是<strong>期望收益</strong>（行玩家希望最大化，列玩家希望最小化）。</li>
+</ul>
+<hr>
+<h2 id="1-定理的直观解释"><strong>1. 定理的直观解释</strong></h2>
+<h3 id="1-行玩家的视角（先选策略）"><strong>(1) 行玩家的视角（先选策略）</strong></h3>
+<ul>
+<li>行玩家希望<strong>最大化自己的最小收益</strong>（即“最坏情况下最好能得多少”）。</li>
+<li>他选择一个策略 ( x )，然后列玩家会选择一个 ( y ) 使得 ( x^\top A y ) 最小（因为列玩家希望最小化行玩家的收益）。</li>
+<li>因此，行玩家要解决：<br>
+[<br>
+\max_{x} \left( \min_{y} x^\top A y \right)<br>
+]</li>
+</ul>
+<h3 id="2-列玩家的视角（先选策略）"><strong>(2) 列玩家的视角（先选策略）</strong></h3>
+<ul>
+<li>列玩家希望<strong>最小化行玩家的最大收益</strong>（即“最好情况下最坏能损失多少”）。</li>
+<li>他选择一个策略 ( y )，然后行玩家会选择一个 ( x ) 使得 ( x^\top A y ) 最大（因为行玩家希望最大化自己的收益）。</li>
+<li>因此，列玩家要解决：<br>
+[<br>
+\min_{y} \left( \max_{x} x^\top A y \right)<br>
+]</li>
+</ul>
+<h3 id="3-定理的核心结论"><strong>(3) 定理的核心结论</strong></h3>
+<p><strong>无论谁先选择策略，最终都会达到相同的均衡值</strong>：<br>
+[<br>
+\max_{x} \min_{y} x^\top A y = \min_{y} \max_{x} x^\top A y = v<br>
+]<br>
+这个共同的值 ( v ) 称为<strong>博弈的值（Value of the Game）</strong>，而对应的 ( x^* ) 和 ( y^* ) 称为<strong>纳什均衡策略（Nash Equilibrium Strategies）</strong>。</p>
+<hr>
+<h2 id="2-为什么这个定理成立？"><strong>2. 为什么这个定理成立？</strong></h2>
+<h3 id="1-从线性规划角度看"><strong>(1) 从线性规划角度看</strong></h3>
+<p>极小极大定理可以看作是<strong>线性规划对偶性</strong>的一个特例：</p>
+<ul>
+<li>行玩家的优化问题可以写成：<br>
+[<br>
+\max_{x} \left( \min_{y} x^\top A y \right) = \max_{x} \left( \min_{j} (A x)_j \right)<br>
+]<br>
+即行玩家希望最大化自己最差情况下的收益（因为列玩家会选择最不利的 ( y )）。</li>
+<li>列玩家的优化问题可以写成：<br>
+[<br>
+\min_{y} \left( \max_{x} x^\top A y \right) = \min_{y} \left( \max_{i} (A^\top y)_i \right)<br>
+]<br>
+即列玩家希望最小化行玩家最好情况下的收益（因为行玩家会选择最有利的 ( x )）。</li>
+</ul>
+<p>由于线性规划的对偶性，这两个问题的解是相同的。</p>
+<h3 id="2-从博弈论角度看"><strong>(2) 从博弈论角度看</strong></h3>
+<ul>
+<li>在零和博弈中，<strong>行玩家的收益就是列玩家的损失</strong>，因此双方的目标完全对立。</li>
+<li><strong>纳什均衡</strong>（Nash Equilibrium）在这种博弈中表现为：
+<ul>
+<li>行玩家选择 ( x^* )，使得无论列玩家怎么选 ( y )，自己的收益至少是 ( v )。</li>
+<li>列玩家选择 ( y^* )，使得无论行玩家怎么选 ( x )，行玩家的收益至多是 ( v )。</li>
+</ul>
+</li>
+<li>因此，双方都无法通过单方面改变策略来获得更好的结果，达到均衡。</li>
+</ul>
+<hr>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
     <link itemprop="mainEntityOfPage" href="https://chenzhan20050128.github.io/notes.github.io/2025/06/23/midterm/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -2833,6 +1928,1374 @@ y_j = c_0 + 2 \sum_{k=1}^{m} \left[ \text{Re}(c_k) \cos(k x_j) - \text{Im}(c_k) 
 <p>证明 $\text{STABLE-RANK}(A) \le \text{RANK}(A)$。</p>
 </li>
 </ol>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://chenzhan20050128.github.io/notes.github.io/2025/06/23/MarkovNote/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/notes.github.io/images/woshicaigou.jpg">
+      <meta itemprop="name" content="Chen Zhan">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="cz Blog">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/notes.github.io/2025/06/23/MarkovNote/" class="post-title-link" itemprop="url">MarkovNote</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2025-06-23 12:22:32" itemprop="dateCreated datePublished" datetime="2025-06-23T12:22:32+08:00">2025-06-23</time>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <h1>幂迭代的特例：随机游走与马尔可夫链</h1>
+<h3 id="1-马尔可夫链的基本概念">1. 马尔可夫链的基本概念</h3>
+<p>**马尔可夫链（Markov Chain）**是一种随机过程，具有“无记忆性”或“马尔可夫性质”。这意味着未来状态的概率分布只依赖于当前状态，而与之前的历史状态无关。形式上，对于一个离散时间的马尔可夫链，满足：</p>
+<p>[ P(X_{n+1} = x | X_n = x_n, X_{n-1} = x_{n-1}, \dots, X_0 = x_0) = P(X_{n+1} = x | X_n = x_n) ]</p>
+<p>对于有限的马尔可夫链，状态空间（所有可能的状态）是有限的，可以表示为 ( S = {s_1, s_2, \dots, s_n} )。</p>
+<h3 id="2-有向图与马尔可夫链的关系">2. 有向图与马尔可夫链的关系</h3>
+<p>一个有限的马尔可夫链可以表示为一个<strong>有向图（directed graph）</strong>，其中：</p>
+<ul>
+<li><strong>顶点（Vertices）</strong>：代表马尔可夫链的状态。</li>
+<li><strong>边（Edges）</strong>：如果从状态 ( i ) 到状态 ( j ) 的转移概率 ( P_{ij} &gt; 0 )，则存在一条从 ( i ) 到 ( j ) 的有向边。</li>
+</ul>
+<p>这个有向图称为马尔可夫链的<strong>状态转移图</strong>。</p>
+<h3 id="3-强连通图的定义与性质">3. 强连通图的定义与性质</h3>
+<p>**强连通图（Strongly Connected Graph）**是指：</p>
+<ul>
+<li>对于图中的任意两个顶点 ( u ) 和 ( v )，存在从 ( u ) 到 ( v ) 的路径，也存在从 ( v ) 到 ( u ) 的路径。</li>
+</ul>
+<p>换句话说，强连通图意味着图中的任何两个状态都是相互可达的。</p>
+<h3 id="4-不可约马尔可夫链的含义与重要性">4. 不可约马尔可夫链的含义与重要性</h3>
+<p>**不可约马尔可夫链（Irreducible Markov Chain）**的定义是：如果其对应的有向图是强连通的，则称该马尔可夫链是不可约的。</p>
+<p><strong>解释</strong>：</p>
+<ul>
+<li>
+<p><strong>不可约性</strong>意味着马尔可夫链的状态空间不能被分成两个或更多的不相交的子集，使得链一旦进入某个子集就永远无法离开。换句话说，从任何状态出发，都有到达任何其他状态的可能（可能在多步之后）。</p>
+</li>
+<li>
+<p><strong>重要性</strong>：</p>
+<ul>
+<li>不可约性是马尔可夫链许多重要性质的基础。例如，不可约的有限马尔可夫链总是具有唯一的平稳分布。</li>
+<li>它确保了链的“遍历性”（ergodicity），即在长期运行中，链会访问所有状态，且频率趋于稳定。</li>
+</ul>
+</li>
+</ul>
+<h2 id="对于一个不可约且非周期的马尔可夫链，我们证明存在足够大的常数-T-infty-，使得对任意状态-i-j-和所有时间-t-geq-T-，有-P-t-i-j-0-。以下是详细证明过程：">对于一个不可约且非周期的马尔可夫链，我们证明存在足够大的常数( T &lt; \infty )，使得对任意状态( i, j )和所有时间( t \geq T )，有( P^t_{i,j} &gt; 0 )。以下是详细证明过程：</h2>
+<hr>
+<p><strong>定理</strong>：若一个马尔可夫链不可约且非周期，则存在常数( T &lt; \infty )，使得对任意状态( i, j )及所有时间( t \geq T )，有( P^t_{i,j} &gt; 0 )。</p>
+<hr>
+<p><strong>证明</strong>：</p>
+<p><strong>步骤1：非周期性的应用——证明每个状态的自返回时间无上界</strong></p>
+<p>设状态空间为有限集( \mathcal{S} )，每个状态( i )的周期定义为：<br>
+[<br>
+d(i) = \gcd{ t \geq 1 \mid P^t_{i,i} &gt; 0 }.<br>
+]<br>
+由于链是非周期的，故对任意( i \in \mathcal{S} )，有( d(i) = 1 )。令：<br>
+[<br>
+S_i = { t \geq 1 \mid P^t_{i,i} &gt; 0 },<br>
+]<br>
+则( \gcd(S_i) = 1 )。根据数论中的<strong>Schur定理</strong>，若一组正整数的最大公约数为1，则存在整数( N_i )，使得对所有( t \geq N_i )，( t )可表示为( S_i )中元素的线性组合（系数为非负整数）。因此：<br>
+[<br>
+\forall t \geq N_i, \quad P^t_{i,i} &gt; 0.<br>
+]</p>
+<p><strong>步骤2：统一自返回时间的下界</strong></p>
+<p>由于状态空间有限，设( \mathcal{S} = {1, 2, \dots, n} )，取：<br>
+[<br>
+K = \max{ N_1, N_2, \dots, N_n }.<br>
+]<br>
+则对所有( i \in \mathcal{S} )和( t \geq K )，均有：<br>
+[<br>
+P^t_{i,i} &gt; 0.<br>
+]</p>
+<p><strong>步骤3：不可约性的应用——确定状态间转移步数</strong></p>
+<p>由不可约性，对任意状态( i, j )，存在正整数( m_{i,j} )使得：<br>
+[<br>
+P^{m_{i,j}}<em>{i,j} &gt; 0.<br>
+]<br>
+定义：<br>
+[<br>
+M = \max{ m</em>{i,j} \mid \forall i, j \in \mathcal{S} }.<br>
+]<br>
+由于状态空间有限，( M )为有限值。</p>
+<p><strong>步骤4：构造全局常数( T )并验证结论</strong></p>
+<p>令：<br>
+[<br>
+T = K + M.<br>
+]<br>
+对任意( t \geq T )，可分解( t )为：<br>
+[<br>
+t = m_{i,j} + s, \quad \text{其中} \ s = t - m_{i,j} \geq T - M = K.<br>
+]<br>
+根据<strong>Chapman-Kolmogorov方程</strong>：<br>
+[<br>
+P^t_{i,j} = \sum_{k \in \mathcal{S}} P^{m_{i,j}}<em>{i,k} P^{s}</em>{k,j} \geq P^{m_{i,j}}<em>{i,j} \cdot P^{s}</em>{j,j}.<br>
+]<br>
+由于：</p>
+<ol>
+<li>( P^{m_{i,j}}_{i,j} &gt; 0 )（不可约性），</li>
+<li>( s \geq K \implies P^{s}_{j,j} &gt; 0 )（步骤2），</li>
+</ol>
+<p>因此：<br>
+[<br>
+P^t_{i,j} \geq P^{m_{i,j}}<em>{i,j} \cdot P^{s}</em>{j,j} &gt; 0, \quad \forall t \geq T.<br>
+]</p>
+<hr>
+<p><strong>关键点总结</strong>：</p>
+<ol>
+<li><strong>非周期性</strong>通过Schur定理确保自返回时间覆盖所有充分大的整数。</li>
+<li><strong>有限状态空间</strong>允许统一自返回时间下界( K )和最大转移步数( M )。</li>
+<li><strong>不可约性</strong>保证任意状态间存在有限步转移路径，结合自返回正概率，导出全局正概率。</li>
+</ol>
+<hr>
+<p><strong>注</strong>：若状态空间为无限，需额外论证( K )和( M )的存在性，但本证明默认有限状态空间。</p>
+<hr>
+<p><strong>马尔可夫链基本定理的直观解释与严格证明</strong></p>
+<p>对于有限状态空间、不可约且非周期的马尔可夫链，其核心性质可总结如下：</p>
+<hr>
+<h3 id="1-存在唯一的稳态分布𝜋"><strong>1. 存在唯一的稳态分布𝜋</strong></h3>
+<ul>
+<li><strong>不可约性</strong>：任意两状态可通过有限步转移到达，保证了链的连通性。</li>
+<li><strong>非周期性</strong>：每个状态的自返回时间无周期限制，避免震荡。</li>
+<li><strong>有限状态空间</strong>：结合上述两点，转移矩阵( P )最终成为正则矩阵（存在( T )使得( P^T )所有元素正）。</li>
+</ul>
+<p><strong>严格结论</strong>：</p>
+<ul>
+<li>存在唯一平稳分布( \pi )，满足( \pi P = \pi )。</li>
+<li>稳态概率( \pi(i) )等于状态( i )的长期访问频率，即：<br>
+[<br>
+\pi(i) = \frac{1}{h_i},<br>
+]<br>
+其中( h_i = \mathbb{E}[\text{首次返回状态} , i , \text{的时间} , | , X_0 = i] )。</li>
+</ul>
+<hr>
+<h3 id="2-收敛到稳态分布"><strong>2. 收敛到稳态分布</strong></h3>
+<p>无论初始分布( p_0 )如何，随着时间( t \to \infty )，分布( p_t = p_0 P^t )必然收敛到( \pi )。</p>
+<p><strong>直观理解</strong>：</p>
+<ul>
+<li>非周期性和不可约性使得链在足够长时间后“忘记”初始状态。</li>
+<li>状态间的频繁转移导致分布趋于平衡。</li>
+</ul>
+<hr>
+<h3 id="3-耦合论证（Coupling-Argument）"><strong>3. 耦合论证（Coupling Argument）</strong></h3>
+<p>通过构造两个独立运行的马尔可夫链( X_t )和( Y_t )，证明它们最终会相遇并同步，从而严格推导收敛性。</p>
+<p>以下是基于耦合论证（Coupling Argument）的马尔可夫链收敛性证明的完整严谨过程：</p>
+<hr>
+<h3 id="耦合论证的构造与证明步骤"><strong>耦合论证的构造与证明步骤</strong></h3>
+<h4 id="1-基本假设与条件"><strong>1. 基本假设与条件</strong></h4>
+<p>设马尔可夫链满足以下条件：</p>
+<ul>
+<li><strong>不可约性</strong>（Irreducible）：任意两状态互通。</li>
+<li><strong>非周期性</strong>（Aperiodic）：不存在固定周期循环。</li>
+<li><strong>正常返性</strong>（Positive Recurrent）：所有状态的平均返回时间有限。</li>
+</ul>
+<h4 id="2-构造耦合马尔可夫链"><strong>2. 构造耦合马尔可夫链</strong></h4>
+<p>定义两个独立运行的马尔可夫链 ( X_t ) 和 ( Y_t )，其状态空间相同：</p>
+<ul>
+<li>( X_t )：初始分布为任意概率分布 ( \mu_0 )。</li>
+<li>( Y_t )：初始分布为平稳分布 ( \pi )。</li>
+</ul>
+<p>构造联合马尔可夫链 ( (X_t, Y_t) )，其转移概率满足：</p>
+<ul>
+<li>当 ( X_t \neq Y_t ) 时，两链独立转移，即联合转移概率为 ( P(X_{t+1}=x’, Y_{t+1}=y’) = P(x, x’) \cdot P(y, y’) )。</li>
+<li>当 ( X_t = Y_t ) 时，强制同步转移，即 ( X_{t+1} = Y_{t+1} )。</li>
+</ul>
+<h4 id="3-定义相遇时间"><strong>3. 定义相遇时间</strong></h4>
+<p>设首次相遇时间为停时 ( T = \inf{ t \geq 0: X_t = Y_t } )。根据不可约性和正常返性，可证明 ( T &lt; \infty ) 几乎必然成立。</p>
+<h4 id="4-同步后的行为一致性"><strong>4. 同步后的行为一致性</strong></h4>
+<p>当 ( t \geq T ) 时，由于同步机制，( X_t = Y_t ) 对所有后续时间成立。因此，两链在 ( T ) 后的演化完全一致。</p>
+<h4 id="5-收敛性推导"><strong>5. 收敛性推导</strong></h4>
+<p>通过比较两链的分布差异：</p>
+<ul>
+<li>对任意时间 ( t )，有：<br>
+[<br>
+| \mu_t - \pi |_{\text{TV}} \leq 2P(T &gt; t),<br>
+]<br>
+其中 ( \mu_t ) 是 ( X_t ) 的分布，( \pi ) 是 ( Y_t ) 的平稳分布。</li>
+<li>由于 ( T ) 几乎必然有限，当 ( t \to \infty ) 时，( P(T &gt; t) \to 0 )，故：<br>
+[<br>
+\lim_{t \to \infty} | \mu_t - \pi |_{\text{TV}} = 0.<br>
+]</li>
+</ul>
+<h4 id="6-平稳分布的唯一性"><strong>6. 平稳分布的唯一性</strong></h4>
+<p>若存在另一平稳分布 ( \pi’ )，通过耦合 ( Y_t )（初始化为 ( \pi’ )）与 ( X_t )（初始化为 ( \pi )），可证 ( \pi = \pi’ )，从而唯一性得证。</p>
+<hr>
+<h3 id="关键引理与数学工具"><strong>关键引理与数学工具</strong></h3>
+<ol>
+<li><strong>不可约性与正常返性</strong>：确保状态空间连通且所有状态可无限次访问。</li>
+<li><strong>停时理论</strong>：通过 ( T ) 的有限性将收敛性问题转化为概率衰减问题。</li>
+<li><strong>全变差距离（Total Variation Distance）</strong>：量化分布差异的上界。</li>
+<li><strong>Perron-Frobenius定理</strong>：用于证明转移矩阵主特征值对应平稳分布的存在性（有限状态空间）。</li>
+</ol>
+<hr>
+<h3 id="应用条件与反例"><strong>应用条件与反例</strong></h3>
+<ul>
+<li><strong>正则马尔可夫链</strong>：若转移矩阵 ( P ) 满足存在 ( n ) 使 ( P^n ) 无零元素，则收敛性成立。</li>
+<li><strong>反例</strong>：周期性链（如 ( P = \begin{pmatrix}0 &amp; 1 \ 1 &amp; 0\end{pmatrix} )）或可约链（如吸收态存在）不满足收敛条件。</li>
+</ul>
+<hr>
+<h3 id="4-稳态分布与期望回归时间的关系"><strong>4. 稳态分布与期望回归时间的关系</strong></h3>
+<p><strong>直观解释</strong>：</p>
+<ul>
+<li><strong>期望回归时间( h_i )</strong>：从状态( i )出发，首次返回( i )的平均时间。</li>
+<li><strong>长期访问频率</strong>：在无限时间中，访问状态( i )的频率为( 1/h_i )，故稳态概率( \pi(i) = 1/h_i )。</li>
+</ul>
+<p><strong>严格推导</strong>（Kac引理）：</p>
+<ul>
+<li>对于不可约常返链，有：<br>
+[<br>
+\pi(i) = \frac{1}{h_i}, \quad \text{其中} \quad h_i = \mathbb{E}[T_i \mid X_0 = i].<br>
+]</li>
+<li><strong>证明思路</strong>：通过更新过程计算长期平均访问次数，利用强大数定律得到频率极限。</li>
+</ul>
+<hr>
+<h3 id="5-唯一性的保证"><strong>5. 唯一性的保证</strong></h3>
+<p>若存在两个不同的平稳分布( \pi )和( \pi’ )，通过耦合论证：</p>
+<ul>
+<li>构造初始分布为( \pi )和( \pi’ )的两个链，它们最终必相遇并同步。</li>
+<li>因此( \pi = \pi’ )，矛盾，唯一性得证。</li>
+</ul>
+<hr>
+<p><strong>总结</strong>：</p>
+<ul>
+<li><strong>不可约性与非周期性</strong>确保链的遍历性，消除周期性震荡。</li>
+<li><strong>耦合技术</strong>将直观的“相遇”转化为严格收敛性证明。</li>
+<li><strong>期望回归时间</strong>量化了状态的访问频率，直接决定稳态分布。</li>
+</ul>
+<p>此框架不仅适用于有限状态链，还可推广到某些可数状态空间的情形，但需额外验证回归时间的有限性。</p>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://chenzhan20050128.github.io/notes.github.io/2025/06/23/note1/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/notes.github.io/images/woshicaigou.jpg">
+      <meta itemprop="name" content="Chen Zhan">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="cz Blog">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/notes.github.io/2025/06/23/note1/" class="post-title-link" itemprop="url">note1</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2025-06-23 12:22:32" itemprop="dateCreated datePublished" datetime="2025-06-23T12:22:32+08:00">2025-06-23</time>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <ul>
+<li>
+<p><strong>距离与纠错能力</strong>：通过上述讨论，我们知道：</p>
+<ul>
+<li>要处理 ( k ) 个擦除错误，需要最小距离 ( \ge k+1 )。</li>
+<li>要处理 ( k ) 个一般错误，需要最小距离 ( \ge 2k+1 )。</li>
+</ul>
+</li>
+<li>
+<p><strong>Reed-Solomon码的性质</strong>：</p>
+<ul>
+<li>Reed-Solomon 码通过将 ( n ) 个消息映射到一个具有 ( n + 2k ) 个符号的码字，其理论最小距离正好是 ( 2k+1 )。</li>
+<li>我们通过构造两个在 ( n-1 ) 点相同的不同码字得到了上界 ( 2k+1 )，同时从译码正确性（错误不能互相混淆）知下界也为 ( 2k+1 )，因此二者相等。</li>
+</ul>
+</li>
+<li>
+<p><strong>侧记</strong>：这种证明方式实际上等价于利用了Singleton界，是衡量码设计中极限性能的重要工具。</p>
+</li>
+</ul>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://chenzhan20050128.github.io/notes.github.io/2025/06/23/noteCircut/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/notes.github.io/images/woshicaigou.jpg">
+      <meta itemprop="name" content="Chen Zhan">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="cz Blog">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/notes.github.io/2025/06/23/noteCircut/" class="post-title-link" itemprop="url">noteCircut</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2025-06-23 12:22:32" itemprop="dateCreated datePublished" datetime="2025-06-23T12:22:32+08:00">2025-06-23</time>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <h3 id="电路网络中的电流与电压求解方法"><strong>电路网络中的电流与电压求解方法</strong></h3>
+<p>给定一个电阻网络，每条边 ( e ) 的电阻为 ( r_e )（或电导率 ( w_e = 1/r_e )），假设从节点 ( s ) 注入 1A 电流，并从节点 ( t ) 流出，如何计算网络内部的电流分布和电压分布？</p>
+<p>更一般地，设 ( b_v ) 表示从外部流入节点 ( v \in V ) 的净电流：</p>
+<ul>
+<li>( b_v &gt; 0 )：电流<strong>注入</strong>节点 ( v )（如源节点 ( s )）</li>
+<li>( b_v &lt; 0 )：电流<strong>流出</strong>节点 ( v )（如汇节点 ( t )）</li>
+<li>其他内部节点满足 ( b_v = 0 )（基尔霍夫电流定律）</li>
+</ul>
+<hr>
+<h3 id="1-电路定律"><strong>1. 电路定律</strong></h3>
+<h4 id="1-基尔霍夫电流定律（KCL）"><strong>(1) 基尔霍夫电流定律（KCL）</strong></h4>
+<blockquote>
+<p><strong>流入节点的电流 = 流出节点的电流</strong><br>
+即，对任意节点 ( v )，所有相邻边的电流 ( i_{vu} ) 满足：<br>
+[<br>
+\sum_{u: (v,u) \in E} i_{vu} = b_v \quad \forall v \in V<br>
+]<br>
+（( i_{vu} ) 表示从 ( v ) 流向 ( u ) 的电流）</p>
+</blockquote>
+<h4 id="2-欧姆定律"><strong>(2) 欧姆定律</strong></h4>
+<blockquote>
+<p><strong>电压差 = 电流 × 电阻</strong><br>
+即，对任意边 ( (u,v) )，有：<br>
+[<br>
+\phi(u) - \phi(v) = i_{uv} \cdot r_{uv} \quad \Leftrightarrow \quad i_{uv} = w_{uv} \cdot (\phi(u) - \phi(v))<br>
+]<br>
+（( \phi(v) ) 表示节点 ( v ) 的电压，( w_{uv} = 1/r_{uv} ) 是电导率）</p>
+</blockquote>
+<hr>
+<h3 id="2-合并定律，建立方程"><strong>2. 合并定律，建立方程</strong></h3>
+<p>将欧姆定律代入基尔霍夫定律：<br>
+[<br>
+b_v = \sum_{u: (v,u) \in E} i_{vu} = \sum_{u: (v,u) \in E} w_{vu} (\phi(v) - \phi(u))<br>
+]<br>
+整理后得到：<br>
+[<br>
+b_v = \text{deg}<em>w(v) \cdot \phi(v) - \sum</em>{u: (v,u) \in E} w_{vu} \phi(u)<br>
+]<br>
+其中：</p>
+<ul>
+<li>( \text{deg}<em>w(v) = \sum</em>{u: (v,u) \in E} w_{vu} ) 是节点 ( v ) 的<strong>加权度数</strong>（即所有邻边电导率之和）</li>
+</ul>
+<p>特别地，如果所有电导率 ( w_{uv} = 1 )，则方程简化为：<br>
+[<br>
+b = L \phi<br>
+]<br>
+其中 ( L ) 是图的<strong>拉普拉斯矩阵（Laplacian Matrix）</strong>：<br>
+[<br>
+L_{uv} =<br>
+\begin{cases}<br>
+\text{deg}(v) &amp; \text{如果 } u = v \<br>
+-1 &amp; \text{如果 } (u,v) \in E \<br>
+0 &amp; \text{否则}<br>
+\end{cases}<br>
+]</p>
+<p>这就把电路方程和拉普拉斯矩阵建立了联系！</p>
+<h3 id="电路网络方程的可解性与唯一性分析"><strong>电路网络方程的可解性与唯一性分析</strong></h3>
+<h4 id="1-问题建模与矩阵表示"><strong>1. 问题建模与矩阵表示</strong></h4>
+<p>给定电阻网络 ( G=(V,E) )，每条边 ( e \in E ) 的电导率为 ( w_e = 1/r_e )，定义以下矩阵：</p>
+<ul>
+<li>
+<p><strong>关联矩阵（Incidence Matrix）( B )</strong>：<br>
+( B \in \mathbb{R}^{|V| \times |E|} )，每列对应一条边 ( e = (u,v) )，其中 ( B_{u,e} = +1 )，( B_{v,e} = -1 )，其余为 0。</p>
+</li>
+<li>
+<p><strong>电导率对角阵 ( W )</strong>：<br>
+( W \in \mathbb{R}^{|E| \times |E|} )，( W_{e,e} = w_e )。</p>
+</li>
+<li>
+<p><strong>拉普拉斯矩阵 ( L )</strong>：<br>
+( L = B W B^\top = \sum_{e} w_e b_e b_e^\top )，其中 ( b_e ) 是边 ( e ) 对应的关联矩阵列。</p>
+</li>
+<li>
+<p><strong>为什么 (L = B W B^\top)？</strong></p>
+</li>
+<li>
+<p><strong>直观理解</strong>：<br>
+(B) 提取电压差，(W) 转为电流，(B^\top) 将电流汇总到节点。</p>
+</li>
+<li>
+<p><strong>数学推导</strong>：<br>
+[<br>
+(B W B^\top \phi)<em>v = \sum</em>{e} B_{v,e} w_e (B^\top \phi)<em>e = \sum</em>{u} w_{vu} (\phi_v - \phi_u)<br>
+]<br>
+这正是节点 (v) 的净流出电流。<br>
+<strong>电流-电压关系</strong>：<br>
+[<br>
+i = W B^\top \phi, \quad b = L \phi = B i<br>
+]<br>
+其中 ( b ) 是外部注入电流向量（( b_s = 1 ), ( b_t = -1 ), 其余为 0），( \phi ) 是节点电压向量。</p>
+</li>
+<li>
+<p><strong>解释</strong>：</p>
+<ul>
+<li>(B^\top \phi) 计算每条边的电压差（(\phi_u - \phi_v)）。</li>
+<li>(W) 乘以电压差，得到电流 (i_e = w_e (\phi_u - \phi_v))（欧姆定律）。</li>
+</ul>
+</li>
+<li>
+<p><strong>解释</strong>：</p>
+<ul>
+<li>(L \phi)：计算每个节点的净流出电流（应等于外部注入 (b)）。</li>
+<li>(B i)：直接对边电流求和，验证节点电流守恒。</li>
+</ul>
+</li>
+</ul>
+<hr>
+<h4 id="2-方程的可解性"><strong>2. 方程的可解性</strong></h4>
+<p><strong>问题</strong>：方程 ( b = L \phi ) 何时有解？<br>
+<strong>结论</strong>：</p>
+<ul>
+<li><strong>可解条件</strong>：( b ) 必须满足 ( \sum_{v \in V} b_v = 0 )（即净注入电流为零，符合物理守恒律）。</li>
+<li><strong>物理意义</strong>：电流从源节点 ( s ) 注入后必须全部从汇节点 ( t ) 流出，系统才能达到稳态。</li>
+</ul>
+<p><strong>数学证明</strong>：<br>
+拉普拉斯矩阵 ( L ) 的行和为零（因 ( L \mathbf{1} = 0 )），故 ( b ) 必须正交于 ( \mathbf{1} )（即 ( \mathbf{1}^\top b = 0 )）。</p>
+<hr>
+<h4 id="3-解的唯一性"><strong>3. 解的唯一性</strong></h4>
+<p><strong>问题</strong>：解 ( \phi ) 是否唯一？<br>
+<strong>结论</strong>：</p>
+<ul>
+<li><strong>解不唯一</strong>：若 ( \phi ) 是解，则 ( \phi + c \mathbf{1} )（( c ) 为任意常数）也是解。</li>
+<li><strong>唯一性约束</strong>：需固定一个参考电压（如设 ( \phi_t = 0 )），此时解唯一。</li>
+</ul>
+<p><strong>数学解释</strong>：<br>
+拉普拉斯矩阵 ( L ) 的秩为 ( |V|-1 )，核空间（null space）为 ( \text{span}(\mathbf{1}) )。因此，解仅在相差一个全局电压常数时唯一。</p>
+<hr>
+<h4 id="4-与图论问题的联系"><strong>4. 与图论问题的联系</strong></h4>
+<p><strong>随机游走</strong>：</p>
+<ul>
+<li>电压 ( \phi ) 可解释为从节点 ( s ) 到 ( t ) 的逃逸概率（escape probability）。</li>
+<li>电导率 ( w_e ) 对应转移概率。</li>
+</ul>
+<p><strong>网络流</strong>：</p>
+<ul>
+<li>电流 ( i ) 是满足流量守恒的最小能量流（欧姆定律等价于能量最小化）。</li>
+</ul>
+<p><strong>谱图理论</strong>：</p>
+<ul>
+<li>拉普拉斯矩阵 ( L ) 的特征值反映了网络的连通性（如代数连通度 ( \lambda_2 ) 与 Cheeger 不等式相关）。</li>
+</ul>
+<hr>
+<h3 id="拉普拉斯矩阵的秩与解的唯一性分析"><strong>拉普拉斯矩阵的秩与解的唯一性分析</strong></h3>
+<h4 id="1-拉普拉斯矩阵的秩缺陷性"><strong>1. 拉普拉斯矩阵的秩缺陷性</strong></h4>
+<ul>
+<li>
+<p><strong>核心性质</strong>：<br>
+拉普拉斯矩阵 ( L ) <strong>不是满秩矩阵</strong>，因为 ( L \mathbf{1} = 0 )（其中 (\mathbf{1}) 是全1向量）。</p>
+<ul>
+<li><strong>物理意义</strong>：全局电压平移（(\phi \to \phi + c\mathbf{1})）不影响电流分布，符合电压的相对性。</li>
+</ul>
+</li>
+<li>
+<p><strong>零空间（Nullspace）</strong>：<br>
+若图是<strong>连通</strong>的，( L ) 的零空间仅由 (\text{span}(\mathbf{1})) 构成，即：<br>
+[<br>
+\text{null}(L) = { c \mathbf{1} \mid c \in \mathbb{R} }<br>
+]</p>
+</li>
+</ul>
+<h4 id="2-方程-L-phi-b-的解存在条件"><strong>2. 方程 ( L \phi = b ) 的解存在条件</strong></h4>
+<ul>
+<li>
+<p><strong>引理</strong>：若 ( L \phi = b ) 有解，则必须满足 ( b \perp \mathbf{1} )（即 (\sum_v b_v = 0)）。</p>
+<ul>
+<li><strong>证明</strong>：<br>
+由于 ( L \mathbf{1} = 0 )，对任意解 (\phi)，有：<br>
+[<br>
+\mathbf{1}^\top b = \mathbf{1}^\top (L \phi) = (L \mathbf{1})^\top \phi = 0<br>
+]</li>
+<li><strong>物理对应</strong>：外部注入电流的代数和为零（电流守恒）。</li>
+</ul>
+</li>
+<li>
+<p><strong>连通图的解结构</strong>：<br>
+若图连通且 ( b \perp \mathbf{1} )，则解存在且可表示为：<br>
+[<br>
+\phi = \phi_0 + c \mathbf{1}, \quad c \in \mathbb{R}<br>
+]<br>
+其中 (\phi_0) 是特解（如固定 (\phi_t = 0) 后唯一解）。</p>
+</li>
+</ul>
+<h4 id="3-特征值视角的解释"><strong>3. 特征值视角的解释</strong></h4>
+<ul>
+<li><strong>谱分解</strong>：<br>
+设 ( L ) 的特征值为 ( 0 = \lambda_1 &lt; \lambda_2 \leq \cdots \leq \lambda_n )，对应正交特征向量 ( \mathbf{1}, v_2, \dots, v_n )。
+<ul>
+<li><strong>解的存在性</strong>：<br>
+将 ( b ) 投影到特征空间，若 ( b ) 不含 ( \mathbf{1} ) 分量（即 ( b \perp \mathbf{1} )），则解存在。</li>
+<li><strong>解的表达式</strong>：<br>
+[<br>
+\phi = \sum_{i=2}^n \frac{\langle b, v_i \rangle}{\lambda_i} v_i + c \mathbf{1}<br>
+]<br>
+（( \lambda_2 &gt; 0 ) 保证连通图的可解性）</li>
+</ul>
+</li>
+</ul>
+<h4 id="4-物理意义与电路网络"><strong>4. 物理意义与电路网络</strong></h4>
+<ul>
+<li>
+<p><strong>电流平衡</strong>：<br>
+条件 ( \sum_v b_v = 0 ) 对应电路中的<strong>基尔霍夫电流定律</strong>（KCL），即注入电流等于流出电流。</p>
+<ul>
+<li><strong>示例</strong>：<br>
+若从节点 ( s ) 注入 ( 1\text{A} )，则必须有节点 ( t ) 流出 ( 1\text{A} )，其余 ( b_v = 0 )。</li>
+</ul>
+</li>
+<li>
+<p><strong>电压唯一性</strong>：<br>
+通过固定参考电压（如接地 ( \phi_t = 0 )），消除零空间自由度，得到唯一解。</p>
+</li>
+</ul>
+<h3 id="拉普拉斯矩阵的伪逆与解的结构"><strong>拉普拉斯矩阵的伪逆与解的结构</strong></h3>
+<h4 id="引理"><strong>引理</strong></h4>
+<p>若 ( b \perp \mathbf{1} )，则存在向量 ( \phi ) 使得 ( L \phi = b )。</p>
+<h4 id="证明"><strong>证明</strong></h4>
+<ol>
+<li>
+<p><strong>谱分解</strong>：<br>
+由于 ( L ) 是对称半正定矩阵，可分解为：<br>
+[<br>
+L = \sum_{i=2}^n \lambda_i v_i v_i^\top<br>
+]<br>
+其中 ( \lambda_1 = 0 )，对应特征向量 ( v_1 = \frac{1}{\sqrt{n}} \mathbf{1} )，且 ( \lambda_2, \dots, \lambda_n &gt; 0 )（若图连通）。</p>
+</li>
+<li>
+<p><strong>条件 ( b \perp \mathbf{1} )</strong>：<br>
+由正交性，( b ) 可表示为非零特征向量的线性组合：<br>
+[<br>
+b = \sum_{i=2}^n a_i v_i<br>
+]</p>
+</li>
+<li>
+<p><strong>构造解 ( \phi )</strong>：<br>
+取：<br>
+[<br>
+\phi = \sum_{i=2}^n \frac{a_i}{\lambda_i} v_i<br>
+]<br>
+验证：<br>
+[<br>
+L \phi = \sum_{i=2}^n \lambda_i v_i v_i^\top \left( \sum_{j=2}^n \frac{a_j}{\lambda_j} v_j \right) = \sum_{i=2}^n a_i v_i = b<br>
+]</p>
+</li>
+</ol>
+<hr>
+<h4 id="伪逆-L-dagger-的定义与性质"><strong>伪逆 ( L^\dagger ) 的定义与性质</strong></h4>
+<p>定义伪逆：<br>
+[<br>
+L^\dagger = \sum_{i=2}^n \frac{1}{\lambda_i} v_i v_i^\top<br>
+]</p>
+<p><strong>性质</strong>：</p>
+<ol>
+<li><strong>唯一性</strong>：
+<ul>
+<li>对任意 ( b \perp \mathbf{1} )，( \phi = L^\dagger b ) 是唯一满足 ( L \phi = b ) 且 ( \phi \perp \mathbf{1} ) 的解。</li>
+</ul>
+</li>
+<li><strong>通解结构</strong>：
+<ul>
+<li>方程 ( L \phi = b ) 的全体解为：<br>
+[<br>
+\phi = L^\dagger b + c \mathbf{1}, \quad c \in \mathbb{R}<br>
+]</li>
+</ul>
+</li>
+<li><strong>固定电压的唯一解</strong>：
+<ul>
+<li>若指定某节点电压（如 ( \phi_v = 0 )），则解唯一。</li>
+</ul>
+</li>
+</ol>
+<hr>
+<h4 id="物理意义"><strong>物理意义</strong></h4>
+<ol>
+<li><strong>伪逆的作用</strong>：
+<ul>
+<li>( L^\dagger ) 将电流分布 ( b ) 映射到<strong>最小范数电压解</strong>（即 ( \phi \perp \mathbf{1} )）。</li>
+</ul>
+</li>
+<li><strong>平移自由度</strong>：
+<ul>
+<li>解中的 ( c \mathbf{1} ) 反映电压的全局参考点可任意选择，不影响电流分布。</li>
+</ul>
+</li>
+</ol>
+<hr>
+<h2 id="一个引理">一个引理</h2>
+<p>引理：$R_{\text{eff}}(s, t) = b_{st}^\top L^\dagger b_{st}$，其中向量$b_{st} \in \mathbb{R}^n$满足<br>
+$b_{st}(s) = 1$, $b_{st}(t) = -1$，并且其它位置都为0。<br>
+<strong>等效电阻的表达式</strong>：</p>
+<ul>
+<li>从 ( \phi = L^\dagger b ) 和 ( R_{\text{eff}}(s, t) = \phi(s) - \phi(t) ) 出发：<br>
+[<br>
+\phi(s) = (L^\dagger b)(s) = \sum_j L^\dagger(s, j) b(j) = L^\dagger(s, s) \cdot 1 + L^\dagger(s, t) \cdot (-1),<br>
+]<br>
+[<br>
+\phi(t) = (L^\dagger b)(t) = \sum_j L^\dagger(t, j) b(j) = L^\dagger(t, s) \cdot 1 + L^\dagger(t, t) \cdot (-1).<br>
+]</li>
+<li>因此：<br>
+[<br>
+R_{\text{eff}}(s, t) = \phi(s) - \phi(t) = \left[ L^\dagger(s, s) - L^\dagger(s, t) \right] - \left[ L^\dagger(t, s) - L^\dagger(t, t) \right].<br>
+]</li>
+<li>由于 ( L^\dagger ) 对称，( L^\dagger(s, t) = L^\dagger(t, s) )，所以：<br>
+[<br>
+R_{\text{eff}}(s, t) = L^\dagger(s, s) + L^\dagger(t, t) - 2 L^\dagger(s, t).<br>
+]</li>
+<li>另一方面，( b_{st}^\top L^\dagger b_{st} ) 可以展开为：<br>
+[<br>
+b_{st}^\top L^\dagger b_{st} = \sum_i \sum_j b_{st}(i) L^\dagger(i, j) b_{st}(j) = L^\dagger(s, s) - L^\dagger(s, t) - L^\dagger(t, s) + L^\dagger(t, t).<br>
+]</li>
+<li>由于 ( L^\dagger ) 对称，因此：<br>
+[<br>
+b_{st}^\top L^\dagger b_{st} = L^\dagger(s, s) + L^\dagger(t, t) - 2 L^\dagger(s, t) = R_{\text{eff}}(s, t).<br>
+]</li>
+<li>引理得证。</li>
+</ul>
+<h1>拉普拉斯矩阵二次型的展开证明</h1>
+<p>设图$G=(V,E)$的边带有电阻$r_e$，对应的电导为$c_e = 1/r_e$。拉普拉斯矩阵$L$定义为：</p>
+<p>[<br>
+L_{uv} =<br>
+\begin{cases}<br>
+\sum_{w \sim u} c_{uw} &amp; \text{若 } u=v \<br>
+c_{uv} &amp; \text{若 } u \neq v \text{ 且 } (u,v)\in E \<br>
+0 &amp; \text{其他情况}<br>
+\end{cases}<br>
+]</p>
+<h2 id="步骤1：展开二次型">步骤1：展开二次型</h2>
+<p>考虑电势向量$\phi$的二次型：</p>
+<p>[<br>
+\phi^\top L\phi = \sum_{u \in V} \sum_{v \in V} \phi_u L_{uv} \phi_v<br>
+]</p>
+<h2 id="步骤2：分离对角线项和非对角线项">步骤2：分离对角线项和非对角线项</h2>
+<p>将求和分为$u=v$和$u\neq v$的情况：</p>
+<p>[<br>
+= \underbrace{\sum_{u \in V} \phi_u^2 L_{uu}}<em>{\text{对角线项}} + \underbrace{\sum</em>{u \neq v} \phi_u L_{uv} \phi_v}_{\text{非对角线项}}<br>
+]</p>
+<h2 id="步骤3：代入拉普拉斯矩阵定义">步骤3：代入拉普拉斯矩阵定义</h2>
+<p>对于对角线项：<br>
+[<br>
+\sum_{u \in V} \phi_u^2 \left(\sum_{w \sim u} c_{uw}\right) = \sum_{u \in V} \sum_{e=(u,w)\in E} \phi_u^2 c_e<br>
+]</p>
+<p>对于非对角线项：<br>
+[<br>
+\sum_{u \neq v} \phi_u (-c_{uv}) \phi_v = -\sum_{e=(u,v)\in E} \phi_u \phi_v c_e \quad (\text{每条边计算两次})<br>
+]</p>
+<h2 id="步骤4：合并对角线与非对角线项">步骤4：合并对角线与非对角线项</h2>
+<p>[<br>
+\phi^\top L\phi = \sum_{e=(u,v)\in E} \left[ \phi_u^2 c_e + \phi_v^2 c_e - 2\phi_u \phi_v c_e \right]<br>
+]</p>
+<h2 id="步骤5：重组为平方项">步骤5：重组为平方项</h2>
+<p>观察到：<br>
+[<br>
+\phi_u^2 c_e + \phi_v^2 c_e - 2\phi_u \phi_v c_e = c_e (\phi_u - \phi_v)^2<br>
+]</p>
+<p>因此：<br>
+[<br>
+\phi^\top L\phi = \sum_{e=(u,v)\in E} \frac{(\phi_u - \phi_v)^2}{r_e}<br>
+]</p>
+<h2 id="几何解释">几何解释</h2>
+<p>这个过程实现了从节点空间到边空间的转换：</p>
+<ol>
+<li>初始的二次型计算所有节点间的电势交互</li>
+<li>拉普拉斯矩阵的结构保证最终结果仅与相邻节点电势差相关</li>
+<li>每个边贡献的项可以理解为该边上的能量耗散</li>
+</ol>
+<h2 id="最终结论">最终结论</h2>
+<p>$\displaystyle \phi^\top L\phi = \sum_{e=(u,v)\in E} \frac{(\phi_u - \phi_v)^2}{r_e}$</p>
+<p>这个等式揭示了图拉普拉斯矩阵的物理意义：它编码了网络中所有边上的电势差能量。在电路理论中，这正好对应焦耳定律给出的能量耗散公式。</p>
+<h1>有效电阻与能量耗散的关系</h1>
+<p>设$G=(V,E)$为一个无向图，$r_e$为边$e$的电阻值，$i_e$为边$e$上的电流。考虑从源点$s$到汇点$t$的单位电流。</p>
+<h2 id="能量耗散表达式">能量耗散表达式</h2>
+<p>网络中的总能量耗散可以表示为：<br>
+[<br>
+\mathcal{E}(i) = \sum_{e\in E} i_e^2 \cdot r_e<br>
+]</p>
+<h2 id="电势表示">电势表示</h2>
+<p>根据欧姆定律，电流可以表示为电势差：<br>
+[<br>
+i_e = \frac{\phi_u - \phi_v}{r_e}<br>
+]<br>
+其中$\phi$是电势函数，满足基尔霍夫电流定律$L\phi = b_{st}$，这里$b_{st} = \mathbf{1}_s - \mathbf{1}_t$。</p>
+<p>因此能量耗散可改写为：<br>
+[<br>
+\mathcal{E}(i) = \sum_{e=(u,v)\in E} \left(\frac{\phi_u - \phi_v}{r_e}\right)^2 \cdot r_e = \sum_{e=(u,v)\in E} \frac{(\phi_u - \phi_v)^2}{r_e}<br>
+]</p>
+<h2 id="拉普拉斯矩阵形式">拉普拉斯矩阵形式</h2>
+<p>注意到：<br>
+[<br>
+\phi^\top L\phi = \sum_{u,v} \phi_u L_{uv} \phi_v = \sum_{e=(u,v)\in E} \frac{(\phi_u - \phi_v)^2}{r_e}<br>
+]<br>
+因此：<br>
+[<br>
+\mathcal{E}(i) = \phi^\top L\phi<br>
+]</p>
+<h2 id="有效电阻计算">有效电阻计算</h2>
+<p>由于$L\phi = b_{st}$，且$L$的伪逆$L^\dagger$满足$\phi = L^\dagger b_{st}$，代入得：<br>
+[<br>
+\mathcal{E}(i) = (L^\dagger b_{st})^\top L (L^\dagger b_{st}) = b_{st}^\top L^\dagger b_{st}<br>
+]</p>
+<p>这正是$s$和$t$之间的有效电阻$R_{\text{eff}}(s,t)$的定义：<br>
+[<br>
+R_{\text{eff}}(s,t) = b_{st}^\top L^\dagger b_{st} = (\mathbf{1}_s - \mathbf{1}_t)^\top L^\dagger (\mathbf{1}_s - \mathbf{1}_t)<br>
+]</p>
+<h2 id="结论">结论</h2>
+<p>因此我们证明了：<br>
+[<br>
+\mathcal{E}(i) = R_{\text{eff}}(s,t)<br>
+]<br>
+即<strong>单位电流下的能量耗散等于$s$和$t$之间的有效电阻。</strong></p>
+<h1>有效电阻与单位流的能量最小化定理</h1>
+<h2 id="Thompson’s-Principle-定理陈述">Thompson’s Principle 定理陈述</h2>
+<h2 id="对于任意图-G-V-E-和边上的电阻-r-e-1-（-forall-e-in-E-），有效电阻满足：-R-text-eff-s-t-leq-mathcal-E-g-其中-g-是任意单位-s-t-流。">对于任意图 $G=(V,E)$ 和边上的电阻 $r_e = 1$（$\forall e \in E$），有效电阻满足：<br>
+$$<br>
+R_{\text{eff}}(s,t) \leq \mathcal{E}(g)<br>
+$$<br>
+其中 $g$ 是任意单位 $s$-$t$ 流。</h2>
+<h3 id="1-问题形式化"><strong>1. 问题形式化</strong></h3>
+<p><strong>目标函数与约束条件</strong><br>
+考虑最小化能量：<br>
+[<br>
+\min_{g} \mathcal{E}(g) = \min_{g} \sum_{e \in E} g_e^2 \quad \text{s.t.} \quad B g = b_{st}<br>
+]<br>
+其中：</p>
+<ul>
+<li>( B ) 是图的关联矩阵（节点-边矩阵），维度为 ( n \times |E| )。</li>
+<li>( b_{st} ) 是单位流需求向量，满足 ( b_{st}(s) = +1 )，( b_{st}(t) = -1 )，其余节点为 0。</li>
+<li>流 ( g ) 满足基尔霍夫电流定律（流守恒）。</li>
+</ul>
+<hr>
+<h3 id="2-拉格朗日乘子法与KKT条件"><strong>2. 拉格朗日乘子法与KKT条件</strong></h3>
+<p><strong>拉格朗日函数</strong><br>
+引入拉格朗日乘子 ( \phi \in \mathbb{R}^n )，构造拉格朗日函数：<br>
+[<br>
+\mathcal{L}(g, \phi) = \sum_{e} g_e^2 + \phi^\top (B g - b_{st})<br>
+]</p>
+<p><strong>梯度条件</strong><br>
+对 ( g ) 求导并令导数为零：<br>
+[<br>
+\nabla_g \mathcal{L} = 2g + B^\top \phi = 0 \quad \implies \quad g = -\frac{1}{2} B^\top \phi<br>
+]<br>
+这表明最优流 ( g ) 由某个电势向量 ( \phi ) 通过 ( B^\top \phi ) 确定，符号由电阻方向决定。</p>
+<hr>
+<h3 id="3-代入约束条件"><strong>3. 代入约束条件</strong></h3>
+<p>将 ( g = -\frac{1}{2} B^\top \phi ) 代入约束 ( B g = b_{st} )：<br>
+[<br>
+B \left(-\frac{1}{2} B^\top \phi \right) = b_{st} \quad \implies \quad -\frac{1}{2} B B^\top \phi = b_{st}<br>
+]<br>
+注意到 ( L = B B^\top ) 是图的拉普拉斯矩阵，因此：<br>
+[<br>
+L \phi = -2 b_{st}<br>
+]<br>
+由于拉普拉斯矩阵 ( L ) 秩为 ( n-1 )，需设定参考点（如 ( \phi_t = 0 )）后解得：<br>
+[<br>
+\phi = -2 L^+ b_{st}<br>
+]<br>
+其中 ( L^+ ) 是 ( L ) 的伪逆矩阵。</p>
+<hr>
+<h3 id="4-最优能量与有效电阻的关系"><strong>4. 最优能量与有效电阻的关系</strong></h3>
+<p><strong>最优流的能量</strong><br>
+将 ( g = -\frac{1}{2} B^\top \phi ) 代入目标函数：<br>
+[<br>
+\mathcal{E}(g) = g^\top g = \left(-\frac{1}{2} B^\top \phi \right)^\top \left(-\frac{1}{2} B^\top \phi \right) = \frac{1}{4} \phi^\top B B^\top \phi<br>
+]<br>
+利用 ( L = B B^\top ) 和 ( \phi = -2 L^+ b_{st} )：<br>
+[<br>
+\mathcal{E}(g) = \frac{1}{4} \phi^\top L \phi = \frac{1}{4} (-2 b_{st}^\top L^+) L (-2 L^+ b_{st}) = b_{st}^\top L^+ b_{st}<br>
+]</p>
+<p><strong>有效电阻的定义</strong><br>
+有效电阻 ( R_{\text{eff}}(s, t) ) 定义为电势差除以单位电流：<br>
+[<br>
+R_{\text{eff}}(s, t) = \phi_s - \phi_t = (\chi_s - \chi_t)^\top \phi<br>
+]<br>
+其中 ( \chi_s ) 和 ( \chi_t ) 是 ( s ) 和 ( t ) 的指示向量。结合 ( \phi = -2 L^+ b_{st} )，有：<br>
+[<br>
+R_{\text{eff}}(s, t) = (\chi_s - \chi_t)^\top (-2 L^+ b_{st}) = -2 (\chi_s - \chi_t)^\top L^+ (\chi_s - \chi_t)<br>
+]<br>
+由于 ( b_{st} = \chi_s - \chi_t )，且 ( L^+ ) 对称，可得：<br>
+[<br>
+R_{\text{eff}}(s, t) = b_{st}^\top L^+ b_{st}<br>
+]<br>
+因此，最优能量 ( \mathcal{E}(g) = R_{\text{eff}}(s, t) )。</p>
+<hr>
+<h3 id="5-结论"><strong>5. 结论</strong></h3>
+<p>对任意单位 ( s )-( t ) 流 ( g )，其能量 ( \mathcal{E}(g) ) 满足：<br>
+[<br>
+\mathcal{E}(g) \geq \mathcal{E}(g^<em>) = R_{\text{eff}}(s, t)<br>
+]<br>
+其中 ( g^</em> ) 是最优流，由电势差通过欧姆定律生成。这表明有效电阻是所有可能单位流能量的最小值。</p>
+<hr>
+<h3 id="最终结论-2"><strong>最终结论</strong></h3>
+<p>[<br>
+R_{\text{eff}}(s, t) = \min_{g: Bg = b_{st}} \sum_{e} g_e^2 \quad \implies \quad R_{\text{eff}}(s, t) \leq \mathcal{E}(g) \quad \forall \text{单位 } s\text{-}t \text{流 } g.<br>
+]</p>
+<hr>
+<p><strong>关键点总结</strong></p>
+<ol>
+<li><strong>KKT条件</strong> 导出了最优流与电势的关系，符合欧姆定律。</li>
+<li><strong>拉普拉斯矩阵伪逆</strong> 将电势差与有效电阻直接关联。</li>
+<li><strong>凸优化唯一性</strong> 保证了最小能量的存在性，且等于有效电阻。</li>
+</ol>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://chenzhan20050128.github.io/notes.github.io/2025/06/23/noteSVD/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/notes.github.io/images/woshicaigou.jpg">
+      <meta itemprop="name" content="Chen Zhan">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="cz Blog">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/notes.github.io/2025/06/23/noteSVD/" class="post-title-link" itemprop="url">noteSVD</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2025-06-23 12:22:32" itemprop="dateCreated datePublished" datetime="2025-06-23T12:22:32+08:00">2025-06-23</time>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <h3 id="定理">定理</h3>
+<p>设 ( A = U \Sigma V^* ) 是 ( A \in \mathbb{C}^{m \times n} ) ( ( m \geq n ) ) 的奇异值分解，则：</p>
+<h4 id="1-A-A-的特征值是-sigma-i-2-，对应的特征向量是-v-i">(1) ( A^*A ) 的特征值是 ( \sigma_i^2 )，对应的特征向量是 ( v_i )</h4>
+<p>证明：</p>
+<ul>
+<li>我们有 ( A^* A = (U \Sigma V^<em>)^</em> (U \Sigma V^<em>) = V \Sigma^</em> U^* U \Sigma V^* = V \Sigma^2 V^* )。</li>
+<li>由于 ( U^* U = I )，所以 ( A^* A = V \Sigma^2 V^* )。</li>
+<li>因此，( A^* A ) 的特征值为 ( \sigma_i^2 )，对应的特征向量为 ( v_i )。</li>
+</ul>
+<h4 id="2-AA-的特征值是-sigma-i-2-和-m-n-个零，对应的特征向量是-u-i">(2) ( AA^* ) 的特征值是 ( \sigma_i^2 ) 和 ( m-n ) 个零，对应的特征向量是 ( u_i )</h4>
+<p>证明：</p>
+<ul>
+<li>我们有 ( AA^* = (U \Sigma V^<em>)(U \Sigma V^</em>)^* = U \Sigma V^* V \Sigma^* U^* = U \Sigma \Sigma^* U^* )。</li>
+<li>由于 ( V^* V = I_n )，所以 ( AA^* = U \Sigma \Sigma^* U^* )。</li>
+<li>注意到 ( \Sigma ) 是一个 ( n \times n ) 的对角矩阵，且只有 ( r ) 个非零对角元素，因此 ( AA^* ) 的特征值为 ( \sigma_i^2 ) 和 ( m-n ) 个零，对应的特征向量为 ( u_i )。</li>
+</ul>
+<h4 id="3-A-2-sigma-1-A-F-sqrt-sigma-1-2-sigma-2-2-cdots-sigma-n-2">(3) ( |A|_2 = \sigma_1, |A|_F = \sqrt{\sigma_1^2 + \sigma_2^2 + \cdots + \sigma_n^2} )</h4>
+<p>证明：</p>
+<ul>
+<li>矩阵的谱范数 ( |A|_2 ) 定义为最大的奇异值，即 ( |A|_2 = \sigma_1 )。</li>
+<li>Frobenius 范数定义为 ( |A|<em>F = \sqrt{\sum</em>{i=1}^{n} \sigma_i^2} )，所以 ( |A|_F = \sqrt{\sigma_1^2 + \sigma_2^2 + \cdots + \sigma_n^2} )。</li>
+</ul>
+<h4 id="4-若-text-rank-A-r-leq-n-，则-text-Ran-A-text-span-u-1-u-2-ldots-u-r-，-text-Ker-A-text-span-v-r-1-v-r-2-ldots-v-n">(4) 若 ( \text{rank}(A) = r \leq n )，则 ( \text{Ran}(A) = \text{span}{u_1, u_2, \ldots, u_r} )，( \text{Ker}(A) = \text{span}{v_{r+1}, v_{r+2}, \ldots, v_n} )</h4>
+<p>证明：</p>
+<ul>
+<li>因为 ( A ) 的秩为 ( r )，所以 ( A ) 的列空间 ( \text{Ran}(A) ) 由 ( r ) 个线性无关的列生成，即 ( \text{Ran}(A) = \text{span}{u_1, u_2, \ldots, u_r} )。</li>
+<li>核空间 ( \text{Ker}(A) ) 由 ( n-r ) 个线性无关的列生成，即 ( \text{Ker}(A) = \text{span}{v_{r+1}, v_{r+2}, \ldots, v_n} )。</li>
+</ul>
+<h4 id="5-设-x-in-mathbb-C-n-且-x-2-1-，则-sigma-n-leq-Ax-2-leq-sigma-1">(5) 设 ( x \in \mathbb{C}^n ) 且 ( |x|_2 = 1 )，则 ( \sigma_n \leq |Ax|_2 \leq \sigma_1 )</h4>
+<p>证明：</p>
+<ul>
+<li>根据奇异值分解，( |Ax|_2 = |U \Sigma V^* x|_2 = |\Sigma V^* x|_2 )。</li>
+<li>由于 ( V^* x ) 是一个 ( n )-维向量，且其 2 范数的最大值为 1，( |Ax|_2 ) 的最小值为 ( \sigma_n )（对应于最小的奇异值），最大值为 ( \sigma_1 )（对应于最大的奇异值）。</li>
+</ul>
+<h4 id="6-酉不变性-设-X-in-mathbb-C-m-times-m-和-Y-in-mathbb-C-n-times-n-是酉矩阵，则-sigma-i-X-AY-sigma-i-A">(6) (酉不变性) 设 ( X \in \mathbb{C}^{m \times m} ) 和 ( Y \in \mathbb{C}^{n \times n} ) 是酉矩阵，则 ( \sigma_i(X^*AY) = \sigma_i(A) )</h4>
+<p>证明：</p>
+<ul>
+<li>由于 ( X ) 和 ( Y ) 是酉矩阵，( X^* A Y ) 和 ( A ) 具有相同的奇异值，因为酉矩阵在范数下是等距的，这意味着奇异值不变。</li>
+</ul>
+<p>条件数的几何意义<br>
+条件数反映了矩阵将单位球映射到椭球后的最长轴与最短轴之比。即使特征值全为 1，椭球的形状仍可能高度拉伸（由奇异值决定）。</p>
+<h3 id="低秩逼近定理的详细解释"><strong>低秩逼近定理的详细解释</strong></h3>
+<h4 id="1-定理陈述"><strong>1. 定理陈述</strong></h4>
+<p>设 ( A = U \Sigma V^* ) 是 ( A \in \mathbb{C}^{m \times n} ) 的细奇异值分解（即紧凑形式的 SVD，仅保留非零奇异值）。定义：<br>
+[<br>
+A_k = \sum_{i=1}^k \sigma_i u_i v_i^*<br>
+]<br>
+其中 ( \sigma_1 \geq \sigma_2 \geq \cdots \geq \sigma_r &gt; 0 ) 是 ( A ) 的非零奇异值（( r = \text{rank}(A) )）。则：</p>
+<ol>
+<li>( A_k ) 是 <strong>所有秩为 ( k ) 的矩阵中，在 2-范数下最接近 ( A ) 的解</strong>，即：<br>
+[<br>
+|A - A_k|<em>2 = \sigma</em>{k+1},<br>
+]<br>
+且 ( A_k ) 满足：<br>
+[<br>
+A_k = \arg\min_{\substack{B \in \mathbb{C}^{m \times n} \ \text{rank}(B) = k}} |A - B|_2.<br>
+]</li>
+<li>对于 Frobenius 范数，类似结论成立：<br>
+[<br>
+|A - A_k|<em>F = \sqrt{\sum</em>{i=k+1}^r \sigma_i^2}.<br>
+]</li>
+</ol>
+<hr>
+<h4 id="2-直观解释"><strong>2. 直观解释</strong></h4>
+<p>矩阵的低秩逼近目标是：用秩为 ( k ) 的矩阵 ( A_k ) 尽可能接近原矩阵 ( A )。</p>
+<ul>
+<li><strong>几何意义</strong>：将 ( A ) 的作用分解到正交方向（由奇异向量 ( u_i, v_i ) 定义），保留前 ( k ) 个最重要的方向（对应最大奇异值），截断后面的方向。</li>
+<li><strong>应用场景</strong>：数据压缩、主成分分析（PCA）、去噪等。</li>
+</ul>
+<hr>
+<h4 id="3-为什么-A-k-是最优解？"><strong>3. 为什么 ( A_k ) 是最优解？</strong></h4>
+<h5 id="1-2-范数的最优性"><strong>(1) 2-范数的最优性</strong></h5>
+<ul>
+<li>
+<p><strong>奇异值的性质</strong>：<br>
+矩阵的 2-范数 ( |A|<em>2 ) 是其最大奇异值 ( \sigma_1 )。构造 ( A_k ) 时，保留了前 ( k ) 个奇异值 ( \sigma_1, \dots, \sigma_k )，将后面的奇异值置零。<br>
+因此，误差矩阵 ( A - A_k ) 的奇异值为 ( \sigma</em>{k+1}, \dots, \sigma_r )，其 2-范数为最大剩余奇异值：<br>
+[<br>
+|A - A_k|<em>2 = \sigma</em>{k+1}.<br>
+]</p>
+</li>
+<li>
+<p><strong>极值性证明（Eckart–Young–Mirsky 定理）</strong>：<br>
+对任意秩为 ( k ) 的矩阵 ( B )，其奇异值最多有 ( k ) 个非零值。由于奇异值已按降序排列，保留前 ( k ) 个最大奇异值会最小化剩余奇异值的最大值，即：<br>
+[<br>
+\sigma_{k+1} \leq |A - B|<em>2 \quad \text{对所有秩为 } k \text{ 的 } B.<br>
+]<br>
+因此，( A_k ) 达到了下界 ( \sigma</em>{k+1} )，是最优解。</p>
+</li>
+</ul>
+<hr>
+<h5 id="2-Frobenius-范数的最优性"><strong>(2) Frobenius 范数的最优性</strong></h5>
+<ul>
+<li>
+<p><strong>Frobenius 范数的定义</strong>：<br>
+[<br>
+|A|<em>F = \sqrt{\sum</em>{i=1}^r \sigma_i^2}.<br>
+]<br>
+构造 ( A_k ) 时，截断后 ( k+1 ) 到 ( r ) 的奇异值被舍弃，因此误差为：<br>
+[<br>
+|A - A_k|<em>F = \sqrt{\sum</em>{i=k+1}^r \sigma_i^2}.<br>
+]</p>
+</li>
+<li>
+<p><strong>极值性证明</strong>：<br>
+由于 Frobenius 范数是各方向奇异值平方和的平方根，保留前 ( k ) 个最大奇异值会最小化剩余部分的平方和。对任意秩为 ( k ) 的 ( B )，有：<br>
+[<br>
+\sum_{i=k+1}^r \sigma_i^2 \leq |A - B|_F^2,<br>
+]<br>
+因此 ( A_k ) 是最优解。</p>
+</li>
+</ul>
+<hr>
+<h1>矩阵的2-范数等于其最大奇异值σ₁。</h1>
+<p>矩阵的2-范数定义为：</p>
+<p>[<br>
+|A|_2 = \sup \left{ \frac{|Ax|_2}{|x|_2} \mid x \neq 0 \right}<br>
+]</p>
+<p>或者等价地：</p>
+<p>[<br>
+|A|_2 = \max \left{ |Ax|_2 \mid |x|_2 = 1 \right}<br>
+]</p>
+<p>通过奇异值分解（SVD），矩阵A可以分解为 ( A = U\Sigma V^* )，其中U和V是酉矩阵，Σ是对角矩阵，对角线上的元素是奇异值σ₁ ≥ σ₂ ≥ … ≥ σₙ ≥ 0。</p>
+<p>考虑向量x经过矩阵A作用后的模长：</p>
+<p>[<br>
+|Ax|_2 = |U\Sigma V^* x|_2<br>
+]</p>
+<p>由于U和V是酉矩阵，不改变向量的模长，令 ( y = V^* x )，则 ( |y|_2 = |x|_2 )，因此：</p>
+<p>[<br>
+|Ax|_2 = |\Sigma y|_2<br>
+]</p>
+<p>对于单位向量x，y也是单位向量，因此：</p>
+<p>[<br>
+|\Sigma y|<em>2 = \sqrt{\sum</em>{i=1}^n \sigma_i^2 |y_i|^2}<br>
+]</p>
+<p>当y的分量集中在最大奇异值σ₁对应的位置时，例如y = (1, 0, …, 0)，此时：</p>
+<p>[<br>
+|\Sigma y|_2 = \sigma_1<br>
+]</p>
+<p>因此，矩阵A的2-范数即为最大奇异值σ₁。</p>
+<p>进一步验证，考虑矩阵A*A的最大特征值λ₁，其平方根即为最大奇异值σ₁。根据瑞利商，向量x的最大增长倍数为：</p>
+<p>[<br>
+\sqrt{\lambda_1} = \sigma_1<br>
+]</p>
+<p>因此，矩阵的2-范数等于其最大奇异值σ₁。</p>
+<h1>QR分解在线性最小二乘的应用</h1>
+<h3 id="问题描述"><strong>问题描述</strong></h3>
+<p>给定满秩矩阵 ( A \in \mathbb{R}^{m \times n} )（( m \geq n )），求线性最小二乘问题：<br>
+[<br>
+\min_{x \in \mathbb{R}^n} | Ax - b |_2^2<br>
+]<br>
+的解析解 ( x^* )。</p>
+<h3 id="方法-1：利用-QR-分解的正交补空间投影"><strong>方法 1：利用 QR 分解的正交补空间投影</strong></h3>
+<h4 id="1-QR-分解"><strong>1. QR 分解</strong></h4>
+<p>由于 ( A ) 是满秩的，可以进行 <strong>QR 分解</strong>：<br>
+[<br>
+A = QR<br>
+]<br>
+其中：</p>
+<ul>
+<li>( Q \in \mathbb{R}^{m \times n} ) 是 <strong>列正交矩阵</strong>（即 ( Q^\top Q = I_n )），</li>
+<li>( R \in \mathbb{R}^{n \times n} ) 是 <strong>上三角可逆矩阵</strong>（因为 ( A ) 满秩）。</li>
+</ul>
+<p>由于 ( m \geq n )，我们可以将 ( Q ) <strong>扩充</strong>成一个完整的正交矩阵：<br>
+[<br>
+[Q, \hat{Q}] \in \mathbb{R}^{m \times m}<br>
+]<br>
+其中：</p>
+<ul>
+<li>( \hat{Q} \in \mathbb{R}^{m \times (m - n)} ) 是 ( Q ) 的正交补（即 ( Q^\top \hat{Q} = 0 ) 且 ( \hat{Q}^\top \hat{Q} = I_{m-n} )）。</li>
+</ul>
+<h4 id="2-残差范数的分解"><strong>2. 残差范数的分解</strong></h4>
+<p>利用 ( [Q, \hat{Q}] ) 的正交性（( [Q, \hat{Q}]^\top [Q, \hat{Q}] = I_m )），残差范数可以写成：<br>
+[<br>
+| Ax - b |_2^2 = | [Q, \hat{Q}]^\top (Ax - b) |_2^2<br>
+]<br>
+因为正交变换不改变范数。</p>
+<p>代入 ( A = QR )：<br>
+[<br>
+= | [Q, \hat{Q}]^\top (QRx - b) |_2^2<br>
+]</p>
+<h1>计算 ( [Q, \hat{Q}]^\top ) 与 ( QRx - b ) 的乘积：<br>
+[<br>
+[Q, \hat{Q}]^\top (QRx - b) =<br>
+\begin{bmatrix}<br>
+Q^\top (QRx - b) \<br>
+\hat{Q}^\top (QRx - b)<br>
+\end{bmatrix}</h1>
+<p>\begin{bmatrix}<br>
+Rx - Q^\top b \<br>
+-\hat{Q}^\top b<br>
+\end{bmatrix}<br>
+]<br>
+（因为 ( Q^\top Q = I )，而 ( \hat{Q}^\top Q = 0 )）</p>
+<p>所以：<br>
+[<br>
+| Ax - b |_2^2 = \left| \begin{bmatrix}<br>
+Rx - Q^\top b \<br>
+-\hat{Q}^\top b<br>
+\end{bmatrix} \right|_2^2 = | Rx - Q^\top b |_2^2 + | \hat{Q}^\top b |_2^2<br>
+]</p>
+<h4 id="3-最小化条件"><strong>3. 最小化条件</strong></h4>
+<p>由于 ( | \hat{Q}^\top b |_2^2 ) 与 ( x ) 无关，最小化 ( | Ax - b |_2^2 ) 等价于最小化 ( | Rx - Q^\top b |_2^2 )，而它的最小值是 0（因为 ( R ) 可逆）：<br>
+[<br>
+Rx = Q^\top b<br>
+]<br>
+因此，最小二乘解为：<br>
+[<br>
+x^* = R^{-1} Q^\top b<br>
+]</p>
+<hr>
+<h3 id="方法-2：利用正交投影分解"><strong>方法 2：利用正交投影分解</strong></h3>
+<h4 id="1-投影矩阵"><strong>1. 投影矩阵</strong></h4>
+<p>( QQ^\top ) 是 ( \text{Ran}(A) )（( A ) 的列空间）上的 <strong>正交投影矩阵</strong>，因为：</p>
+<ul>
+<li>( \text{Ran}(A) = \text{Ran}(Q) )（因为 ( A = QR )），</li>
+<li>( QQ^\top ) 将任意向量投影到 ( \text{Ran}(Q) )。</li>
+</ul>
+<p>类似地，( I - QQ^\top ) 是 ( \text{Ran}(A)^\perp )（( A ) 的列空间的正交补）上的投影矩阵。</p>
+<h4 id="2-分解-b"><strong>2. 分解 ( b )</strong></h4>
+<p>将 ( b ) 分解为：<br>
+[<br>
+b = QQ^\top b + (I - QQ^\top) b<br>
+]<br>
+其中：</p>
+<ul>
+<li>( QQ^\top b ) 是 ( b ) 在 ( \text{Ran}(A) ) 上的投影，</li>
+<li>( (I - QQ^\top) b ) 是 ( b ) 在 ( \text{Ran}(A)^\perp ) 上的投影。</li>
+</ul>
+<h4 id="3-残差范数的分解"><strong>3. 残差范数的分解</strong></h4>
+<p>残差 ( Ax - b ) 可以写成：<br>
+[<br>
+Ax - b = Ax - QQ^\top b - (I - QQ^\top) b<br>
+]<br>
+由于 ( Ax \in \text{Ran}(A) ) 和 ( (I - QQ^\top) b \in \text{Ran}(A)^\perp )，它们是正交的，所以：<br>
+[<br>
+| Ax - b |_2^2 = | Ax - QQ^\top b |_2^2 + | (I - QQ^\top) b |_2^2<br>
+]</p>
+<p>由于 ( A = QR )，且 ( QQ^\top b ) 是 ( b ) 在 ( \text{Ran}(A) ) 上的投影：<br>
+[<br>
+Ax - QQ^\top b = QRx - QQ^\top b<br>
+]<br>
+因为 ( \text{Ran}(QQ^\top) = \text{Ran}(Q) )，所以 ( QQ^\top b = Q c ) 对某个 ( c \in \mathbb{R}^n )。实际上：<br>
+[<br>
+QQ^\top b = Q (Q^\top b)<br>
+]<br>
+所以：<br>
+[<br>
+QRx - QQ^\top b = Q (Rx - Q^\top b)<br>
+]<br>
+因此：<br>
+[<br>
+| Ax - QQ^\top b |_2^2 = | Q (Rx - Q^\top b) |_2^2 = | Rx - Q^\top b |_2^2<br>
+]<br>
+（因为 ( Q ) 列正交）</p>
+<h4 id="4-最小化条件"><strong>4. 最小化条件</strong></h4>
+<p>最小化 ( | Ax - b |_2^2 ) 等价于最小化 ( | Rx - Q^\top b |_2^2 )，其最小值是 0：<br>
+[<br>
+Rx = Q^\top b<br>
+]<br>
+因此：<br>
+[<br>
+x^* = R^{-1} Q^\top b<br>
+]</p>
+<hr>
+<h3 id="方法-3：正规方程法"><strong>方法 3：正规方程法</strong></h3>
+<h4 id="1-正规方程"><strong>1. 正规方程</strong></h4>
+<p>最小二乘问题的解满足 <strong>正规方程</strong>：<br>
+[<br>
+A^\top A x = A^\top b<br>
+]</p>
+<h4 id="2-代入-QR-分解"><strong>2. 代入 QR 分解</strong></h4>
+<p>由于 ( A = QR )，代入正规方程：<br>
+[<br>
+(QR)^\top (QR) x = (QR)^\top b<br>
+]<br>
+[<br>
+R^\top Q^\top Q R x = R^\top Q^\top b<br>
+]<br>
+因为 ( Q^\top Q = I )：<br>
+[<br>
+R^\top R x = R^\top Q^\top b<br>
+]</p>
+<h4 id="3-解方程"><strong>3. 解方程</strong></h4>
+<p>由于 ( R ) 是可逆的，( R^\top ) 也是可逆的，可以两边左乘 ( (R^\top)^{-1} )：<br>
+[<br>
+R x = Q^\top b<br>
+]<br>
+因此：<br>
+[<br>
+x^* = R^{-1} Q^\top b<br>
+]</p>
+<hr>
+<h3 id="总结"><strong>总结</strong></h3>
+<p>三种方法最终都得到相同的最小二乘解：<br>
+[<br>
+x^* = R^{-1} Q^\top b<br>
+]<br>
+其中：</p>
+<ul>
+<li>( A = QR ) 是 ( A ) 的 <strong>QR 分解</strong>，</li>
+<li>( R ) 是上三角可逆矩阵，</li>
+<li>( Q ) 是列正交矩阵。</li>
+</ul>
+<h4 id="计算复杂度"><strong>计算复杂度</strong></h4>
+<ul>
+<li>QR 分解的计算量约为 ( 2mn^2 )（使用 Householder 变换时），</li>
+<li>当 ( m \gg n ) 时，比正规方程法（计算 ( A^\top A ) 需要 ( mn^2 )）稍慢，</li>
+<li>当 ( m = n ) 时，计算量几乎相同。</li>
+</ul>
+<h4 id="为什么-QR-分解方法更稳定？"><strong>为什么 QR 分解方法更稳定？</strong></h4>
+<ul>
+<li>直接计算 ( A^\top A ) 会导致数值不稳定（条件数 ( \kappa(A^\top A) = \kappa(A)^2 )），</li>
+<li>QR 分解方法避免了计算 ( A^\top A )，数值稳定性更好。</li>
+</ul>
+<h2 id="HouseHolder中的v">HouseHolder中的v</h2>
+<ul>
+<li><strong>( v ) 是反射方向的垂直向量</strong>，决定了反射超平面的方向，</li>
+<li><strong>( v = x - y )</strong>，其中 ( y ) 是目标向量（如 ( |x| e_1 )），</li>
+<li>Householder 变换通过 ( H = I - 2 \frac{v v^\top}{v^\top v} ) 实现反射，</li>
+<li>在 QR 分解中，Householder 变换逐步将 ( A ) 化为 ( R )，并构造正交矩阵 ( Q )。</li>
+</ul>
+<p><strong>数值稳定性</strong>：</p>
+<ul>
+<li>通常选择 ( v = x + \text{sign}(x_1) |x| e_1 ) 避免 ( v ) 接近零向量，</li>
+<li>Householder 变换比 Gram-Schmidt 更稳定，适合大规模数值计算。</li>
+<li></li>
+</ul>
+<h1>奇异值分解（SVD）法推导最小二乘解</h1>
+<h4 id="1-奇异值分解（SVD）的定义">1. <strong>奇异值分解（SVD）的定义</strong></h4>
+<p>对于列满秩矩阵 ( A \in \mathbb{R}^{m \times n} )（( m \geq n )），其奇异值分解为：<br>
+[<br>
+A = U \begin{bmatrix} \Sigma \ 0 \end{bmatrix} V^\top<br>
+]<br>
+其中：</p>
+<ul>
+<li>( U \in \mathbb{R}^{m \times m} ) 是正交矩阵（( U^\top U = I_m )），可以分块为 ( U = [U_n, \tilde{U}] )：
+<ul>
+<li>( U_n \in \mathbb{R}^{m \times n} )：前 ( n ) 列，对应非零奇异值。</li>
+<li>( \tilde{U} \in \mathbb{R}^{m \times (m - n)} )：后 ( m - n ) 列，对应零奇异值。</li>
+</ul>
+</li>
+<li>( \Sigma \in \mathbb{R}^{n \times n} ) 是对角矩阵，对角线元素为奇异值 ( \sigma_1 \geq \sigma_2 \geq \dots \geq \sigma_n &gt; 0 )（因为 ( A ) 列满秩）。</li>
+<li>( V \in \mathbb{R}^{n \times n} ) 是正交矩阵（( V^\top V = I_n )）。</li>
+</ul>
+<h4 id="2-残差范数的表达">2. <strong>残差范数的表达</strong></h4>
+<p>最小二乘问题的目标是最小化残差范数：<br>
+[<br>
+|Ax - b|_2^2 = \left| U \begin{bmatrix} \Sigma \ 0 \end{bmatrix} V^\top x - b \right|_2^2<br>
+]<br>
+利用正交矩阵的性质 ( |Uy|_2 = |y|_2 )，可以左乘 ( U^\top )：<br>
+[<br>
+|Ax - b|_2^2 = \left| \begin{bmatrix} \Sigma \ 0 \end{bmatrix} V^\top x - U^\top b \right|_2^2<br>
+]<br>
+将 ( U^\top b ) 分块为：<br>
+[<br>
+U^\top b = \begin{bmatrix} U_n^\top b \ \tilde{U}^\top b \end{bmatrix}<br>
+]<br>
+因此：<br>
+[<br>
+|Ax - b|_2^2 = \left| \begin{bmatrix} \Sigma V^\top x - U_n^\top b \ -\tilde{U}^\top b \end{bmatrix} \right|_2^2 = |\Sigma V^\top x - U_n^\top b|_2^2 + |\tilde{U}^\top b|_2^2<br>
+]</p>
+<h4 id="3-最小化残差范数">3. <strong>最小化残差范数</strong></h4>
+<ul>
+<li>第二项 ( |\tilde{U}^\top b|_2^2 ) 是固定的（与 ( x ) 无关）。</li>
+<li>第一项 ( |\Sigma V^\top x - U_n^\top b|_2^2 ) 可以最小化为零（因为 ( \Sigma ) 和 ( V ) 可逆）：<br>
+[<br>
+\Sigma V^\top x - U_n^\top b = 0 \implies \Sigma V^\top x = U_n^\top b<br>
+]<br>
+解得：<br>
+[<br>
+x = (V^\top)^{-1} \Sigma^{-1} U_n^\top b = V \Sigma^{-1} U_n^\top b<br>
+]<br>
+（因为 ( V ) 是正交矩阵，( V^{-1} = V^\top )）。</li>
+</ul>
+<h4 id="4-解的几何意义">4. <strong>解的几何意义</strong></h4>
+<ul>
+<li>( U_n^\top b ) 是 ( b ) 在 ( \text{Ran}(A) )（( A ) 的列空间）上的投影系数。</li>
+<li>( \Sigma^{-1} ) 对奇异值进行缩放，( V ) 将结果转换回原空间。</li>
+<li>( \tilde{U}^\top b ) 是 ( b ) 在 ( \text{Ran}(A)^\perp )（( A ) 的左零空间）上的分量，无法被 ( Ax ) 表示。</li>
+</ul>
+<h4 id="5-与QR分解法的对比">5. <strong>与QR分解法的对比</strong></h4>
+<ul>
+<li>QR分解法：( A = QR )，解为 ( x = R^{-1} Q^\top b )。</li>
+<li>SVD法：( A = U \begin{bmatrix} \Sigma \ 0 \end{bmatrix} V^\top )，解为 ( x = V \Sigma^{-1} U_n^\top b )。</li>
+<li>SVD法的优势：
+<ul>
+<li>数值稳定性更高（尤其当 ( A ) 接近秩亏时）。</li>
+<li>可以直接处理秩亏矩阵（通过截断小奇异值）。</li>
+</ul>
+</li>
+</ul>
+<h4 id="6-关键符号总结">6. <strong>关键符号总结</strong></h4>
+<ul>
+<li>( U_n )：对应非零奇异值的左奇异向量。</li>
+<li>( \tilde{U} )：对应零奇异值的左奇异向量。</li>
+<li>( \Sigma )：奇异值矩阵（对角矩阵）。</li>
+<li>( V )：右奇异向量矩阵。</li>
+<li>( U_n^\top b )：( b ) 在 ( \text{Ran}(A) ) 上的投影。</li>
+<li>( \tilde{U}^\top b )：( b ) 在 ( \text{Ran}(A)^\perp ) 上的投影。</li>
+</ul>
+<h4 id="7-最终解">7. <strong>最终解</strong></h4>
+<p>最小二乘解为：<br>
+[<br>
+x^* = V \Sigma^{-1} U_n^\top b<br>
+]</p>
 
       
     </div>
@@ -5210,469 +5673,6 @@ p_1 = r_1 + \beta_1 p_0 = \begin{bmatrix} -0.5 \ 0.25 \end{bmatrix} + 0.0625 \be
 <h3 id="总结-3">总结</h3>
 <p><strong>引理</strong>：我们证明了 ( v_i ) 是通过残差 ( r_{i-1} ) 减去与 ( v_{i-1} ) 的 A-投影，再乘以一个步长系数得到的。这确保了每一步的方向都是“新”的（A-正交），而且步伐大小是最优的。</p>
 <p><strong>共轭梯度法</strong>：像一个聪明的导航系统，每次选一个新方向（A-正交），走恰当的距离（步长），在 Krylov 子空间里快速接近真解。</p>
-
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="https://chenzhan20050128.github.io/notes.github.io/2025/06/23/noteSVD/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/notes.github.io/images/woshicaigou.jpg">
-      <meta itemprop="name" content="Chen Zhan">
-      <meta itemprop="description" content="">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="cz Blog">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/notes.github.io/2025/06/23/noteSVD/" class="post-title-link" itemprop="url">noteSVD</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
-
-              <time title="创建时间：2025-06-23 12:22:32" itemprop="dateCreated datePublished" datetime="2025-06-23T12:22:32+08:00">2025-06-23</time>
-            </span>
-
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <h3 id="定理">定理</h3>
-<p>设 ( A = U \Sigma V^* ) 是 ( A \in \mathbb{C}^{m \times n} ) ( ( m \geq n ) ) 的奇异值分解，则：</p>
-<h4 id="1-A-A-的特征值是-sigma-i-2-，对应的特征向量是-v-i">(1) ( A^*A ) 的特征值是 ( \sigma_i^2 )，对应的特征向量是 ( v_i )</h4>
-<p>证明：</p>
-<ul>
-<li>我们有 ( A^* A = (U \Sigma V^<em>)^</em> (U \Sigma V^<em>) = V \Sigma^</em> U^* U \Sigma V^* = V \Sigma^2 V^* )。</li>
-<li>由于 ( U^* U = I )，所以 ( A^* A = V \Sigma^2 V^* )。</li>
-<li>因此，( A^* A ) 的特征值为 ( \sigma_i^2 )，对应的特征向量为 ( v_i )。</li>
-</ul>
-<h4 id="2-AA-的特征值是-sigma-i-2-和-m-n-个零，对应的特征向量是-u-i">(2) ( AA^* ) 的特征值是 ( \sigma_i^2 ) 和 ( m-n ) 个零，对应的特征向量是 ( u_i )</h4>
-<p>证明：</p>
-<ul>
-<li>我们有 ( AA^* = (U \Sigma V^<em>)(U \Sigma V^</em>)^* = U \Sigma V^* V \Sigma^* U^* = U \Sigma \Sigma^* U^* )。</li>
-<li>由于 ( V^* V = I_n )，所以 ( AA^* = U \Sigma \Sigma^* U^* )。</li>
-<li>注意到 ( \Sigma ) 是一个 ( n \times n ) 的对角矩阵，且只有 ( r ) 个非零对角元素，因此 ( AA^* ) 的特征值为 ( \sigma_i^2 ) 和 ( m-n ) 个零，对应的特征向量为 ( u_i )。</li>
-</ul>
-<h4 id="3-A-2-sigma-1-A-F-sqrt-sigma-1-2-sigma-2-2-cdots-sigma-n-2">(3) ( |A|_2 = \sigma_1, |A|_F = \sqrt{\sigma_1^2 + \sigma_2^2 + \cdots + \sigma_n^2} )</h4>
-<p>证明：</p>
-<ul>
-<li>矩阵的谱范数 ( |A|_2 ) 定义为最大的奇异值，即 ( |A|_2 = \sigma_1 )。</li>
-<li>Frobenius 范数定义为 ( |A|<em>F = \sqrt{\sum</em>{i=1}^{n} \sigma_i^2} )，所以 ( |A|_F = \sqrt{\sigma_1^2 + \sigma_2^2 + \cdots + \sigma_n^2} )。</li>
-</ul>
-<h4 id="4-若-text-rank-A-r-leq-n-，则-text-Ran-A-text-span-u-1-u-2-ldots-u-r-，-text-Ker-A-text-span-v-r-1-v-r-2-ldots-v-n">(4) 若 ( \text{rank}(A) = r \leq n )，则 ( \text{Ran}(A) = \text{span}{u_1, u_2, \ldots, u_r} )，( \text{Ker}(A) = \text{span}{v_{r+1}, v_{r+2}, \ldots, v_n} )</h4>
-<p>证明：</p>
-<ul>
-<li>因为 ( A ) 的秩为 ( r )，所以 ( A ) 的列空间 ( \text{Ran}(A) ) 由 ( r ) 个线性无关的列生成，即 ( \text{Ran}(A) = \text{span}{u_1, u_2, \ldots, u_r} )。</li>
-<li>核空间 ( \text{Ker}(A) ) 由 ( n-r ) 个线性无关的列生成，即 ( \text{Ker}(A) = \text{span}{v_{r+1}, v_{r+2}, \ldots, v_n} )。</li>
-</ul>
-<h4 id="5-设-x-in-mathbb-C-n-且-x-2-1-，则-sigma-n-leq-Ax-2-leq-sigma-1">(5) 设 ( x \in \mathbb{C}^n ) 且 ( |x|_2 = 1 )，则 ( \sigma_n \leq |Ax|_2 \leq \sigma_1 )</h4>
-<p>证明：</p>
-<ul>
-<li>根据奇异值分解，( |Ax|_2 = |U \Sigma V^* x|_2 = |\Sigma V^* x|_2 )。</li>
-<li>由于 ( V^* x ) 是一个 ( n )-维向量，且其 2 范数的最大值为 1，( |Ax|_2 ) 的最小值为 ( \sigma_n )（对应于最小的奇异值），最大值为 ( \sigma_1 )（对应于最大的奇异值）。</li>
-</ul>
-<h4 id="6-酉不变性-设-X-in-mathbb-C-m-times-m-和-Y-in-mathbb-C-n-times-n-是酉矩阵，则-sigma-i-X-AY-sigma-i-A">(6) (酉不变性) 设 ( X \in \mathbb{C}^{m \times m} ) 和 ( Y \in \mathbb{C}^{n \times n} ) 是酉矩阵，则 ( \sigma_i(X^*AY) = \sigma_i(A) )</h4>
-<p>证明：</p>
-<ul>
-<li>由于 ( X ) 和 ( Y ) 是酉矩阵，( X^* A Y ) 和 ( A ) 具有相同的奇异值，因为酉矩阵在范数下是等距的，这意味着奇异值不变。</li>
-</ul>
-<p>条件数的几何意义<br>
-条件数反映了矩阵将单位球映射到椭球后的最长轴与最短轴之比。即使特征值全为 1，椭球的形状仍可能高度拉伸（由奇异值决定）。</p>
-<h3 id="低秩逼近定理的详细解释"><strong>低秩逼近定理的详细解释</strong></h3>
-<h4 id="1-定理陈述"><strong>1. 定理陈述</strong></h4>
-<p>设 ( A = U \Sigma V^* ) 是 ( A \in \mathbb{C}^{m \times n} ) 的细奇异值分解（即紧凑形式的 SVD，仅保留非零奇异值）。定义：<br>
-[<br>
-A_k = \sum_{i=1}^k \sigma_i u_i v_i^*<br>
-]<br>
-其中 ( \sigma_1 \geq \sigma_2 \geq \cdots \geq \sigma_r &gt; 0 ) 是 ( A ) 的非零奇异值（( r = \text{rank}(A) )）。则：</p>
-<ol>
-<li>( A_k ) 是 <strong>所有秩为 ( k ) 的矩阵中，在 2-范数下最接近 ( A ) 的解</strong>，即：<br>
-[<br>
-|A - A_k|<em>2 = \sigma</em>{k+1},<br>
-]<br>
-且 ( A_k ) 满足：<br>
-[<br>
-A_k = \arg\min_{\substack{B \in \mathbb{C}^{m \times n} \ \text{rank}(B) = k}} |A - B|_2.<br>
-]</li>
-<li>对于 Frobenius 范数，类似结论成立：<br>
-[<br>
-|A - A_k|<em>F = \sqrt{\sum</em>{i=k+1}^r \sigma_i^2}.<br>
-]</li>
-</ol>
-<hr>
-<h4 id="2-直观解释"><strong>2. 直观解释</strong></h4>
-<p>矩阵的低秩逼近目标是：用秩为 ( k ) 的矩阵 ( A_k ) 尽可能接近原矩阵 ( A )。</p>
-<ul>
-<li><strong>几何意义</strong>：将 ( A ) 的作用分解到正交方向（由奇异向量 ( u_i, v_i ) 定义），保留前 ( k ) 个最重要的方向（对应最大奇异值），截断后面的方向。</li>
-<li><strong>应用场景</strong>：数据压缩、主成分分析（PCA）、去噪等。</li>
-</ul>
-<hr>
-<h4 id="3-为什么-A-k-是最优解？"><strong>3. 为什么 ( A_k ) 是最优解？</strong></h4>
-<h5 id="1-2-范数的最优性"><strong>(1) 2-范数的最优性</strong></h5>
-<ul>
-<li>
-<p><strong>奇异值的性质</strong>：<br>
-矩阵的 2-范数 ( |A|<em>2 ) 是其最大奇异值 ( \sigma_1 )。构造 ( A_k ) 时，保留了前 ( k ) 个奇异值 ( \sigma_1, \dots, \sigma_k )，将后面的奇异值置零。<br>
-因此，误差矩阵 ( A - A_k ) 的奇异值为 ( \sigma</em>{k+1}, \dots, \sigma_r )，其 2-范数为最大剩余奇异值：<br>
-[<br>
-|A - A_k|<em>2 = \sigma</em>{k+1}.<br>
-]</p>
-</li>
-<li>
-<p><strong>极值性证明（Eckart–Young–Mirsky 定理）</strong>：<br>
-对任意秩为 ( k ) 的矩阵 ( B )，其奇异值最多有 ( k ) 个非零值。由于奇异值已按降序排列，保留前 ( k ) 个最大奇异值会最小化剩余奇异值的最大值，即：<br>
-[<br>
-\sigma_{k+1} \leq |A - B|<em>2 \quad \text{对所有秩为 } k \text{ 的 } B.<br>
-]<br>
-因此，( A_k ) 达到了下界 ( \sigma</em>{k+1} )，是最优解。</p>
-</li>
-</ul>
-<hr>
-<h5 id="2-Frobenius-范数的最优性"><strong>(2) Frobenius 范数的最优性</strong></h5>
-<ul>
-<li>
-<p><strong>Frobenius 范数的定义</strong>：<br>
-[<br>
-|A|<em>F = \sqrt{\sum</em>{i=1}^r \sigma_i^2}.<br>
-]<br>
-构造 ( A_k ) 时，截断后 ( k+1 ) 到 ( r ) 的奇异值被舍弃，因此误差为：<br>
-[<br>
-|A - A_k|<em>F = \sqrt{\sum</em>{i=k+1}^r \sigma_i^2}.<br>
-]</p>
-</li>
-<li>
-<p><strong>极值性证明</strong>：<br>
-由于 Frobenius 范数是各方向奇异值平方和的平方根，保留前 ( k ) 个最大奇异值会最小化剩余部分的平方和。对任意秩为 ( k ) 的 ( B )，有：<br>
-[<br>
-\sum_{i=k+1}^r \sigma_i^2 \leq |A - B|_F^2,<br>
-]<br>
-因此 ( A_k ) 是最优解。</p>
-</li>
-</ul>
-<hr>
-<h1>矩阵的2-范数等于其最大奇异值σ₁。</h1>
-<p>矩阵的2-范数定义为：</p>
-<p>[<br>
-|A|_2 = \sup \left{ \frac{|Ax|_2}{|x|_2} \mid x \neq 0 \right}<br>
-]</p>
-<p>或者等价地：</p>
-<p>[<br>
-|A|_2 = \max \left{ |Ax|_2 \mid |x|_2 = 1 \right}<br>
-]</p>
-<p>通过奇异值分解（SVD），矩阵A可以分解为 ( A = U\Sigma V^* )，其中U和V是酉矩阵，Σ是对角矩阵，对角线上的元素是奇异值σ₁ ≥ σ₂ ≥ … ≥ σₙ ≥ 0。</p>
-<p>考虑向量x经过矩阵A作用后的模长：</p>
-<p>[<br>
-|Ax|_2 = |U\Sigma V^* x|_2<br>
-]</p>
-<p>由于U和V是酉矩阵，不改变向量的模长，令 ( y = V^* x )，则 ( |y|_2 = |x|_2 )，因此：</p>
-<p>[<br>
-|Ax|_2 = |\Sigma y|_2<br>
-]</p>
-<p>对于单位向量x，y也是单位向量，因此：</p>
-<p>[<br>
-|\Sigma y|<em>2 = \sqrt{\sum</em>{i=1}^n \sigma_i^2 |y_i|^2}<br>
-]</p>
-<p>当y的分量集中在最大奇异值σ₁对应的位置时，例如y = (1, 0, …, 0)，此时：</p>
-<p>[<br>
-|\Sigma y|_2 = \sigma_1<br>
-]</p>
-<p>因此，矩阵A的2-范数即为最大奇异值σ₁。</p>
-<p>进一步验证，考虑矩阵A*A的最大特征值λ₁，其平方根即为最大奇异值σ₁。根据瑞利商，向量x的最大增长倍数为：</p>
-<p>[<br>
-\sqrt{\lambda_1} = \sigma_1<br>
-]</p>
-<p>因此，矩阵的2-范数等于其最大奇异值σ₁。</p>
-<h1>QR分解在线性最小二乘的应用</h1>
-<h3 id="问题描述"><strong>问题描述</strong></h3>
-<p>给定满秩矩阵 ( A \in \mathbb{R}^{m \times n} )（( m \geq n )），求线性最小二乘问题：<br>
-[<br>
-\min_{x \in \mathbb{R}^n} | Ax - b |_2^2<br>
-]<br>
-的解析解 ( x^* )。</p>
-<h3 id="方法-1：利用-QR-分解的正交补空间投影"><strong>方法 1：利用 QR 分解的正交补空间投影</strong></h3>
-<h4 id="1-QR-分解"><strong>1. QR 分解</strong></h4>
-<p>由于 ( A ) 是满秩的，可以进行 <strong>QR 分解</strong>：<br>
-[<br>
-A = QR<br>
-]<br>
-其中：</p>
-<ul>
-<li>( Q \in \mathbb{R}^{m \times n} ) 是 <strong>列正交矩阵</strong>（即 ( Q^\top Q = I_n )），</li>
-<li>( R \in \mathbb{R}^{n \times n} ) 是 <strong>上三角可逆矩阵</strong>（因为 ( A ) 满秩）。</li>
-</ul>
-<p>由于 ( m \geq n )，我们可以将 ( Q ) <strong>扩充</strong>成一个完整的正交矩阵：<br>
-[<br>
-[Q, \hat{Q}] \in \mathbb{R}^{m \times m}<br>
-]<br>
-其中：</p>
-<ul>
-<li>( \hat{Q} \in \mathbb{R}^{m \times (m - n)} ) 是 ( Q ) 的正交补（即 ( Q^\top \hat{Q} = 0 ) 且 ( \hat{Q}^\top \hat{Q} = I_{m-n} )）。</li>
-</ul>
-<h4 id="2-残差范数的分解"><strong>2. 残差范数的分解</strong></h4>
-<p>利用 ( [Q, \hat{Q}] ) 的正交性（( [Q, \hat{Q}]^\top [Q, \hat{Q}] = I_m )），残差范数可以写成：<br>
-[<br>
-| Ax - b |_2^2 = | [Q, \hat{Q}]^\top (Ax - b) |_2^2<br>
-]<br>
-因为正交变换不改变范数。</p>
-<p>代入 ( A = QR )：<br>
-[<br>
-= | [Q, \hat{Q}]^\top (QRx - b) |_2^2<br>
-]</p>
-<h1>计算 ( [Q, \hat{Q}]^\top ) 与 ( QRx - b ) 的乘积：<br>
-[<br>
-[Q, \hat{Q}]^\top (QRx - b) =<br>
-\begin{bmatrix}<br>
-Q^\top (QRx - b) \<br>
-\hat{Q}^\top (QRx - b)<br>
-\end{bmatrix}</h1>
-<p>\begin{bmatrix}<br>
-Rx - Q^\top b \<br>
--\hat{Q}^\top b<br>
-\end{bmatrix}<br>
-]<br>
-（因为 ( Q^\top Q = I )，而 ( \hat{Q}^\top Q = 0 )）</p>
-<p>所以：<br>
-[<br>
-| Ax - b |_2^2 = \left| \begin{bmatrix}<br>
-Rx - Q^\top b \<br>
--\hat{Q}^\top b<br>
-\end{bmatrix} \right|_2^2 = | Rx - Q^\top b |_2^2 + | \hat{Q}^\top b |_2^2<br>
-]</p>
-<h4 id="3-最小化条件"><strong>3. 最小化条件</strong></h4>
-<p>由于 ( | \hat{Q}^\top b |_2^2 ) 与 ( x ) 无关，最小化 ( | Ax - b |_2^2 ) 等价于最小化 ( | Rx - Q^\top b |_2^2 )，而它的最小值是 0（因为 ( R ) 可逆）：<br>
-[<br>
-Rx = Q^\top b<br>
-]<br>
-因此，最小二乘解为：<br>
-[<br>
-x^* = R^{-1} Q^\top b<br>
-]</p>
-<hr>
-<h3 id="方法-2：利用正交投影分解"><strong>方法 2：利用正交投影分解</strong></h3>
-<h4 id="1-投影矩阵"><strong>1. 投影矩阵</strong></h4>
-<p>( QQ^\top ) 是 ( \text{Ran}(A) )（( A ) 的列空间）上的 <strong>正交投影矩阵</strong>，因为：</p>
-<ul>
-<li>( \text{Ran}(A) = \text{Ran}(Q) )（因为 ( A = QR )），</li>
-<li>( QQ^\top ) 将任意向量投影到 ( \text{Ran}(Q) )。</li>
-</ul>
-<p>类似地，( I - QQ^\top ) 是 ( \text{Ran}(A)^\perp )（( A ) 的列空间的正交补）上的投影矩阵。</p>
-<h4 id="2-分解-b"><strong>2. 分解 ( b )</strong></h4>
-<p>将 ( b ) 分解为：<br>
-[<br>
-b = QQ^\top b + (I - QQ^\top) b<br>
-]<br>
-其中：</p>
-<ul>
-<li>( QQ^\top b ) 是 ( b ) 在 ( \text{Ran}(A) ) 上的投影，</li>
-<li>( (I - QQ^\top) b ) 是 ( b ) 在 ( \text{Ran}(A)^\perp ) 上的投影。</li>
-</ul>
-<h4 id="3-残差范数的分解"><strong>3. 残差范数的分解</strong></h4>
-<p>残差 ( Ax - b ) 可以写成：<br>
-[<br>
-Ax - b = Ax - QQ^\top b - (I - QQ^\top) b<br>
-]<br>
-由于 ( Ax \in \text{Ran}(A) ) 和 ( (I - QQ^\top) b \in \text{Ran}(A)^\perp )，它们是正交的，所以：<br>
-[<br>
-| Ax - b |_2^2 = | Ax - QQ^\top b |_2^2 + | (I - QQ^\top) b |_2^2<br>
-]</p>
-<p>由于 ( A = QR )，且 ( QQ^\top b ) 是 ( b ) 在 ( \text{Ran}(A) ) 上的投影：<br>
-[<br>
-Ax - QQ^\top b = QRx - QQ^\top b<br>
-]<br>
-因为 ( \text{Ran}(QQ^\top) = \text{Ran}(Q) )，所以 ( QQ^\top b = Q c ) 对某个 ( c \in \mathbb{R}^n )。实际上：<br>
-[<br>
-QQ^\top b = Q (Q^\top b)<br>
-]<br>
-所以：<br>
-[<br>
-QRx - QQ^\top b = Q (Rx - Q^\top b)<br>
-]<br>
-因此：<br>
-[<br>
-| Ax - QQ^\top b |_2^2 = | Q (Rx - Q^\top b) |_2^2 = | Rx - Q^\top b |_2^2<br>
-]<br>
-（因为 ( Q ) 列正交）</p>
-<h4 id="4-最小化条件"><strong>4. 最小化条件</strong></h4>
-<p>最小化 ( | Ax - b |_2^2 ) 等价于最小化 ( | Rx - Q^\top b |_2^2 )，其最小值是 0：<br>
-[<br>
-Rx = Q^\top b<br>
-]<br>
-因此：<br>
-[<br>
-x^* = R^{-1} Q^\top b<br>
-]</p>
-<hr>
-<h3 id="方法-3：正规方程法"><strong>方法 3：正规方程法</strong></h3>
-<h4 id="1-正规方程"><strong>1. 正规方程</strong></h4>
-<p>最小二乘问题的解满足 <strong>正规方程</strong>：<br>
-[<br>
-A^\top A x = A^\top b<br>
-]</p>
-<h4 id="2-代入-QR-分解"><strong>2. 代入 QR 分解</strong></h4>
-<p>由于 ( A = QR )，代入正规方程：<br>
-[<br>
-(QR)^\top (QR) x = (QR)^\top b<br>
-]<br>
-[<br>
-R^\top Q^\top Q R x = R^\top Q^\top b<br>
-]<br>
-因为 ( Q^\top Q = I )：<br>
-[<br>
-R^\top R x = R^\top Q^\top b<br>
-]</p>
-<h4 id="3-解方程"><strong>3. 解方程</strong></h4>
-<p>由于 ( R ) 是可逆的，( R^\top ) 也是可逆的，可以两边左乘 ( (R^\top)^{-1} )：<br>
-[<br>
-R x = Q^\top b<br>
-]<br>
-因此：<br>
-[<br>
-x^* = R^{-1} Q^\top b<br>
-]</p>
-<hr>
-<h3 id="总结"><strong>总结</strong></h3>
-<p>三种方法最终都得到相同的最小二乘解：<br>
-[<br>
-x^* = R^{-1} Q^\top b<br>
-]<br>
-其中：</p>
-<ul>
-<li>( A = QR ) 是 ( A ) 的 <strong>QR 分解</strong>，</li>
-<li>( R ) 是上三角可逆矩阵，</li>
-<li>( Q ) 是列正交矩阵。</li>
-</ul>
-<h4 id="计算复杂度"><strong>计算复杂度</strong></h4>
-<ul>
-<li>QR 分解的计算量约为 ( 2mn^2 )（使用 Householder 变换时），</li>
-<li>当 ( m \gg n ) 时，比正规方程法（计算 ( A^\top A ) 需要 ( mn^2 )）稍慢，</li>
-<li>当 ( m = n ) 时，计算量几乎相同。</li>
-</ul>
-<h4 id="为什么-QR-分解方法更稳定？"><strong>为什么 QR 分解方法更稳定？</strong></h4>
-<ul>
-<li>直接计算 ( A^\top A ) 会导致数值不稳定（条件数 ( \kappa(A^\top A) = \kappa(A)^2 )），</li>
-<li>QR 分解方法避免了计算 ( A^\top A )，数值稳定性更好。</li>
-</ul>
-<h2 id="HouseHolder中的v">HouseHolder中的v</h2>
-<ul>
-<li><strong>( v ) 是反射方向的垂直向量</strong>，决定了反射超平面的方向，</li>
-<li><strong>( v = x - y )</strong>，其中 ( y ) 是目标向量（如 ( |x| e_1 )），</li>
-<li>Householder 变换通过 ( H = I - 2 \frac{v v^\top}{v^\top v} ) 实现反射，</li>
-<li>在 QR 分解中，Householder 变换逐步将 ( A ) 化为 ( R )，并构造正交矩阵 ( Q )。</li>
-</ul>
-<p><strong>数值稳定性</strong>：</p>
-<ul>
-<li>通常选择 ( v = x + \text{sign}(x_1) |x| e_1 ) 避免 ( v ) 接近零向量，</li>
-<li>Householder 变换比 Gram-Schmidt 更稳定，适合大规模数值计算。</li>
-<li></li>
-</ul>
-<h1>奇异值分解（SVD）法推导最小二乘解</h1>
-<h4 id="1-奇异值分解（SVD）的定义">1. <strong>奇异值分解（SVD）的定义</strong></h4>
-<p>对于列满秩矩阵 ( A \in \mathbb{R}^{m \times n} )（( m \geq n )），其奇异值分解为：<br>
-[<br>
-A = U \begin{bmatrix} \Sigma \ 0 \end{bmatrix} V^\top<br>
-]<br>
-其中：</p>
-<ul>
-<li>( U \in \mathbb{R}^{m \times m} ) 是正交矩阵（( U^\top U = I_m )），可以分块为 ( U = [U_n, \tilde{U}] )：
-<ul>
-<li>( U_n \in \mathbb{R}^{m \times n} )：前 ( n ) 列，对应非零奇异值。</li>
-<li>( \tilde{U} \in \mathbb{R}^{m \times (m - n)} )：后 ( m - n ) 列，对应零奇异值。</li>
-</ul>
-</li>
-<li>( \Sigma \in \mathbb{R}^{n \times n} ) 是对角矩阵，对角线元素为奇异值 ( \sigma_1 \geq \sigma_2 \geq \dots \geq \sigma_n &gt; 0 )（因为 ( A ) 列满秩）。</li>
-<li>( V \in \mathbb{R}^{n \times n} ) 是正交矩阵（( V^\top V = I_n )）。</li>
-</ul>
-<h4 id="2-残差范数的表达">2. <strong>残差范数的表达</strong></h4>
-<p>最小二乘问题的目标是最小化残差范数：<br>
-[<br>
-|Ax - b|_2^2 = \left| U \begin{bmatrix} \Sigma \ 0 \end{bmatrix} V^\top x - b \right|_2^2<br>
-]<br>
-利用正交矩阵的性质 ( |Uy|_2 = |y|_2 )，可以左乘 ( U^\top )：<br>
-[<br>
-|Ax - b|_2^2 = \left| \begin{bmatrix} \Sigma \ 0 \end{bmatrix} V^\top x - U^\top b \right|_2^2<br>
-]<br>
-将 ( U^\top b ) 分块为：<br>
-[<br>
-U^\top b = \begin{bmatrix} U_n^\top b \ \tilde{U}^\top b \end{bmatrix}<br>
-]<br>
-因此：<br>
-[<br>
-|Ax - b|_2^2 = \left| \begin{bmatrix} \Sigma V^\top x - U_n^\top b \ -\tilde{U}^\top b \end{bmatrix} \right|_2^2 = |\Sigma V^\top x - U_n^\top b|_2^2 + |\tilde{U}^\top b|_2^2<br>
-]</p>
-<h4 id="3-最小化残差范数">3. <strong>最小化残差范数</strong></h4>
-<ul>
-<li>第二项 ( |\tilde{U}^\top b|_2^2 ) 是固定的（与 ( x ) 无关）。</li>
-<li>第一项 ( |\Sigma V^\top x - U_n^\top b|_2^2 ) 可以最小化为零（因为 ( \Sigma ) 和 ( V ) 可逆）：<br>
-[<br>
-\Sigma V^\top x - U_n^\top b = 0 \implies \Sigma V^\top x = U_n^\top b<br>
-]<br>
-解得：<br>
-[<br>
-x = (V^\top)^{-1} \Sigma^{-1} U_n^\top b = V \Sigma^{-1} U_n^\top b<br>
-]<br>
-（因为 ( V ) 是正交矩阵，( V^{-1} = V^\top )）。</li>
-</ul>
-<h4 id="4-解的几何意义">4. <strong>解的几何意义</strong></h4>
-<ul>
-<li>( U_n^\top b ) 是 ( b ) 在 ( \text{Ran}(A) )（( A ) 的列空间）上的投影系数。</li>
-<li>( \Sigma^{-1} ) 对奇异值进行缩放，( V ) 将结果转换回原空间。</li>
-<li>( \tilde{U}^\top b ) 是 ( b ) 在 ( \text{Ran}(A)^\perp )（( A ) 的左零空间）上的分量，无法被 ( Ax ) 表示。</li>
-</ul>
-<h4 id="5-与QR分解法的对比">5. <strong>与QR分解法的对比</strong></h4>
-<ul>
-<li>QR分解法：( A = QR )，解为 ( x = R^{-1} Q^\top b )。</li>
-<li>SVD法：( A = U \begin{bmatrix} \Sigma \ 0 \end{bmatrix} V^\top )，解为 ( x = V \Sigma^{-1} U_n^\top b )。</li>
-<li>SVD法的优势：
-<ul>
-<li>数值稳定性更高（尤其当 ( A ) 接近秩亏时）。</li>
-<li>可以直接处理秩亏矩阵（通过截断小奇异值）。</li>
-</ul>
-</li>
-</ul>
-<h4 id="6-关键符号总结">6. <strong>关键符号总结</strong></h4>
-<ul>
-<li>( U_n )：对应非零奇异值的左奇异向量。</li>
-<li>( \tilde{U} )：对应零奇异值的左奇异向量。</li>
-<li>( \Sigma )：奇异值矩阵（对角矩阵）。</li>
-<li>( V )：右奇异向量矩阵。</li>
-<li>( U_n^\top b )：( b ) 在 ( \text{Ran}(A) ) 上的投影。</li>
-<li>( \tilde{U}^\top b )：( b ) 在 ( \text{Ran}(A)^\perp ) 上的投影。</li>
-</ul>
-<h4 id="7-最终解">7. <strong>最终解</strong></h4>
-<p>最小二乘解为：<br>
-[<br>
-x^* = V \Sigma^{-1} U_n^\top b<br>
-]</p>
 
       
     </div>
