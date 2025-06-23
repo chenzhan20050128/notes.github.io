@@ -20,32 +20,32 @@
     var CONFIG = {"hostname":"chenzhan20050128.github.io","root":"/notes.github.io/","scheme":"Pisces","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":true,"show_result":true,"style":"mac"},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.json"};
   </script>
 
-  <meta name="description" content="PSW 程序状态字PSW PSW既是操作系统的概念，指记录当前程序运行的动态信息，通常包含： 程序计数器、指令寄存器、条件码 中断字、中断允许&#x2F;禁止、中断屏蔽、处理器模式、内存保护、调试控制 PSW也是计算机系统的寄存器 通常设置一组控制与状态寄存器 也可以专设一个PSW寄存器 标志划分为三组:状态标志、控制标志和系统标志(更多见P58) 状态标志：使得一条指令的执行结果影响其后指令的执行，比如溢">
+  <meta name="description" content="PSW程序状态字PSWPSW既是操作系统的概念，指记录当前程序运行的动态信息，通常包含：程序计数器、指令寄存器、条件码中断字、中断允许&#x2F;禁止、中断屏蔽、处理器模式、内存保护、调试控制PSW也是计算机系统的寄存器通常设置一组控制与状态寄存器也可以专设一个PSW寄存器标志划分为三组:状态标志、控制标志和系统标志(更多见P58)状态标志：使得一条指令的执行结果影响其后指令的执行，比如溢出等标志">
 <meta property="og:type" content="article">
 <meta property="og:title" content="操作系统：第二章复习笔记">
 <meta property="og:url" content="https://chenzhan20050128.github.io/notes.github.io/2025/06/23/%E5%A4%8D%E4%B9%A0%E7%AC%94%E8%AE%B0/index.html">
 <meta property="og:site_name" content="cz Blog">
-<meta property="og:description" content="PSW 程序状态字PSW PSW既是操作系统的概念，指记录当前程序运行的动态信息，通常包含： 程序计数器、指令寄存器、条件码 中断字、中断允许&#x2F;禁止、中断屏蔽、处理器模式、内存保护、调试控制 PSW也是计算机系统的寄存器 通常设置一组控制与状态寄存器 也可以专设一个PSW寄存器 标志划分为三组:状态标志、控制标志和系统标志(更多见P58) 状态标志：使得一条指令的执行结果影响其后指令的执行，比如溢">
+<meta property="og:description" content="PSW程序状态字PSWPSW既是操作系统的概念，指记录当前程序运行的动态信息，通常包含：程序计数器、指令寄存器、条件码中断字、中断允许&#x2F;禁止、中断屏蔽、处理器模式、内存保护、调试控制PSW也是计算机系统的寄存器通常设置一组控制与状态寄存器也可以专设一个PSW寄存器标志划分为三组:状态标志、控制标志和系统标志(更多见P58)状态标志：使得一条指令的执行结果影响其后指令的执行，比如溢出等标志">
 <meta property="og:locale" content="zh_CN">
-<meta property="og:image" content="https://chenzhan20050128.github.io/notes.github.io/2025/06/23/%E5%A4%8D%E4%B9%A0%E7%AC%94%E8%AE%B0/image.png">
-<meta property="og:image" content="https://chenzhan20050128.github.io/notes.github.io/2025/06/23/%E5%A4%8D%E4%B9%A0%E7%AC%94%E8%AE%B0/image-1.png">
-<meta property="og:image" content="https://chenzhan20050128.github.io/notes.github.io/2025/06/23/%E5%A4%8D%E4%B9%A0%E7%AC%94%E8%AE%B0/image-2.png">
-<meta property="og:image" content="https://chenzhan20050128.github.io/notes.github.io/2025/06/23/%E5%A4%8D%E4%B9%A0%E7%AC%94%E8%AE%B0/image-3.png">
-<meta property="og:image" content="https://chenzhan20050128.github.io/notes.github.io/2025/06/23/%E5%A4%8D%E4%B9%A0%E7%AC%94%E8%AE%B0/image-4.png">
-<meta property="og:image" content="https://chenzhan20050128.github.io/notes.github.io/2025/06/23/%E5%A4%8D%E4%B9%A0%E7%AC%94%E8%AE%B0/image-5.png">
-<meta property="og:image" content="https://chenzhan20050128.github.io/notes.github.io/2025/06/23/%E5%A4%8D%E4%B9%A0%E7%AC%94%E8%AE%B0/image-6.png">
-<meta property="og:image" content="https://chenzhan20050128.github.io/notes.github.io/2025/06/23/%E5%A4%8D%E4%B9%A0%E7%AC%94%E8%AE%B0/image-7.png">
-<meta property="og:image" content="https://chenzhan20050128.github.io/notes.github.io/2025/06/23/%E5%A4%8D%E4%B9%A0%E7%AC%94%E8%AE%B0/image-8.png">
-<meta property="og:image" content="https://chenzhan20050128.github.io/notes.github.io/2025/06/23/%E5%A4%8D%E4%B9%A0%E7%AC%94%E8%AE%B0/image-9.png">
-<meta property="og:image" content="https://chenzhan20050128.github.io/notes.github.io/2025/06/23/%E5%A4%8D%E4%B9%A0%E7%AC%94%E8%AE%B0/image-10.png">
-<meta property="og:image" content="https://chenzhan20050128.github.io/notes.github.io/2025/06/23/%E5%A4%8D%E4%B9%A0%E7%AC%94%E8%AE%B0/image-11.png">
-<meta property="og:image" content="https://chenzhan20050128.github.io/notes.github.io/2025/06/23/%E5%A4%8D%E4%B9%A0%E7%AC%94%E8%AE%B0/image-12.png">
+<meta property="og:image" content="https://chenzhan20050128.github.io/notes.github.io/image.png">
+<meta property="og:image" content="https://chenzhan20050128.github.io/notes.github.io/image-1.png">
+<meta property="og:image" content="https://chenzhan20050128.github.io/notes.github.io/image-2.png">
+<meta property="og:image" content="https://chenzhan20050128.github.io/notes.github.io/image-3.png">
+<meta property="og:image" content="https://chenzhan20050128.github.io/notes.github.io/image-4.png">
+<meta property="og:image" content="https://chenzhan20050128.github.io/notes.github.io/image-5.png">
+<meta property="og:image" content="https://chenzhan20050128.github.io/notes.github.io/image-6.png">
+<meta property="og:image" content="https://chenzhan20050128.github.io/notes.github.io/image-7.png">
+<meta property="og:image" content="https://chenzhan20050128.github.io/notes.github.io/image-8.png">
+<meta property="og:image" content="https://chenzhan20050128.github.io/notes.github.io/image-9.png">
+<meta property="og:image" content="https://chenzhan20050128.github.io/notes.github.io/image-10.png">
+<meta property="og:image" content="https://chenzhan20050128.github.io/notes.github.io/image-11.png">
+<meta property="og:image" content="https://chenzhan20050128.github.io/notes.github.io/image-12.png">
 <meta property="article:published_time" content="2025-06-23T04:25:29.000Z">
 <meta property="article:modified_time" content="2025-06-23T04:26:41.487Z">
 <meta property="article:author" content="Chen Zhan">
 <meta property="article:tag" content="操作系统往年卷">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:image" content="https://chenzhan20050128.github.io/notes.github.io/2025/06/23/%E5%A4%8D%E4%B9%A0%E7%AC%94%E8%AE%B0/image.png">
+<meta name="twitter:image" content="https://chenzhan20050128.github.io/notes.github.io/image.png">
 
 <link rel="canonical" href="https://chenzhan20050128.github.io/notes.github.io/2025/06/23/%E5%A4%8D%E4%B9%A0%E7%AC%94%E8%AE%B0/">
 
@@ -208,173 +208,43 @@
     <div class="post-body" itemprop="articleBody">
 
       
-        <h2 id="PSW">PSW</h2>
-<p>程序状态字PSW<br>
-PSW既是操作系统的概念，指记录当前程序运行的动态信息，通常包含：<br>
-程序计数器、指令寄存器、条件码<br>
-中断字、中断允许/禁止、中断屏蔽、处理器模式、内存保护、调试控制<br>
-PSW也是计算机系统的寄存器<br>
-通常设置一组控制与状态寄存器<br>
-也可以专设一个PSW寄存器<br>
-标志划分为三组:状态标志、控制标志和系统标志(更多见P58)<br>
-状态标志：使得一条指令的执行结果影响其后指令的执行，比如溢出等标志<br>
-控制指令：控制操作系统行为，比如模式转换等。<br>
-系统标志：与进程管理有关，用于保护模式。</p>
+        <h2 id="PSW"><a href="#PSW" class="headerlink" title="PSW"></a>PSW</h2><p>程序状态字PSW<br>PSW既是操作系统的概念，指记录当前程序运行的动态信息，通常包含：<br>程序计数器、指令寄存器、条件码<br>中断字、中断允许&#x2F;禁止、中断屏蔽、处理器模式、内存保护、调试控制<br>PSW也是计算机系统的寄存器<br>通常设置一组控制与状态寄存器<br>也可以专设一个PSW寄存器<br>标志划分为三组:状态标志、控制标志和系统标志(更多见P58)<br>状态标志：使得一条指令的执行结果影响其后指令的执行，比如溢出等标志<br>控制指令：控制操作系统行为，比如模式转换等。<br>系统标志：与进程管理有关，用于保护模式。</p>
 <blockquote>
-<p>不同架构的实现差异<br>
-​x86：称为标志寄存器（FLAGS）​，包含CF、ZF、OF等标志。<br>
-​ARM：使用CPSR​（当前程序状态寄存器），包含模式位和条件码。<br>
-​单片机（如8051）​：8位PSW，含CY、AC、OV等位。</p>
+<p>不同架构的实现差异<br>​x86：称为标志寄存器（FLAGS）​，包含CF、ZF、OF等标志。<br>​ARM：使用CPSR​（当前程序状态寄存器），包含模式位和条件码。<br>​单片机（如8051）​：8位PSW，含CY、AC、OV等位。</p>
 </blockquote>
-<h2 id="内核态">内核态</h2>
-<p>内核态（Kernel Mode）是操作系统内核运行的特权模式，其本质是CPU的一种硬件级权限状态，用于隔离和保护系统核心资源，确保操作系统的安全性和稳定性。<br>
-​特性	​内核态	​用户态<br>
-​权限	可执行所有指令，访问全部资源	仅限非特权指令，受限内存访问<br>
-​切换触发	系统调用、异常、硬件中断	主动请求内核服务（如open()）<br>
-​典型场景	中断处理、进程调度、驱动交互	应用程序运行（如浏览器、编辑器）<br>
-tips：内存映射文件：<br>
-mmap()可将文件映射到用户空间，但首次访问会触发缺页异常，由内核加载数据到内存。</p>
-<h2 id="以下三种方式是唯一能触发用户模式-内核模式的方式">以下三种方式是唯一能触发用户模式-&gt;内核模式的方式</h2>
-<p>中断、异常或系统异常等事件导致用户程序向OS内核切换，触发：用户模式-&gt;内核模式，以下三种方式是唯一能触发的方式:<br>
-程序请求操作系统服务，执行系统调用<br>
-程序运行时发生异常(如发生程序性中断，或者目态执行特权指令)<br>
-程序运行时发生并响应中断(一般是I/O中断)</p>
-<h2 id="内核栈">内核栈</h2>
-<p>内核栈是操作系统内核运行时使用的栈空间，用于保存内核函数调用的上下文信息，包括参数、局部变量、返回地址等。<strong>每个进程只有一个核心栈</strong><br>
-用户栈运行在用户态（低特权级），而内核栈运行在内核态（高特权级）。硬件栈指针（如x86的ESP）在特权级切换时会自动指向当前进程的内核栈，避免用户程序通过栈操作破坏内核数据。这种隔离是硬件设计的要求。<br>
-硬件栈指针唯一，但每个进程通过操作系统的动态管理拥有逻辑上独立的用户栈和内核栈，实际切换由CPU和内核协作完成</p>
-<h2 id="中断与异常">中断与异常</h2>
-<p>中断 vs 异常的本质区别<br>
-特性	中断（Interrupt）	异常（Exception）<br>
-触发方式	异步（由外部硬件设备触发，与CPU当前执行无关）	同步（由CPU执行指令时触发，如除零、缺页、非法指令）<br>
-来源	外部硬件（如键盘、网卡、定时器）	CPU内部（指令执行错误、缺页、系统调用等）<br>
-是否可预测	不可预测（随机发生）	可预测（特定指令必然触发）<br>
-2. 处理时的上下文（用户态/内核态）<br>
-上下文	中断	异常<br>
-用户态 vs 内核态	全部在内核态处理（硬件直接触发CPU切换到内核态）	大部分在内核态，但缺页异常可能发生在用户态（如访问未映射的内存）<br>
-是否需要进程参与	不依赖当前进程（如磁盘IO完成中断）	依赖当前进程（如缺页异常、除零错误）<br>
-关键点：</p>
+<h2 id="内核态"><a href="#内核态" class="headerlink" title="内核态"></a>内核态</h2><p>内核态（Kernel Mode）是操作系统内核运行的特权模式，其本质是CPU的一种硬件级权限状态，用于隔离和保护系统核心资源，确保操作系统的安全性和稳定性。<br>​特性	​内核态	​用户态<br>​权限	可执行所有指令，访问全部资源	仅限非特权指令，受限内存访问<br>​切换触发	系统调用、异常、硬件中断	主动请求内核服务（如open()）<br>​典型场景	中断处理、进程调度、驱动交互	应用程序运行（如浏览器、编辑器）<br>tips：内存映射文件：<br>mmap()可将文件映射到用户空间，但首次访问会触发缺页异常，由内核加载数据到内存。</p>
+<h2 id="以下三种方式是唯一能触发用户模式-内核模式的方式"><a href="#以下三种方式是唯一能触发用户模式-内核模式的方式" class="headerlink" title="以下三种方式是唯一能触发用户模式-&gt;内核模式的方式"></a>以下三种方式是唯一能触发用户模式-&gt;内核模式的方式</h2><p>中断、异常或系统异常等事件导致用户程序向OS内核切换，触发：用户模式-&gt;内核模式，以下三种方式是唯一能触发的方式:<br>程序请求操作系统服务，执行系统调用<br>程序运行时发生异常(如发生程序性中断，或者目态执行特权指令)<br>程序运行时发生并响应中断(一般是I&#x2F;O中断)</p>
+<h2 id="内核栈"><a href="#内核栈" class="headerlink" title="内核栈"></a>内核栈</h2><p>内核栈是操作系统内核运行时使用的栈空间，用于保存内核函数调用的上下文信息，包括参数、局部变量、返回地址等。<strong>每个进程只有一个核心栈</strong><br>用户栈运行在用户态（低特权级），而内核栈运行在内核态（高特权级）。硬件栈指针（如x86的ESP）在特权级切换时会自动指向当前进程的内核栈，避免用户程序通过栈操作破坏内核数据。这种隔离是硬件设计的要求。<br>硬件栈指针唯一，但每个进程通过操作系统的动态管理拥有逻辑上独立的用户栈和内核栈，实际切换由CPU和内核协作完成</p>
+<h2 id="中断与异常"><a href="#中断与异常" class="headerlink" title="中断与异常"></a>中断与异常</h2><p>中断 vs 异常的本质区别<br>特性	中断（Interrupt）	异常（Exception）<br>触发方式	异步（由外部硬件设备触发，与CPU当前执行无关）	同步（由CPU执行指令时触发，如除零、缺页、非法指令）<br>来源	外部硬件（如键盘、网卡、定时器）	CPU内部（指令执行错误、缺页、系统调用等）<br>是否可预测	不可预测（随机发生）	可预测（特定指令必然触发）<br>2. 处理时的上下文（用户态&#x2F;内核态）<br>上下文	中断	异常<br>用户态 vs 内核态	全部在内核态处理（硬件直接触发CPU切换到内核态）	大部分在内核态，但缺页异常可能发生在用户态（如访问未映射的内存）<br>是否需要进程参与	不依赖当前进程（如磁盘IO完成中断）	依赖当前进程（如缺页异常、除零错误）<br>关键点：</p>
 <p>缺页异常（Page Fault）是<strong>唯一可能在用户态触发的异常</strong>，因为用户程序访问无效内存时，CPU会先尝试处理（如加载页面），而不是直接杀死进程。</p>
 <p>其他异常（如非法指令）一般直接终止进程或由内核处理。</p>
 <ol start="3">
-<li>
-<p>处理逻辑的差异<br>
-处理逻辑	中断	异常<br>
-是否与当前进程相关	通常无关（如定时器中断、外设中断）	直接相关（如缺页异常影响当前进程的内存访问）<br>
-能否被阻塞	不能（要求快速响应，不可睡眠）	可以阻塞（如缺页异常可能触发磁盘IO）<br>
-嵌套性	允许嵌套（高优先级中断可打断低优先级中断）	通常单重（异常处理中一般不再触发同类异常）</p>
+<li><p>处理逻辑的差异<br>处理逻辑	中断	异常<br>是否与当前进程相关	通常无关（如定时器中断、外设中断）	直接相关（如缺页异常影响当前进程的内存访问）<br>能否被阻塞	不能（要求快速响应，不可睡眠）	可以阻塞（如缺页异常可能触发磁盘IO）<br>嵌套性	允许嵌套（高优先级中断可打断低优先级中断）	通常单重（异常处理中一般不再触发同类异常）</p>
 </li>
-<li>
-<p>相互打断的关系<br>
-打断关系	中断	异常<br>
-能否被中断打断	可以（高优先级中断可嵌套）	可以（异常处理中可能被中断插入）<br>
-能否被异常打断	不能（中断处理时一般关闭异常）	通常不能（异常处理是同步的，不会自发触发）</p>
+<li><p>相互打断的关系<br>打断关系	中断	异常<br>能否被中断打断	可以（高优先级中断可嵌套）	可以（异常处理中可能被中断插入）<br>能否被异常打断	不能（中断处理时一般关闭异常）	通常不能（异常处理是同步的，不会自发触发）</p>
 </li>
 </ol>
-<p>典型例子<br>
-中断的例子：<br>
-键盘输入、网卡收到数据、硬盘IO完成、定时器中断。<br>
-异常的例子：<br>
-缺页异常（访问未分配的内存）、除零错误、非法指令、系统调用（通过软中断/异常触发）</p>
-<h2 id="中断or异常的触发">中断or异常的触发</h2>
-<ol>
-<li>中断/异常的触发<br>
-中断：由外部硬件设备（如键盘、网卡、定时器）异步触发。</li>
+<p>典型例子<br>中断的例子：<br>键盘输入、网卡收到数据、硬盘IO完成、定时器中断。<br>异常的例子：<br>缺页异常（访问未分配的内存）、除零错误、非法指令、系统调用（通过软中断&#x2F;异常触发）</p>
+<h2 id="中断or异常的触发"><a href="#中断or异常的触发" class="headerlink" title="中断or异常的触发"></a>中断or异常的触发</h2><ol>
+<li>中断&#x2F;异常的触发<br>中断：由外部硬件设备（如键盘、网卡、定时器）异步触发。</li>
 </ol>
 <p>异常：由CPU执行指令时同步触发（如缺页、除零、非法指令）。</p>
 <ol start="2">
-<li>中断/异常响应流程<br>
-(1) 发现中断源，提出请求<br>
-中断：CPU在每个指令周期末尾检查中断引脚（如x86的INTR/NMI），确认是否有硬件中断请求。<br>
-异常：CPU在执行指令时直接检测到错误（如访问非法地址），主动触发异常。<br>
-(2) 检查中断/异常是否被屏蔽<br>
-(3) 优先级仲裁<br>
-(4) 保存现场（上下文切换）<br>
-CPU自动完成以下操作：<br>
-保存PSW（程序状态字）：包括标志寄存器（如EFLAGS）、中断屏蔽状态等。<br>
-保存PC（程序计数器）：即下一条待执行指令的地址。<br>
-切换到内核态：将CPU模式从用户态切换到内核态（通过修改CS段寄存器等）。<br>
-保存其他寄存器：部分架构可能需手动保存通用寄存器（如x86的中断处理程序需保存eax、ecx等）。<br>
-(5) 跳转到处理程序<br>
-CPU根据中断向量表（如x86的IDT）找到对应的中断/异常处理程序地址，并跳转执行。<br>
-中断：调用外设驱动的中断服务例程（ISR）。<br>
-异常：调用内核的异常处理程序（如缺页处理、终止进程等）。<br>
-(6) 处理程序执行<br>
-(7) 恢复现场<br>
-(8) 返回原程序</li>
+<li>中断&#x2F;异常响应流程<br>(1) 发现中断源，提出请求<br>中断：CPU在每个指令周期末尾检查中断引脚（如x86的INTR&#x2F;NMI），确认是否有硬件中断请求。<br>异常：CPU在执行指令时直接检测到错误（如访问非法地址），主动触发异常。<br>(2) 检查中断&#x2F;异常是否被屏蔽<br>(3) 优先级仲裁<br>(4) 保存现场（上下文切换）<br>CPU自动完成以下操作：<br>保存PSW（程序状态字）：包括标志寄存器（如EFLAGS）、中断屏蔽状态等。<br>保存PC（程序计数器）：即下一条待执行指令的地址。<br>切换到内核态：将CPU模式从用户态切换到内核态（通过修改CS段寄存器等）。<br>保存其他寄存器：部分架构可能需手动保存通用寄存器（如x86的中断处理程序需保存eax、ecx等）。<br>(5) 跳转到处理程序<br>CPU根据中断向量表（如x86的IDT）找到对应的中断&#x2F;异常处理程序地址，并跳转执行。<br>中断：调用外设驱动的中断服务例程（ISR）。<br>异常：调用内核的异常处理程序（如缺页处理、终止进程等）。<br>(6) 处理程序执行<br>(7) 恢复现场<br>(8) 返回原程序</li>
 </ol>
-<h2 id="中断屏蔽与中断优先级">中断屏蔽与中断优先级</h2>
-<p>对比维度	中断屏蔽	中断优先级<br>
-定义	通过软件或硬件手段暂时禁止CPU响应某些中断。	硬件或软件规定的中断响应顺序，高优先级中断可抢占低优先级。<br>
-核心作用	选择性关闭中断，确保关键代码不被干扰。	决定中断处理的顺序，解决多个中断同时发生的竞争问题。<br>
-目的	避免中断干扰（确保原子性、实时性）。	协调中断竞争（确定谁先被处理）。<br>
-动态性	可随时通过软件动态启用/禁用。	优先级通常静态配置（启动时由硬件/OS设定）。<br>
-影响范围	全局或部分中断失效。	仅影响响应顺序，不禁止中断。</p>
-<h2 id="Linux内核处理流程">Linux内核处理流程</h2>
-<p>用户态进程运行<br>
-│<br>
-├─ 中断触发 → 快中断 → 保存部分寄存器 → 快速处理 → ret_from_intr → 返回用户态<br>
-│               │<br>
-│               └─ 慢中断 → 保存全部寄存器 → 上半部处理 → 调度下半部（do_softirq）<br>
-│                                               │<br>
-├─ 异常触发 → 系统调用 → 保存现场 → 调用sys_call_table → ret_from_sys_call<br>
-│               │                              │<br>
-│               └─ 缺页异常 → 分配内存 → 重试指令<br>
-│<br>
-└─ 返回路径公共部分：<br>
-├─ 检查TIF_NEED_RESCHED → 调用schedule()<br>
-├─ 处理信号（do_signal）<br>
-└─ 恢复用户态（iret）</p>
-<p>上半部 vs 下半部：<br>
-上半部：立即执行（如硬件应答），不可中断。<br>
-下半部：延迟处理（如网络协议栈），可被新中断打断。</p>
-<h2 id="进程的定义">进程的定义</h2>
-<p>进程是一个具有一定独立功能的程序关于某个数据集合的一次运行活动<br>
-进程是操作系统进行资源分配和调度的一个独立单位<br>
-一个进程包括五个实体部分，分别是：<br>
-(OS管理运行程序的)数据结构P（就是进程控制块PCB）<br>
-(运行程序的)内存代码C<br>
-(运行程序的)内存数据D<br>
-(运行程序的)通用寄存器信息R<br>
-(OS控制程序执行的)程序状态字信息PSW</p>
+<h2 id="中断屏蔽与中断优先级"><a href="#中断屏蔽与中断优先级" class="headerlink" title="中断屏蔽与中断优先级"></a>中断屏蔽与中断优先级</h2><p>对比维度	中断屏蔽	中断优先级<br>定义	通过软件或硬件手段暂时禁止CPU响应某些中断。	硬件或软件规定的中断响应顺序，高优先级中断可抢占低优先级。<br>核心作用	选择性关闭中断，确保关键代码不被干扰。	决定中断处理的顺序，解决多个中断同时发生的竞争问题。<br>目的	避免中断干扰（确保原子性、实时性）。	协调中断竞争（确定谁先被处理）。<br>动态性	可随时通过软件动态启用&#x2F;禁用。	优先级通常静态配置（启动时由硬件&#x2F;OS设定）。<br>影响范围	全局或部分中断失效。	仅影响响应顺序，不禁止中断。</p>
+<h2 id="Linux内核处理流程"><a href="#Linux内核处理流程" class="headerlink" title="Linux内核处理流程"></a>Linux内核处理流程</h2><p>用户态进程运行<br>│<br>├─ 中断触发 → 快中断 → 保存部分寄存器 → 快速处理 → ret_from_intr → 返回用户态<br>│               │<br>│               └─ 慢中断 → 保存全部寄存器 → 上半部处理 → 调度下半部（do_softirq）<br>│                                               │<br>├─ 异常触发 → 系统调用 → 保存现场 → 调用sys_call_table → ret_from_sys_call<br>│               │                              │<br>│               └─ 缺页异常 → 分配内存 → 重试指令<br>│<br>└─ 返回路径公共部分：<br>   ├─ 检查TIF_NEED_RESCHED → 调用schedule()<br>   ├─ 处理信号（do_signal）<br>   └─ 恢复用户态（iret）</p>
+<p>上半部 vs 下半部：<br>上半部：立即执行（如硬件应答），不可中断。<br>下半部：延迟处理（如网络协议栈），可被新中断打断。</p>
+<h2 id="进程的定义"><a href="#进程的定义" class="headerlink" title="进程的定义"></a>进程的定义</h2><p>进程是一个具有一定独立功能的程序关于某个数据集合的一次运行活动<br>进程是操作系统进行资源分配和调度的一个独立单位<br>一个进程包括五个实体部分，分别是：<br>(OS管理运行程序的)数据结构P（就是进程控制块PCB）<br>(运行程序的)内存代码C<br>(运行程序的)内存数据D<br>(运行程序的)通用寄存器信息R<br>(OS控制程序执行的)程序状态字信息PSW</p>
 <blockquote>
-<p>PCB内容：​进程标识符（PID）​：唯一标识进程的数字或字符串。<br>
-​进程状态：如运行（running）、就绪（ready）、阻塞（blocked）等。<br>
-​CPU现场信息：通用寄存器、指令计数器（PC）、栈指针（SP）、程序状态字（PSW）等，用于进程切换时恢复执行现场。<br>
-​资源清单：分配的内存、打开的文件、I/O设备等。<br>
-​调度信息：优先级、等待事件（如等待I/O完成）。<br>
-​同步与通信机制：信号量、消息队列等，用于进程间同步和通信。</p>
+<p>PCB内容：​进程标识符（PID）​：唯一标识进程的数字或字符串。<br>​进程状态：如运行（running）、就绪（ready）、阻塞（blocked）等。<br>​CPU现场信息：通用寄存器、指令计数器（PC）、栈指针（SP）、程序状态字（PSW）等，用于进程切换时恢复执行现场。<br>​资源清单：分配的内存、打开的文件、I&#x2F;O设备等。<br>​调度信息：优先级、等待事件（如等待I&#x2F;O完成）。<br>​同步与通信机制：信号量、消息队列等，用于进程间同步和通信。</p>
 </blockquote>
-<h2 id="四种状态转换">四种状态转换</h2>
-<p>运行态→等待态：等待资源、I/O、信号量<br>
-等待态→就绪态：资源满足、I/O结束、信号量完成<br>
-运行态→就绪态：运行时间片到(倒计时到，不缺少其他东西，只缺少CPU，退回就绪态)、有更高优先权进程，低级调度问题<br>
-以上四个状态转换，一个不能少，一个也不能多，其他的转换不存在的原因如下：<br>
-没有就绪态到等待态:到等待态需要内核参与。<br>
-没有等待态到运行态:等待的资源还没有就绪，无法进入运行态。</p>
-<h2 id="七个状态">七个状态</h2>
-<p>新添加的状态<br>
-新建态:对应于进程被创建的状态，尚未进入就绪队列，创建进程的两个步骤<br>
-为新进程分配所需资源和建立必要的管理信息<br>
-设置进程为就绪态，等待被调度执行<br>
-终止态:<br>
-进程完成认为到达正常结束点<br>
-出现无法克服的错误而异常终止<br>
-操作系统及有终止权的进程所终止时所处的状态，处于终止态的进程不再被调度执行<br>
-下一步就将被系统撤销，最终从系统中消失。<br>
-挂起就绪态:表明进程具备运行条件，但目前在外存中，只有它被对换到内存才能调度执行。<br>
-挂起等待态:表明进程正在等待某一个事件发生且在外存中。</p>
+<h2 id="四种状态转换"><a href="#四种状态转换" class="headerlink" title="四种状态转换"></a>四种状态转换</h2><p>运行态→等待态：等待资源、I&#x2F;O、信号量<br>等待态→就绪态：资源满足、I&#x2F;O结束、信号量完成<br>运行态→就绪态：运行时间片到(倒计时到，不缺少其他东西，只缺少CPU，退回就绪态)、有更高优先权进程，低级调度问题<br>以上四个状态转换，一个不能少，一个也不能多，其他的转换不存在的原因如下：<br>没有就绪态到等待态:到等待态需要内核参与。<br>没有等待态到运行态:等待的资源还没有就绪，无法进入运行态。</p>
+<h2 id="七个状态"><a href="#七个状态" class="headerlink" title="七个状态"></a>七个状态</h2><p>新添加的状态<br>新建态:对应于进程被创建的状态，尚未进入就绪队列，创建进程的两个步骤<br>为新进程分配所需资源和建立必要的管理信息<br>设置进程为就绪态，等待被调度执行<br>终止态:<br>进程完成认为到达正常结束点<br>出现无法克服的错误而异常终止<br>操作系统及有终止权的进程所终止时所处的状态，处于终止态的进程不再被调度执行<br>下一步就将被系统撤销，最终从系统中消失。<br>挂起就绪态:表明进程具备运行条件，但目前在外存中，只有它被对换到内存才能调度执行。<br>挂起等待态:表明进程正在等待某一个事件发生且在外存中。</p>
 <blockquote>
-<p>进程挂起的源头<br>
-到目前为止:随着不断创建进程，当系统资源尤其是内存资源已经不能满足进程运行的要求时，必须把某些进程挂起，对换到磁盘对换区中，释放它占有的某些资源，暂时不参与低级调度，起到平滑系统负荷的目的；也可能系统出现故障，需要暂时挂起一些进程，以便故障消除后再接触挂起并恢复进程运行。<br>
-进程挂起的原因是多种多样的。<br>
-解决办法：剥夺某些进程的内存及其他资源，调入OS管理的对换区，不参加进程调度，待适当时候再调入内存、恢复资源、参与运行，这就是进程挂起<br>
-挂起态与等待态有着本质区别<br>
-进程挂起:没有任何资源<br>
-进程等待:占有已申请到的资源处于等待</p>
+<p>进程挂起的源头<br>到目前为止:随着不断创建进程，当系统资源尤其是内存资源已经不能满足进程运行的要求时，必须把某些进程挂起，对换到磁盘对换区中，释放它占有的某些资源，暂时不参与低级调度，起到平滑系统负荷的目的；也可能系统出现故障，需要暂时挂起一些进程，以便故障消除后再接触挂起并恢复进程运行。<br>进程挂起的原因是多种多样的。<br>解决办法：剥夺某些进程的内存及其他资源，调入OS管理的对换区，不参加进程调度，待适当时候再调入内存、恢复资源、参与运行，这就是进程挂起<br>挂起态与等待态有着本质区别<br>进程挂起:没有任何资源<br>进程等待:占有已申请到的资源处于等待</p>
 </blockquote>
-<h2 id="进程映像到底是个什么玩意">进程映像到底是个什么玩意</h2>
-<p>进程映像是进程在某一时刻的完整快照，包括其代码、数据、状态以及执行环境</p>
+<h2 id="进程映像到底是个什么玩意"><a href="#进程映像到底是个什么玩意" class="headerlink" title="进程映像到底是个什么玩意"></a>进程映像到底是个什么玩意</h2><p>进程映像是进程在某一时刻的完整快照，包括其代码、数据、状态以及执行环境</p>
 <table>
 <thead>
 <tr>
@@ -384,15 +254,14 @@ CPU根据中断向量表（如x86的IDT）找到对应的中断/异常处理程�
 <th><strong>是否共享</strong></th>
 </tr>
 </thead>
-<tbody>
-<tr>
+<tbody><tr>
 <td><strong>进程控制块（PCB, Process Control Block）</strong></td>
 <td>内核数据结构，存储进程的标识、状态、资源占用、调度信息等（如 <code>task_struct</code> in Linux）。</td>
 <td>内核内存</td>
 <td>否（每个进程独立）</td>
 </tr>
 <tr>
-<td><strong>进程程序块（Text Segment / Code Segment）</strong></td>
+<td><strong>进程程序块（Text Segment &#x2F; Code Segment）</strong></td>
 <td>可执行代码（机器指令），通常是只读的（如程序的 <code>.text</code> 段）。</td>
 <td>内存（代码区）</td>
 <td>是（多个进程可共享同一代码，如 <code>fork()</code> 后的父子进程）</td>
@@ -433,69 +302,18 @@ CPU根据中断向量表（如x86的IDT）找到对应的中断/异常处理程�
 <td></td>
 <td></td>
 </tr>
-</tbody>
-</table>
-<h2 id="PCB内容">PCB内容</h2>
-<p>10.2.1. 标识信息<br>
-用于存放唯一标识该进程的信息</p>
-<p>系统分配的标识号<br>
-系统分配的进程组标识号<br>
-用户定义的进程名<br>
-用户定义的进程组名<br>
-10.2.2. 现场信息<br>
-用于存放该进程运行时的处理器现场信息</p>
-<p>用户可见寄存器内容：数据寄存器、地址寄存器<br>
-控制与状态寄存器内容：PC、IR、PSW<br>
-栈指针内容：核心栈与用户栈指针<br>
-10.2.3. 控制信息<br>
-用于存放与管理、调度进程相关的信息</p>
-<p>调度相关信息：状态、等待事件/原因、优先级<br>
-进程组成信息：代码/数据地址、外存映像地址<br>
-队列指引元：进程队列指针、父子兄弟进程指针<br>
-通信相关信息：消息队列、信号量、锁<br>
-进程特权信息：如内存访问权限、处理器特权<br>
-处理器使用信息：占用的处理器、时间片、处理器使用时间/已执行总时间、记账信息<br>
-资源清单信息：如正占有的资源、已使用的资源</p>
+</tbody></table>
+<h2 id="PCB内容"><a href="#PCB内容" class="headerlink" title="PCB内容"></a>PCB内容</h2><p>10.2.1. 标识信息<br>用于存放唯一标识该进程的信息</p>
+<p>系统分配的标识号<br>系统分配的进程组标识号<br>用户定义的进程名<br>用户定义的进程组名<br>10.2.2. 现场信息<br>用于存放该进程运行时的处理器现场信息</p>
+<p>用户可见寄存器内容：数据寄存器、地址寄存器<br>控制与状态寄存器内容：PC、IR、PSW<br>栈指针内容：核心栈与用户栈指针<br>10.2.3. 控制信息<br>用于存放与管理、调度进程相关的信息</p>
+<p>调度相关信息：状态、等待事件&#x2F;原因、优先级<br>进程组成信息：代码&#x2F;数据地址、外存映像地址<br>队列指引元：进程队列指针、父子兄弟进程指针<br>通信相关信息：消息队列、信号量、锁<br>进程特权信息：如内存访问权限、处理器特权<br>处理器使用信息：占用的处理器、时间片、处理器使用时间&#x2F;已执行总时间、记账信息<br>资源清单信息：如正占有的资源、已使用的资源</p>
 <figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">struct</span> <span class="title">task_struct</span> &#123;</span></span><br><span class="line">    <span class="comment">// 标识信息</span></span><br><span class="line">    <span class="type">pid_t</span> pid;                      <span class="comment">// 进程ID</span></span><br><span class="line">    <span class="type">pid_t</span> pgrp;                     <span class="comment">// 进程组ID</span></span><br><span class="line">    <span class="type">char</span> comm[<span class="number">16</span>];                  <span class="comment">// 进程名</span></span><br><span class="line"></span><br><span class="line">    <span class="comment">// 现场信息</span></span><br><span class="line">    <span class="class"><span class="keyword">struct</span> <span class="title">pt_regs</span> *<span class="title">thread</span>;</span>         <span class="comment">// 寄存器上下文</span></span><br><span class="line">    <span class="type">unsigned</span> <span class="type">long</span> kstack;           <span class="comment">// 内核栈指针</span></span><br><span class="line"></span><br><span class="line">    <span class="comment">// 控制信息</span></span><br><span class="line">    <span class="keyword">volatile</span> <span class="type">long</span> state;            <span class="comment">// 进程状态</span></span><br><span class="line">    <span class="type">int</span> prio;                       <span class="comment">// 优先级</span></span><br><span class="line">    <span class="class"><span class="keyword">struct</span> <span class="title">mm_struct</span> *<span class="title">mm</span>;</span>           <span class="comment">// 内存管理（代码/数据地址）</span></span><br><span class="line">    <span class="class"><span class="keyword">struct</span> <span class="title">files_struct</span> *<span class="title">files</span>;</span>     <span class="comment">// 文件描述符表</span></span><br><span class="line">    <span class="class"><span class="keyword">struct</span> <span class="title">list_head</span> <span class="title">children</span>;</span>      <span class="comment">// 子进程链表</span></span><br><span class="line">    u64 utime, stime;               <span class="comment">// CPU 时间统计</span></span><br><span class="line">    <span class="comment">// ... 其他字段（信号处理、命名空间等）</span></span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
-<h2 id="原语">原语</h2>
-<p>原语是由若干条指令构成的完成某种特定功能的程序，执行上具有不可分割性(保证对核心资源的访问是正确的，原语涉及到的资源都是共享核心资源，只能是唯一的)，进入原语区间，立刻关闭中断完成，然后再开中断响应。</p>
-<h2 id="处理器模式切换与上下文状态">处理器模式切换与上下文状态</h2>
-<ol>
-<li>用户空间 - 进程上下文<br>
-场景：普通应用程序在用户态运行<br>
-特点：<br>
-资源访问：受限，不能执行特权指令<br>
-调度：可以被抢占或主动让出CP</li>
-<li>内核空间 - 进程上下文<br>
-场景：内核代表某个进程在内核态执行（如处理系统调用）<br>
-特点：<br>
-特权级别：运行在内核态（Ring 0/x86）<br>
-内存访问：可以访问全部内存空间<br>
-栈使用：使用核心栈（每个进程有独立的内核栈）<br>
-关联性：与特定进程关联，可以访问进程的task_struct<br>
-可调度性：可以被抢占（现代内核支持内核态抢占）<br>
-典型情况：系统调用执行、某些类型的异常处理</li>
-<li>内核空间 - 中断上下文<br>
-场景：硬件中断触发的中断服务例程(ISR)执行<br>
-特点：<br>
-触发方式：由硬件中断异步触发<br>
-关联性：<strong>不与任何特定进程关联</strong><br>
-栈使用：可能使用中断栈或当前进程的内核栈（架构依赖）<br>
-限制：<br>
-不能睡眠或调用可能引起调度的函数<br>
-不能访问用户空间内存<br>
-应该尽快完成处理<br>
-典型情况：硬件中断处理（网络包到达、磁盘IO完成等）</li>
-<li>内核线程<br>
-场景：纯内核线程的执行（如kswapd、kworker等）<br>
-特点：<br>
-特权级别：内核态<br>
-内存访问：只有内核空间，没有用户空间映射<br>
-栈使用：使用独立的内核栈<br>
-调度：像普通进程一样被调度<br>
-用途：执行<strong>后台维护任务</strong>，可以执行需要睡眠的操作<br>
-实际例子<br>
-用户进程调用read()：</li>
+<h2 id="原语"><a href="#原语" class="headerlink" title="原语"></a>原语</h2><p>原语是由若干条指令构成的完成某种特定功能的程序，执行上具有不可分割性(保证对核心资源的访问是正确的，原语涉及到的资源都是共享核心资源，只能是唯一的)，进入原语区间，立刻关闭中断完成，然后再开中断响应。</p>
+<h2 id="处理器模式切换与上下文状态"><a href="#处理器模式切换与上下文状态" class="headerlink" title="处理器模式切换与上下文状态"></a>处理器模式切换与上下文状态</h2><ol>
+<li>用户空间 - 进程上下文<br>场景：普通应用程序在用户态运行<br>特点：<br>资源访问：受限，不能执行特权指令<br>调度：可以被抢占或主动让出CP</li>
+<li>内核空间 - 进程上下文<br>场景：内核代表某个进程在内核态执行（如处理系统调用）<br>特点：<br>特权级别：运行在内核态（Ring 0&#x2F;x86）<br>内存访问：可以访问全部内存空间<br>栈使用：使用核心栈（每个进程有独立的内核栈）<br>关联性：与特定进程关联，可以访问进程的task_struct<br>可调度性：可以被抢占（现代内核支持内核态抢占）<br>典型情况：系统调用执行、某些类型的异常处理</li>
+<li>内核空间 - 中断上下文<br>场景：硬件中断触发的中断服务例程(ISR)执行<br>特点：<br>触发方式：由硬件中断异步触发<br>关联性：<strong>不与任何特定进程关联</strong><br>栈使用：可能使用中断栈或当前进程的内核栈（架构依赖）<br>限制：<br>不能睡眠或调用可能引起调度的函数<br>不能访问用户空间内存<br>应该尽快完成处理<br>典型情况：硬件中断处理（网络包到达、磁盘IO完成等）</li>
+<li>内核线程<br>场景：纯内核线程的执行（如kswapd、kworker等）<br>特点：<br>特权级别：内核态<br>内存访问：只有内核空间，没有用户空间映射<br>栈使用：使用独立的内核栈<br>调度：像普通进程一样被调度<br>用途：执行<strong>后台维护任务</strong>，可以执行需要睡眠的操作<br>实际例子<br>用户进程调用read()：</li>
 </ol>
 <p>开始：用户态进程上下文</p>
 <p>执行syscall指令→切换到内核进程上下文</p>
@@ -509,107 +327,36 @@ CPU根据中断向量表（如x86的IDT）找到对应的中断/异常处理程�
 <p>可能需要从磁盘换入页面→发送IO请求</p>
 <p>磁盘中断到达→中断上下文处理完成IO</p>
 <p>唤醒等待进程</p>
-<p><img src="image.png" alt="alt text"></p>
-<h2 id="自问：linux中task-struct里面都有什么？尽量完整的给出？他是如何区分进程和线程的？">自问：linux中task_struct里面都有什么？尽量完整的给出？他是如何区分进程和线程的？</h2>
-<p>​1. 进程/线程标识<br>
-​<strong>pid_t pid</strong>：进程 ID（唯一标识）。<br>
-​<strong>pid_t tgid</strong>：线程组 ID（同一进程的线程共享 tgid，主线程的 pid == tgid）。<br>
-​<em><em>struct task_struct <em>group_leader</em></em>：线程组的领头线程（主线程）。<br>
-​</em><em>struct list_head thread_group</em>*：同一线程组的所有线程链表。<br>
-​2. 进程状态<br>
-​<strong>volatile long state</strong>：进程状态，取值包括：<br>
-TASK_RUNNING（运行/就绪）<br>
-TASK_INTERRUPTIBLE（可中断睡眠）<br>
-TASK_UNINTERRUPTIBLE（不可中断睡眠）<br>
-TASK_STOPPED（暂停）<br>
-EXIT_ZOMBIE（僵尸状态）。<br>
-​3. 调度信息<br>
-​<strong>int prio, static_prio, normal_prio</strong>：优先级（静态、动态）。<br>
-​<strong>unsigned int rt_priority</strong>：实时进程优先级。<br>
-​<strong>struct sched_entity se</strong>：CFS 调度实体（时间片、权重等）。<br>
-​<em><em>struct sched_class <em>sched_class</em></em>：调度策略（SCHED_FIFO、SCHED_RR、SCHED_OTHER）。<br>
-​4. 内存管理<br>
-​</em><em>struct mm_struct <em>mm</em></em>：进程内存描述符（代码段、堆栈、页表等）。<br>
-​<em><em>struct mm_struct <em>active_mm</em></em>：活跃内存（内核线程可能借用用户进程的 mm）。<br>
-​</em><em>unsigned long stack</em>*：内核栈指针。<br>
-​5. 文件系统<br>
-​<em><em>struct files_struct <em>files</em></em>：打开的文件描述符表。<br>
-​</em><em>struct fs_struct <em>fs</em></em>：文件系统信息（如当前工作目录）。<br>
-​6. 信号处理<br>
-​<em><em>struct signal_struct <em>signal</em></em>：信号描述符。<br>
-​</em><em>sigset_t blocked</em>*：阻塞的信号掩码。<br>
-​<strong>struct sigpending pending</strong>：待处理的信号队列。<br>
-​7. 进程关系<br>
-​<em><em>struct task_struct <em>parent</em></em>：父进程。<br>
-​</em><em>struct list_head children</em>*：子进程链表。<br>
-​<strong>struct list_head sibling</strong>：兄弟进程链表。<br>
-​8. 其他关键字段<br>
-​<strong>struct thread_struct thread</strong>：CPU 寄存器状态（上下文切换时保存）。<br>
-​<em><em>struct exec_domain <em>exec_domain</em></em>：可执行文件格式（如 ELF）。<br>
-​</em><em>struct ptrace_context <em>ptrace</em></em>：调试跟踪信息。<br>
-​如何区分进程和线程？<br>
-Linux 内核不严格区分进程和线程，均用 task_struct 表示，区别在于资源共享方式：<br>
-​进程：<br>
-独立的 mm_struct（内存空间）。<br>
-独立的 files_struct（文件描述符）。<br>
-独立的 signal_struct（信号处理）。<br>
-通过 fork() 创建，默认不共享资源。<br>
-​线程：<br>
-共享父进程的 mm_struct、files_struct、signal_struct。<br>
-通过 clone() 创建，指定标志如 CLONE_VM（共享内存）、CLONE_FILES（共享文件）。<br>
-同一线程组的线程 tgid 相同。</p>
-<h2 id="线程共享的和独立的资源">线程共享的和独立的资源</h2>
-<h3 id="线程共享的资源">线程共享的资源</h3>
-<p>同一进程中的所有线程<strong>完全共享</strong>以下资源：</p>
+<p><img src="/notes.github.io/image.png" alt="alt text"></p>
+<h2 id="自问：linux中task-struct里面都有什么？尽量完整的给出？他是如何区分进程和线程的？"><a href="#自问：linux中task-struct里面都有什么？尽量完整的给出？他是如何区分进程和线程的？" class="headerlink" title="自问：linux中task_struct里面都有什么？尽量完整的给出？他是如何区分进程和线程的？"></a>自问：linux中task_struct里面都有什么？尽量完整的给出？他是如何区分进程和线程的？</h2><p>​1. 进程&#x2F;线程标识<br>​<strong>pid_t pid</strong>：进程 ID（唯一标识）。<br>​<strong>pid_t tgid</strong>：线程组 ID（同一进程的线程共享 tgid，主线程的 pid &#x3D;&#x3D; tgid）。<br>​<em><em>struct task_struct <em>group_leader</em></em>：线程组的领头线程（主线程）。<br>​</em><em>struct list_head thread_group</em><em>：同一线程组的所有线程链表。<br>​2. 进程状态<br>​*<em>volatile long state</em></em>：进程状态，取值包括：<br>TASK_RUNNING（运行&#x2F;就绪）<br>TASK_INTERRUPTIBLE（可中断睡眠）<br>TASK_UNINTERRUPTIBLE（不可中断睡眠）<br>TASK_STOPPED（暂停）<br>EXIT_ZOMBIE（僵尸状态）。<br>​3. 调度信息<br>​<strong>int prio, static_prio, normal_prio</strong>：优先级（静态、动态）。<br>​<strong>unsigned int rt_priority</strong>：实时进程优先级。<br>​<strong>struct sched_entity se</strong>：CFS 调度实体（时间片、权重等）。<br>​<em><em>struct sched_class <em>sched_class</em></em>：调度策略（SCHED_FIFO、SCHED_RR、SCHED_OTHER）。<br>​4. 内存管理<br>​</em><em>struct mm_struct <em>mm</em></em>：进程内存描述符（代码段、堆栈、页表等）。<br>​<em><em>struct mm_struct <em>active_mm</em></em>：活跃内存（内核线程可能借用用户进程的 mm）。<br>​</em><em>unsigned long stack</em><em>：内核栈指针。<br>​5. 文件系统<br>​**struct files_struct <em>files</em></em>：打开的文件描述符表。<br>​<em><em>struct fs_struct <em>fs</em></em>：文件系统信息（如当前工作目录）。<br>​6. 信号处理<br>​</em><em>struct signal_struct <em>signal</em></em>：信号描述符。<br>​<strong>sigset_t blocked</strong>：阻塞的信号掩码。<br>​<strong>struct sigpending pending</strong>：待处理的信号队列。<br>​7. 进程关系<br>​<em><em>struct task_struct <em>parent</em></em>：父进程。<br>​</em><em>struct list_head children</em><em>：子进程链表。<br>​*<em>struct list_head sibling</em></em>：兄弟进程链表。<br>​8. 其他关键字段<br>​<strong>struct thread_struct thread</strong>：CPU 寄存器状态（上下文切换时保存）。<br>​<em><em>struct exec_domain <em>exec_domain</em></em>：可执行文件格式（如 ELF）。<br>​</em><em>struct ptrace_context <em>ptrace</em></em>：调试跟踪信息。<br>​如何区分进程和线程？<br>Linux 内核不严格区分进程和线程，均用 task_struct 表示，区别在于资源共享方式：<br>​进程：<br>独立的 mm_struct（内存空间）。<br>独立的 files_struct（文件描述符）。<br>独立的 signal_struct（信号处理）。<br>通过 fork() 创建，默认不共享资源。<br>​线程：<br>共享父进程的 mm_struct、files_struct、signal_struct。<br>通过 clone() 创建，指定标志如 CLONE_VM（共享内存）、CLONE_FILES（共享文件）。<br>同一线程组的线程 tgid 相同。</p>
+<h2 id="线程共享的和独立的资源"><a href="#线程共享的和独立的资源" class="headerlink" title="线程共享的和独立的资源"></a>线程共享的和独立的资源</h2><h3 id="线程共享的资源"><a href="#线程共享的资源" class="headerlink" title="线程共享的资源"></a>线程共享的资源</h3><p>同一进程中的所有线程<strong>完全共享</strong>以下资源：</p>
 <ol>
-<li><strong>内存地址空间</strong>（代码段、数据段、堆、共享库等）
-<ul>
+<li><strong>内存地址空间</strong>（代码段、数据段、堆、共享库等）<ul>
 <li>一个线程修改全局变量会立即影响其他线程</li>
-<li>动态分配的内存(malloc/new)对所有线程可见</li>
+<li>动态分配的内存(malloc&#x2F;new)对所有线程可见</li>
 </ul>
 </li>
-<li><strong>文件描述符表</strong>
-<ul>
+<li><strong>文件描述符表</strong><ul>
 <li>一个线程打开的文件其他线程可以直接使用</li>
 </ul>
 </li>
-<li><strong>信号处理程序</strong>
-<ul>
+<li><strong>信号处理程序</strong><ul>
 <li>信号处理函数是进程级别的设置</li>
 </ul>
 </li>
-<li><strong>进程属性</strong>
-<ul>
+<li><strong>进程属性</strong><ul>
 <li>用户ID、组ID、工作目录等</li>
 </ul>
 </li>
 </ol>
-<h3 id="线程独立的资源">线程独立的资源</h3>
-<h3 id="1-线程执行状态">1. 线程执行状态</h3>
-<h3 id="2-线程上下文（保护现场）">2. 线程上下文（保护现场）</h3>
-<h3 id="3-独立的程序计数器（PC）">3. 独立的程序计数器（PC）</h3>
-<h3 id="4-执行堆栈">4. 执行堆栈</h3>
-<h3 id="5-静态存储区的局部变量">5. 静态存储区的局部变量</h3>
-  <figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">static</span> __thread <span class="type">int</span> tls_var;  <span class="comment">// 每个线程有独立副本</span></span><br></pre></td></tr></table></figure>
+<h3 id="线程独立的资源"><a href="#线程独立的资源" class="headerlink" title="线程独立的资源"></a>线程独立的资源</h3><h3 id="1-线程执行状态"><a href="#1-线程执行状态" class="headerlink" title="1. 线程执行状态"></a>1. 线程执行状态</h3><h3 id="2-线程上下文（保护现场）"><a href="#2-线程上下文（保护现场）" class="headerlink" title="2. 线程上下文（保护现场）"></a>2. 线程上下文（保护现场）</h3><h3 id="3-独立的程序计数器（PC）"><a href="#3-独立的程序计数器（PC）" class="headerlink" title="3. 独立的程序计数器（PC）"></a>3. 独立的程序计数器（PC）</h3><h3 id="4-执行堆栈"><a href="#4-执行堆栈" class="headerlink" title="4. 执行堆栈"></a>4. 执行堆栈</h3><h3 id="5-静态存储区的局部变量"><a href="#5-静态存储区的局部变量" class="headerlink" title="5. 静态存储区的局部变量"></a>5. 静态存储区的局部变量</h3>  <figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">static</span> __thread <span class="type">int</span> tls_var;  <span class="comment">// 每个线程有独立副本</span></span><br></pre></td></tr></table></figure>
 <ul>
 <li>不同于普通的静态变量（所有线程共享）</li>
 </ul>
-<h3 id="6-线程控制块-TCB">6. 线程控制块(TCB)</h3>
-<h3 id="实际内存布局示例">实际内存布局示例</h3>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">进程地址空间</span><br><span class="line">├── 代码段 (所有线程共享)</span><br><span class="line">├── 数据段 (全局变量，共享)</span><br><span class="line">├── 堆 (动态分配内存，共享)</span><br><span class="line">├── 共享库 (共享)</span><br><span class="line">├── 线程1栈 (私有)</span><br><span class="line">├── 线程2栈 (私有)</span><br><span class="line">├── ...</span><br><span class="line">└── 线程局部存储区 (TLS，每个线程有独立副本)</span><br></pre></td></tr></table></figure>
-<p>辨析：在单线程进程中：进程栈就是线程栈，两者是同一个栈结构<br>
-在多线程进程中：主线程的栈就是传统意义上的&quot;进程栈&quot;，其他线程有自己的独立栈<br>
-在Linux中：<br>
-主线程栈通常位于地址空间的高地址区域（如x86_64上约在0x7ffffffff000）<br>
-新线程栈通过mmap()分配（默认约8MB，含保护页）</p>
-<h3 id="注意：内核级线程是内核调度的基本单元，因此同一进程的多个线程可被分配到不同CPU核心并行执行。">注意：内核级线程是内核调度的基本单元，因此同一进程的多个线程可被分配到不同CPU核心并行执行。</h3>
-<p>维度	进程（资源）	线程（执行）<br>
-管理内容	内存、文件、权限等静态资源	CPU时间片、执行状态等动态资源<br>
-操作者	内核资源管理器	内核调度器<br>
-共享性	进程间资源默认隔离	同一进程的线程共享所有资源<br>
-您提到的这些线程操作实际上是传统操作系统理论中对线程状态转换的抽象描述，可能来自教材或特定系统的术语。下面我将结合现代操作系统的通用实现，为您逐一解释这些操作的含义及其与线程状态的关系：</p>
-<h2 id="线程操作与状态转换对应关系">线程操作与状态转换对应关系</h2>
-<table>
+<h3 id="6-线程控制块-TCB"><a href="#6-线程控制块-TCB" class="headerlink" title="6. 线程控制块(TCB)"></a>6. 线程控制块(TCB)</h3><h3 id="实际内存布局示例"><a href="#实际内存布局示例" class="headerlink" title="实际内存布局示例"></a>实际内存布局示例</h3><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">进程地址空间</span><br><span class="line">├── 代码段 (所有线程共享)</span><br><span class="line">├── 数据段 (全局变量，共享)</span><br><span class="line">├── 堆 (动态分配内存，共享)</span><br><span class="line">├── 共享库 (共享)</span><br><span class="line">├── 线程1栈 (私有)</span><br><span class="line">├── 线程2栈 (私有)</span><br><span class="line">├── ...</span><br><span class="line">└── 线程局部存储区 (TLS，每个线程有独立副本)</span><br></pre></td></tr></table></figure>
+<p>辨析：在单线程进程中：进程栈就是线程栈，两者是同一个栈结构<br>在多线程进程中：主线程的栈就是传统意义上的”进程栈”，其他线程有自己的独立栈<br>在Linux中：<br>主线程栈通常位于地址空间的高地址区域（如x86_64上约在0x7ffffffff000）<br>新线程栈通过mmap()分配（默认约8MB，含保护页）</p>
+<h3 id="注意：内核级线程是内核调度的基本单元，因此同一进程的多个线程可被分配到不同CPU核心并行执行。"><a href="#注意：内核级线程是内核调度的基本单元，因此同一进程的多个线程可被分配到不同CPU核心并行执行。" class="headerlink" title="注意：内核级线程是内核调度的基本单元，因此同一进程的多个线程可被分配到不同CPU核心并行执行。"></a>注意：内核级线程是内核调度的基本单元，因此同一进程的多个线程可被分配到不同CPU核心并行执行。</h3><p>维度	进程（资源）	线程（执行）<br>管理内容	内存、文件、权限等静态资源	CPU时间片、执行状态等动态资源<br>操作者	内核资源管理器	内核调度器<br>共享性	进程间资源默认隔离	同一进程的线程共享所有资源<br>您提到的这些线程操作实际上是传统操作系统理论中对线程状态转换的抽象描述，可能来自教材或特定系统的术语。下面我将结合现代操作系统的通用实现，为您逐一解释这些操作的含义及其与线程状态的关系：</p>
+<h2 id="线程操作与状态转换对应关系"><a href="#线程操作与状态转换对应关系" class="headerlink" title="线程操作与状态转换对应关系"></a>线程操作与状态转换对应关系</h2><table>
 <thead>
 <tr>
 <th><strong>操作</strong></th>
@@ -618,8 +365,7 @@ Linux 内核不严格区分进程和线程，均用 task_struct 表示，区别�
 <th><strong>现代系统对应操作</strong></th>
 </tr>
 </thead>
-<tbody>
-<tr>
+<tbody><tr>
 <td>孵化</td>
 <td>创建新线程</td>
 <td>无→就绪</td>
@@ -627,9 +373,9 @@ Linux 内核不严格区分进程和线程，均用 task_struct 表示，区别�
 </tr>
 <tr>
 <td>封锁</td>
-<td>线程主动/被动停止执行</td>
+<td>线程主动&#x2F;被动停止执行</td>
 <td>运行→等待（阻塞）</td>
-<td><code>pthread_mutex_lock()</code>/<code>read()</code></td>
+<td><code>pthread_mutex_lock()</code>&#x2F;<code>read()</code></td>
 </tr>
 <tr>
 <td>活化</td>
@@ -652,68 +398,37 @@ Linux 内核不严格区分进程和线程，均用 task_struct 表示，区别�
 <tr>
 <td>结束</td>
 <td>线程执行完毕或被终止</td>
-<td>运行/等待→终止</td>
+<td>运行&#x2F;等待→终止</td>
 <td><code>pthread_exit()</code></td>
 </tr>
-</tbody>
-</table>
+</tbody></table>
 <ol>
-<li>
-<p><strong>为何没有“挂起”</strong>：<br>
-挂起（Suspend）通常涉及将线程/进程资源换出内存（与存储设备交互），属于<strong>资源管理</strong>范畴。线程作为执行单位，其状态仅描述CPU调度行为，故不包含挂起。</p>
+<li><p><strong>为何没有“挂起”</strong>：<br>挂起（Suspend）通常涉及将线程&#x2F;进程资源换出内存（与存储设备交互），属于<strong>资源管理</strong>范畴。线程作为执行单位，其状态仅描述CPU调度行为，故不包含挂起。</p>
 </li>
-<li>
-<p><strong>现代系统的差异</strong>：</p>
+<li><p><strong>现代系统的差异</strong>：  </p>
 <ul>
-<li>术语差异：现代POSIX线程库可能不使用这些传统术语，但底层原理一致。</li>
+<li>术语差异：现代POSIX线程库可能不使用这些传统术语，但底层原理一致。  </li>
 <li>扩展状态：实际系统可能有更细的状态（如<code>TASK_INTERRUPTIBLE</code>）。</li>
 </ul>
 </li>
-<li>
-<p><strong>用户级线程的特殊性</strong>：<br>
-若线程在用户空间管理（如协程），则“剥夺”“指派”由用户态调度器完成，不经过内核。</p>
+<li><p><strong>用户级线程的特殊性</strong>：<br>若线程在用户空间管理（如协程），则“剥夺”“指派”由用户态调度器完成，不经过内核。</p>
 </li>
 </ol>
-<h1>KLT与ULT</h1>
-<h2 id="内核级线程和用户级线程的本质区别">内核级线程和用户级线程的本质区别</h2>
-<ol>
-<li><strong>管理主体不同</strong>：内核级线程由操作系统直接管理，用户级线程由用户态线程库管理。</li>
-<li><strong>调度方式不同</strong>：内核级线程可被独立调度（支持多核并行），用户级线程由进程统一调度（阻塞会影响整个进程）。</li>
+<h1 id="KLT与ULT"><a href="#KLT与ULT" class="headerlink" title="KLT与ULT"></a>KLT与ULT</h1><h2 id="内核级线程和用户级线程的本质区别"><a href="#内核级线程和用户级线程的本质区别" class="headerlink" title="内核级线程和用户级线程的本质区别"></a>内核级线程和用户级线程的本质区别</h2><ol>
+<li><strong>管理主体不同</strong>：内核级线程由操作系统直接管理，用户级线程由用户态线程库管理。  </li>
+<li><strong>调度方式不同</strong>：内核级线程可被独立调度（支持多核并行），用户级线程由进程统一调度（阻塞会影响整个进程）。  </li>
 <li><strong>性能开销不同</strong>：内核级线程切换需内核介入（开销大），用户级线程切换在用户态完成（高效但无法跨核）。</li>
 </ol>
-<h2 id="Linux选择1-1模型的核心逻辑是：">Linux选择1:1模型的核心逻辑是：</h2>
-<p>用内核的复杂性换取开发者/硬件的效率最大化。这种设计使得从嵌入式设备到超级计算机都能获得一致的线程语义，同时避免M:N模型的调试噩梦——“幽灵式卡顿”（即用户态与内核态调度器视图不一致导致的问题）。</p>
-<h2 id="用户态线程是轻量级线程（仍依赖OS），协程是用户态更彻底的轻量化并发（完全自主调度）。">用户态线程是轻量级线程（仍依赖OS），协程是用户态更彻底的轻量化并发（完全自主调度）。</h2>
-<h2 id="内核级线程-KLT-Kernel-Level-Threads">内核级线程 KLT, Kernel-Level Threads</h2>
-<p>线程管理的所有工作由OS内核来做，并提供了一个应用程序设计接口API，供开发者使用KLT，<br>
-创建时：内核为其创建进程和一个基线程，线程实行过程中通过内核的创建线程原语来创建其他线程。<br>
-OS直接调度KLT，KLT用于解决物理并行性问题，内核可以感知到所有的内核级线程，可以控制器其数据结构，内核调度在线程的基础上进行。</p>
-<h2 id="用户级线程ULT-User-Level-Threads">用户级线程ULT, User-Level Threads</h2>
-<p>用户空间运行的线程库，提供多线程应用程序的开发和运行支撑环境。任何应用程序均需通过线程库进行程序设计，再与线程库连接后运行<br>
-线程管理的所有工作都由应用程序完成，内核没有感知到线程的存在，内核感知到的单位是进程。</p>
-<p>KLT的三态模型，由系统调度负责<br>
-ULT的三态模型，由用户调度负责<br>
-活跃态的ULT代表绑定KLT的三态</p>
+<h2 id="Linux选择1-1模型的核心逻辑是："><a href="#Linux选择1-1模型的核心逻辑是：" class="headerlink" title="Linux选择1:1模型的核心逻辑是："></a>Linux选择1:1模型的核心逻辑是：</h2><p>用内核的复杂性换取开发者&#x2F;硬件的效率最大化。这种设计使得从嵌入式设备到超级计算机都能获得一致的线程语义，同时避免M:N模型的调试噩梦——“幽灵式卡顿”（即用户态与内核态调度器视图不一致导致的问题）。</p>
+<h2 id="用户态线程是轻量级线程（仍依赖OS），协程是用户态更彻底的轻量化并发（完全自主调度）。"><a href="#用户态线程是轻量级线程（仍依赖OS），协程是用户态更彻底的轻量化并发（完全自主调度）。" class="headerlink" title="用户态线程是轻量级线程（仍依赖OS），协程是用户态更彻底的轻量化并发（完全自主调度）。"></a>用户态线程是轻量级线程（仍依赖OS），协程是用户态更彻底的轻量化并发（完全自主调度）。</h2><h2 id="内核级线程-KLT-Kernel-Level-Threads"><a href="#内核级线程-KLT-Kernel-Level-Threads" class="headerlink" title="内核级线程 KLT, Kernel-Level Threads"></a>内核级线程 KLT, Kernel-Level Threads</h2><p>线程管理的所有工作由OS内核来做，并提供了一个应用程序设计接口API，供开发者使用KLT，<br>创建时：内核为其创建进程和一个基线程，线程实行过程中通过内核的创建线程原语来创建其他线程。<br>OS直接调度KLT，KLT用于解决物理并行性问题，内核可以感知到所有的内核级线程，可以控制器其数据结构，内核调度在线程的基础上进行。</p>
+<h2 id="用户级线程ULT-User-Level-Threads"><a href="#用户级线程ULT-User-Level-Threads" class="headerlink" title="用户级线程ULT, User-Level Threads"></a>用户级线程ULT, User-Level Threads</h2><p>用户空间运行的线程库，提供多线程应用程序的开发和运行支撑环境。任何应用程序均需通过线程库进行程序设计，再与线程库连接后运行<br>线程管理的所有工作都由应用程序完成，内核没有感知到线程的存在，内核感知到的单位是进程。</p>
+<p>KLT的三态模型，由系统调度负责<br>ULT的三态模型，由用户调度负责<br>活跃态的ULT代表绑定KLT的三态</p>
 <blockquote>
-<p>当ULT处于 ​活跃态 时，意味着它 ​绑定到了一个KLT，此时该ULT的状态 ​完全由KLT的状态决定：<br>
-若KLT被内核调度为 ​运行态 → ULT表现为“正在执行”。<br>
-若KLT被内核置为 ​阻塞态​（如发起阻塞式系统调用）→ 绑定的ULT也被迫阻塞（即使ULT本身未调用阻塞操作）。<br>
-活跃态的ULT运行时可激活用户调度，非阻塞系统调用可使用Jacketing启动用户调度，调整活跃态ULT</p>
+<p>当ULT处于 ​活跃态 时，意味着它 ​绑定到了一个KLT，此时该ULT的状态 ​完全由KLT的状态决定：<br>若KLT被内核调度为 ​运行态 → ULT表现为“正在执行”。<br>若KLT被内核置为 ​阻塞态​（如发起阻塞式系统调用）→ 绑定的ULT也被迫阻塞（即使ULT本身未调用阻塞操作）。<br>活跃态的ULT运行时可激活用户调度，非阻塞系统调用可使用Jacketing启动用户调度，调整活跃态ULT</p>
 </blockquote>
-<h2 id="linux-pthread混合模型">linux pthread混合模型</h2>
-<p>为什么说它是混合模型？<br>
-特性	用户级线程(ULT)特点	内核级线程(KLT)特点	Linux pthread实现<br>
-线程创建/销毁	完全在用户空间	需要内核介入	用户API+内核支持<br>
-调度实体	内核只看到进程	内核看到每个线程	内核看到每个线程<br>
-上下文切换	用户空间完成	内核完成	内核完成<br>
-多核并行	难以实现	天然支持	完全支持<br>
-阻塞影响	整个进程阻塞	仅阻塞单个线程	仅阻塞单个线程<br>
-线程局部存储	用户库实现	需要内核支持	两者协作实现</p>
-<h2 id="自问：进程间通信方式AND线程">自问：进程间通信方式AND线程</h2>
-<h1>进程间通信方式性能对比与数据验证</h1>
-<p>以下是主要进程间通信(IPC)方式的性能对比，基于实际测试和文献数据，并补充了共享内存等更多通信途径的详细信息。</p>
-<h2 id="进程间通信方式性能对比表">进程间通信方式性能对比表</h2>
-<p>当然！我会帮你在原有的表格中加入“文件映射”这一项，并提供对应的详细信息。</p>
+<h2 id="linux-pthread混合模型"><a href="#linux-pthread混合模型" class="headerlink" title="linux pthread混合模型"></a>linux pthread混合模型</h2><p>为什么说它是混合模型？<br>特性	用户级线程(ULT)特点	内核级线程(KLT)特点	Linux pthread实现<br>线程创建&#x2F;销毁	完全在用户空间	需要内核介入	用户API+内核支持<br>调度实体	内核只看到进程	内核看到每个线程	内核看到每个线程<br>上下文切换	用户空间完成	内核完成	内核完成<br>多核并行	难以实现	天然支持	完全支持<br>阻塞影响	整个进程阻塞	仅阻塞单个线程	仅阻塞单个线程<br>线程局部存储	用户库实现	需要内核支持	两者协作实现</p>
+<h2 id="自问：进程间通信方式AND线程"><a href="#自问：进程间通信方式AND线程" class="headerlink" title="自问：进程间通信方式AND线程"></a>自问：进程间通信方式AND线程</h2><h1 id="进程间通信方式性能对比与数据验证"><a href="#进程间通信方式性能对比与数据验证" class="headerlink" title="进程间通信方式性能对比与数据验证"></a>进程间通信方式性能对比与数据验证</h1><p>以下是主要进程间通信(IPC)方式的性能对比，基于实际测试和文献数据，并补充了共享内存等更多通信途径的详细信息。</p>
+<h2 id="进程间通信方式性能对比表"><a href="#进程间通信方式性能对比表" class="headerlink" title="进程间通信方式性能对比表"></a>进程间通信方式性能对比表</h2><p>当然！我会帮你在原有的表格中加入“文件映射”这一项，并提供对应的详细信息。</p>
 <hr>
 <table>
 <thead>
@@ -725,54 +440,53 @@ ULT的三态模型，由用户调度负责<br>
 <th>适用场景</th>
 </tr>
 </thead>
-<tbody>
-<tr>
+<tbody><tr>
 <td><strong>线程共享内存</strong></td>
 <td>直接CPU缓存访问</td>
 <td>10-100 ns</td>
-<td>10-100 GB/s</td>
+<td>10-100 GB&#x2F;s</td>
 <td>同一进程内线程间通信</td>
 </tr>
 <tr>
 <td><strong>进程共享内存</strong></td>
-<td>内存映射文件/区域 → 用户态</td>
+<td>内存映射文件&#x2F;区域 → 用户态</td>
 <td>100-500 ns</td>
-<td>1-10 GB/s</td>
+<td>1-10 GB&#x2F;s</td>
 <td>需要高频数据交换的进程间通信</td>
 </tr>
 <tr>
 <td><strong>管道(pipe)</strong></td>
 <td>内核缓冲区拷贝 → 用户态</td>
 <td>1-10 μs</td>
-<td>100-500 MB/s</td>
+<td>100-500 MB&#x2F;s</td>
 <td>父子进程间顺序通信</td>
 </tr>
 <tr>
 <td><strong>命名管道(FIFO)</strong></td>
 <td>内核缓冲区拷贝 → 用户态</td>
 <td>2-15 μs</td>
-<td>100-500 MB/s</td>
+<td>100-500 MB&#x2F;s</td>
 <td>任意进程间顺序通信</td>
 </tr>
 <tr>
 <td><strong>消息队列</strong></td>
 <td>内核内存分配 + 两次拷贝</td>
 <td>10-50 μs</td>
-<td>50-200 MB/s</td>
+<td>50-200 MB&#x2F;s</td>
 <td>结构化消息传递</td>
 </tr>
 <tr>
 <td><strong>Unix域套接字</strong></td>
 <td>内核缓冲区拷贝 → 用户态</td>
 <td>5-20 μs</td>
-<td>200-800 MB/s</td>
+<td>200-800 MB&#x2F;s</td>
 <td>本地高性能IPC</td>
 </tr>
 <tr>
 <td><strong>TCP套接字</strong></td>
 <td>网络协议栈处理 → 内核缓冲区 → 用户态</td>
 <td>50-200 μs</td>
-<td>10-100 MB/s</td>
+<td>10-100 MB&#x2F;s</td>
 <td>跨网络通信</td>
 </tr>
 <tr>
@@ -786,27 +500,17 @@ ULT的三态模型，由用户调度负责<br>
 <td><strong>文件映射（mmap）</strong></td>
 <td>文件在磁盘存储 → 内存映射区域（用户态）映射到虚拟地址空间</td>
 <td>100-500 ns</td>
-<td>1-10 GB/s</td>
+<td>1-10 GB&#x2F;s</td>
 <td>大文件访问、频繁读写、跨进程共享</td>
 </tr>
-</tbody>
-</table>
+</tbody></table>
 <hr>
-<h3 id="“文件映射（mmap）”">“文件映射（mmap）”</h3>
-<p>映射过程：</p>
-<p>进程请求将文件映射到其虚拟地址空间（调用mmap()）。<br>
-操作系统在虚拟地址空间中为这块区域建立映射关系，标记为“已映射”。<br>
-数据访问：</p>
-<p>进程直接访问映射区域，就像访问普通内存一样。<br>
-读取或修改映射区域中的数据，实际上是在操作内存缓存（页缓存）中的内容。<br>
-数据同步：</p>
-<p>当进程修改映射区域中的数据时，操作系统会在后台将更改同步到磁盘上的文件（如果映射是可写的）。<br>
-反之，文件内容也会在磁盘上更新。<br>
-数据传递路径总结：</p>
-<p>用户空间内存（映射区域）&lt;→（由操作系统管理）&lt;→ 磁盘文件**<br>
-这里没有显式的“拷贝”操作（除初始化映射时），是直接访问文件的内容。</p>
-<h3 id="与进程共享内存对比">与进程共享内存对比</h3>
-<table>
+<h3 id="“文件映射（mmap）”"><a href="#“文件映射（mmap）”" class="headerlink" title="“文件映射（mmap）”"></a>“文件映射（mmap）”</h3><p>映射过程：</p>
+<p>进程请求将文件映射到其虚拟地址空间（调用mmap()）。<br>操作系统在虚拟地址空间中为这块区域建立映射关系，标记为“已映射”。<br>数据访问：</p>
+<p>进程直接访问映射区域，就像访问普通内存一样。<br>读取或修改映射区域中的数据，实际上是在操作内存缓存（页缓存）中的内容。<br>数据同步：</p>
+<p>当进程修改映射区域中的数据时，操作系统会在后台将更改同步到磁盘上的文件（如果映射是可写的）。<br>反之，文件内容也会在磁盘上更新。<br>数据传递路径总结：</p>
+<p>用户空间内存（映射区域）&lt;→（由操作系统管理）&lt;→ 磁盘文件**<br>这里没有显式的“拷贝”操作（除初始化映射时），是直接访问文件的内容。</p>
+<h3 id="与进程共享内存对比"><a href="#与进程共享内存对比" class="headerlink" title="与进程共享内存对比"></a>与进程共享内存对比</h3><table>
 <thead>
 <tr>
 <th>方面</th>
@@ -814,10 +518,9 @@ ULT的三态模型，由用户调度负责<br>
 <th>共享内存</th>
 </tr>
 </thead>
-<tbody>
-<tr>
+<tbody><tr>
 <td><strong>依赖</strong></td>
-<td>磁盘I/O，页缓存</td>
+<td>磁盘I&#x2F;O，页缓存</td>
 <td>纯内存，无磁盘依赖</td>
 </tr>
 <tr>
@@ -835,129 +538,87 @@ ULT的三态模型，由用户调度负责<br>
 <td>大文件访问、需要持久化的共享数据</td>
 <td>高频率、低延迟的进程间通信</td>
 </tr>
-</tbody>
-</table>
+</tbody></table>
 <hr>
-<h3 id="1-线程共享内存">1. <strong>线程共享内存</strong></h3>
-<ul>
-<li>由于它们属于同一进程，多个线程可以直接读取和写入相同的内存地址。</li>
-<li>CPU的缓存（如L1、L2、L3）也会帮助加快访问速度。</li>
+<h3 id="1-线程共享内存"><a href="#1-线程共享内存" class="headerlink" title="1. 线程共享内存"></a>1. <strong>线程共享内存</strong></h3><ul>
+<li>由于它们属于同一进程，多个线程可以直接读取和写入相同的内存地址。  </li>
+<li>CPU的缓存（如L1、L2、L3）也会帮助加快访问速度。  </li>
 <li>不需要经过操作系统或内核的中转，几乎是“直接”访问。</li>
 </ul>
-<h3 id="2-进程共享内存">2. <strong>进程共享内存</strong></h3>
-<p><strong>数据传递路径：</strong></p>
+<h3 id="2-进程共享内存"><a href="#2-进程共享内存" class="headerlink" title="2. 进程共享内存"></a>2. <strong>进程共享内存</strong></h3><p><strong>数据传递路径：</strong>  </p>
 <ul>
-<li>通过<strong>内存映射文件或区域</strong>（比如<code>mmap</code>）映射到两个进程的用户空间内存中。</li>
-<li>进程可以直接读写这块共享内存区域。<br>
-<strong>详细说明：</strong></li>
-<li>操作系统创建一块共享内存区域，并映射到两个或多个进程的虚拟地址空间中。</li>
-<li>进程通过访问自己的虚拟地址，间接地读写共享内存。</li>
+<li>通过<strong>内存映射文件或区域</strong>（比如<code>mmap</code>）映射到两个进程的用户空间内存中。  </li>
+<li>进程可以直接读写这块共享内存区域。<br><strong>详细说明：</strong>  </li>
+<li>操作系统创建一块共享内存区域，并映射到两个或多个进程的虚拟地址空间中。  </li>
+<li>进程通过访问自己的虚拟地址，间接地读写共享内存。  </li>
 <li>这里没有数据在内核和用户空间之间复制，除了初始化映射时。</li>
 </ul>
-<h3 id="3-管道-pipe">3. <strong>管道(pipe)</strong></h3>
-<p><strong>数据传递路径：</strong></p>
+<h3 id="3-管道-pipe"><a href="#3-管道-pipe" class="headerlink" title="3. 管道(pipe)"></a>3. <strong>管道(pipe)</strong></h3><p><strong>数据传递路径：</strong>  </p>
 <ul>
-<li>一个进程将数据写入内核缓冲区（由内核管理）。</li>
+<li>一个进程将数据写入内核缓冲区（由内核管理）。  </li>
 <li>另一个进程从这个缓冲区读取数据。</li>
 </ul>
-<p><strong>详细说明：</strong></p>
+<p><strong>详细说明：</strong>  </p>
 <ul>
-<li>写入方将数据写入管道的内核缓冲区（拷贝操作：用户空间→内核空间）。</li>
-<li>读取方从缓冲区读取数据（拷贝：内核空间→用户空间）。</li>
+<li>写入方将数据写入管道的内核缓冲区（拷贝操作：用户空间→内核空间）。  </li>
+<li>读取方从缓冲区读取数据（拷贝：内核空间→用户空间）。  </li>
 <li>这是<strong>内核缓冲区</strong>扮演中介角色。</li>
 </ul>
-<h3 id="4-命名管道（FIFOs）">4. <strong>命名管道（FIFOs）</strong></h3>
-<p><strong>数据传递路径：</strong></p>
+<h3 id="4-命名管道（FIFOs）"><a href="#4-命名管道（FIFOs）" class="headerlink" title="4. 命名管道（FIFOs）"></a>4. <strong>命名管道（FIFOs）</strong></h3><p><strong>数据传递路径：</strong>  </p>
 <ul>
-<li>类似普通管道，但可以在<strong>任意两个进程之间</strong>（不一定父子关系）。</li>
+<li>类似普通管道，但可以在<strong>任意两个进程之间</strong>（不一定父子关系）。  </li>
 <li>数据写入到内核缓冲区，然后由另一端读取。</li>
 </ul>
-<p><strong>详细说明：</strong></p>
+<p><strong>详细说明：</strong>  </p>
 <ul>
-<li>进程A写入数据到FIFO的内核缓冲区（用户空间→内核空间拷贝）。</li>
-<li>进程B从缓冲区读取数据（内核空间→用户空间拷贝）。</li>
+<li>进程A写入数据到FIFO的内核缓冲区（用户空间→内核空间拷贝）。  </li>
+<li>进程B从缓冲区读取数据（内核空间→用户空间拷贝）。  </li>
 <li>这种方式允许不同进程之间通信。</li>
 </ul>
-<h3 id="5-消息队列">5. <strong>消息队列</strong></h3>
-<p><strong>数据传递路径：</strong></p>
+<h3 id="5-消息队列"><a href="#5-消息队列" class="headerlink" title="5. 消息队列"></a>5. <strong>消息队列</strong></h3><p><strong>数据传递路径：</strong>  </p>
 <ul>
-<li>由内核管理一块特殊的内存区域，用于存储消息。</li>
-<li>进程将消息放入队列（两次拷贝：用户空间→内核空间，内核空间→用户空间），</li>
+<li>由内核管理一块特殊的内存区域，用于存储消息。  </li>
+<li>进程将消息放入队列（两次拷贝：用户空间→内核空间，内核空间→用户空间），  </li>
 <li>其他进程从队列中取出消息。</li>
 <li>结构化消息传递，适合传递有格式的数据。</li>
 </ul>
-<h3 id="6-Unix域套接字">6. <strong>Unix域套接字</strong></h3>
-<p><strong>数据传递路径：</strong></p>
+<h3 id="6-Unix域套接字"><a href="#6-Unix域套接字" class="headerlink" title="6. Unix域套接字"></a>6. <strong>Unix域套接字</strong></h3><p><strong>数据传递路径：</strong>  </p>
 <ul>
-<li>通过内核缓冲区传输数据。</li>
-<li>数据从发送端的用户空间拷贝到内核缓冲区，</li>
+<li>通过内核缓冲区传输数据。  </li>
+<li>数据从发送端的用户空间拷贝到内核缓冲区，  </li>
 <li>接收端再从内核缓冲区拷贝到用户空间。</li>
 </ul>
-<h3 id="7-TCP套接字">7. <strong>TCP套接字</strong></h3>
-<p><strong>数据传递路径：</strong></p>
+<h3 id="7-TCP套接字"><a href="#7-TCP套接字" class="headerlink" title="7. TCP套接字"></a>7. <strong>TCP套接字</strong></h3><p><strong>数据传递路径：</strong>  </p>
 <ul>
-<li>经过网络协议栈处理（TCP/IP协议）</li>
-<li>数据从用户空间拷贝到内核缓冲区，</li>
-<li>经过网络传输到远端，</li>
+<li>经过网络协议栈处理（TCP&#x2F;IP协议）  </li>
+<li>数据从用户空间拷贝到内核缓冲区，  </li>
+<li>经过网络传输到远端，  </li>
 <li>另一端的内核缓冲区再拷贝到远端用户空间。</li>
 <li>数据在用户空间和内核空间之间有多次拷贝，网络传输有一定延迟。</li>
 </ul>
-<h3 id="8-信号">8. <strong>信号</strong></h3>
-<p><strong>数据传递路径：</strong></p>
+<h3 id="8-信号"><a href="#8-信号" class="headerlink" title="8. 信号"></a>8. <strong>信号</strong></h3><p><strong>数据传递路径：</strong>  </p>
 <ul>
-<li>内核将信号放入信号队列（由内核管理），</li>
+<li>内核将信号放入信号队列（由内核管理），  </li>
 <li>用户空间的信号处理程序在适当时被调用。</li>
 </ul>
-<p><strong>详细说明：</strong></p>
+<p><strong>详细说明：</strong>  </p>
 <ul>
-<li>信号是一种异步事件通知机制。</li>
-<li>内核通知进程某个事件发生（如中断、定时器），通过信号队列。</li>
+<li>信号是一种异步事件通知机制。  </li>
+<li>内核通知进程某个事件发生（如中断、定时器），通过信号队列。  </li>
 <li>用户程序在信号处理函数中响应。</li>
 </ul>
-<h2 id="Jacketing技术">Jacketing技术</h2>
-<p>把阻塞式系统调用改造成非阻塞式的:解决一个ULT的阻塞导致整个进程阻塞，避免进程因此从运行态→阻塞态，如此的频繁切换会带来比较大的开销。<br>
-当线程陷入系统调用时，执行Jacketing程序。<br>
-由Jacketing程序来检查资源使用情况，以决定是否执行进程切换或传递控制权给另一个线程<br>
-Jacketing 技术通过用户态拦截系统调用，模拟非阻塞行为（如立即返回 <code>EAGAIN</code>），并在后台异步检查资源就绪后补发真实调用，从而避免线程阻塞和进程切换的开销。其核心是<strong>用户态欺骗 + 异步轮询 + 延迟执行</strong>，实现阻塞操作的非阻塞化。</p>
-<h2 id="自问：java线程池">自问：java线程池</h2>
-<p>Java线程池通过<strong>复用内核级线程（KLT）<strong>和</strong>任务队列</strong>协调逻辑与物理并行性：</p>
+<h2 id="Jacketing技术"><a href="#Jacketing技术" class="headerlink" title="Jacketing技术"></a>Jacketing技术</h2><p>把阻塞式系统调用改造成非阻塞式的:解决一个ULT的阻塞导致整个进程阻塞，避免进程因此从运行态→阻塞态，如此的频繁切换会带来比较大的开销。<br>当线程陷入系统调用时，执行Jacketing程序。<br>由Jacketing程序来检查资源使用情况，以决定是否执行进程切换或传递控制权给另一个线程<br>Jacketing 技术通过用户态拦截系统调用，模拟非阻塞行为（如立即返回 <code>EAGAIN</code>），并在后台异步检查资源就绪后补发真实调用，从而避免线程阻塞和进程切换的开销。其核心是<strong>用户态欺骗 + 异步轮询 + 延迟执行</strong>，实现阻塞操作的非阻塞化。</p>
+<h2 id="自问：java线程池"><a href="#自问：java线程池" class="headerlink" title="自问：java线程池"></a>自问：java线程池</h2><p>Java线程池通过<strong>复用内核级线程（KLT）<strong>和</strong>任务队列</strong>协调逻辑与物理并行性：  </p>
 <ol>
-<li><strong>物理并行性</strong>：固定数量的KLT（如<code>newFixedThreadPool(4)</code>）直接执行任务，匹配CPU核心数以最大化计算加速（如矩阵运算）。</li>
-<li><strong>逻辑并行性</strong>：超额任务（如10万HTTP请求）暂存于阻塞队列（如<code>LinkedBlockingQueue</code>），由KLT异步处理，实现高并发。</li>
+<li><strong>物理并行性</strong>：固定数量的KLT（如<code>newFixedThreadPool(4)</code>）直接执行任务，匹配CPU核心数以最大化计算加速（如矩阵运算）。  </li>
+<li><strong>逻辑并行性</strong>：超额任务（如10万HTTP请求）暂存于阻塞队列（如<code>LinkedBlockingQueue</code>），由KLT异步处理，实现高并发。  </li>
 <li><strong>动态调节</strong>：参数<code>corePoolSize</code>（常驻KLT）、<code>maxPoolSize</code>（突发扩容）和<code>workQueue</code>（队列容量）平衡资源开销与吞吐量。例如，<code>newWorkStealingPool()</code>基于ForkJoin框架自动优化并行任务调度。</li>
 </ol>
-<p><strong>优势</strong>：避免线程频繁创建/销毁的开销，通过队列解耦任务提交与执行，同时支持计算密集型（物理并行）和IO密集型（逻辑并发）场景。<br>
-I/O密集型任务（HTTP请求多数时间在等待网络响应）<br>
-线程阻塞时，线程池会自动调度其他任务</p>
-<h1>处理器调度</h1>
-<p><img src="image-1.png" alt="alt text"><br>
-<img src="image-2.png" alt="alt text"><br>
-<img src="image-3.png" alt="alt text"><br>
-FCFS (先来先服务) 非抢占<br>
-RR (时间片轮转) 抢占<br>
-SPN (最短进程优先) 非抢占，真正操作系统没有办法使用<br>
-SRT (最短剩余时间优先) 抢占，真正操作系统没有办法使用<br>
-HRRF (最高响应比优先) 非抢占，真正操作系统没有办法使用<br>
-Feedback (多级反馈调度) 抢占<br>
-<img src="image-4.png" alt="alt text"></p>
-<h3 id="SPN是一种非抢占式调度，会选择处理时间最短的进程，短进程将会越过长进程，优先获得调度，又称为SJF">SPN是一种非抢占式调度，会选择处理时间最短的进程，短进程将会越过长进程，优先获得调度，又称为SJF</h3>
-<p>问题:<br>
-需要预知作业所需的CPU运行时间<br>
-忽略了作业的等待时间：只要持续不断地提供更短的进程，长进程就有可能饿死，同样也会服务不到。<br>
-分时、实时处理仍然不理想。</p>
-<h3 id="SRT，Shortest-Remaining-Time，最短剩余时间优先">SRT，Shortest Remaining Time，最短剩余时间优先</h3>
-<p>SRT是一种抢占式调度，调度器总是选择预期剩余时间更短的进程<br>
-当一个新进程加入就绪队列，他可能比当前运行的进程具有更短的剩余时间，只要新进程进入就绪队列，调度器就可能抢占当前正在运行的进程<br>
-<img src="image-5.png" alt=""></p>
-<h3 id="RR-时间片轮转调度算法">RR(时间片轮转调度算法)</h3>
-<p>本质也是先来先服务，但是要按照时间片来进行调度<br>
-<img src="image-6.png" alt="alt text"><br>
-<img src="image-7.png" alt="alt text"><br>
-<img src="image-8.png" alt="alt text"><br>
-<img src="image-9.png" alt="alt text"><br>
-<img src="image-10.png" alt="alt text"><br>
-<img src="image-11.png" alt="alt text"><br>
-<img src="image-12.png" alt="alt text"></p>
+<p><strong>优势</strong>：避免线程频繁创建&#x2F;销毁的开销，通过队列解耦任务提交与执行，同时支持计算密集型（物理并行）和IO密集型（逻辑并发）场景。<br>I&#x2F;O密集型任务（HTTP请求多数时间在等待网络响应）<br>线程阻塞时，线程池会自动调度其他任务</p>
+<h1 id="处理器调度"><a href="#处理器调度" class="headerlink" title="处理器调度"></a>处理器调度</h1><p><img src="/notes.github.io/image-1.png" alt="alt text"><br><img src="/notes.github.io/image-2.png" alt="alt text"><br><img src="/notes.github.io/image-3.png" alt="alt text"><br>FCFS (先来先服务) 非抢占<br>RR (时间片轮转) 抢占<br>SPN (最短进程优先) 非抢占，真正操作系统没有办法使用<br>SRT (最短剩余时间优先) 抢占，真正操作系统没有办法使用<br>HRRF (最高响应比优先) 非抢占，真正操作系统没有办法使用<br>Feedback (多级反馈调度) 抢占<br><img src="/notes.github.io/image-4.png" alt="alt text"></p>
+<h3 id="SPN是一种非抢占式调度，会选择处理时间最短的进程，短进程将会越过长进程，优先获得调度，又称为SJF"><a href="#SPN是一种非抢占式调度，会选择处理时间最短的进程，短进程将会越过长进程，优先获得调度，又称为SJF" class="headerlink" title="SPN是一种非抢占式调度，会选择处理时间最短的进程，短进程将会越过长进程，优先获得调度，又称为SJF"></a>SPN是一种非抢占式调度，会选择处理时间最短的进程，短进程将会越过长进程，优先获得调度，又称为SJF</h3><p>问题:<br>需要预知作业所需的CPU运行时间<br>忽略了作业的等待时间：只要持续不断地提供更短的进程，长进程就有可能饿死，同样也会服务不到。<br>分时、实时处理仍然不理想。</p>
+<h3 id="SRT，Shortest-Remaining-Time，最短剩余时间优先"><a href="#SRT，Shortest-Remaining-Time，最短剩余时间优先" class="headerlink" title="SRT，Shortest Remaining Time，最短剩余时间优先"></a>SRT，Shortest Remaining Time，最短剩余时间优先</h3><p>SRT是一种抢占式调度，调度器总是选择预期剩余时间更短的进程<br>当一个新进程加入就绪队列，他可能比当前运行的进程具有更短的剩余时间，只要新进程进入就绪队列，调度器就可能抢占当前正在运行的进程<br><img src="/notes.github.io/image-5.png"></p>
+<h3 id="RR-时间片轮转调度算法"><a href="#RR-时间片轮转调度算法" class="headerlink" title="RR(时间片轮转调度算法)"></a>RR(时间片轮转调度算法)</h3><p>本质也是先来先服务，但是要按照时间片来进行调度<br><img src="/notes.github.io/image-6.png" alt="alt text"><br><img src="/notes.github.io/image-7.png" alt="alt text"><br><img src="/notes.github.io/image-8.png" alt="alt text"><br><img src="/notes.github.io/image-9.png" alt="alt text"><br><img src="/notes.github.io/image-10.png" alt="alt text"><br><img src="/notes.github.io/image-11.png" alt="alt text"><br><img src="/notes.github.io/image-12.png" alt="alt text"></p>
 
     </div>
 
@@ -976,12 +637,12 @@ Feedback (多级反馈调度) 抢占<br>
         
     <div class="post-nav">
       <div class="post-nav-item">
-    <a href="/notes.github.io/2025/06/23/%E6%96%87%E4%BB%B6%E7%AE%A1%E7%90%86%E7%AC%94%E8%AE%B0/" rel="prev" title="文件管理笔记">
-      <i class="fa fa-chevron-left"></i> 文件管理笔记
+    <a href="/notes.github.io/2025/06/23/%E4%BD%9C%E4%B8%9A2PV%E9%A2%98%E7%9B%AE%E6%95%B4%E7%90%86/" rel="prev" title="作业2PV题目整理">
+      <i class="fa fa-chevron-left"></i> 作业2PV题目整理
     </a></div>
       <div class="post-nav-item">
-    <a href="/notes.github.io/2025/06/23/%E4%BD%9C%E4%B8%9A2PV%E9%A2%98%E7%9B%AE%E6%95%B4%E7%90%86/" rel="next" title="作业2PV题目整理">
-      作业2PV题目整理 <i class="fa fa-chevron-right"></i>
+    <a href="/notes.github.io/2025/06/23/%E5%B9%B6%E5%8F%91%E7%BC%96%E7%A8%8B/" rel="next" title="操作系统：并发编程">
+      操作系统：并发编程 <i class="fa fa-chevron-right"></i>
     </a></div>
     </div>
       </footer>
@@ -1041,7 +702,7 @@ Feedback (多级反馈调度) 抢占<br>
 
       <!--noindex-->
       <div class="post-toc-wrap sidebar-panel">
-          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#PSW"><span class="nav-number">1.</span> <span class="nav-text">PSW</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%86%85%E6%A0%B8%E6%80%81"><span class="nav-number">2.</span> <span class="nav-text">内核态</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%BB%A5%E4%B8%8B%E4%B8%89%E7%A7%8D%E6%96%B9%E5%BC%8F%E6%98%AF%E5%94%AF%E4%B8%80%E8%83%BD%E8%A7%A6%E5%8F%91%E7%94%A8%E6%88%B7%E6%A8%A1%E5%BC%8F-%E5%86%85%E6%A0%B8%E6%A8%A1%E5%BC%8F%E7%9A%84%E6%96%B9%E5%BC%8F"><span class="nav-number">3.</span> <span class="nav-text">以下三种方式是唯一能触发用户模式-&gt;内核模式的方式</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%86%85%E6%A0%B8%E6%A0%88"><span class="nav-number">4.</span> <span class="nav-text">内核栈</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%B8%AD%E6%96%AD%E4%B8%8E%E5%BC%82%E5%B8%B8"><span class="nav-number">5.</span> <span class="nav-text">中断与异常</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%B8%AD%E6%96%ADor%E5%BC%82%E5%B8%B8%E7%9A%84%E8%A7%A6%E5%8F%91"><span class="nav-number">6.</span> <span class="nav-text">中断or异常的触发</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%B8%AD%E6%96%AD%E5%B1%8F%E8%94%BD%E4%B8%8E%E4%B8%AD%E6%96%AD%E4%BC%98%E5%85%88%E7%BA%A7"><span class="nav-number">7.</span> <span class="nav-text">中断屏蔽与中断优先级</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Linux%E5%86%85%E6%A0%B8%E5%A4%84%E7%90%86%E6%B5%81%E7%A8%8B"><span class="nav-number">8.</span> <span class="nav-text">Linux内核处理流程</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E8%BF%9B%E7%A8%8B%E7%9A%84%E5%AE%9A%E4%B9%89"><span class="nav-number">9.</span> <span class="nav-text">进程的定义</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%9B%9B%E7%A7%8D%E7%8A%B6%E6%80%81%E8%BD%AC%E6%8D%A2"><span class="nav-number">10.</span> <span class="nav-text">四种状态转换</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%B8%83%E4%B8%AA%E7%8A%B6%E6%80%81"><span class="nav-number">11.</span> <span class="nav-text">七个状态</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E8%BF%9B%E7%A8%8B%E6%98%A0%E5%83%8F%E5%88%B0%E5%BA%95%E6%98%AF%E4%B8%AA%E4%BB%80%E4%B9%88%E7%8E%A9%E6%84%8F"><span class="nav-number">12.</span> <span class="nav-text">进程映像到底是个什么玩意</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#PCB%E5%86%85%E5%AE%B9"><span class="nav-number">13.</span> <span class="nav-text">PCB内容</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%8E%9F%E8%AF%AD"><span class="nav-number">14.</span> <span class="nav-text">原语</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%A4%84%E7%90%86%E5%99%A8%E6%A8%A1%E5%BC%8F%E5%88%87%E6%8D%A2%E4%B8%8E%E4%B8%8A%E4%B8%8B%E6%96%87%E7%8A%B6%E6%80%81"><span class="nav-number">15.</span> <span class="nav-text">处理器模式切换与上下文状态</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E8%87%AA%E9%97%AE%EF%BC%9Alinux%E4%B8%ADtask-struct%E9%87%8C%E9%9D%A2%E9%83%BD%E6%9C%89%E4%BB%80%E4%B9%88%EF%BC%9F%E5%B0%BD%E9%87%8F%E5%AE%8C%E6%95%B4%E7%9A%84%E7%BB%99%E5%87%BA%EF%BC%9F%E4%BB%96%E6%98%AF%E5%A6%82%E4%BD%95%E5%8C%BA%E5%88%86%E8%BF%9B%E7%A8%8B%E5%92%8C%E7%BA%BF%E7%A8%8B%E7%9A%84%EF%BC%9F"><span class="nav-number">16.</span> <span class="nav-text">自问：linux中task_struct里面都有什么？尽量完整的给出？他是如何区分进程和线程的？</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%BA%BF%E7%A8%8B%E5%85%B1%E4%BA%AB%E7%9A%84%E5%92%8C%E7%8B%AC%E7%AB%8B%E7%9A%84%E8%B5%84%E6%BA%90"><span class="nav-number">17.</span> <span class="nav-text">线程共享的和独立的资源</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%BA%BF%E7%A8%8B%E5%85%B1%E4%BA%AB%E7%9A%84%E8%B5%84%E6%BA%90"><span class="nav-number">17.1.</span> <span class="nav-text">线程共享的资源</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%BA%BF%E7%A8%8B%E7%8B%AC%E7%AB%8B%E7%9A%84%E8%B5%84%E6%BA%90"><span class="nav-number">17.2.</span> <span class="nav-text">线程独立的资源</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#1-%E7%BA%BF%E7%A8%8B%E6%89%A7%E8%A1%8C%E7%8A%B6%E6%80%81"><span class="nav-number">17.3.</span> <span class="nav-text">1. 线程执行状态</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-%E7%BA%BF%E7%A8%8B%E4%B8%8A%E4%B8%8B%E6%96%87%EF%BC%88%E4%BF%9D%E6%8A%A4%E7%8E%B0%E5%9C%BA%EF%BC%89"><span class="nav-number">17.4.</span> <span class="nav-text">2. 线程上下文（保护现场）</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3-%E7%8B%AC%E7%AB%8B%E7%9A%84%E7%A8%8B%E5%BA%8F%E8%AE%A1%E6%95%B0%E5%99%A8%EF%BC%88PC%EF%BC%89"><span class="nav-number">17.5.</span> <span class="nav-text">3. 独立的程序计数器（PC）</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#4-%E6%89%A7%E8%A1%8C%E5%A0%86%E6%A0%88"><span class="nav-number">17.6.</span> <span class="nav-text">4. 执行堆栈</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#5-%E9%9D%99%E6%80%81%E5%AD%98%E5%82%A8%E5%8C%BA%E7%9A%84%E5%B1%80%E9%83%A8%E5%8F%98%E9%87%8F"><span class="nav-number">17.7.</span> <span class="nav-text">5. 静态存储区的局部变量</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#6-%E7%BA%BF%E7%A8%8B%E6%8E%A7%E5%88%B6%E5%9D%97-TCB"><span class="nav-number">17.8.</span> <span class="nav-text">6. 线程控制块(TCB)</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%AE%9E%E9%99%85%E5%86%85%E5%AD%98%E5%B8%83%E5%B1%80%E7%A4%BA%E4%BE%8B"><span class="nav-number">17.9.</span> <span class="nav-text">实际内存布局示例</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%B3%A8%E6%84%8F%EF%BC%9A%E5%86%85%E6%A0%B8%E7%BA%A7%E7%BA%BF%E7%A8%8B%E6%98%AF%E5%86%85%E6%A0%B8%E8%B0%83%E5%BA%A6%E7%9A%84%E5%9F%BA%E6%9C%AC%E5%8D%95%E5%85%83%EF%BC%8C%E5%9B%A0%E6%AD%A4%E5%90%8C%E4%B8%80%E8%BF%9B%E7%A8%8B%E7%9A%84%E5%A4%9A%E4%B8%AA%E7%BA%BF%E7%A8%8B%E5%8F%AF%E8%A2%AB%E5%88%86%E9%85%8D%E5%88%B0%E4%B8%8D%E5%90%8CCPU%E6%A0%B8%E5%BF%83%E5%B9%B6%E8%A1%8C%E6%89%A7%E8%A1%8C%E3%80%82"><span class="nav-number">17.10.</span> <span class="nav-text">注意：内核级线程是内核调度的基本单元，因此同一进程的多个线程可被分配到不同CPU核心并行执行。</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%BA%BF%E7%A8%8B%E6%93%8D%E4%BD%9C%E4%B8%8E%E7%8A%B6%E6%80%81%E8%BD%AC%E6%8D%A2%E5%AF%B9%E5%BA%94%E5%85%B3%E7%B3%BB"><span class="nav-number">18.</span> <span class="nav-text">线程操作与状态转换对应关系</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link"><span class="nav-number"></span> <span class="nav-text">KLT与ULT</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%86%85%E6%A0%B8%E7%BA%A7%E7%BA%BF%E7%A8%8B%E5%92%8C%E7%94%A8%E6%88%B7%E7%BA%A7%E7%BA%BF%E7%A8%8B%E7%9A%84%E6%9C%AC%E8%B4%A8%E5%8C%BA%E5%88%AB"><span class="nav-number">1.</span> <span class="nav-text">内核级线程和用户级线程的本质区别</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Linux%E9%80%89%E6%8B%A91-1%E6%A8%A1%E5%9E%8B%E7%9A%84%E6%A0%B8%E5%BF%83%E9%80%BB%E8%BE%91%E6%98%AF%EF%BC%9A"><span class="nav-number">2.</span> <span class="nav-text">Linux选择1:1模型的核心逻辑是：</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%94%A8%E6%88%B7%E6%80%81%E7%BA%BF%E7%A8%8B%E6%98%AF%E8%BD%BB%E9%87%8F%E7%BA%A7%E7%BA%BF%E7%A8%8B%EF%BC%88%E4%BB%8D%E4%BE%9D%E8%B5%96OS%EF%BC%89%EF%BC%8C%E5%8D%8F%E7%A8%8B%E6%98%AF%E7%94%A8%E6%88%B7%E6%80%81%E6%9B%B4%E5%BD%BB%E5%BA%95%E7%9A%84%E8%BD%BB%E9%87%8F%E5%8C%96%E5%B9%B6%E5%8F%91%EF%BC%88%E5%AE%8C%E5%85%A8%E8%87%AA%E4%B8%BB%E8%B0%83%E5%BA%A6%EF%BC%89%E3%80%82"><span class="nav-number">3.</span> <span class="nav-text">用户态线程是轻量级线程（仍依赖OS），协程是用户态更彻底的轻量化并发（完全自主调度）。</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%86%85%E6%A0%B8%E7%BA%A7%E7%BA%BF%E7%A8%8B-KLT-Kernel-Level-Threads"><span class="nav-number">4.</span> <span class="nav-text">内核级线程 KLT, Kernel-Level Threads</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%94%A8%E6%88%B7%E7%BA%A7%E7%BA%BF%E7%A8%8BULT-User-Level-Threads"><span class="nav-number">5.</span> <span class="nav-text">用户级线程ULT, User-Level Threads</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#linux-pthread%E6%B7%B7%E5%90%88%E6%A8%A1%E5%9E%8B"><span class="nav-number">6.</span> <span class="nav-text">linux pthread混合模型</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E8%87%AA%E9%97%AE%EF%BC%9A%E8%BF%9B%E7%A8%8B%E9%97%B4%E9%80%9A%E4%BF%A1%E6%96%B9%E5%BC%8FAND%E7%BA%BF%E7%A8%8B"><span class="nav-number">7.</span> <span class="nav-text">自问：进程间通信方式AND线程</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link"><span class="nav-number"></span> <span class="nav-text">进程间通信方式性能对比与数据验证</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E8%BF%9B%E7%A8%8B%E9%97%B4%E9%80%9A%E4%BF%A1%E6%96%B9%E5%BC%8F%E6%80%A7%E8%83%BD%E5%AF%B9%E6%AF%94%E8%A1%A8"><span class="nav-number">1.</span> <span class="nav-text">进程间通信方式性能对比表</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E2%80%9C%E6%96%87%E4%BB%B6%E6%98%A0%E5%B0%84%EF%BC%88mmap%EF%BC%89%E2%80%9D"><span class="nav-number">1.1.</span> <span class="nav-text">“文件映射（mmap）”</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%B8%8E%E8%BF%9B%E7%A8%8B%E5%85%B1%E4%BA%AB%E5%86%85%E5%AD%98%E5%AF%B9%E6%AF%94"><span class="nav-number">1.2.</span> <span class="nav-text">与进程共享内存对比</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#1-%E7%BA%BF%E7%A8%8B%E5%85%B1%E4%BA%AB%E5%86%85%E5%AD%98"><span class="nav-number">1.3.</span> <span class="nav-text">1. 线程共享内存</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-%E8%BF%9B%E7%A8%8B%E5%85%B1%E4%BA%AB%E5%86%85%E5%AD%98"><span class="nav-number">1.4.</span> <span class="nav-text">2. 进程共享内存</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3-%E7%AE%A1%E9%81%93-pipe"><span class="nav-number">1.5.</span> <span class="nav-text">3. 管道(pipe)</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#4-%E5%91%BD%E5%90%8D%E7%AE%A1%E9%81%93%EF%BC%88FIFOs%EF%BC%89"><span class="nav-number">1.6.</span> <span class="nav-text">4. 命名管道（FIFOs）</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#5-%E6%B6%88%E6%81%AF%E9%98%9F%E5%88%97"><span class="nav-number">1.7.</span> <span class="nav-text">5. 消息队列</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#6-Unix%E5%9F%9F%E5%A5%97%E6%8E%A5%E5%AD%97"><span class="nav-number">1.8.</span> <span class="nav-text">6. Unix域套接字</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#7-TCP%E5%A5%97%E6%8E%A5%E5%AD%97"><span class="nav-number">1.9.</span> <span class="nav-text">7. TCP套接字</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#8-%E4%BF%A1%E5%8F%B7"><span class="nav-number">1.10.</span> <span class="nav-text">8. 信号</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Jacketing%E6%8A%80%E6%9C%AF"><span class="nav-number">2.</span> <span class="nav-text">Jacketing技术</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E8%87%AA%E9%97%AE%EF%BC%9Ajava%E7%BA%BF%E7%A8%8B%E6%B1%A0"><span class="nav-number">3.</span> <span class="nav-text">自问：java线程池</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link"><span class="nav-number"></span> <span class="nav-text">处理器调度</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#SPN%E6%98%AF%E4%B8%80%E7%A7%8D%E9%9D%9E%E6%8A%A2%E5%8D%A0%E5%BC%8F%E8%B0%83%E5%BA%A6%EF%BC%8C%E4%BC%9A%E9%80%89%E6%8B%A9%E5%A4%84%E7%90%86%E6%97%B6%E9%97%B4%E6%9C%80%E7%9F%AD%E7%9A%84%E8%BF%9B%E7%A8%8B%EF%BC%8C%E7%9F%AD%E8%BF%9B%E7%A8%8B%E5%B0%86%E4%BC%9A%E8%B6%8A%E8%BF%87%E9%95%BF%E8%BF%9B%E7%A8%8B%EF%BC%8C%E4%BC%98%E5%85%88%E8%8E%B7%E5%BE%97%E8%B0%83%E5%BA%A6%EF%BC%8C%E5%8F%88%E7%A7%B0%E4%B8%BASJF"><span class="nav-number">0.1.</span> <span class="nav-text">SPN是一种非抢占式调度，会选择处理时间最短的进程，短进程将会越过长进程，优先获得调度，又称为SJF</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#SRT%EF%BC%8CShortest-Remaining-Time%EF%BC%8C%E6%9C%80%E7%9F%AD%E5%89%A9%E4%BD%99%E6%97%B6%E9%97%B4%E4%BC%98%E5%85%88"><span class="nav-number">0.2.</span> <span class="nav-text">SRT，Shortest Remaining Time，最短剩余时间优先</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#RR-%E6%97%B6%E9%97%B4%E7%89%87%E8%BD%AE%E8%BD%AC%E8%B0%83%E5%BA%A6%E7%AE%97%E6%B3%95"><span class="nav-number">0.3.</span> <span class="nav-text">RR(时间片轮转调度算法)</span></a></li></ol></li></ol></div>
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#PSW"><span class="nav-number">1.</span> <span class="nav-text">PSW</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%86%85%E6%A0%B8%E6%80%81"><span class="nav-number">2.</span> <span class="nav-text">内核态</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%BB%A5%E4%B8%8B%E4%B8%89%E7%A7%8D%E6%96%B9%E5%BC%8F%E6%98%AF%E5%94%AF%E4%B8%80%E8%83%BD%E8%A7%A6%E5%8F%91%E7%94%A8%E6%88%B7%E6%A8%A1%E5%BC%8F-%E5%86%85%E6%A0%B8%E6%A8%A1%E5%BC%8F%E7%9A%84%E6%96%B9%E5%BC%8F"><span class="nav-number">3.</span> <span class="nav-text">以下三种方式是唯一能触发用户模式-&gt;内核模式的方式</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%86%85%E6%A0%B8%E6%A0%88"><span class="nav-number">4.</span> <span class="nav-text">内核栈</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%B8%AD%E6%96%AD%E4%B8%8E%E5%BC%82%E5%B8%B8"><span class="nav-number">5.</span> <span class="nav-text">中断与异常</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%B8%AD%E6%96%ADor%E5%BC%82%E5%B8%B8%E7%9A%84%E8%A7%A6%E5%8F%91"><span class="nav-number">6.</span> <span class="nav-text">中断or异常的触发</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%B8%AD%E6%96%AD%E5%B1%8F%E8%94%BD%E4%B8%8E%E4%B8%AD%E6%96%AD%E4%BC%98%E5%85%88%E7%BA%A7"><span class="nav-number">7.</span> <span class="nav-text">中断屏蔽与中断优先级</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Linux%E5%86%85%E6%A0%B8%E5%A4%84%E7%90%86%E6%B5%81%E7%A8%8B"><span class="nav-number">8.</span> <span class="nav-text">Linux内核处理流程</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E8%BF%9B%E7%A8%8B%E7%9A%84%E5%AE%9A%E4%B9%89"><span class="nav-number">9.</span> <span class="nav-text">进程的定义</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%9B%9B%E7%A7%8D%E7%8A%B6%E6%80%81%E8%BD%AC%E6%8D%A2"><span class="nav-number">10.</span> <span class="nav-text">四种状态转换</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%B8%83%E4%B8%AA%E7%8A%B6%E6%80%81"><span class="nav-number">11.</span> <span class="nav-text">七个状态</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E8%BF%9B%E7%A8%8B%E6%98%A0%E5%83%8F%E5%88%B0%E5%BA%95%E6%98%AF%E4%B8%AA%E4%BB%80%E4%B9%88%E7%8E%A9%E6%84%8F"><span class="nav-number">12.</span> <span class="nav-text">进程映像到底是个什么玩意</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#PCB%E5%86%85%E5%AE%B9"><span class="nav-number">13.</span> <span class="nav-text">PCB内容</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%8E%9F%E8%AF%AD"><span class="nav-number">14.</span> <span class="nav-text">原语</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%A4%84%E7%90%86%E5%99%A8%E6%A8%A1%E5%BC%8F%E5%88%87%E6%8D%A2%E4%B8%8E%E4%B8%8A%E4%B8%8B%E6%96%87%E7%8A%B6%E6%80%81"><span class="nav-number">15.</span> <span class="nav-text">处理器模式切换与上下文状态</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E8%87%AA%E9%97%AE%EF%BC%9Alinux%E4%B8%ADtask-struct%E9%87%8C%E9%9D%A2%E9%83%BD%E6%9C%89%E4%BB%80%E4%B9%88%EF%BC%9F%E5%B0%BD%E9%87%8F%E5%AE%8C%E6%95%B4%E7%9A%84%E7%BB%99%E5%87%BA%EF%BC%9F%E4%BB%96%E6%98%AF%E5%A6%82%E4%BD%95%E5%8C%BA%E5%88%86%E8%BF%9B%E7%A8%8B%E5%92%8C%E7%BA%BF%E7%A8%8B%E7%9A%84%EF%BC%9F"><span class="nav-number">16.</span> <span class="nav-text">自问：linux中task_struct里面都有什么？尽量完整的给出？他是如何区分进程和线程的？</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%BA%BF%E7%A8%8B%E5%85%B1%E4%BA%AB%E7%9A%84%E5%92%8C%E7%8B%AC%E7%AB%8B%E7%9A%84%E8%B5%84%E6%BA%90"><span class="nav-number">17.</span> <span class="nav-text">线程共享的和独立的资源</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%BA%BF%E7%A8%8B%E5%85%B1%E4%BA%AB%E7%9A%84%E8%B5%84%E6%BA%90"><span class="nav-number">17.1.</span> <span class="nav-text">线程共享的资源</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%BA%BF%E7%A8%8B%E7%8B%AC%E7%AB%8B%E7%9A%84%E8%B5%84%E6%BA%90"><span class="nav-number">17.2.</span> <span class="nav-text">线程独立的资源</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#1-%E7%BA%BF%E7%A8%8B%E6%89%A7%E8%A1%8C%E7%8A%B6%E6%80%81"><span class="nav-number">17.3.</span> <span class="nav-text">1. 线程执行状态</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-%E7%BA%BF%E7%A8%8B%E4%B8%8A%E4%B8%8B%E6%96%87%EF%BC%88%E4%BF%9D%E6%8A%A4%E7%8E%B0%E5%9C%BA%EF%BC%89"><span class="nav-number">17.4.</span> <span class="nav-text">2. 线程上下文（保护现场）</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3-%E7%8B%AC%E7%AB%8B%E7%9A%84%E7%A8%8B%E5%BA%8F%E8%AE%A1%E6%95%B0%E5%99%A8%EF%BC%88PC%EF%BC%89"><span class="nav-number">17.5.</span> <span class="nav-text">3. 独立的程序计数器（PC）</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#4-%E6%89%A7%E8%A1%8C%E5%A0%86%E6%A0%88"><span class="nav-number">17.6.</span> <span class="nav-text">4. 执行堆栈</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#5-%E9%9D%99%E6%80%81%E5%AD%98%E5%82%A8%E5%8C%BA%E7%9A%84%E5%B1%80%E9%83%A8%E5%8F%98%E9%87%8F"><span class="nav-number">17.7.</span> <span class="nav-text">5. 静态存储区的局部变量</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#6-%E7%BA%BF%E7%A8%8B%E6%8E%A7%E5%88%B6%E5%9D%97-TCB"><span class="nav-number">17.8.</span> <span class="nav-text">6. 线程控制块(TCB)</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%AE%9E%E9%99%85%E5%86%85%E5%AD%98%E5%B8%83%E5%B1%80%E7%A4%BA%E4%BE%8B"><span class="nav-number">17.9.</span> <span class="nav-text">实际内存布局示例</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%B3%A8%E6%84%8F%EF%BC%9A%E5%86%85%E6%A0%B8%E7%BA%A7%E7%BA%BF%E7%A8%8B%E6%98%AF%E5%86%85%E6%A0%B8%E8%B0%83%E5%BA%A6%E7%9A%84%E5%9F%BA%E6%9C%AC%E5%8D%95%E5%85%83%EF%BC%8C%E5%9B%A0%E6%AD%A4%E5%90%8C%E4%B8%80%E8%BF%9B%E7%A8%8B%E7%9A%84%E5%A4%9A%E4%B8%AA%E7%BA%BF%E7%A8%8B%E5%8F%AF%E8%A2%AB%E5%88%86%E9%85%8D%E5%88%B0%E4%B8%8D%E5%90%8CCPU%E6%A0%B8%E5%BF%83%E5%B9%B6%E8%A1%8C%E6%89%A7%E8%A1%8C%E3%80%82"><span class="nav-number">17.10.</span> <span class="nav-text">注意：内核级线程是内核调度的基本单元，因此同一进程的多个线程可被分配到不同CPU核心并行执行。</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%BA%BF%E7%A8%8B%E6%93%8D%E4%BD%9C%E4%B8%8E%E7%8A%B6%E6%80%81%E8%BD%AC%E6%8D%A2%E5%AF%B9%E5%BA%94%E5%85%B3%E7%B3%BB"><span class="nav-number">18.</span> <span class="nav-text">线程操作与状态转换对应关系</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#KLT%E4%B8%8EULT"><span class="nav-number"></span> <span class="nav-text">KLT与ULT</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%86%85%E6%A0%B8%E7%BA%A7%E7%BA%BF%E7%A8%8B%E5%92%8C%E7%94%A8%E6%88%B7%E7%BA%A7%E7%BA%BF%E7%A8%8B%E7%9A%84%E6%9C%AC%E8%B4%A8%E5%8C%BA%E5%88%AB"><span class="nav-number">1.</span> <span class="nav-text">内核级线程和用户级线程的本质区别</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Linux%E9%80%89%E6%8B%A91-1%E6%A8%A1%E5%9E%8B%E7%9A%84%E6%A0%B8%E5%BF%83%E9%80%BB%E8%BE%91%E6%98%AF%EF%BC%9A"><span class="nav-number">2.</span> <span class="nav-text">Linux选择1:1模型的核心逻辑是：</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%94%A8%E6%88%B7%E6%80%81%E7%BA%BF%E7%A8%8B%E6%98%AF%E8%BD%BB%E9%87%8F%E7%BA%A7%E7%BA%BF%E7%A8%8B%EF%BC%88%E4%BB%8D%E4%BE%9D%E8%B5%96OS%EF%BC%89%EF%BC%8C%E5%8D%8F%E7%A8%8B%E6%98%AF%E7%94%A8%E6%88%B7%E6%80%81%E6%9B%B4%E5%BD%BB%E5%BA%95%E7%9A%84%E8%BD%BB%E9%87%8F%E5%8C%96%E5%B9%B6%E5%8F%91%EF%BC%88%E5%AE%8C%E5%85%A8%E8%87%AA%E4%B8%BB%E8%B0%83%E5%BA%A6%EF%BC%89%E3%80%82"><span class="nav-number">3.</span> <span class="nav-text">用户态线程是轻量级线程（仍依赖OS），协程是用户态更彻底的轻量化并发（完全自主调度）。</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%86%85%E6%A0%B8%E7%BA%A7%E7%BA%BF%E7%A8%8B-KLT-Kernel-Level-Threads"><span class="nav-number">4.</span> <span class="nav-text">内核级线程 KLT, Kernel-Level Threads</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%94%A8%E6%88%B7%E7%BA%A7%E7%BA%BF%E7%A8%8BULT-User-Level-Threads"><span class="nav-number">5.</span> <span class="nav-text">用户级线程ULT, User-Level Threads</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#linux-pthread%E6%B7%B7%E5%90%88%E6%A8%A1%E5%9E%8B"><span class="nav-number">6.</span> <span class="nav-text">linux pthread混合模型</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E8%87%AA%E9%97%AE%EF%BC%9A%E8%BF%9B%E7%A8%8B%E9%97%B4%E9%80%9A%E4%BF%A1%E6%96%B9%E5%BC%8FAND%E7%BA%BF%E7%A8%8B"><span class="nav-number">7.</span> <span class="nav-text">自问：进程间通信方式AND线程</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E8%BF%9B%E7%A8%8B%E9%97%B4%E9%80%9A%E4%BF%A1%E6%96%B9%E5%BC%8F%E6%80%A7%E8%83%BD%E5%AF%B9%E6%AF%94%E4%B8%8E%E6%95%B0%E6%8D%AE%E9%AA%8C%E8%AF%81"><span class="nav-number"></span> <span class="nav-text">进程间通信方式性能对比与数据验证</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E8%BF%9B%E7%A8%8B%E9%97%B4%E9%80%9A%E4%BF%A1%E6%96%B9%E5%BC%8F%E6%80%A7%E8%83%BD%E5%AF%B9%E6%AF%94%E8%A1%A8"><span class="nav-number">1.</span> <span class="nav-text">进程间通信方式性能对比表</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E2%80%9C%E6%96%87%E4%BB%B6%E6%98%A0%E5%B0%84%EF%BC%88mmap%EF%BC%89%E2%80%9D"><span class="nav-number">1.1.</span> <span class="nav-text">“文件映射（mmap）”</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%B8%8E%E8%BF%9B%E7%A8%8B%E5%85%B1%E4%BA%AB%E5%86%85%E5%AD%98%E5%AF%B9%E6%AF%94"><span class="nav-number">1.2.</span> <span class="nav-text">与进程共享内存对比</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#1-%E7%BA%BF%E7%A8%8B%E5%85%B1%E4%BA%AB%E5%86%85%E5%AD%98"><span class="nav-number">1.3.</span> <span class="nav-text">1. 线程共享内存</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-%E8%BF%9B%E7%A8%8B%E5%85%B1%E4%BA%AB%E5%86%85%E5%AD%98"><span class="nav-number">1.4.</span> <span class="nav-text">2. 进程共享内存</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3-%E7%AE%A1%E9%81%93-pipe"><span class="nav-number">1.5.</span> <span class="nav-text">3. 管道(pipe)</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#4-%E5%91%BD%E5%90%8D%E7%AE%A1%E9%81%93%EF%BC%88FIFOs%EF%BC%89"><span class="nav-number">1.6.</span> <span class="nav-text">4. 命名管道（FIFOs）</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#5-%E6%B6%88%E6%81%AF%E9%98%9F%E5%88%97"><span class="nav-number">1.7.</span> <span class="nav-text">5. 消息队列</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#6-Unix%E5%9F%9F%E5%A5%97%E6%8E%A5%E5%AD%97"><span class="nav-number">1.8.</span> <span class="nav-text">6. Unix域套接字</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#7-TCP%E5%A5%97%E6%8E%A5%E5%AD%97"><span class="nav-number">1.9.</span> <span class="nav-text">7. TCP套接字</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#8-%E4%BF%A1%E5%8F%B7"><span class="nav-number">1.10.</span> <span class="nav-text">8. 信号</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Jacketing%E6%8A%80%E6%9C%AF"><span class="nav-number">2.</span> <span class="nav-text">Jacketing技术</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E8%87%AA%E9%97%AE%EF%BC%9Ajava%E7%BA%BF%E7%A8%8B%E6%B1%A0"><span class="nav-number">3.</span> <span class="nav-text">自问：java线程池</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%A4%84%E7%90%86%E5%99%A8%E8%B0%83%E5%BA%A6"><span class="nav-number"></span> <span class="nav-text">处理器调度</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#SPN%E6%98%AF%E4%B8%80%E7%A7%8D%E9%9D%9E%E6%8A%A2%E5%8D%A0%E5%BC%8F%E8%B0%83%E5%BA%A6%EF%BC%8C%E4%BC%9A%E9%80%89%E6%8B%A9%E5%A4%84%E7%90%86%E6%97%B6%E9%97%B4%E6%9C%80%E7%9F%AD%E7%9A%84%E8%BF%9B%E7%A8%8B%EF%BC%8C%E7%9F%AD%E8%BF%9B%E7%A8%8B%E5%B0%86%E4%BC%9A%E8%B6%8A%E8%BF%87%E9%95%BF%E8%BF%9B%E7%A8%8B%EF%BC%8C%E4%BC%98%E5%85%88%E8%8E%B7%E5%BE%97%E8%B0%83%E5%BA%A6%EF%BC%8C%E5%8F%88%E7%A7%B0%E4%B8%BASJF"><span class="nav-number">0.1.</span> <span class="nav-text">SPN是一种非抢占式调度，会选择处理时间最短的进程，短进程将会越过长进程，优先获得调度，又称为SJF</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#SRT%EF%BC%8CShortest-Remaining-Time%EF%BC%8C%E6%9C%80%E7%9F%AD%E5%89%A9%E4%BD%99%E6%97%B6%E9%97%B4%E4%BC%98%E5%85%88"><span class="nav-number">0.2.</span> <span class="nav-text">SRT，Shortest Remaining Time，最短剩余时间优先</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#RR-%E6%97%B6%E9%97%B4%E7%89%87%E8%BD%AE%E8%BD%AC%E8%B0%83%E5%BA%A6%E7%AE%97%E6%B3%95"><span class="nav-number">0.3.</span> <span class="nav-text">RR(时间片轮转调度算法)</span></a></li></ol></li></ol></div>
       </div>
       <!--/noindex-->
 
@@ -1149,10 +810,58 @@ Feedback (多级反馈调度) 抢占<br>
 
   
       
-<link rel="stylesheet" href="//cdn.jsdelivr.net/npm/katex@0/dist/katex.min.css">
-  <script src="//cdn.jsdelivr.net/npm/katex@0/dist/contrib/copy-tex.min.js"></script>
-  <link rel="stylesheet" href="//cdn.jsdelivr.net/npm/katex@0/dist/contrib/copy-tex.min.css">
 
+<script>
+  if (typeof MathJax === 'undefined') {
+    window.MathJax = {
+      loader: {
+        source: {
+          '[tex]/amsCd': '[tex]/amscd',
+          '[tex]/AMScd': '[tex]/amscd'
+        }
+      },
+      tex: {
+        inlineMath: {'[+]': [['$', '$']]},
+        tags: 'ams'
+      },
+      options: {
+        renderActions: {
+          findScript: [10, doc => {
+            document.querySelectorAll('script[type^="math/tex"]').forEach(node => {
+              const display = !!node.type.match(/; *mode=display/);
+              const math = new doc.options.MathItem(node.textContent, doc.inputJax[0], display);
+              const text = document.createTextNode('');
+              node.parentNode.replaceChild(text, node);
+              math.start = {node: text, delim: '', n: 0};
+              math.end = {node: text, delim: '', n: 0};
+              doc.math.push(math);
+            });
+          }, '', false],
+          insertedScript: [200, () => {
+            document.querySelectorAll('mjx-container').forEach(node => {
+              let target = node.parentNode;
+              if (target.nodeName.toLowerCase() === 'li') {
+                target.parentNode.classList.add('has-jax');
+              }
+            });
+          }, '', false]
+        }
+      }
+    };
+    (function () {
+      var script = document.createElement('script');
+      script.src = '//cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js?config=TeX-MML-AM_CHTML';
+      script.defer = true;
+      document.head.appendChild(script);
+    })();
+  } else {
+    MathJax.startup.document.state(0);
+    MathJax.texReset();
+    MathJax.typeset();
+  }
+</script>
+
+    
 
   
 

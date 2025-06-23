@@ -20,15 +20,15 @@
     var CONFIG = {"hostname":"chenzhan20050128.github.io","root":"/notes.github.io/","scheme":"Pisces","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":true,"show_result":true,"style":"mac"},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.json"};
   </script>
 
-  <meta name="description" content="边角（corner）、极值点（extreme point）和基本解（basic solution）：  1. 边角（Corner） 定义：点$x$是集合$P$的边角，若不存在非零向量$y \neq 0$，使得$x + y \in P$且$x - y \in P$。 几何意义：  边角是集合$P$的“尖锐”部分，无法在$x$的邻域内沿任何方向$y$同时向$x \pm y$移动而保持在$P$内。 在凸">
+  <meta name="description" content="边角（corner）、极值点（extreme point）和基本解（basic solution）： 1. 边角（Corner）定义：点$x$是集合$P$的边角，若不存在非零向量$y \neq 0$，使得$x + y \in P$且$x - y \in P$。几何意义：    边角是集合$P$的“尖锐”部分，无法在$x$的邻域内沿任何方向$y$同时向$x \pm y$移动而保持在$P$内。   在">
 <meta property="og:type" content="article">
 <meta property="og:title" content="LP定点笔记">
 <meta property="og:url" content="https://chenzhan20050128.github.io/notes.github.io/2025/06/23/LP%E5%AE%9A%E7%82%B9%E7%AC%94%E8%AE%B0/index.html">
 <meta property="og:site_name" content="cz Blog">
-<meta property="og:description" content="边角（corner）、极值点（extreme point）和基本解（basic solution）：  1. 边角（Corner） 定义：点$x$是集合$P$的边角，若不存在非零向量$y \neq 0$，使得$x + y \in P$且$x - y \in P$。 几何意义：  边角是集合$P$的“尖锐”部分，无法在$x$的邻域内沿任何方向$y$同时向$x \pm y$移动而保持在$P$内。 在凸">
+<meta property="og:description" content="边角（corner）、极值点（extreme point）和基本解（basic solution）： 1. 边角（Corner）定义：点$x$是集合$P$的边角，若不存在非零向量$y \neq 0$，使得$x + y \in P$且$x - y \in P$。几何意义：    边角是集合$P$的“尖锐”部分，无法在$x$的邻域内沿任何方向$y$同时向$x \pm y$移动而保持在$P$内。   在">
 <meta property="og:locale" content="zh_CN">
-<meta property="article:published_time" content="2025-06-23T04:22:32.000Z">
-<meta property="article:modified_time" content="2025-06-23T04:22:32.095Z">
+<meta property="article:published_time" content="2025-06-23T10:56:58.000Z">
+<meta property="article:modified_time" content="2025-06-23T10:56:58.273Z">
 <meta property="article:author" content="Chen Zhan">
 <meta property="article:tag" content="其他">
 <meta name="twitter:card" content="summary">
@@ -179,7 +179,7 @@
               </span>
               <span class="post-meta-item-text">发表于</span>
 
-              <time title="创建时间：2025-06-23 12:22:32" itemprop="dateCreated datePublished" datetime="2025-06-23T12:22:32+08:00">2025-06-23</time>
+              <time title="创建时间：2025-06-23 18:56:58" itemprop="dateCreated datePublished" datetime="2025-06-23T18:56:58+08:00">2025-06-23</time>
             </span>
 
           
@@ -193,445 +193,275 @@
     <div class="post-body" itemprop="articleBody">
 
       
-        <h2 id="边角（corner）、极值点（extreme-point）和基本解（basic-solution）："><strong>边角（corner）</strong>、<strong>极值点（extreme point）<strong>和</strong>基本解（basic solution）</strong>：</h2>
-<hr>
-<h3 id="1-边角（Corner）">1. <strong>边角（Corner）</strong></h3>
-<p><strong>定义</strong>：点$x$是集合$P$的边角，若不存在非零向量$y \neq 0$，使得$x + y \in P$且$x - y \in P$。<br>
-<strong>几何意义</strong>：</p>
+        <h2 id="边角（corner）、极值点（extreme-point）和基本解（basic-solution）："><a href="#边角（corner）、极值点（extreme-point）和基本解（basic-solution）：" class="headerlink" title="边角（corner）、极值点（extreme point）和基本解（basic solution）："></a><strong>边角（corner）</strong>、<strong>极值点（extreme point）<strong>和</strong>基本解（basic solution）</strong>：</h2><hr>
+<h3 id="1-边角（Corner）"><a href="#1-边角（Corner）" class="headerlink" title="1. 边角（Corner）"></a>1. <strong>边角（Corner）</strong></h3><p><strong>定义</strong>：点$x$是集合$P$的边角，若不存在非零向量$y \neq 0$，使得$x + y \in P$且$x - y \in P$。<br><strong>几何意义</strong>：  </p>
 <ul>
-<li>边角是集合$P$的“尖锐”部分，无法在$x$的邻域内沿任何方向$y$同时向$x \pm y$移动而保持在$P$内。</li>
-<li>在凸集理论中，边角等价于<strong>极点（extreme point）</strong>，即不能表示为集合中其他两点严格凸组合的点。<br>
-<strong>示例</strong>：
-<ul>
+<li>边角是集合$P$的“尖锐”部分，无法在$x$的邻域内沿任何方向$y$同时向$x \pm y$移动而保持在$P$内。  </li>
+<li>在凸集理论中，边角等价于<strong>极点（extreme point）</strong>，即不能表示为集合中其他两点严格凸组合的点。<br><strong>示例</strong>：  <ul>
 <li>多边形的顶点是边角，因为无法沿任何方向移动同时保持在多边形内。</li>
 </ul>
 </li>
 </ul>
 <hr>
-<h3 id="2-极值点（Extreme-Point）">2. <strong>极值点（Extreme Point）</strong></h3>
-<p><strong>定义</strong>：点$x$是极值点，若存在目标方向$c$，使得$x$是优化问题$\max c^T x \ \text{s.t.} \ x \in P$的唯一最优解。<br>
-<strong>性质</strong>：</p>
+<h3 id="2-极值点（Extreme-Point）"><a href="#2-极值点（Extreme-Point）" class="headerlink" title="2. 极值点（Extreme Point）"></a>2. <strong>极值点（Extreme Point）</strong></h3><p><strong>定义</strong>：点$x$是极值点，若存在目标方向$c$，使得$x$是优化问题$\max c^T x \ \text{s.t.} \ x \in P$的唯一最优解。<br><strong>性质</strong>：  </p>
 <ul>
-<li>极值点一定是边角，反之亦然（在凸集下）。</li>
-<li>在凸优化中，极值点对应可行域的顶点，是线性规划潜在的最优解候选。<br>
-<strong>示例</strong>：
-<ul>
+<li>极值点一定是边角，反之亦然（在凸集下）。  </li>
+<li>在凸优化中，极值点对应可行域的顶点，是线性规划潜在的最优解候选。<br><strong>示例</strong>：  <ul>
 <li>线性规划中，最优解通常出现在可行多面体的极值点（顶点）处。</li>
 </ul>
 </li>
 </ul>
 <hr>
-<h3 id="3-基本解（Basic-Solution）">3. <strong>基本解（Basic Solution）</strong></h3>
-<p><strong>定义</strong>：对于线性约束$Ax = b$，设$x \in P$，记$A_=$为$x$的紧致约束（即$A_i x = b_i$的行）构成的子矩阵。若$A_=$满秩（$\text{rank}(A_=) = n$），则$x$为基本解。<br>
-<strong>关键点</strong>：</p>
+<h3 id="3-基本解（Basic-Solution）"><a href="#3-基本解（Basic-Solution）" class="headerlink" title="3. 基本解（Basic Solution）"></a>3. <strong>基本解（Basic Solution）</strong></h3><p><strong>定义</strong>：对于线性约束$Ax &#x3D; b$，设$x \in P$，记$A_&#x3D;$为$x$的紧致约束（即$A_i x &#x3D; b_i$的行）构成的子矩阵。若$A_&#x3D;$满秩（$\text{rank}(A_&#x3D;) &#x3D; n$），则$x$为基本解。<br><strong>关键点</strong>：  </p>
 <ul>
-<li><strong>紧致约束</strong>：在$x$处取等号的约束，几何上表示$x$位于这些约束对应的超平面上。</li>
-<li><strong>满秩条件</strong>：$A_=$的列线性独立，确保$x$是唯一确定的（非退化解）。</li>
+<li><strong>紧致约束</strong>：在$x$处取等号的约束，几何上表示$x$位于这些约束对应的超平面上。  </li>
+<li><strong>满秩条件</strong>：$A_&#x3D;$的列线性独立，确保$x$是唯一确定的（非退化解）。  </li>
 <li><strong>与极值点的关系</strong>：在标准线性规划中，基本可行解对应可行多面体的顶点（极值点）。</li>
 </ul>
-<p><strong>求解方法</strong>：</p>
+<p><strong>求解方法</strong>：  </p>
 <ol>
-<li>从$A$中选取$n$个线性无关的行构成$A_=$。</li>
-<li>解$A_= x = b_=$得到$x$，其余变量设为0（非基变量）。</li>
+<li>从$A$中选取$n$个线性无关的行构成$A_&#x3D;$。  </li>
+<li>解$A_&#x3D; x &#x3D; b_&#x3D;$得到$x$，其余变量设为0（非基变量）。</li>
 </ol>
-<h2 id="证明：在凸多面体-P-x-mid-Ax-leq-b-中，若-x-是边角（corner），则-x-是基本解（basic-solution）。"><strong>证明：在凸多面体 ( P = {x \mid Ax \leq b} ) 中，若 ( x ) 是边角（corner），则 ( x ) 是基本解（basic solution）。</strong></h2>
-<p>等价地，我们证明其逆否命题：</p>
+<h2 id="证明：在凸多面体-P-x-mid-Ax-leq-b-中，若-x-是边角（corner），则-x-是基本解（basic-solution）。"><a href="#证明：在凸多面体-P-x-mid-Ax-leq-b-中，若-x-是边角（corner），则-x-是基本解（basic-solution）。" class="headerlink" title="证明：在凸多面体 $$ P &#x3D; {x \mid Ax \leq b} $$ 中，若 $$ x $$ 是边角（corner），则 $$ x $$ 是基本解（basic solution）。"></a><strong>证明：在凸多面体 $$ P &#x3D; {x \mid Ax \leq b} $$ 中，若 $$ x $$ 是边角（corner），则 $$ x $$ 是基本解（basic solution）。</strong></h2><p>等价地，我们证明其逆否命题：</p>
 <blockquote>
-<p><strong>若 ( x ) 不是基本解（即 ( \text{rank}(A_=) &lt; n )），则 ( x ) 不是边角。</strong></p>
+<p><strong>若 $$ x $$ 不是基本解（即 $$ \text{rank}(A_&#x3D;) &lt; n $$），则 $$ x $$ 不是边角。</strong></p>
 </blockquote>
 <hr>
-<h3 id="证明过程"><strong>证明过程</strong></h3>
-<ol>
-<li>
-<p><strong>设定与假设</strong>：</p>
+<h3 id="证明过程"><a href="#证明过程" class="headerlink" title="证明过程"></a><strong>证明过程</strong></h3><ol>
+<li><p><strong>设定与假设</strong>：</p>
 <ul>
-<li>设 ( x \in P )，且 ( A_= ) 是 ( x ) 的紧致约束（即 ( A_i x = b_i ) 的行构成的子矩阵）。</li>
-<li>假设 ( \text{rank}(A_=) &lt; n )，即 ( A_= ) 的行不满秩（列线性相关）。</li>
-<li>由线性代数，存在非零向量 ( y \neq 0 )，使得 ( A_= y = 0 )。</li>
+<li>设 $$ x \in P $$，且 $$ A_&#x3D; $$ 是 $$ x $$ 的紧致约束（即 $$ A_i x &#x3D; b_i $$ 的行构成的子矩阵）。</li>
+<li>假设 $$ \text{rank}(A_&#x3D;) &lt; n $$，即 $$ A_&#x3D; $$ 的行不满秩（列线性相关）。</li>
+<li>由线性代数，存在非零向量 $$ y \neq 0 $$，使得 $$ A_&#x3D; y &#x3D; 0 $$。</li>
 </ul>
 </li>
-<li>
-<p><strong>构造扰动点 ( x \pm \epsilon y )</strong>：</p>
+<li><p><strong>构造扰动点 $$ x \pm \epsilon y $$</strong>：</p>
 <ul>
-<li>对于紧致约束 ( A_= )，有：<br>
-[<br>
-A_= (x \pm \epsilon y) = A_= x \pm \epsilon A_= y = b_= \pm 0 = b_=,<br>
-]<br>
-因此 ( x \pm \epsilon y ) 仍然满足紧致约束。</li>
-<li>对于非紧致约束 ( A_j x &lt; b_j )，由于 ( x ) 严格满足不等式，且 ( y ) 是固定向量，存在足够小的 ( \epsilon &gt; 0 )，使得：<br>
-[<br>
-A_j (x \pm \epsilon y) \leq b_j.<br>
-]<br>
-（因为 ( A_j x &lt; b_j )，而 ( \epsilon ) 足够小时，扰动不会违反不等式。）</li>
+<li>对于紧致约束 $$ A_&#x3D; $$，有：<br>$$A_&#x3D; (x \pm \epsilon y) &#x3D; A_&#x3D; x \pm \epsilon A_&#x3D; y &#x3D; b_&#x3D; \pm 0 &#x3D; b_&#x3D;,$$<br>因此 $$ x \pm \epsilon y $$ 仍然满足紧致约束。</li>
+<li>对于非紧致约束 $$ A_j x &lt; b_j $$，由于 $$ x $$ 严格满足不等式，且 $$ y $$ 是固定向量，存在足够小的 $$ \epsilon &gt; 0 $$，使得：<br>$$A_j (x \pm \epsilon y) \leq b_j.$$<br>（因为 $$ A_j x &lt; b_j $$，而 $$ \epsilon $$ 足够小时，扰动不会违反不等式。）</li>
 </ul>
 </li>
-<li>
-<p><strong>验证 ( x \pm \epsilon y \in P )</strong>：</p>
+<li><p><strong>验证 $$ x \pm \epsilon y \in P $$</strong>：</p>
 <ul>
-<li>由上述分析，( x \pm \epsilon y ) 满足所有约束 ( Ax \leq b )，因此 ( x \pm \epsilon y \in P )。</li>
+<li>由上述分析，$$ x \pm \epsilon y $$ 满足所有约束 $$ Ax \leq b $$，因此 $$ x \pm \epsilon y \in P $$。</li>
 </ul>
 </li>
-<li>
-<p><strong>说明 ( x ) 不是边角</strong>：</p>
+<li><p><strong>说明 $$ x $$ 不是边角</strong>：</p>
 <ul>
-<li>我们找到了 ( y \neq 0 )，使得 ( x + \epsilon y \in P ) 且 ( x - \epsilon y \in P )。</li>
-<li>根据边角的定义，( x ) 不是边角。</li>
+<li>我们找到了 $$ y \neq 0 $$，使得 $$ x + \epsilon y \in P $$ 且 $$ x - \epsilon y \in P $$。</li>
+<li>根据边角的定义，$$ x $$ 不是边角。</li>
 </ul>
 </li>
 </ol>
-<h3 id="证明：在凸多面体-P-x-mid-Ax-leq-b-中，若-x-是基本解（basic-solution），则-x-是边角（corner）。"><strong>证明：在凸多面体 ( P = {x \mid Ax \leq b} ) 中，若 ( x ) 是基本解（basic solution），则 ( x ) 是边角（corner）。</strong></h3>
-<p>等价地，我们证明其逆否命题：</p>
+<h3 id="证明：在凸多面体-P-x-mid-Ax-leq-b-中，若-x-是基本解（basic-solution），则-x-是边角（corner）。"><a href="#证明：在凸多面体-P-x-mid-Ax-leq-b-中，若-x-是基本解（basic-solution），则-x-是边角（corner）。" class="headerlink" title="证明：在凸多面体 $$ P &#x3D; {x \mid Ax \leq b} $$ 中，若 $$ x $$ 是基本解（basic solution），则 $$ x $$ 是边角（corner）。"></a><strong>证明：在凸多面体 $$ P &#x3D; {x \mid Ax \leq b} $$ 中，若 $$ x $$ 是基本解（basic solution），则 $$ x $$ 是边角（corner）。</strong></h3><p>等价地，我们证明其逆否命题：</p>
 <blockquote>
-<p><strong>若 ( x ) 不是边角（即存在 ( y \neq 0 ) 使得 ( x \pm y \in P )），则 ( x ) 不是基本解（即 ( \text{rank}(A_=) &lt; n )）。</strong></p>
+<p><strong>若 $$ x $$ 不是边角（即存在 $$ y \neq 0 $$ 使得 $$ x \pm y \in P $$），则 $$ x $$ 不是基本解（即 $$ \text{rank}(A_&#x3D;) &lt; n $$）。</strong></p>
 </blockquote>
 <hr>
-<h3 id="证明过程-2"><strong>证明过程</strong></h3>
-<ol>
-<li>
-<p><strong>设定与假设</strong>：</p>
+<h3 id="证明过程-1"><a href="#证明过程-1" class="headerlink" title="证明过程"></a><strong>证明过程</strong></h3><ol>
+<li><p><strong>设定与假设</strong>：</p>
 <ul>
-<li>设 ( x \in P )，且 ( A_= ) 是 ( x ) 的紧致约束（即 ( A_i x = b_i ) 的行构成的子矩阵）。</li>
-<li>假设 ( x ) 不是边角，即存在 ( y \neq 0 )，使得 ( x + y \in P ) 且 ( x - y \in P )。</li>
+<li>设 $$ x \in P $$，且 $$ A_&#x3D; $$ 是 $$ x $$ 的紧致约束（即 $$ A_i x &#x3D; b_i $$ 的行构成的子矩阵）。</li>
+<li>假设 $$ x $$ 不是边角，即存在 $$ y \neq 0 $$，使得 $$ x + y \in P $$ 且 $$ x - y \in P $$。</li>
 </ul>
 </li>
-<li>
-<p><strong>分析紧致约束 ( A_= ) 的作用</strong>：</p>
+<li><p><strong>分析紧致约束 $$ A_&#x3D; $$ 的作用</strong>：</p>
 <ul>
-<li>由于 ( x \pm y \in P )，且 ( A_= x = b_= )，我们有：<br>
-[<br>
-A_= (x + y) \leq b_= \quad \Rightarrow \quad A_= x + A_= y \leq b_= \quad \Rightarrow \quad A_= y \leq 0,<br>
-]<br>
-[<br>
-A_= (x - y) \leq b_= \quad \Rightarrow \quad A_= x - A_= y \leq b_= \quad \Rightarrow \quad -A_= y \leq 0.<br>
-]</li>
-<li>结合 ( A_= y \leq 0 ) 和 ( -A_= y \leq 0 )，可得：<br>
-[<br>
-A_= y = 0.<br>
-]</li>
-<li>因此，( y ) 是 ( A_= ) 的零空间中的非零向量（因为 ( y \neq 0 )）。</li>
+<li>由于 $$ x \pm y \in P $$，且 $$ A_&#x3D; x &#x3D; b_&#x3D; $$，我们有：<br>$$A_&#x3D; (x + y) \leq b_&#x3D; \quad \Rightarrow \quad A_&#x3D; x + A_&#x3D; y \leq b_&#x3D; \quad \Rightarrow \quad A_&#x3D; y \leq 0,$$<br>$$A_&#x3D; (x - y) \leq b_&#x3D; \quad \Rightarrow \quad A_&#x3D; x - A_&#x3D; y \leq b_&#x3D; \quad \Rightarrow \quad -A_&#x3D; y \leq 0.$$</li>
+<li>结合 $$ A_&#x3D; y \leq 0 $$ 和 $$ -A_&#x3D; y \leq 0 $$，可得：<br>$$A_&#x3D; y &#x3D; 0.$$</li>
+<li>因此，$$ y $$ 是 $$ A_&#x3D; $$ 的零空间中的非零向量（因为 $$ y \neq 0 $$）。</li>
 </ul>
 </li>
-<li>
-<p><strong>说明 ( A_= ) 不满秩</strong>：</p>
+<li><p><strong>说明 $$ A_&#x3D; $$ 不满秩</strong>：</p>
 <ul>
-<li>存在 ( y \neq 0 ) 使得 ( A_= y = 0 )，说明 ( A_= ) 的列线性相关。</li>
-<li>因此，( \text{rank}(A_=) &lt; n )，即 ( x ) 不是基本解。</li>
+<li>存在 $$ y \neq 0 $$ 使得 $$ A_&#x3D; y &#x3D; 0 $$，说明 $$ A_&#x3D; $$ 的列线性相关。</li>
+<li>因此，$$ \text{rank}(A_&#x3D;) &lt; n $$，即 $$ x $$ 不是基本解。</li>
 </ul>
 </li>
 </ol>
-<h2 id="定理：考虑二分图完美匹配的线性规划">定理：考虑二分图完美匹配的线性规划</h2>
-<p>给定的线性规划（LP）是：</p>
-<p>[<br>
-\text{maximize} \sum_{e \in E} c_e x_e<br>
-]<br>
-[<br>
-\text{subject to} \quad \sum_{e \in \delta(v)} x_e = 1 \quad \forall v \in V<br>
-]<br>
-[<br>
-0 \leq x_e \leq 1 \quad \forall e \in E<br>
-]</p>
+<h2 id="定理：考虑二分图完美匹配的线性规划"><a href="#定理：考虑二分图完美匹配的线性规划" class="headerlink" title="定理：考虑二分图完美匹配的线性规划"></a>定理：考虑二分图完美匹配的线性规划</h2><p>给定的线性规划（LP）是：</p>
+<p>$$\text{maximize} \sum_{e \in E} c_e x_e$$<br>$$\text{subject to} \quad \sum_{e \in \delta(v)} x_e &#x3D; 1 \quad \forall v \in V$$<br>$$0 \leq x_e \leq 1 \quad \forall e \in E$$</p>
 <p>其中：</p>
 <ul>
-<li>( \delta(v) ) 表示与顶点 ( v ) 相关联的所有边的集合。</li>
-<li>( x_e ) 可以看作是边 ( e ) 是否被选入匹配中的“程度”，理论上可以取 0 到 1 之间的任何实数。</li>
-<li>约束 ( \sum_{e \in \delta(v)} x_e = 1 ) 表示每个顶点恰好被“覆盖”一次（即完美匹配的要求）。</li>
+<li>$$ \delta(v) $$ 表示与顶点 $$ v $$ 相关联的所有边的集合。</li>
+<li>$$ x_e $$ 可以看作是边 $$ e $$ 是否被选入匹配中的“程度”，理论上可以取 0 到 1 之间的任何实数。</li>
+<li>约束 $$ \sum_{e \in \delta(v)} x_e &#x3D; 1 $$ 表示每个顶点恰好被“覆盖”一次（即完美匹配的要求）。</li>
 </ul>
-<h2 id="最小生成树（MST）的线性规划（LP）表述">最小生成树（MST）的线性规划（LP）表述</h2>
-<p>最小生成树问题（Minimum Spanning Tree, MST）是图论中的一个经典问题，其目标是在一个连通无向图 ( G = (V, E) ) 中找到一个边的子集 ( T \subseteq E )，使得 ( T ) 构成一棵树（即无环且连通），并且所有边的权重之和最小。这里我们讨论的是如何将MST问题表述为一个线性规划（LP），并解释其性质和求解方法。</p>
-<h4 id="MST的LP表述">MST的LP表述</h4>
-<p>以下是MST问题的一个LP松弛：</p>
-<p>[<br>
-\text{maximize} \sum_{e \in E} c_e x_e<br>
-]<br>
-[<br>
-\text{subject to} \quad \sum_{e \in E(S)} x_e \leq |S| - 1 \quad \forall S \subset V, S \neq \emptyset<br>
-]<br>
-[<br>
-\sum_{e \in E} x_e = |V| - 1<br>
-]<br>
-[<br>
-0 \leq x_e \leq 1 \quad \forall e \in E<br>
-]</p>
+<h2 id="最小生成树（MST）的线性规划（LP）表述"><a href="#最小生成树（MST）的线性规划（LP）表述" class="headerlink" title="最小生成树（MST）的线性规划（LP）表述"></a>最小生成树（MST）的线性规划（LP）表述</h2><p>最小生成树问题（Minimum Spanning Tree, MST）是图论中的一个经典问题，其目标是在一个连通无向图 $$ G &#x3D; (V, E) $$ 中找到一个边的子集 $$ T \subseteq E $$，使得 $$ T $$ 构成一棵树（即无环且连通），并且所有边的权重之和最小。这里我们讨论的是如何将MST问题表述为一个线性规划（LP），并解释其性质和求解方法。</p>
+<h4 id="MST的LP表述"><a href="#MST的LP表述" class="headerlink" title="MST的LP表述"></a>MST的LP表述</h4><p>以下是MST问题的一个LP松弛：</p>
+<p>$$\text{maximize} \sum_{e \in E} c_e x_e$$<br>$$\text{subject to} \quad \sum_{e \in E(S)} x_e \leq |S| - 1 \quad \forall S \subset V, S \neq \emptyset$$<br>$$\sum_{e \in E} x_e &#x3D; |V| - 1$$<br>$$0 \leq x_e \leq 1 \quad \forall e \in E$$</p>
 <p>其中：</p>
 <ul>
-<li>( c_e ) 是边 ( e ) 的权重（这里最大化是因为可以等价地将最小化问题转化为最大化负权重）。</li>
-<li>( x_e ) 表示边 ( e ) 是否被选入生成树（( x_e = 1 )）或不被选入（( x_e = 0 )）。</li>
-<li>( E(S) ) 是子集 ( S ) 的导出子图中的边集，即所有两端点都在 ( S ) 中的边。</li>
-<li>约束 ( \sum_{e \in E(S)} x_e \leq |S| - 1 ) 称为<strong>子集消除约束（subtour elimination constraints）</strong>，确保任何顶点子集 ( S ) 的导出子图中选择的边不会形成环（即不会多于 ( |S| - 1 ) 条边，否则会形成环）。</li>
-<li>约束 ( \sum_{e \in E} x_e = |V| - 1 ) 确保选择的边数恰好是 ( |V| - 1 )（生成树的边数）。</li>
-<li>( 0 \leq x_e \leq 1 ) 是变量的边界约束。</li>
+<li>$$ c_e $$ 是边 $$ e $$ 的权重（这里最大化是因为可以等价地将最小化问题转化为最大化负权重）。</li>
+<li>$$ x_e $$ 表示边 $$ e $$ 是否被选入生成树（$$ x_e &#x3D; 1 $$）或不被选入（$$ x_e &#x3D; 0 $$）。</li>
+<li>$$ E(S) $$ 是子集 $$ S $$ 的导出子图中的边集，即所有两端点都在 $$ S $$ 中的边。</li>
+<li>约束 $$ \sum_{e \in E(S)} x_e \leq |S| - 1 $$ 称为<strong>子集消除约束（subtour elimination constraints）</strong>，确保任何顶点子集 $$ S $$ 的导出子图中选择的边不会形成环（即不会多于 $$ |S| - 1 $$ 条边，否则会形成环）。</li>
+<li>约束 $$ \sum_{e \in E} x_e &#x3D; |V| - 1 $$ 确保选择的边数恰好是 $$ |V| - 1 $$（生成树的边数）。</li>
+<li>$$ 0 \leq x_e \leq 1 $$ 是变量的边界约束。</li>
 </ul>
-<h3 id="弱对偶性定理的详细解释">弱对偶性定理的详细解释</h3>
-<p>弱对偶性（Weak Duality）是线性规划（Linear Programming, LP）中一个基本且重要的定理。它描述了原始问题（Primal Problem）和对偶问题（Dual Problem）的解之间的关系。具体来说，对于任何原始问题的可行解和对偶问题的可行解，原始问题的目标函数值不超过对偶问题的目标函数值。</p>
-<h4 id="原始问题和对偶问题的标准形式">原始问题和对偶问题的标准形式</h4>
-<p>首先，我们需要明确原始问题和对偶问题的标准形式。通常，我们有以下定义：</p>
+<h3 id="弱对偶性定理的详细解释"><a href="#弱对偶性定理的详细解释" class="headerlink" title="弱对偶性定理的详细解释"></a>弱对偶性定理的详细解释</h3><p>弱对偶性（Weak Duality）是线性规划（Linear Programming, LP）中一个基本且重要的定理。它描述了原始问题（Primal Problem）和对偶问题（Dual Problem）的解之间的关系。具体来说，对于任何原始问题的可行解和对偶问题的可行解，原始问题的目标函数值不超过对偶问题的目标函数值。</p>
+<h4 id="原始问题和对偶问题的标准形式"><a href="#原始问题和对偶问题的标准形式" class="headerlink" title="原始问题和对偶问题的标准形式"></a>原始问题和对偶问题的标准形式</h4><p>首先，我们需要明确原始问题和对偶问题的标准形式。通常，我们有以下定义：</p>
 <ol>
-<li>
-<p><strong>原始问题（Primal Problem）</strong>：</p>
+<li><p><strong>原始问题（Primal Problem）</strong>：</p>
 <ul>
 <li>形式：最大化问题</li>
-<li>目标函数：( \max , c^\top x )</li>
-<li>约束条件：
-<ul>
-<li>( A x \leq b )</li>
-<li>( x \geq 0 )</li>
+<li>目标函数：$$ \max , c^\top x $$</li>
+<li>约束条件：<ul>
+<li>$$ A x \leq b $$</li>
+<li>$$ x \geq 0 $$</li>
 </ul>
 </li>
-<li>其中：
-<ul>
-<li>( c \in \mathbb{R}^n )：目标函数的系数向量</li>
-<li>( x \in \mathbb{R}^n )：决策变量</li>
-<li>( A \in \mathbb{R}^{m \times n} )：约束矩阵</li>
-<li>( b \in \mathbb{R}^m )：约束条件的右端向量</li>
+<li>其中：<ul>
+<li>$$ c \in \mathbb{R}^n $$：目标函数的系数向量</li>
+<li>$$ x \in \mathbb{R}^n $$：决策变量</li>
+<li>$$ A \in \mathbb{R}^{m \times n} $$：约束矩阵</li>
+<li>$$ b \in \mathbb{R}^m $$：约束条件的右端向量</li>
 </ul>
 </li>
 </ul>
 </li>
-<li>
-<p><strong>对偶问题（Dual Problem）</strong>：</p>
+<li><p><strong>对偶问题（Dual Problem）</strong>：</p>
 <ul>
 <li>形式：最小化问题</li>
-<li>目标函数：( \min , b^\top y )</li>
-<li>约束条件：
-<ul>
-<li>( A^\top y \geq c )</li>
-<li>( y \geq 0 )</li>
+<li>目标函数：$$ \min , b^\top y $$</li>
+<li>约束条件：<ul>
+<li>$$ A^\top y \geq c $$</li>
+<li>$$ y \geq 0 $$</li>
 </ul>
 </li>
-<li>其中：
-<ul>
-<li>( y \in \mathbb{R}^m )：对偶变量</li>
+<li>其中：<ul>
+<li>$$ y \in \mathbb{R}^m $$：对偶变量</li>
 </ul>
 </li>
 </ul>
 </li>
 </ol>
-<h4 id="弱对偶性定理的陈述">弱对偶性定理的陈述</h4>
-<p>弱对偶性定理指出：</p>
-<p>对于原始问题的任何可行解 ( x ) 和对偶问题的任何可行解 ( y )，都有：<br>
-[ c^\top x \leq b^\top y ]</p>
+<h4 id="弱对偶性定理的陈述"><a href="#弱对偶性定理的陈述" class="headerlink" title="弱对偶性定理的陈述"></a>弱对偶性定理的陈述</h4><p>弱对偶性定理指出：</p>
+<p>对于原始问题的任何可行解 $$ x $$ 和对偶问题的任何可行解 $$ y $$，都有：<br>$$c^\top x \leq b^\top y$$</p>
 <p>即，原始问题的目标函数值（最大化）不超过对偶问题的目标函数值（最小化）。</p>
-<h4 id="证明过程-3">证明过程</h4>
-<p>让我们逐步证明这个定理。</p>
+<h4 id="证明过程-2"><a href="#证明过程-2" class="headerlink" title="证明过程"></a>证明过程</h4><p>让我们逐步证明这个定理。</p>
 <ol>
-<li>
-<p><strong>原始问题的约束</strong>：</p>
+<li><p><strong>原始问题的约束</strong>：</p>
 <ul>
-<li>( A x \leq b )</li>
-<li>因为 ( y \geq 0 )，我们可以两边左乘 ( y^\top )（因为 ( y ) 非负，不等号方向不变）：<br>
-[ y^\top A x \leq y^\top b ]<br>
-[ y^\top A x \leq b^\top y ] （因为 ( y^\top b = b^\top y )）</li>
+<li>$$ A x \leq b $$</li>
+<li>因为 $$ y \geq 0 $$，我们可以两边左乘 $$ y^\top $$（因为 $$ y $$ 非负，不等号方向不变）：<br>$$y^\top A x \leq y^\top b$$<br>$$y^\top A x \leq b^\top y$$ （因为 $$ y^\top b &#x3D; b^\top y $$）</li>
 </ul>
 </li>
-<li>
-<p><strong>对偶问题的约束</strong>：</p>
+<li><p><strong>对偶问题的约束</strong>：</p>
 <ul>
-<li>( A^\top y \geq c )</li>
-<li>因为 ( x \geq 0 )，我们可以两边右乘 ( x )（因为 ( x ) 非负，不等号方向不变）：<br>
-[ (A^\top y)^\top x \geq c^\top x ]<br>
-[ y^\top A x \geq c^\top x ] （因为 ( (A^\top y)^\top = y^\top A )）</li>
+<li>$$ A^\top y \geq c $$</li>
+<li>因为 $$ x \geq 0 $$，我们可以两边右乘 $$ x $$（因为 $$ x $$ 非负，不等号方向不变）：<br>$$(A^\top y)^\top x \geq c^\top x$$<br>$$y^\top A x \geq c^\top x$$ （因为 $$ (A^\top y)^\top &#x3D; y^\top A $$）</li>
 </ul>
 </li>
-<li>
-<p><strong>结合两个不等式</strong>：</p>
+<li><p><strong>结合两个不等式</strong>：</p>
 <ul>
-<li>从对偶约束得到：( c^\top x \leq y^\top A x )</li>
-<li>从原始约束得到：( y^\top A x \leq b^\top y )</li>
-<li>因此：<br>
-[ c^\top x \leq y^\top A x \leq b^\top y ]<br>
-[ c^\top x \leq b^\top y ]</li>
+<li>从对偶约束得到：$$ c^\top x \leq y^\top A x $$</li>
+<li>从原始约束得到：$$ y^\top A x \leq b^\top y $$</li>
+<li>因此：<br>$$c^\top x \leq y^\top A x \leq b^\top y$$<br>$$c^\top x \leq b^\top y$$</li>
 </ul>
 </li>
 </ol>
-<h4 id="直观理解">直观理解</h4>
-<ul>
-<li>原始问题是最大化 ( c^\top x )，对偶问题是最小化 ( b^\top y )。</li>
+<h4 id="直观理解"><a href="#直观理解" class="headerlink" title="直观理解"></a>直观理解</h4><ul>
+<li>原始问题是最大化 $$ c^\top x $$，对偶问题是最小化 $$ b^\top y $$。</li>
 <li>弱对偶性表明，任何原始可行解的目标值都不会超过任何对偶可行解的目标值。</li>
 <li>这意味着对偶问题的目标值提供了一个原始问题目标值的上界，反之亦然。</li>
 </ul>
-<h2 id="最大流与最小割">最大流与最小割</h2>
-<hr>
-<h2 id="1-原始问题-Primal-：最大流">1. 原始问题 (Primal)：最大流</h2>
-<h3 id="1-1-决策变量">1.1 决策变量</h3>
-<ul>
-<li>对于每条有向边 (e=(u\to v)\in E)，定义流量变量 (f_e)（也常写成 (f_{uv}) 或者简写 (f_e)）。</li>
+<h2 id="最大流与最小割"><a href="#最大流与最小割" class="headerlink" title="最大流与最小割"></a>最大流与最小割</h2><hr>
+<h2 id="1-原始问题-Primal-：最大流"><a href="#1-原始问题-Primal-：最大流" class="headerlink" title="1. 原始问题 (Primal)：最大流"></a>1. 原始问题 (Primal)：最大流</h2><h3 id="1-1-决策变量"><a href="#1-1-决策变量" class="headerlink" title="1.1 决策变量"></a>1.1 决策变量</h3><ul>
+<li>对于每条有向边 $$e&#x3D;(u\to v)\in E$$，定义流量变量 $$f_e$$（也常写成 $$f_{uv}$$ 或者简写 $$f_e$$）。</li>
 </ul>
-<h3 id="1-2-目标函数">1.2 目标函数</h3>
-<ul>
-<li>我们要从源点 (s) 向汇点 (t) 发送尽可能多的流：<br>
-[<br>
-\max; f_{ts}.<br>
-]<br>
-这里 (f_{ts}) 可以理解为“从 (s) 到 (t) 的净流量”——在实际写法中通常是最大化<br>
-[<br>
-\sum_{e\in \delta^+(s)} f_e ;-; \sum_{e\in \delta^-(s)} f_e.<br>
-]</li>
+<h3 id="1-2-目标函数"><a href="#1-2-目标函数" class="headerlink" title="1.2 目标函数"></a>1.2 目标函数</h3><ul>
+<li>我们要从源点 $$s$$ 向汇点 $$t$$ 发送尽可能多的流：<br>$$\max; f_{ts}.$$<br>这里 $$f_{ts}$$ 可以理解为“从 $$s$$ 到 $$t$$ 的净流量”——在实际写法中通常是最大化<br>$$\sum_{e\in \delta^+(s)} f_e ;-; \sum_{e\in \delta^-(s)} f_e.$$</li>
 </ul>
-<h3 id="1-3-约束条件">1.3 约束条件</h3>
-<ol>
-<li>
-<p><strong>流量守恒（除了源点和汇点）</strong><br>
-对任意 (v\in V) 都要满足<br>
-[<br>
-f\bigl(\delta^{\mathrm{in}}(v)\bigr);-; f\bigl(\delta^{\mathrm{out}}(v)\bigr);\le;0,<br>
-]<br>
-也就是对于中间节点 (v)，它的进入流不超过离开流，源点 (s) 可以是“净输出”&gt;0，汇点 (t) 可以是“净输入”&gt;0。</p>
+<h3 id="1-3-约束条件"><a href="#1-3-约束条件" class="headerlink" title="1.3 约束条件"></a>1.3 约束条件</h3><ol>
+<li><p><strong>流量守恒（除了源点和汇点）</strong><br>对任意 $$v\in V$$ 都要满足<br>$$f\bigl(\delta^{\mathrm{in}}(v)\bigr);-; f\bigl(\delta^{\mathrm{out}}(v)\bigr);\le;0,$$<br>也就是对于中间节点 $$v$$，它的进入流不超过离开流，源点 $$s$$ 可以是“净输出”&gt;0，汇点 $$t$$ 可以是“净输入”&gt;0。</p>
 </li>
-<li>
-<p><strong>容量上界</strong><br>
-对每条边 (e\in E)，<br>
-[<br>
-0 ;\le; f_e ;\le; 1.<br>
-]<br>
-（这里假设每条边的容量都是 1。）</p>
+<li><p><strong>容量上界</strong><br>对每条边 $$e\in E$$，<br>$$0 ;\le; f_e ;\le; 1.$$<br>（这里假设每条边的容量都是 1。）</p>
 </li>
 </ol>
 <hr>
-<h2 id="2-对偶问题-Dual-：最小割">2. 对偶问题 (Dual)：最小割</h2>
-<p>对上述最大流 LP 做对偶，就得到下面这个最小割的线性规划。</p>
-<h3 id="2-1-对偶变量">2.1 对偶变量</h3>
-<ul>
-<li>每条边 (e=(u\to v)) 对应一个非负变量 (d_{uv})。<br>
-直观上，(d_{uv}) 表示“是否把这条边切掉”（如果切掉，对偶解中通常取 1，否则取 0）。</li>
-<li>每个顶点 (v) 对应一个变量 (y_v\ge0)，可以看作是“点 (v) 的潜在高度”或“归属子集 S/T 的标记”。</li>
+<h2 id="2-对偶问题-Dual-：最小割"><a href="#2-对偶问题-Dual-：最小割" class="headerlink" title="2. 对偶问题 (Dual)：最小割"></a>2. 对偶问题 (Dual)：最小割</h2><p>对上述最大流 LP 做对偶，就得到下面这个最小割的线性规划。</p>
+<h3 id="2-1-对偶变量"><a href="#2-1-对偶变量" class="headerlink" title="2.1 对偶变量"></a>2.1 对偶变量</h3><ul>
+<li>每条边 $$e&#x3D;(u\to v)$$ 对应一个非负变量 $$d_{uv}$$。<br>直观上，$$d_{uv}$$ 表示“是否把这条边切掉”（如果切掉，对偶解中通常取 1，否则取 0）。</li>
+<li>每个顶点 $$v$$ 对应一个变量 $$y_v\ge0$$，可以看作是“点 $$v$$ 的潜在高度”或“归属子集 S&#x2F;T 的标记”。</li>
 </ul>
-<h3 id="2-2-对偶目标">2.2 对偶目标</h3>
-<p>[<br>
-\min;\sum_{(u,v)\in E} d_{uv}.<br>
-]<br>
-也就是要切掉尽量少的边，使得 (s) 与 (t) 分离。</p>
-<h3 id="2-3-对偶约束">2.3 对偶约束</h3>
-<ol>
-<li>
-<p><strong>边上的松弛条件</strong><br>
-对每条边 ((u\to v)\in E)，要求<br>
-[<br>
-d_{uv};+;y_u;-;y_v;\ge;0.<br>
-]<br>
-合理的解释是：如果 (u) 和 (v) 在同一侧（(y_u\approx y_v)），则只要 (d_{uv}=0) 就能满足；但如果 (u) 在 (s) 侧而 (v) 在 (t) 侧，我们需要 (d_{uv}\ge1) 才能保证“不打通”这条通道。</p>
+<h3 id="2-2-对偶目标"><a href="#2-2-对偶目标" class="headerlink" title="2.2 对偶目标"></a>2.2 对偶目标</h3><p>  $$\min;\sum_{(u,v)\in E} d_{uv}.$$<br>  也就是要切掉尽量少的边，使得 $$s$$ 与 $$t$$ 分离。</p>
+<h3 id="2-3-对偶约束"><a href="#2-3-对偶约束" class="headerlink" title="2.3 对偶约束"></a>2.3 对偶约束</h3><ol>
+<li><p><strong>边上的松弛条件</strong><br>对每条边 $$(u\to v)\in E$$，要求<br>$$d_{uv};+;y_u;-;y_v;\ge;0.$$<br>合理的解释是：如果 $$u$$ 和 $$v$$ 在同一侧（$$y_u\approx y_v$$），则只要 $$d_{uv}&#x3D;0$$ 就能满足；但如果 $$u$$ 在 $$s$$ 侧而 $$v$$ 在 $$t$$ 侧，我们需要 $$d_{uv}\ge1$$ 才能保证“不打通”这条通道。</p>
 </li>
-<li>
-<p><strong>源点与汇点分离</strong><br>
-[<br>
-y_s - y_t ;\ge; 1.<br>
-]<br>
-这保证了在“潜在高度”意义上，(s) 必须明显高于 (t)，从而在路径上至少要经过一条被切掉的边。</p>
+<li><p><strong>源点与汇点分离</strong><br>$$y_s - y_t ;\ge; 1.$$<br>这保证了在“潜在高度”意义上，$$s$$ 必须明显高于 $$t$$，从而在路径上至少要经过一条被切掉的边。</p>
 </li>
-<li>
-<p><strong>非负性</strong><br>
-[<br>
-y_v ;\ge;0,\quad d_{uv};\ge;0.<br>
-]</p>
+<li><p><strong>非负性</strong><br>$$y_v ;\ge;0,\quad d_{uv};\ge;0.$$</p>
 </li>
 </ol>
 <hr>
-<h2 id="3-从对偶到“最小割”的直观理解">3. 从对偶到“最小割”的直观理解</h2>
+<h2 id="3-从对偶到“最小割”的直观理解"><a href="#3-从对偶到“最小割”的直观理解" class="headerlink" title="3. 从对偶到“最小割”的直观理解"></a>3. 从对偶到“最小割”的直观理解</h2><ul>
+<li><p>我们可以把所有顶点根据 $$y_v$$ 的大小分成两部分：</p>
 <ul>
-<li>
-<p>我们可以把所有顶点根据 (y_v) 的大小分成两部分：</p>
-<ul>
-<li>(S = {v: y_v &gt; \alpha})</li>
-<li>(T = V\setminus S)</li>
+<li>$$S &#x3D; {v: y_v &gt; \alpha}$$</li>
+<li>$$T &#x3D; V\setminus S$$</li>
 </ul>
-<p>通过适当选取阈值 (\alpha)（例如 (\alpha = 0.5,y_s + 0.5,y_t)），可以使得 (s\in S)，(t\in T) 并且对任何跨 (S) 到 (T) 的边 ((u,v))，对应的对偶约束<br>
-[<br>
-d_{uv} + y_u - y_v \ge 0<br>
-]<br>
-要求 (d_{uv} \ge y_v - y_u \ge 1)。由于 (d_{uv}\ge0)，最优解中就会把每条跨割的边设为 (d_{uv}=1)，而同侧的边可以取 (d_{uv}=0)。</p>
+<p>通过适当选取阈值 $$\alpha$$（例如 $$\alpha &#x3D; 0.5,y_s + 0.5,y_t$$），可以使得 $$s\in S$$，$$t\in T$$ 并且对任何跨 $$S$$ 到 $$T$$ 的边 $$(u,v)$$，对应的对偶约束<br>$$d_{uv} + y_u - y_v \ge 0$$<br>要求 $$d_{uv} \ge y_v - y_u \ge 1$$。由于 $$d_{uv}\ge0$$，最优解中就会把每条跨割的边设为 $$d_{uv}&#x3D;1$$，而同侧的边可以取 $$d_{uv}&#x3D;0$$。  </p>
 </li>
-<li>
-<p>因此对偶问题的最优值恰好等于“从 (s) 到 (t) 的最小割所需切掉的边数”——这就是经典的最小割容量。</p>
+<li><p>因此对偶问题的最优值恰好等于“从 $$s$$ 到 $$t$$ 的最小割所需切掉的边数”——这就是经典的最小割容量。</p>
 </li>
 </ul>
 <hr>
-<h2 id="4-最大流-最小割">4. 最大流 = 最小割</h2>
-<ul>
-<li>
-<p><strong>弱对偶</strong>（任何可行流值 ≤ 任何可行割容量）</p>
+<h2 id="4-最大流-最小割"><a href="#4-最大流-最小割" class="headerlink" title="4. 最大流 &#x3D; 最小割"></a>4. 最大流 &#x3D; 最小割</h2><ul>
+<li><p><strong>弱对偶</strong>（任何可行流值 ≤ 任何可行割容量）  </p>
 </li>
-<li>
-<p><strong>强对偶</strong>（线性规划对偶性）保证最优流值 = 最优割容量。</p>
+<li><p><strong>强对偶</strong>（线性规划对偶性）保证最优流值 &#x3D; 最优割容量。  </p>
 </li>
-<li>
-<p>于是得到著名的 <strong>最大流–最小割定理</strong>：</p>
+<li><p>于是得到著名的 <strong>最大流–最小割定理</strong>：</p>
 <p>“在一个容量为整数（此处为 1）的网络中，最大流的值等于最小割的容量。”</p>
 </li>
 </ul>
 <hr>
-<h2 id="5-整数性">5. 整数性</h2>
-<ul>
-<li>由于这个线性规划的约束矩阵是<strong>完全整数</strong>（即 totally unimodular），原始 LP 和对偶 LP 在最优解时都会取到整数解。</li>
-<li>因此最大流问题可以得到整数流（每条边 (f_e\in{0,1})），最小割也可以得到整数切割（每条边 (d_{uv}\in{0,1})），完美对应。</li>
+<h2 id="5-整数性"><a href="#5-整数性" class="headerlink" title="5. 整数性"></a>5. 整数性</h2><ul>
+<li>由于这个线性规划的约束矩阵是<strong>完全整数</strong>（即 totally unimodular），原始 LP 和对偶 LP 在最优解时都会取到整数解。  </li>
+<li>因此最大流问题可以得到整数流（每条边 $$f_e\in{0,1}$$），最小割也可以得到整数切割（每条边 $$d_{uv}\in{0,1}$$），完美对应。</li>
 </ul>
 <hr>
-<p><strong>总结：</strong></p>
+<p><strong>总结：</strong>  </p>
 <ul>
-<li>原始问题（Primal）是标准的最大流 LP。</li>
-<li>对偶问题（Dual）恰好对应最小割 LP。</li>
+<li>原始问题（Primal）是标准的最大流 LP。  </li>
+<li>对偶问题（Dual）恰好对应最小割 LP。  </li>
 <li>二者在最优时取相同的数值，且均有整数最优解，成就了最大流–最小割这一经典定理。</li>
 </ul>
-<h3 id="冯·诺依曼极小极大定理（Von-Neumann-Minimax-Theorem）的解释"><strong>冯·诺依曼极小极大定理（Von Neumann Minimax Theorem）的解释</strong></h3>
-<p>冯·诺依曼极小极大定理是博弈论中的一个核心定理，它描述了<strong>两人零和博弈（Two-player Zero-sum Game）<strong>中</strong>最优策略的存在性和均衡性</strong>。具体来说，它表明：</p>
-<p>[<br>
-\max_{x \in \Delta_m} \min_{y \in \Delta_n} x^\top A y = \min_{y \in \Delta_n} \max_{x \in \Delta_m} x^\top A y<br>
-]</p>
+<h3 id="冯·诺依曼极小极大定理（Von-Neumann-Minimax-Theorem）的解释"><a href="#冯·诺依曼极小极大定理（Von-Neumann-Minimax-Theorem）的解释" class="headerlink" title="冯·诺依曼极小极大定理（Von Neumann Minimax Theorem）的解释"></a><strong>冯·诺依曼极小极大定理（Von Neumann Minimax Theorem）的解释</strong></h3><p>冯·诺依曼极小极大定理是博弈论中的一个核心定理，它描述了<strong>两人零和博弈（Two-player Zero-sum Game）<strong>中</strong>最优策略的存在性和均衡性</strong>。具体来说，它表明：</p>
+<p>$$\max_{x \in \Delta_m} \min_{y \in \Delta_n} x^\top A y &#x3D; \min_{y \in \Delta_n} \max_{x \in \Delta_m} x^\top A y$$</p>
 <p>其中：</p>
 <ul>
-<li>( A \in \mathbb{R}^{m \times n} ) 是<strong>支付矩阵（Payoff Matrix）</strong>，表示行玩家（Player 1）的收益（列玩家的损失）。</li>
-<li>( x \in \Delta_m ) 是行玩家的混合策略（概率分布），( \Delta_m ) 是 ( m )-维单纯形（即 ( x_i \geq 0 ), ( \sum_{i=1}^m x_i = 1 )）。</li>
-<li>( y \in \Delta_n ) 是列玩家的混合策略（概率分布），( \Delta_n ) 是 ( n )-维单纯形（即 ( y_j \geq 0 ), ( \sum_{j=1}^n y_j = 1 )）。</li>
-<li>( x^\top A y ) 是<strong>期望收益</strong>（行玩家希望最大化，列玩家希望最小化）。</li>
+<li>$$ A \in \mathbb{R}^{m \times n} $$ 是<strong>支付矩阵（Payoff Matrix）</strong>，表示行玩家（Player 1）的收益（列玩家的损失）。</li>
+<li>$$ x \in \Delta_m $$ 是行玩家的混合策略（概率分布），$$ \Delta_m $$ 是 $$ m $$-维单纯形（即 $$ x_i \geq 0 $$, $$ \sum_{i&#x3D;1}^m x_i &#x3D; 1 $$）。</li>
+<li>$$ y \in \Delta_n $$ 是列玩家的混合策略（概率分布），$$ \Delta_n $$ 是 $$ n $$-维单纯形（即 $$ y_j \geq 0 $$, $$ \sum_{j&#x3D;1}^n y_j &#x3D; 1 $$）。</li>
+<li>$$ x^\top A y $$ 是<strong>期望收益</strong>（行玩家希望最大化，列玩家希望最小化）。</li>
 </ul>
 <hr>
-<h2 id="1-定理的直观解释"><strong>1. 定理的直观解释</strong></h2>
-<h3 id="1-行玩家的视角（先选策略）"><strong>(1) 行玩家的视角（先选策略）</strong></h3>
-<ul>
+<h2 id="1-定理的直观解释"><a href="#1-定理的直观解释" class="headerlink" title="1. 定理的直观解释"></a><strong>1. 定理的直观解释</strong></h2><h3 id="1-行玩家的视角（先选策略）"><a href="#1-行玩家的视角（先选策略）" class="headerlink" title="(1) 行玩家的视角（先选策略）"></a><strong>(1) 行玩家的视角（先选策略）</strong></h3><ul>
 <li>行玩家希望<strong>最大化自己的最小收益</strong>（即“最坏情况下最好能得多少”）。</li>
-<li>他选择一个策略 ( x )，然后列玩家会选择一个 ( y ) 使得 ( x^\top A y ) 最小（因为列玩家希望最小化行玩家的收益）。</li>
-<li>因此，行玩家要解决：<br>
-[<br>
-\max_{x} \left( \min_{y} x^\top A y \right)<br>
-]</li>
+<li>他选择一个策略 $$ x $$，然后列玩家会选择一个 $$ y $$ 使得 $$ x^\top A y $$ 最小（因为列玩家希望最小化行玩家的收益）。</li>
+<li>因此，行玩家要解决：<br>$$\max_{x} \left( \min_{y} x^\top A y \right)$$</li>
 </ul>
-<h3 id="2-列玩家的视角（先选策略）"><strong>(2) 列玩家的视角（先选策略）</strong></h3>
-<ul>
+<h3 id="2-列玩家的视角（先选策略）"><a href="#2-列玩家的视角（先选策略）" class="headerlink" title="(2) 列玩家的视角（先选策略）"></a><strong>(2) 列玩家的视角（先选策略）</strong></h3><ul>
 <li>列玩家希望<strong>最小化行玩家的最大收益</strong>（即“最好情况下最坏能损失多少”）。</li>
-<li>他选择一个策略 ( y )，然后行玩家会选择一个 ( x ) 使得 ( x^\top A y ) 最大（因为行玩家希望最大化自己的收益）。</li>
-<li>因此，列玩家要解决：<br>
-[<br>
-\min_{y} \left( \max_{x} x^\top A y \right)<br>
-]</li>
+<li>他选择一个策略 $$ y $$，然后行玩家会选择一个 $$ x $$ 使得 $$ x^\top A y $$ 最大（因为行玩家希望最大化自己的收益）。</li>
+<li>因此，列玩家要解决：<br>$$\min_{y} \left( \max_{x} x^\top A y \right)$$</li>
 </ul>
-<h3 id="3-定理的核心结论"><strong>(3) 定理的核心结论</strong></h3>
-<p><strong>无论谁先选择策略，最终都会达到相同的均衡值</strong>：<br>
-[<br>
-\max_{x} \min_{y} x^\top A y = \min_{y} \max_{x} x^\top A y = v<br>
-]<br>
-这个共同的值 ( v ) 称为<strong>博弈的值（Value of the Game）</strong>，而对应的 ( x^* ) 和 ( y^* ) 称为<strong>纳什均衡策略（Nash Equilibrium Strategies）</strong>。</p>
+<h3 id="3-定理的核心结论"><a href="#3-定理的核心结论" class="headerlink" title="(3) 定理的核心结论"></a><strong>(3) 定理的核心结论</strong></h3><p><strong>无论谁先选择策略，最终都会达到相同的均衡值</strong>：<br>$$\max_{x} \min_{y} x^\top A y &#x3D; \min_{y} \max_{x} x^\top A y &#x3D; v$$<br>这个共同的值 $$ v $$ 称为<strong>博弈的值（Value of the Game）</strong>，而对应的 $$ x^* $$ 和 $$ y^* $$ 称为<strong>纳什均衡策略（Nash Equilibrium Strategies）</strong>。</p>
 <hr>
-<h2 id="2-为什么这个定理成立？"><strong>2. 为什么这个定理成立？</strong></h2>
-<h3 id="1-从线性规划角度看"><strong>(1) 从线性规划角度看</strong></h3>
-<p>极小极大定理可以看作是<strong>线性规划对偶性</strong>的一个特例：</p>
+<h2 id="2-为什么这个定理成立？"><a href="#2-为什么这个定理成立？" class="headerlink" title="2. 为什么这个定理成立？"></a><strong>2. 为什么这个定理成立？</strong></h2><h3 id="1-从线性规划角度看"><a href="#1-从线性规划角度看" class="headerlink" title="(1) 从线性规划角度看"></a><strong>(1) 从线性规划角度看</strong></h3><p>极小极大定理可以看作是<strong>线性规划对偶性</strong>的一个特例：</p>
 <ul>
-<li>行玩家的优化问题可以写成：<br>
-[<br>
-\max_{x} \left( \min_{y} x^\top A y \right) = \max_{x} \left( \min_{j} (A x)_j \right)<br>
-]<br>
-即行玩家希望最大化自己最差情况下的收益（因为列玩家会选择最不利的 ( y )）。</li>
-<li>列玩家的优化问题可以写成：<br>
-[<br>
-\min_{y} \left( \max_{x} x^\top A y \right) = \min_{y} \left( \max_{i} (A^\top y)_i \right)<br>
-]<br>
-即列玩家希望最小化行玩家最好情况下的收益（因为行玩家会选择最有利的 ( x )）。</li>
+<li>行玩家的优化问题可以写成：<br>$$\max_{x} \left( \min_{y} x^\top A y \right) &#x3D; \max_{x} \left( \min_{j} (A x)_j \right)$$<br>即行玩家希望最大化自己最差情况下的收益（因为列玩家会选择最不利的 $$ y $$）。</li>
+<li>列玩家的优化问题可以写成：<br>$$\min_{y} \left( \max_{x} x^\top A y \right) &#x3D; \min_{y} \left( \max_{i} (A^\top y)_i \right)$$<br>即列玩家希望最小化行玩家最好情况下的收益（因为行玩家会选择最有利的 $$ x $$）。</li>
 </ul>
 <p>由于线性规划的对偶性，这两个问题的解是相同的。</p>
-<h3 id="2-从博弈论角度看"><strong>(2) 从博弈论角度看</strong></h3>
-<ul>
+<h3 id="2-从博弈论角度看"><a href="#2-从博弈论角度看" class="headerlink" title="(2) 从博弈论角度看"></a><strong>(2) 从博弈论角度看</strong></h3><ul>
 <li>在零和博弈中，<strong>行玩家的收益就是列玩家的损失</strong>，因此双方的目标完全对立。</li>
-<li><strong>纳什均衡</strong>（Nash Equilibrium）在这种博弈中表现为：
-<ul>
-<li>行玩家选择 ( x^* )，使得无论列玩家怎么选 ( y )，自己的收益至少是 ( v )。</li>
-<li>列玩家选择 ( y^* )，使得无论行玩家怎么选 ( x )，行玩家的收益至多是 ( v )。</li>
+<li><strong>纳什均衡</strong>（Nash Equilibrium）在这种博弈中表现为：<ul>
+<li>行玩家选择 $$ x^* $$，使得无论列玩家怎么选 $$ y $$，自己的收益至少是 $$ v $$。</li>
+<li>列玩家选择 $$ y^* $$，使得无论行玩家怎么选 $$ x $$，行玩家的收益至多是 $$ v $$。</li>
 </ul>
 </li>
 <li>因此，双方都无法通过单方面改变策略来获得更好的结果，达到均衡。</li>
@@ -655,8 +485,8 @@ d_{uv} + y_u - y_v \ge 0<br>
         
     <div class="post-nav">
       <div class="post-nav-item">
-    <a href="/notes.github.io/2025/06/23/note1/" rel="prev" title="note1">
-      <i class="fa fa-chevron-left"></i> note1
+    <a href="/notes.github.io/2025/06/23/MarkovNote/" rel="prev" title="MarkovNote">
+      <i class="fa fa-chevron-left"></i> MarkovNote
     </a></div>
       <div class="post-nav-item">
     <a href="/notes.github.io/2025/06/23/FFT_Notes/" rel="next" title="FFT_Notes">
@@ -720,7 +550,7 @@ d_{uv} + y_u - y_v \ge 0<br>
 
       <!--noindex-->
       <div class="post-toc-wrap sidebar-panel">
-          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E8%BE%B9%E8%A7%92%EF%BC%88corner%EF%BC%89%E3%80%81%E6%9E%81%E5%80%BC%E7%82%B9%EF%BC%88extreme-point%EF%BC%89%E5%92%8C%E5%9F%BA%E6%9C%AC%E8%A7%A3%EF%BC%88basic-solution%EF%BC%89%EF%BC%9A"><span class="nav-number">1.</span> <span class="nav-text">边角（corner）、极值点（extreme point）和基本解（basic solution）：</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#1-%E8%BE%B9%E8%A7%92%EF%BC%88Corner%EF%BC%89"><span class="nav-number">1.1.</span> <span class="nav-text">1. 边角（Corner）</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-%E6%9E%81%E5%80%BC%E7%82%B9%EF%BC%88Extreme-Point%EF%BC%89"><span class="nav-number">1.2.</span> <span class="nav-text">2. 极值点（Extreme Point）</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3-%E5%9F%BA%E6%9C%AC%E8%A7%A3%EF%BC%88Basic-Solution%EF%BC%89"><span class="nav-number">1.3.</span> <span class="nav-text">3. 基本解（Basic Solution）</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E8%AF%81%E6%98%8E%EF%BC%9A%E5%9C%A8%E5%87%B8%E5%A4%9A%E9%9D%A2%E4%BD%93-P-x-mid-Ax-leq-b-%E4%B8%AD%EF%BC%8C%E8%8B%A5-x-%E6%98%AF%E8%BE%B9%E8%A7%92%EF%BC%88corner%EF%BC%89%EF%BC%8C%E5%88%99-x-%E6%98%AF%E5%9F%BA%E6%9C%AC%E8%A7%A3%EF%BC%88basic-solution%EF%BC%89%E3%80%82"><span class="nav-number">2.</span> <span class="nav-text">证明：在凸多面体 ( P &#x3D; {x \mid Ax \leq b} ) 中，若 ( x ) 是边角（corner），则 ( x ) 是基本解（basic solution）。</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E8%AF%81%E6%98%8E%E8%BF%87%E7%A8%8B"><span class="nav-number">2.1.</span> <span class="nav-text">证明过程</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E8%AF%81%E6%98%8E%EF%BC%9A%E5%9C%A8%E5%87%B8%E5%A4%9A%E9%9D%A2%E4%BD%93-P-x-mid-Ax-leq-b-%E4%B8%AD%EF%BC%8C%E8%8B%A5-x-%E6%98%AF%E5%9F%BA%E6%9C%AC%E8%A7%A3%EF%BC%88basic-solution%EF%BC%89%EF%BC%8C%E5%88%99-x-%E6%98%AF%E8%BE%B9%E8%A7%92%EF%BC%88corner%EF%BC%89%E3%80%82"><span class="nav-number">2.2.</span> <span class="nav-text">证明：在凸多面体 ( P &#x3D; {x \mid Ax \leq b} ) 中，若 ( x ) 是基本解（basic solution），则 ( x ) 是边角（corner）。</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E8%AF%81%E6%98%8E%E8%BF%87%E7%A8%8B-2"><span class="nav-number">2.3.</span> <span class="nav-text">证明过程</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%AE%9A%E7%90%86%EF%BC%9A%E8%80%83%E8%99%91%E4%BA%8C%E5%88%86%E5%9B%BE%E5%AE%8C%E7%BE%8E%E5%8C%B9%E9%85%8D%E7%9A%84%E7%BA%BF%E6%80%A7%E8%A7%84%E5%88%92"><span class="nav-number">3.</span> <span class="nav-text">定理：考虑二分图完美匹配的线性规划</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%9C%80%E5%B0%8F%E7%94%9F%E6%88%90%E6%A0%91%EF%BC%88MST%EF%BC%89%E7%9A%84%E7%BA%BF%E6%80%A7%E8%A7%84%E5%88%92%EF%BC%88LP%EF%BC%89%E8%A1%A8%E8%BF%B0"><span class="nav-number">4.</span> <span class="nav-text">最小生成树（MST）的线性规划（LP）表述</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#MST%E7%9A%84LP%E8%A1%A8%E8%BF%B0"><span class="nav-number">4.0.1.</span> <span class="nav-text">MST的LP表述</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%BC%B1%E5%AF%B9%E5%81%B6%E6%80%A7%E5%AE%9A%E7%90%86%E7%9A%84%E8%AF%A6%E7%BB%86%E8%A7%A3%E9%87%8A"><span class="nav-number">4.1.</span> <span class="nav-text">弱对偶性定理的详细解释</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%8E%9F%E5%A7%8B%E9%97%AE%E9%A2%98%E5%92%8C%E5%AF%B9%E5%81%B6%E9%97%AE%E9%A2%98%E7%9A%84%E6%A0%87%E5%87%86%E5%BD%A2%E5%BC%8F"><span class="nav-number">4.1.1.</span> <span class="nav-text">原始问题和对偶问题的标准形式</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%BC%B1%E5%AF%B9%E5%81%B6%E6%80%A7%E5%AE%9A%E7%90%86%E7%9A%84%E9%99%88%E8%BF%B0"><span class="nav-number">4.1.2.</span> <span class="nav-text">弱对偶性定理的陈述</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E8%AF%81%E6%98%8E%E8%BF%87%E7%A8%8B-3"><span class="nav-number">4.1.3.</span> <span class="nav-text">证明过程</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E7%9B%B4%E8%A7%82%E7%90%86%E8%A7%A3"><span class="nav-number">4.1.4.</span> <span class="nav-text">直观理解</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%9C%80%E5%A4%A7%E6%B5%81%E4%B8%8E%E6%9C%80%E5%B0%8F%E5%89%B2"><span class="nav-number">5.</span> <span class="nav-text">最大流与最小割</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#1-%E5%8E%9F%E5%A7%8B%E9%97%AE%E9%A2%98-Primal-%EF%BC%9A%E6%9C%80%E5%A4%A7%E6%B5%81"><span class="nav-number">6.</span> <span class="nav-text">1. 原始问题 (Primal)：最大流</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#1-1-%E5%86%B3%E7%AD%96%E5%8F%98%E9%87%8F"><span class="nav-number">6.1.</span> <span class="nav-text">1.1 决策变量</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#1-2-%E7%9B%AE%E6%A0%87%E5%87%BD%E6%95%B0"><span class="nav-number">6.2.</span> <span class="nav-text">1.2 目标函数</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#1-3-%E7%BA%A6%E6%9D%9F%E6%9D%A1%E4%BB%B6"><span class="nav-number">6.3.</span> <span class="nav-text">1.3 约束条件</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2-%E5%AF%B9%E5%81%B6%E9%97%AE%E9%A2%98-Dual-%EF%BC%9A%E6%9C%80%E5%B0%8F%E5%89%B2"><span class="nav-number">7.</span> <span class="nav-text">2. 对偶问题 (Dual)：最小割</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#2-1-%E5%AF%B9%E5%81%B6%E5%8F%98%E9%87%8F"><span class="nav-number">7.1.</span> <span class="nav-text">2.1 对偶变量</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-2-%E5%AF%B9%E5%81%B6%E7%9B%AE%E6%A0%87"><span class="nav-number">7.2.</span> <span class="nav-text">2.2 对偶目标</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-3-%E5%AF%B9%E5%81%B6%E7%BA%A6%E6%9D%9F"><span class="nav-number">7.3.</span> <span class="nav-text">2.3 对偶约束</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#3-%E4%BB%8E%E5%AF%B9%E5%81%B6%E5%88%B0%E2%80%9C%E6%9C%80%E5%B0%8F%E5%89%B2%E2%80%9D%E7%9A%84%E7%9B%B4%E8%A7%82%E7%90%86%E8%A7%A3"><span class="nav-number">8.</span> <span class="nav-text">3. 从对偶到“最小割”的直观理解</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#4-%E6%9C%80%E5%A4%A7%E6%B5%81-%E6%9C%80%E5%B0%8F%E5%89%B2"><span class="nav-number">9.</span> <span class="nav-text">4. 最大流 &#x3D; 最小割</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#5-%E6%95%B4%E6%95%B0%E6%80%A7"><span class="nav-number">10.</span> <span class="nav-text">5. 整数性</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%86%AF%C2%B7%E8%AF%BA%E4%BE%9D%E6%9B%BC%E6%9E%81%E5%B0%8F%E6%9E%81%E5%A4%A7%E5%AE%9A%E7%90%86%EF%BC%88Von-Neumann-Minimax-Theorem%EF%BC%89%E7%9A%84%E8%A7%A3%E9%87%8A"><span class="nav-number">10.1.</span> <span class="nav-text">冯·诺依曼极小极大定理（Von Neumann Minimax Theorem）的解释</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#1-%E5%AE%9A%E7%90%86%E7%9A%84%E7%9B%B4%E8%A7%82%E8%A7%A3%E9%87%8A"><span class="nav-number">11.</span> <span class="nav-text">1. 定理的直观解释</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#1-%E8%A1%8C%E7%8E%A9%E5%AE%B6%E7%9A%84%E8%A7%86%E8%A7%92%EF%BC%88%E5%85%88%E9%80%89%E7%AD%96%E7%95%A5%EF%BC%89"><span class="nav-number">11.1.</span> <span class="nav-text">(1) 行玩家的视角（先选策略）</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-%E5%88%97%E7%8E%A9%E5%AE%B6%E7%9A%84%E8%A7%86%E8%A7%92%EF%BC%88%E5%85%88%E9%80%89%E7%AD%96%E7%95%A5%EF%BC%89"><span class="nav-number">11.2.</span> <span class="nav-text">(2) 列玩家的视角（先选策略）</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3-%E5%AE%9A%E7%90%86%E7%9A%84%E6%A0%B8%E5%BF%83%E7%BB%93%E8%AE%BA"><span class="nav-number">11.3.</span> <span class="nav-text">(3) 定理的核心结论</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2-%E4%B8%BA%E4%BB%80%E4%B9%88%E8%BF%99%E4%B8%AA%E5%AE%9A%E7%90%86%E6%88%90%E7%AB%8B%EF%BC%9F"><span class="nav-number">12.</span> <span class="nav-text">2. 为什么这个定理成立？</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#1-%E4%BB%8E%E7%BA%BF%E6%80%A7%E8%A7%84%E5%88%92%E8%A7%92%E5%BA%A6%E7%9C%8B"><span class="nav-number">12.1.</span> <span class="nav-text">(1) 从线性规划角度看</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-%E4%BB%8E%E5%8D%9A%E5%BC%88%E8%AE%BA%E8%A7%92%E5%BA%A6%E7%9C%8B"><span class="nav-number">12.2.</span> <span class="nav-text">(2) 从博弈论角度看</span></a></li></ol></li></ol></div>
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E8%BE%B9%E8%A7%92%EF%BC%88corner%EF%BC%89%E3%80%81%E6%9E%81%E5%80%BC%E7%82%B9%EF%BC%88extreme-point%EF%BC%89%E5%92%8C%E5%9F%BA%E6%9C%AC%E8%A7%A3%EF%BC%88basic-solution%EF%BC%89%EF%BC%9A"><span class="nav-number">1.</span> <span class="nav-text">边角（corner）、极值点（extreme point）和基本解（basic solution）：</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#1-%E8%BE%B9%E8%A7%92%EF%BC%88Corner%EF%BC%89"><span class="nav-number">1.1.</span> <span class="nav-text">1. 边角（Corner）</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-%E6%9E%81%E5%80%BC%E7%82%B9%EF%BC%88Extreme-Point%EF%BC%89"><span class="nav-number">1.2.</span> <span class="nav-text">2. 极值点（Extreme Point）</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3-%E5%9F%BA%E6%9C%AC%E8%A7%A3%EF%BC%88Basic-Solution%EF%BC%89"><span class="nav-number">1.3.</span> <span class="nav-text">3. 基本解（Basic Solution）</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E8%AF%81%E6%98%8E%EF%BC%9A%E5%9C%A8%E5%87%B8%E5%A4%9A%E9%9D%A2%E4%BD%93-P-x-mid-Ax-leq-b-%E4%B8%AD%EF%BC%8C%E8%8B%A5-x-%E6%98%AF%E8%BE%B9%E8%A7%92%EF%BC%88corner%EF%BC%89%EF%BC%8C%E5%88%99-x-%E6%98%AF%E5%9F%BA%E6%9C%AC%E8%A7%A3%EF%BC%88basic-solution%EF%BC%89%E3%80%82"><span class="nav-number">2.</span> <span class="nav-text">证明：在凸多面体 $$ P &#x3D; {x \mid Ax \leq b} $$ 中，若 $$ x $$ 是边角（corner），则 $$ x $$ 是基本解（basic solution）。</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E8%AF%81%E6%98%8E%E8%BF%87%E7%A8%8B"><span class="nav-number">2.1.</span> <span class="nav-text">证明过程</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E8%AF%81%E6%98%8E%EF%BC%9A%E5%9C%A8%E5%87%B8%E5%A4%9A%E9%9D%A2%E4%BD%93-P-x-mid-Ax-leq-b-%E4%B8%AD%EF%BC%8C%E8%8B%A5-x-%E6%98%AF%E5%9F%BA%E6%9C%AC%E8%A7%A3%EF%BC%88basic-solution%EF%BC%89%EF%BC%8C%E5%88%99-x-%E6%98%AF%E8%BE%B9%E8%A7%92%EF%BC%88corner%EF%BC%89%E3%80%82"><span class="nav-number">2.2.</span> <span class="nav-text">证明：在凸多面体 $$ P &#x3D; {x \mid Ax \leq b} $$ 中，若 $$ x $$ 是基本解（basic solution），则 $$ x $$ 是边角（corner）。</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E8%AF%81%E6%98%8E%E8%BF%87%E7%A8%8B-1"><span class="nav-number">2.3.</span> <span class="nav-text">证明过程</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%AE%9A%E7%90%86%EF%BC%9A%E8%80%83%E8%99%91%E4%BA%8C%E5%88%86%E5%9B%BE%E5%AE%8C%E7%BE%8E%E5%8C%B9%E9%85%8D%E7%9A%84%E7%BA%BF%E6%80%A7%E8%A7%84%E5%88%92"><span class="nav-number">3.</span> <span class="nav-text">定理：考虑二分图完美匹配的线性规划</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%9C%80%E5%B0%8F%E7%94%9F%E6%88%90%E6%A0%91%EF%BC%88MST%EF%BC%89%E7%9A%84%E7%BA%BF%E6%80%A7%E8%A7%84%E5%88%92%EF%BC%88LP%EF%BC%89%E8%A1%A8%E8%BF%B0"><span class="nav-number">4.</span> <span class="nav-text">最小生成树（MST）的线性规划（LP）表述</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#MST%E7%9A%84LP%E8%A1%A8%E8%BF%B0"><span class="nav-number">4.0.1.</span> <span class="nav-text">MST的LP表述</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%BC%B1%E5%AF%B9%E5%81%B6%E6%80%A7%E5%AE%9A%E7%90%86%E7%9A%84%E8%AF%A6%E7%BB%86%E8%A7%A3%E9%87%8A"><span class="nav-number">4.1.</span> <span class="nav-text">弱对偶性定理的详细解释</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%8E%9F%E5%A7%8B%E9%97%AE%E9%A2%98%E5%92%8C%E5%AF%B9%E5%81%B6%E9%97%AE%E9%A2%98%E7%9A%84%E6%A0%87%E5%87%86%E5%BD%A2%E5%BC%8F"><span class="nav-number">4.1.1.</span> <span class="nav-text">原始问题和对偶问题的标准形式</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%BC%B1%E5%AF%B9%E5%81%B6%E6%80%A7%E5%AE%9A%E7%90%86%E7%9A%84%E9%99%88%E8%BF%B0"><span class="nav-number">4.1.2.</span> <span class="nav-text">弱对偶性定理的陈述</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E8%AF%81%E6%98%8E%E8%BF%87%E7%A8%8B-2"><span class="nav-number">4.1.3.</span> <span class="nav-text">证明过程</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E7%9B%B4%E8%A7%82%E7%90%86%E8%A7%A3"><span class="nav-number">4.1.4.</span> <span class="nav-text">直观理解</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%9C%80%E5%A4%A7%E6%B5%81%E4%B8%8E%E6%9C%80%E5%B0%8F%E5%89%B2"><span class="nav-number">5.</span> <span class="nav-text">最大流与最小割</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#1-%E5%8E%9F%E5%A7%8B%E9%97%AE%E9%A2%98-Primal-%EF%BC%9A%E6%9C%80%E5%A4%A7%E6%B5%81"><span class="nav-number">6.</span> <span class="nav-text">1. 原始问题 (Primal)：最大流</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#1-1-%E5%86%B3%E7%AD%96%E5%8F%98%E9%87%8F"><span class="nav-number">6.1.</span> <span class="nav-text">1.1 决策变量</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#1-2-%E7%9B%AE%E6%A0%87%E5%87%BD%E6%95%B0"><span class="nav-number">6.2.</span> <span class="nav-text">1.2 目标函数</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#1-3-%E7%BA%A6%E6%9D%9F%E6%9D%A1%E4%BB%B6"><span class="nav-number">6.3.</span> <span class="nav-text">1.3 约束条件</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2-%E5%AF%B9%E5%81%B6%E9%97%AE%E9%A2%98-Dual-%EF%BC%9A%E6%9C%80%E5%B0%8F%E5%89%B2"><span class="nav-number">7.</span> <span class="nav-text">2. 对偶问题 (Dual)：最小割</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#2-1-%E5%AF%B9%E5%81%B6%E5%8F%98%E9%87%8F"><span class="nav-number">7.1.</span> <span class="nav-text">2.1 对偶变量</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-2-%E5%AF%B9%E5%81%B6%E7%9B%AE%E6%A0%87"><span class="nav-number">7.2.</span> <span class="nav-text">2.2 对偶目标</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-3-%E5%AF%B9%E5%81%B6%E7%BA%A6%E6%9D%9F"><span class="nav-number">7.3.</span> <span class="nav-text">2.3 对偶约束</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#3-%E4%BB%8E%E5%AF%B9%E5%81%B6%E5%88%B0%E2%80%9C%E6%9C%80%E5%B0%8F%E5%89%B2%E2%80%9D%E7%9A%84%E7%9B%B4%E8%A7%82%E7%90%86%E8%A7%A3"><span class="nav-number">8.</span> <span class="nav-text">3. 从对偶到“最小割”的直观理解</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#4-%E6%9C%80%E5%A4%A7%E6%B5%81-%E6%9C%80%E5%B0%8F%E5%89%B2"><span class="nav-number">9.</span> <span class="nav-text">4. 最大流 &#x3D; 最小割</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#5-%E6%95%B4%E6%95%B0%E6%80%A7"><span class="nav-number">10.</span> <span class="nav-text">5. 整数性</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%86%AF%C2%B7%E8%AF%BA%E4%BE%9D%E6%9B%BC%E6%9E%81%E5%B0%8F%E6%9E%81%E5%A4%A7%E5%AE%9A%E7%90%86%EF%BC%88Von-Neumann-Minimax-Theorem%EF%BC%89%E7%9A%84%E8%A7%A3%E9%87%8A"><span class="nav-number">10.1.</span> <span class="nav-text">冯·诺依曼极小极大定理（Von Neumann Minimax Theorem）的解释</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#1-%E5%AE%9A%E7%90%86%E7%9A%84%E7%9B%B4%E8%A7%82%E8%A7%A3%E9%87%8A"><span class="nav-number">11.</span> <span class="nav-text">1. 定理的直观解释</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#1-%E8%A1%8C%E7%8E%A9%E5%AE%B6%E7%9A%84%E8%A7%86%E8%A7%92%EF%BC%88%E5%85%88%E9%80%89%E7%AD%96%E7%95%A5%EF%BC%89"><span class="nav-number">11.1.</span> <span class="nav-text">(1) 行玩家的视角（先选策略）</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-%E5%88%97%E7%8E%A9%E5%AE%B6%E7%9A%84%E8%A7%86%E8%A7%92%EF%BC%88%E5%85%88%E9%80%89%E7%AD%96%E7%95%A5%EF%BC%89"><span class="nav-number">11.2.</span> <span class="nav-text">(2) 列玩家的视角（先选策略）</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3-%E5%AE%9A%E7%90%86%E7%9A%84%E6%A0%B8%E5%BF%83%E7%BB%93%E8%AE%BA"><span class="nav-number">11.3.</span> <span class="nav-text">(3) 定理的核心结论</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2-%E4%B8%BA%E4%BB%80%E4%B9%88%E8%BF%99%E4%B8%AA%E5%AE%9A%E7%90%86%E6%88%90%E7%AB%8B%EF%BC%9F"><span class="nav-number">12.</span> <span class="nav-text">2. 为什么这个定理成立？</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#1-%E4%BB%8E%E7%BA%BF%E6%80%A7%E8%A7%84%E5%88%92%E8%A7%92%E5%BA%A6%E7%9C%8B"><span class="nav-number">12.1.</span> <span class="nav-text">(1) 从线性规划角度看</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-%E4%BB%8E%E5%8D%9A%E5%BC%88%E8%AE%BA%E8%A7%92%E5%BA%A6%E7%9C%8B"><span class="nav-number">12.2.</span> <span class="nav-text">(2) 从博弈论角度看</span></a></li></ol></li></ol></div>
       </div>
       <!--/noindex-->
 
@@ -828,10 +658,58 @@ d_{uv} + y_u - y_v \ge 0<br>
 
   
       
-<link rel="stylesheet" href="//cdn.jsdelivr.net/npm/katex@0/dist/katex.min.css">
-  <script src="//cdn.jsdelivr.net/npm/katex@0/dist/contrib/copy-tex.min.js"></script>
-  <link rel="stylesheet" href="//cdn.jsdelivr.net/npm/katex@0/dist/contrib/copy-tex.min.css">
 
+<script>
+  if (typeof MathJax === 'undefined') {
+    window.MathJax = {
+      loader: {
+        source: {
+          '[tex]/amsCd': '[tex]/amscd',
+          '[tex]/AMScd': '[tex]/amscd'
+        }
+      },
+      tex: {
+        inlineMath: {'[+]': [['$', '$']]},
+        tags: 'ams'
+      },
+      options: {
+        renderActions: {
+          findScript: [10, doc => {
+            document.querySelectorAll('script[type^="math/tex"]').forEach(node => {
+              const display = !!node.type.match(/; *mode=display/);
+              const math = new doc.options.MathItem(node.textContent, doc.inputJax[0], display);
+              const text = document.createTextNode('');
+              node.parentNode.replaceChild(text, node);
+              math.start = {node: text, delim: '', n: 0};
+              math.end = {node: text, delim: '', n: 0};
+              doc.math.push(math);
+            });
+          }, '', false],
+          insertedScript: [200, () => {
+            document.querySelectorAll('mjx-container').forEach(node => {
+              let target = node.parentNode;
+              if (target.nodeName.toLowerCase() === 'li') {
+                target.parentNode.classList.add('has-jax');
+              }
+            });
+          }, '', false]
+        }
+      }
+    };
+    (function () {
+      var script = document.createElement('script');
+      script.src = '//cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js?config=TeX-MML-AM_CHTML';
+      script.defer = true;
+      document.head.appendChild(script);
+    })();
+  } else {
+    MathJax.startup.document.state(0);
+    MathJax.texReset();
+    MathJax.typeset();
+  }
+</script>
+
+    
 
   
 

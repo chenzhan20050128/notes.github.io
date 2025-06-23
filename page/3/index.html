@@ -150,7 +150,7 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="https://chenzhan20050128.github.io/notes.github.io/2025/06/23/%E6%9C%9F%E6%9C%AB%E5%A4%8D%E4%B9%A0_%E4%BD%9C%E4%B8%9A%E7%AD%94%E6%A1%88%E6%95%B4%E7%90%86/">
+    <link itemprop="mainEntityOfPage" href="https://chenzhan20050128.github.io/notes.github.io/2025/06/23/%E8%AE%BE%E5%A4%87%E7%AE%A1%E7%90%86%E7%AC%94%E8%AE%B0/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="image" content="/notes.github.io/images/woshicaigou.jpg">
@@ -164,7 +164,7 @@
       <header class="post-header">
         <h2 class="post-title" itemprop="name headline">
           
-            <a href="/notes.github.io/2025/06/23/%E6%9C%9F%E6%9C%AB%E5%A4%8D%E4%B9%A0_%E4%BD%9C%E4%B8%9A%E7%AD%94%E6%A1%88%E6%95%B4%E7%90%86/" class="post-title-link" itemprop="url">期末复习_作业答案整理</a>
+            <a href="/notes.github.io/2025/06/23/%E8%AE%BE%E5%A4%87%E7%AE%A1%E7%90%86%E7%AC%94%E8%AE%B0/" class="post-title-link" itemprop="url">设备管理笔记</a>
         </h2>
 
         <div class="post-meta">
@@ -174,7 +174,7 @@
               </span>
               <span class="post-meta-item-text">发表于</span>
 
-              <time title="创建时间：2025-06-23 12:22:32" itemprop="dateCreated datePublished" datetime="2025-06-23T12:22:32+08:00">2025-06-23</time>
+              <time title="创建时间：2025-06-23 12:25:29" itemprop="dateCreated datePublished" datetime="2025-06-23T12:25:29+08:00">2025-06-23</time>
             </span>
 
           
@@ -188,19 +188,69 @@
     <div class="post-body" itemprop="articleBody">
 
       
-          <h1>6</h1>
-<p><img src="image.png" alt="alt text"><br>
-<img src="image-1.png" alt="alt text"><br>
-<img src="image-2.png" alt="alt text"><br>
-<img src="image-3.png" alt="alt text"><br>
-<img src="image-4.png" alt="alt text"><br>
-<img src="image-5.png" alt="alt text"><br>
-<img src="image-6.png" alt="alt text"></p>
-<h1>4</h1>
-<p><img src="image-7.png" alt="alt text"><br>
-![</p>
-<p>](image-8.png)<br>
-<img src="image-9.png" alt="alt text"></p>
+          <h3 id="一、层次结构框架"><a href="#一、层次结构框架" class="headerlink" title="一、层次结构框架"></a>一、层次结构框架</h3><p>典型I&#x2F;O子系统分为五层（如图5-3）：</p>
+<ol>
+<li><strong>用户层I&#x2F;O软件</strong>（库函数、SPOOLing）  </li>
+<li><strong>设备独立性软件</strong>（命名映射、缓冲管理）  </li>
+<li><strong>设备驱动程序</strong>（硬件命令转换）  </li>
+<li><strong>中断处理程序</strong>（硬件信号处理）  </li>
+<li><strong>硬件层</strong>（控制器、设备）</li>
+</ol>
+<h3 id="二、层级间交互机制"><a href="#二、层级间交互机制" class="headerlink" title="二、层级间交互机制"></a>二、层级间交互机制</h3><h4 id="1-用户层与设备无关层的接口"><a href="#1-用户层与设备无关层的接口" class="headerlink" title="1. 用户层与设备无关层的接口"></a>1. 用户层与设备无关层的接口</h4><ul>
+<li><strong>系统调用传递</strong>：用户程序通过<code>read/write</code>等系统调用进入内核态，例如<code>printf</code>调用会触发<code>write</code>系统调用  </li>
+<li><strong>参数标准化</strong>：用户层传递逻辑设备名（如<code>/dev/sda</code>），设备无关层通过逻辑设备表（LUT）将其映射为物理设备地址  </li>
+<li><strong>错误屏蔽</strong>：设备无关层过滤底层硬件错误（如磁盘重试机制），仅向上报告无法处理的异常</li>
+</ul>
+<h4 id="2-设备无关层与驱动层的协作"><a href="#2-设备无关层与驱动层的协作" class="headerlink" title="2. 设备无关层与驱动层的协作"></a>2. 设备无关层与驱动层的协作</h4><ul>
+<li><strong>请求封装</strong>：将逻辑I&#x2F;O请求（如文件偏移量）转换为物理块地址，并通过设备控制表（DCT）选择对应驱动程序  </li>
+<li><strong>资源调度</strong>：执行I&#x2F;O调度算法（如磁盘电梯算法），合并相邻请求优化性能  </li>
+<li><strong>缓冲区管理</strong>：在内核空间建立数据缓冲区，协调用户空间与设备速度差异（如PageCache机制）</li>
+</ul>
+<h4 id="3-驱动层与硬件控制器的交互"><a href="#3-驱动层与硬件控制器的交互" class="headerlink" title="3. 驱动层与硬件控制器的交互"></a>3. 驱动层与硬件控制器的交互</h4><ul>
+<li><strong>寄存器操作</strong>：驱动程序向设备控制器的命令寄存器写入操作码（如SCSI命令），设置DMA传输参数  </li>
+<li><strong>状态轮询</strong>：通过控制器状态寄存器检测设备就绪状态，或等待中断信号  </li>
+<li><strong>协议适配</strong>：将标准I&#x2F;O命令转换为设备专属指令序列（如不同品牌打印机的控制码）</li>
+</ul>
+<h4 id="4-硬件层与中断处理的联动"><a href="#4-硬件层与中断处理的联动" class="headerlink" title="4. 硬件层与中断处理的联动"></a>4. 硬件层与中断处理的联动</h4><ul>
+<li><strong>中断触发</strong>：设备完成操作后通过中断控制器（如APIC）向CPU发送信号  </li>
+<li><strong>上下文保存</strong>：中断处理程序保存被中断进程的寄存器状态到内核栈  </li>
+<li><strong>状态反馈</strong>：读取控制器状态寄存器，将结果写入内核缓冲区并唤醒阻塞进程</li>
+</ul>
+<h3 id="三、关键数据流示例（以磁盘读取为例）"><a href="#三、关键数据流示例（以磁盘读取为例）" class="headerlink" title="三、关键数据流示例（以磁盘读取为例）"></a>三、关键数据流示例（以磁盘读取为例）</h3><ol>
+<li><strong>用户层</strong>：<code>fread()</code>调用触发系统调用<code>read(fd, buf, size)</code>  </li>
+<li><strong>设备无关层</strong>：  <ul>
+<li>检查文件权限  </li>
+<li>将文件偏移转换为物理扇区号  </li>
+<li>分配内核缓冲区并加入I&#x2F;O调度队列</li>
+</ul>
+</li>
+<li><strong>驱动层</strong>：  <ul>
+<li>向磁盘控制器发送<code>READ SECTOR</code>命令  </li>
+<li>设置DMA传输目标地址为内核缓冲区</li>
+</ul>
+</li>
+<li><strong>硬件层</strong>：  <ul>
+<li>磁盘控制器执行寻道操作  </li>
+<li>DMA引擎直接将数据写入内核缓冲区</li>
+</ul>
+</li>
+<li><strong>中断处理</strong>：  <ul>
+<li>DMA完成中断触发后，将数据从内核缓冲区复制到用户缓冲区  </li>
+<li>唤醒等待该I&#x2F;O完成的进程</li>
+</ul>
+</li>
+</ol>
+<h3 id="四、分层设计的优势"><a href="#四、分层设计的优势" class="headerlink" title="四、分层设计的优势"></a>四、分层设计的优势</h3><ol>
+<li><strong>接口标准化</strong>：每层仅暴露抽象接口（如驱动层的<code>read/write</code>方法），隐藏实现细节  </li>
+<li><strong>错误隔离</strong>：设备驱动故障不会导致上层崩溃（如USB设备异常仅影响对应驱动）  </li>
+<li><strong>扩展性</strong>：新增设备只需实现驱动层，无需修改上层逻辑（如NVMe SSD兼容SATA接口）  </li>
+<li><strong>性能优化</strong>：各层独立实现缓存策略（用户层缓冲区 vs 内核PageCache）</li>
+</ol>
+<h3 id="五、跨层优化技术"><a href="#五、跨层优化技术" class="headerlink" title="五、跨层优化技术"></a>五、跨层优化技术</h3><ol>
+<li><strong>零拷贝（Zero-Copy）</strong>：绕过内核缓冲区，直接让用户空间与DMA引擎交互  </li>
+<li><strong>异步I&#x2F;O</strong>：通过<code>io_uring</code>等机制实现请求批量提交和完成事件通知  </li>
+<li><strong>直接内存访问（DMA）</strong>：硬件控制器直接访问内存，减少CPU介入</li>
+</ol>
 
       
     </div>
@@ -220,7 +270,7 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="https://chenzhan20050128.github.io/notes.github.io/2025/06/23/%E7%AE%97%E5%AD%90%E8%8C%83%E6%95%B0note/">
+    <link itemprop="mainEntityOfPage" href="https://chenzhan20050128.github.io/notes.github.io/2025/06/23/%E7%AC%AC%E4%B8%89%E7%AB%A0%E5%A4%8D%E4%B9%A0%E7%AC%94%E8%AE%B0/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="image" content="/notes.github.io/images/woshicaigou.jpg">
@@ -234,7 +284,7 @@
       <header class="post-header">
         <h2 class="post-title" itemprop="name headline">
           
-            <a href="/notes.github.io/2025/06/23/%E7%AE%97%E5%AD%90%E8%8C%83%E6%95%B0note/" class="post-title-link" itemprop="url">算子范数note</a>
+            <a href="/notes.github.io/2025/06/23/%E7%AC%AC%E4%B8%89%E7%AB%A0%E5%A4%8D%E4%B9%A0%E7%AC%94%E8%AE%B0/" class="post-title-link" itemprop="url">操作系统：第三章复习笔记</a>
         </h2>
 
         <div class="post-meta">
@@ -243,8 +293,9 @@
                 <i class="far fa-calendar"></i>
               </span>
               <span class="post-meta-item-text">发表于</span>
+              
 
-              <time title="创建时间：2025-06-23 12:22:32" itemprop="dateCreated datePublished" datetime="2025-06-23T12:22:32+08:00">2025-06-23</time>
+              <time title="创建时间：2025-06-23 12:25:29 / 修改时间：12:26:30" itemprop="dateCreated datePublished" datetime="2025-06-23T12:25:29+08:00">2025-06-23</time>
             </span>
 
           
@@ -258,234 +309,102 @@
     <div class="post-body" itemprop="articleBody">
 
       
-          <h2 id="Euclid范数的酉不变性：">Euclid范数的酉不变性：</h2>
-<p>对于向量 $X$ 和酉矩阵 $U$，有：</p>
-<p>$|UX|_2 = \sqrt{(UX)^H UX} = \sqrt{X^H U^H UX} = \sqrt{X^H X} = |X|_2$</p>
-<p>即：</p>
-<p>$|UX|_2 = |X|_2$</p>
-<h2 id="无穷范数是最大值的证明">无穷范数是最大值的证明</h2>
-<p>要证明对于复数 ( x_1, x_2, \ldots, x_n )，有</p>
-<p>[<br>
-\lim_{p \to \infty} \left( |x_1|^p + |x_2|^p + \cdots + |x_n|^p \right)^{1/p} = \max { |x_1|, |x_2|, \ldots, |x_n| },<br>
-]</p>
-<p>其中 ( |x_i| ) 表示复数 ( x_i ) 的模长。</p>
-<p><strong>证明过程如下：</strong></p>
-<p>设 ( M = \max { |x_1|, |x_2|, \ldots, |x_n| } )，并假设 ( |x_k| = M ) 对于某个 ( k )。对于任意 ( p &gt; 0 )，有</p>
-<p>[<br>
-|x_k|^p \leq |x_1|^p + |x_2|^p + \cdots + |x_n|^p \leq n \cdot M^p.<br>
-]</p>
-<p>取 ( p )-th 根，得到</p>
-<p>[<br>
-M \leq \left( \sum_{i=1}^n |x_i|^p \right)^{1/p} \leq n^{1/p} \cdot M.<br>
-]</p>
-<p>当 ( p \to \infty )，( n^{1/p} \to 1 )，因此由夹逼定理，</p>
-<p>[<br>
-\lim_{p \to \infty} \left( \sum_{i=1}^n |x_i|^p \right)^{1/p} = M.<br>
-]</p>
-<p>即</p>
-<p>[<br>
-\lim_{p \to \infty} \left( |x_1|^p + |x_2|^p + \cdots + |x_n|^p \right)^{1/p} = \max { |x_1|, |x_2|, \ldots, |x_n| }.<br>
-]</p>
-<p><strong>证毕。</strong></p>
-<h3 id="Frobenius-范数的详细解释"><strong>Frobenius 范数的详细解释</strong></h3>
-<p>对于一个 ( m \times n ) 的实（或复）矩阵 ( A )，其 Frobenius 范数定义为：</p>
-<p>[<br>
-| A |<em>F = \sqrt{ \sum</em>{i=1}^m \sum_{j=1}^n |a_{ij}|^2 }<br>
-]</p>
-<h3 id="用矩阵的迹表示"><strong>用矩阵的迹表示</strong></h3>
-<p>[<br>
-| A |_F = \sqrt{ \text{tr}(A^T A) } = \sqrt{ \text{tr}(A A^T) }<br>
-]</p>
-<h3 id="乘法不等式（次可乘性）"><strong>乘法不等式（次可乘性）</strong></h3>
-<p>如果 ( A ) 是 ( m \times n ) 矩阵，( B ) 是 ( n \times p ) 矩阵，则：<br>
-[<br>
-| AB |_F \leq | A |_F \cdot | B |_F<br>
-]</p>
-<h3 id="与谱范数的关系"><strong>与谱范数的关系</strong></h3>
-<p>Frobenius 范数与 <strong>谱范数（spectral norm, ( | A |_2 ))</strong> 满足：<br>
-[<br>
-| A |_2 \leq | A |_F \leq \sqrt{r} | A |_2<br>
-]<br>
-其中 ( r = \text{rank}(A) )。</p>
-<h3 id="与奇异值的关系"><strong>与奇异值的关系</strong></h3>
-<p>设 ( \sigma_1, \sigma_2, \ldots, \sigma_r ) 是 ( A ) 的非零奇异值，则：<br>
-[<br>
-| A |_F = \sqrt{ \sigma_1^2 + \sigma_2^2 + \cdots + \sigma_r^2 }<br>
-]</p>
-<h2 id="算子范数">算子范数</h2>
-<p>| 范数表示 ( |     | A   |  | )                         | 定义                                 | 说明                                                                                                      |<br>
-| ---------- | — | — |<br>
-| $          |     | A   |  | <em>{\infty}$ (最大行和范数) | $\max</em>{1 \le i \le m} \sum_{j=1}^{n} | a_{ij}                                                                                                    | $    | 将矩阵的每一行元素的绝对值加起来，取最大值。                                            |<br>
-| $          |     | A   |  | <em>1$ (最大列和范数)        | $\max</em>{1 \le j \le n} \sum_{i=1}^{m} | a_{ij}                                                                                                    | $    | 将矩阵的每一列元素的绝对值加起来，取最大值。                                            |<br>
-| $          |     | A   |  | <em>2$ (谱范数/算子范数)     | $\sqrt{\lambda</em>{\max}(A^H A)}$       | $A^H$ 是 $A$ 的共轭转置。 $\lambda_{\max}(A^H A)$ 是矩阵 $A^H A$ 的最大特征值。 也是矩阵$A$的最大奇异值。 |<br>
-| $          |     | A   |  | <em>F$ (Frobenius范数)       | $\sqrt{\sum</em>{i=1}^{m} \sum_{j=1}^{n} | a_{ij}                                                                                                    | ^2}$ | 将矩阵所有元素平方后加起来，再开根号。 相当于将矩阵看作一个向量，然后取其欧几里得范数。 |<br>
-| $          |     | A   |  | <em>{\max}$ (最大模范数)     | $\max</em>{i,j}                          | a_{ij}                                                                                                    | $    | 矩阵中绝对值最大的元素。                                                                |</p>
-<h3 id="Euclid空间是一个定义了一个二元实函数“内积”（即是向量）的线性空间。">Euclid空间是一个定义了一个二元实函数“内积”（即是向量）的线性空间。</h3>
-<h2 id="课上内容">课上内容</h2>
-<p>给定矩阵 $A \in \mathbb{R}^{m \times n}$，向量 $b \in \mathbb{R}^m$，求 $x \in \mathbb{R}^n$ 使得 $Ax = b$.</p>
+          <h2 id="可变分区方式的内存分配"><a href="#可变分区方式的内存分配" class="headerlink" title="可变分区方式的内存分配"></a>可变分区方式的内存分配</h2><h3 id="内存分配算法整理"><a href="#内存分配算法整理" class="headerlink" title="内存分配算法整理"></a><strong>内存分配算法整理</strong></h3><table>
+<thead>
+<tr>
+<th>算法</th>
+<th>分配策略</th>
+<th>优点</th>
+<th>缺点</th>
+<th>适用场景</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><strong>最先适应 (First-Fit)</strong></td>
+<td>从头找第一个足够大的</td>
+<td>简单高效，适合大作业</td>
+<td>低&#x2F;高地址利用不均，回收麻烦</td>
+<td>通用</td>
+</tr>
+<tr>
+<td><strong>邻近适应 (Next-Fit)</strong></td>
+<td>从上次位置开始找</td>
+<td>查找更快，空间均衡</td>
+<td>可能分割大空闲区</td>
+<td>中等负载</td>
+</tr>
+<tr>
+<td><strong>最优适应 (Best-Fit)</strong></td>
+<td>找最小的足够大的</td>
+<td>减少大分区浪费</td>
+<td>产生小碎片，查找慢</td>
+<td>中小作业</td>
+</tr>
+<tr>
+<td><strong>最坏适应 (Worst-Fit)</strong></td>
+<td>找最大的分区</td>
+<td>减少小碎片</td>
+<td>可能耗尽大分区</td>
+<td>中小作业</td>
+</tr>
+<tr>
+<td><strong>快速适应 (Quick-Fit)</strong></td>
+<td>维护常用大小链表</td>
+<td>查找极快</td>
+<td>合并复杂，额外开销</td>
+<td>特定场景</td>
+</tr>
+</tbody></table>
+<p><strong>最常用</strong>：最先适应（简单高效） &gt; 邻近适应 &gt; 最优适应。</p>
+<h2 id="外部碎片-内部碎片"><a href="#外部碎片-内部碎片" class="headerlink" title="外部碎片 内部碎片"></a>外部碎片 内部碎片</h2><p>内部零头（Internal Fragmentation）​<br>​定义：分配给进程的内存块比实际需求大，导致块内部有未使用的空间。<br>外部零头（External Fragmentation）​<br>​定义：内存中存在多个分散的小空闲区，但每个单独的空闲区都太小，无法满足进程需求。<br>​最先适应（First-Fit）​：倾向于使用低地址的大空闲区，可能保留高地址的大块空闲区，外零头较少。<br>​最坏适应（Worst-Fit）​：总是分配最大的空闲区，减少小碎片产生，但可能耗尽大分区。<br>​最优适应（Best-Fit）​：​最激进地切割空闲区，故外零头问题最严重。</p>
+<h1 id="页式存储管理"><a href="#页式存储管理" class="headerlink" title="页式存储管理"></a>页式存储管理</h1><table>
+<thead>
+<tr>
+<th><strong>概念</strong></th>
+<th><strong>定义</strong></th>
+<th><strong>作用</strong></th>
+</tr>
+</thead>
+<tbody><tr>
+<td><strong>页号</strong></td>
+<td>进程虚拟地址空间的逻辑划分单元编号（如4KB一页的序号）</td>
+<td>标识虚拟内存中的逻辑页位置</td>
+</tr>
+<tr>
+<td><strong>页框号</strong></td>
+<td>物理内存中实际存储块的编号（与页大小相同的物理块，也称页帧号&#x2F;Physical Frame）</td>
+<td>定位数据在物理内存中的实际存储位置</td>
+</tr>
+</tbody></table>
+<p><strong>关键区别</strong>：  </p>
 <ul>
-<li>
-<p>假设向量 $b$ 有误差，变成 $b + e$， $x$ 会怎么变化？</p>
-</li>
-<li>
-<p>$x = A^{-1}b \rightarrow x = A^{-1}(b+e)$</p>
-</li>
-<li>
-<p>该线性方程组的条件数 $\text{cond}(A) = \frac{x \text{的相对误差}}{b \text{的相对误差}}$.</p>
-</li>
+<li>页号属于<strong>虚拟地址空间</strong>（进程视角），页框号属于<strong>物理地址空间</strong>（硬件视角）。  </li>
+<li>页表的核心功能就是完成<strong>页号→页框号</strong>的映射（如下图所示）：  <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">虚拟地址 = [页号][页内偏移] </span><br><span class="line">          ↓ 页表转换</span><br><span class="line">物理地址 = [页框号][页内偏移]</span><br></pre></td></tr></table></figure>
+<img src="/notes.github.io/image-13.png" alt="alt text"></li>
 </ul>
-<p>记 $e$ 为 $b$ 的误差，则 $x$ 的误差为 $A^{-1}e$。任取一种向量范数，</p>
-<p>$\text{cond}(A) = \max_{e, b \neq 0} \frac{\frac{|A^{-1}e|}{|A^{-1}b|}}{\frac{|e|}{|b|}} = \max_{e, b \neq 0} \frac{|A^{-1}e|}{|e|} \frac{|b|}{|A^{-1}b|} = \max_{e \neq 0} \frac{|A^{-1}e|}{|e|} \max_{x \neq 0} \frac{|Ax|}{|x|}$</p>
-<ul>
-<li>
-<p>矩阵的算子范数 $|A| := \max_{x \neq 0} \frac{|Ax|}{|x|}$</p>
-</li>
-<li>
-<p>因此条件数 $\text{cond}(A) = |A| \cdot |A^{-1}|$</p>
-</li>
-</ul>
-<p>条件数越大，表示问题越敏感，输入数据的微小扰动可能会导致解的巨大变化。 条件数越接近于1，表示问题越稳定。</p>
-<h2 id="严格对角占优矩阵-Strictly-Diagonally-Dominant-Matrix"><strong>严格对角占优矩阵 (Strictly Diagonally Dominant Matrix)</strong></h2>
-<p>定义：我们称矩阵 $A \in \mathbb{R}^{n \times n}$ 为严格对角占优，如果它满足以下条件：</p>
-<p>$\forall i \in {1, 2, …, n},  |a_{ii}| &gt; \sum_{j=1, j \neq i}^{n} |a_{ij}|$</p>
-<p>换句话说，对于矩阵的每一行，对角线元素的绝对值必须大于该行所有其他元素绝对值之和。</p>
-<p><strong>定理：</strong></p>
-<p>如果方阵 $A$ 是严格对角占优的，则 $A$ 是可逆的，而且对于所有向量 $b$ 和初始猜测 $x^{(0)}$，对线性方程组 $Ax = b$ 使用 Jacobi 迭代都会收敛到唯一解。</p>
+<h2 id="反置页表"><a href="#反置页表" class="headerlink" title="反置页表"></a>反置页表</h2><p>正向页表（每个进程一个）：​<br>​索引：​ 虚拟页号 (VPN)<br>​表项内容：​ 物理页框号 (PFN) + 标志位<br>​大小：​ 与进程的虚拟地址空间大小成正比（每个可能的虚拟页都有一个表项，即使该页未使用）。<br>​反置页表（整个系统一个）：​<br>​索引：​ 物理页框号 (PFN) (隐含在表项位置中)<br>​表项内容：​ 进程ID (PID) + 虚拟页号 (VPN) + 标志位<br>​大小：​ 与物理内存大小成正比（每个物理页框对应一个表项）。<br>适用场景：​ 主要用在物理内存相对较小而虚拟地址空间非常大的系统中（如64位系统），或者嵌入式系统等资源受限环境。<br> 反置页表的页表项<br>页号：虚拟地址页号<br>进程标志符：使用该页的进程号(页号和进程标志符结合起来标志一个特定进程的虚拟地址空间的一页)<br>标志位：有效、引用、修改、保护和锁定等标志信息<br>链指针：哈希链，如果某个项没有链项，则该域为空(允许用一个单独的位来表示)<br><img src="/notes.github.io/image-14.png" alt="alt text"></p>
+<h2 id="段式"><a href="#段式" class="headerlink" title="段式"></a>段式</h2><p>页式存储管理中页的划分对程序员不可见。<br>段式存储管理中段的划分对程序员可见。<br>分段是信息的逻辑单位，由源程序的逻辑结构所决定，用户可见<br>段长可根据用户需要来规定，段起始地址可从任何主存地址开始。<br>分段方式中，源程序(段号，段内位移)经连结装配后地址仍保持二维结构。<br>分页是信息的物理单位，与源程序的逻辑结构无关，用户不可见，<br>页长由系统确定，页面只能以页大小的整倍数地址开始<br>分页方式中，源程序(页号，页内位移)经连结装配后地址变成了一维结构<br><img src="/notes.github.io/image-15.png" alt="alt text"></p>
+<p>传统教科书中的段页式 &#x3D; ​分段（逻辑划分）+ 分页（物理划分）​：<br>程序地址空间被划分为逻辑段​（代码、数据、堆、栈等）。<br>每个逻辑段被独立分页​（即段内地址再被拆分为页号和页内偏移）。<br>​硬件流程：CPU生成地址（段号, 段内偏移）→ 段表 → 得到段基址和线性地址 → 线性地址通过页表 → 物理地址。</p>
+<h2 id="页式"><a href="#页式" class="headerlink" title="页式"></a>页式</h2><p>需要扩充页表项，至少包含如上信息，指出：<br>主存驻留标志：指出页面是否已经装入内存。1表示在内存中可以被正常访问，0表示不能立即访问，产生缺页异常。<br>修改位：被设置后，该页被调出内存前必须先写回磁盘，保障数据一致性<br>保护位：限制页面访问权限<br>引用位：在页面被引用无论是读写时设置，用来帮助系统进行页面淘汰。<br>内存块号：页面对应的页框号，用来地址转换</p>
+<p><img src="/notes.github.io/image-16.png" alt="alt text"><br>维度	全局替换	局部替换<br>置换范围	全系统物理帧	当前进程分配的帧<br>帧分配方式	动态（按需调整）	静态（预先固定）<br>公平性	低（强者通吃）	高（隔离保护）<br>适用场景	通用计算（如Linux&#x2F;Windows）	实时系统、嵌入式系统</p>
+<h1 id="全局页面替换策略"><a href="#全局页面替换策略" class="headerlink" title="全局页面替换策略"></a>全局页面替换策略</h1><h2 id="OPT页面调度算法-Belady算法"><a href="#OPT页面调度算法-Belady算法" class="headerlink" title="OPT页面调度算法(Belady算法)"></a>OPT页面调度算法(Belady算法)</h2><p>算法描述：当要调入新页面时，首先淘汰以后不再访问的页，然后选择距现在最长时间后再访问的页。<br>该方法由Belady提出，称为BeLady算法，又称最佳算法(OPT)<br>OPT只可以模拟，不可以实现，因为永远无法预知之后的事情。<br>这种算法可以用作衡量其他各种算法的标准</p>
+<h2 id="先进先出页面调度算法-FIFO"><a href="#先进先出页面调度算法-FIFO" class="headerlink" title="先进先出页面调度算法(FIFO)"></a>先进先出页面调度算法(FIFO)</h2><p>算法描述：首先淘汰最先调入主存的那一页，或者说主存驻留时间最长的那一页(常驻的除外)<br>模拟的是程序执行的顺序性，有一定合理性，并不能很好模拟程序的循环性。<br>根据估计，缺页中断率也是最佳算法的2-3倍。<br><img src="/notes.github.io/image-17.png" alt="alt text"></p>
+<h2 id="最近最少用LRU页面调度算法"><a href="#最近最少用LRU页面调度算法" class="headerlink" title="最近最少用LRU页面调度算法"></a>最近最少用LRU页面调度算法</h2><p>淘汰最近一段时间较久未被访问的那一页，即那些刚被使用过的页面，可以马上还要被使用到。<br>模拟了程序执行的局部属性，既考虑了循环性，又兼顾了顺序性<br>LRU算法得到模拟实现：模拟是相当的不严谨，非常粗粒度的一个模拟。<br>引用位法：每页建立一个引用标志，供硬件使用，设置一个时间间隔中断，发生时将页引用标志置0，访问页面时将引用标志置为1，页面置换的时候选择标志为0的页面，在选中淘汰页时，将所有的页的引用为全部置为0<br>计数法：每页添加页面引用计数器，根据计数器选择最小的，定时清空页面引用计数器<br>计时法：每页添加计时单元，引用时，将绝对时间记录进入计时单元，定时清空计时单元。<br>老化算法：设置一个多位寄存器，被访问将最左侧设置为1，定时将寄存器右移，缺页中断时找到最小值的寄存器界面淘汰，被采用较多。</p>
+<h2 id="第二次机会页面替换算法-SCR，Second-Chance-Replacement"><a href="#第二次机会页面替换算法-SCR，Second-Chance-Replacement" class="headerlink" title="第二次机会页面替换算法(SCR，Second Chance Replacement)"></a>第二次机会页面替换算法(SCR，Second Chance Replacement)</h2><p>将FIFO算法和页表中引用位结合。<br>算法描述：<br>首先检查FIFO页面队列队首<br>引用位为0，则淘汰该页面<br>引用位为1，将引用位清0，并将该页面移到队列尾部<br>如果第一遍全为1，则循环</p>
+<h2 id="最不常用LFU的页面调度算法"><a href="#最不常用LFU的页面调度算法" class="headerlink" title="最不常用LFU的页面调度算法"></a>最不常用LFU的页面调度算法</h2><p>淘汰最近一段时间内访问次数较少的页面，对OPT的模拟性比LRU更好<br>算法过程：基于时间间隔中断，并给每一页设置一个计数器，时间间隔中断发生后，所有计数器清0，每访问页1次就给计数器加1，选择计数最小的页面淘汰</p>
+<h2 id="伙伴算法与slab"><a href="#伙伴算法与slab" class="headerlink" title="伙伴算法与slab"></a>伙伴算法与slab</h2><p>伙伴系统的分配和回收过程<br>分配过程：当系统需要内存时，从对应大小的链表中查找空闲块。如果没有找到，就向更大的内存块查找，并将其分裂为合适的大小进行分配。</p>
+<p>伙伴系统分配内存的过程较为复杂。首先，当系统需要内存时，会根据所需内存的大小确定对应的页阶（order）。然后从对应页阶的链表中查找空闲块。如果在该链表中没有找到空闲块，就会向更大页阶的链表查找。例如，当需要一个 128 个页的页块时，先检查 128 个页的页块链表是否有空闲块。如果没有，则查 256 个页的页块链表；如果有空闲块的话，则将 256 个页的页块分成两份，一份使用，一份插入 128 个页的页块链表中。如果还是没有，就查 512 个页的页块链表；如果有的话，就分裂为 128、128、256 三个页块，一个 128 的使用，剩余两个插入对应页块链表。<br>其实伙伴系统算法有如下3个基本条件需要满足：</p>
+<p>两个内存块的大小相同</p>
+<p>两个内存块的地址连续</p>
+<p>两个内存块必须是从同一个大的内存块中分离出来的<br>小于 4KB 的内存分配：Slab 分配器<br>伙伴系统的最小分配单位是 4KB 页框，分配更小内存会产生内部碎片。​Slab 分配器​（及其演进版本 SLUB&#x2F;SLOB）专门解决此问题，为内核对象提供精细化分配。</p>
 <ol>
-<li>
-<p><strong>Jacobi 迭代：</strong> Jacobi 迭代是一种求解线性方程组的迭代方法。它通过不断迭代更新解向量 $x$ 的每个分量，直到收敛到一个稳定值。 对于方程 $Ax = b$, Jacobi 迭代的公式可以写成如下形式：</p>
-<p>$x_i^{(k+1)} = \frac{1}{a_{ii}} \left(b_i - \sum_{j=1, j \neq i}^{n} a_{ij} x_j^{(k)} \right)$， 其中 $x_i^{(k)}$ 表示第 $i$ 个分量在第 $k$ 次迭代的值。</p>
-</li>
-<li>
-<p><strong>收敛性：</strong> 严格对角占优性保证了 Jacobi 迭代的收敛性。这意味着，无论我们选择什么样的初始猜测 $x^{(0)}$，Jacobi 迭代最终都会收敛到线性方程组 $Ax=b$ 的唯一解。</p>
-</li>
-<li>
-<p><strong>重要性：</strong> 严格对角占优矩阵在数值线性代数中很重要，因为它们保证了某些迭代方法（如 Jacobi 迭代和 Gauss-Seidel 迭代）的收敛性。这在求解大型稀疏线性方程组时非常有用。</p>
-</li>
+<li>​Slab 的核心机制<br>​对象缓存池：<br>为高频小对象（如 task_struct、inode）创建专用缓存（kmem_cache），预分配并初始化对象。<br>​内存来源：<br>从伙伴系统申请整页（4KB），再划分为多个小对象（如 64B、128B）。<br>​分配流程：<br>优先从 ​Per-CPU 本地缓存 获取空闲对象（无锁操作）。<br>若本地缓存空，从 ​部分空闲的 Slab 补充对象。<br>若无可用 Slab，向伙伴系统申请新页并初始化新 Slab。<br>4MB+： vmalloc<br>伙伴系统（Buddy System）分配的内存空间是虚拟地址连续且物理地址连续的，而 vmalloc 分配的内存是虚拟地址连续但物理地址不连续的<br>vmalloc 是 Linux 内核提供的内存分配函数之一，它用于在虚拟地址空间中分配连续的内存块。与 kmalloc 主要用于物理内存的分配不同，vmalloc 分配的内存并不要求物理内存是连续的，但它确保分配的虚拟地址空间是连续的。<br>在Linux内核中对于物理上连续的分配方式，采用伙伴系统和slub分配器分配内存，但是知道物理上连续的映射是最好的分配方式，但并不总能成功地使用。在分配一大块内存时，可能竭尽全力也无法找到连续的内存块。针对这种情况内核提供了一种申请一片连续的虚拟地址空间，但不保证物理空间连续，也就是vmalloc接口。</li>
 </ol>
-<h2 id="ρ-A-的定义">ρ(A) 的定义</h2>
-<p>ρ(A) (读作 “rho of A”) 是矩阵 A 的所有特征值的绝对值的最大值。 更正式地：</p>
-<p>$$ ρ(A) = max{|λ_1|, |λ_2|, …, |λ_n|}$$</p>
-<p>其中 $$λ_1, λ_2, …, λ_n$$ 是矩阵 A 的所有特征值（包括复数特征值）</p>
-<h3 id="命题：-rho-A-1-当且仅当-lim-k-to-infty-A-k-0-即-A-k-收敛到零矩阵-。"><strong>命题：</strong> $\rho(A) &lt; 1$  当且仅当 $\lim_{k\to\infty} A^k = 0$ (即 $A^k$ 收敛到零矩阵)。</h3>
-<p><strong>证明 $\lim_{k\to\infty} A^k = 0 \Rightarrow \rho(A) &lt; 1$：</strong></p>
-<p>设 $\lambda$ 是 $A$ 的一个特征值， $v$ 是对应的特征向量。 那么 $Av = \lambda v$。 因此，$A^k v = \lambda^k v$。</p>
-<p>假设 $\lim_{k\to\infty} A^k = 0$。 这意味着对于任何向量 $x$， $\lim_{k\to\infty} A^k x = 0$。  特别地，$\lim_{k\to\infty} A^k v = 0$。</p>
-<p>所以，$\lim_{k\to\infty} \lambda^k v = 0$。  因为 $v$ 是一个非零向量（特征向量的定义），所以必须有 $\lim_{k\to\infty} \lambda^k = 0$。</p>
-<p>这意味着 $|\lambda| &lt; 1$。  因为 $\lambda$ 是 $A$ 的任意特征值，所以 $A$ 的所有特征值的绝对值都小于 1。  因此，$\rho(A) = \max{|\lambda_i|} &lt; 1$。</p>
-<p><strong>结论：</strong></p>
-<p>$\rho(A) &lt; 1$  是 $\lim_{k\to\infty} A^k = 0$ 的一个充分必要条件。 也就是说，这两个命题是等价的。  如果一个成立，另一个也一定成立。<br>
-当 $A^k \to 0$ (即 $\rho(A) &lt; 1$) 的时候，对任意初始值都收敛的原因如下：</p>
-<p>考虑迭代过程 $x_{k+1} = Ax_k + b$。  固定点 $x^<em>$ 满足 $x^</em> = Ax^* + b$。</p>
-<p><strong>方法一：误差分析</strong></p>
-<p>定义误差 $e_k = x_k - x^*$。  那么：</p>
-<p>$e_{k+1} = x_{k+1} - x^* = (Ax_k + b) - (Ax^* + b) = A(x_k - x^*) = Ae_k$</p>
-<p>因此， $e_k = A^k e_0 = A^k (x_0 - x^*)$。</p>
-<p>如果 $\rho(A) &lt; 1$，那么 $\lim_{k\to\infty} A^k = 0$。</p>
-<p>所以，$\lim_{k\to\infty} e_k = \lim_{k\to\infty} A^k (x_0 - x^*) = 0$。</p>
-<p>这意味着 $\lim_{k\to\infty} x_k = x^<em>$，即迭代收敛到固定点，且收敛性与初值$x_0$ 无关。 $|e_k| = |A^k(x_0-x^</em>)| \le |A^k| |x_0 - x^*| \to 0$</p>
-<p><strong>方法二：迭代展开</strong></p>
-<p>$x_k = Ax_{k-1} + b = A(Ax_{k-2} + b) + b = A^2 x_{k-2} + Ab + b = \dots = A^k x_0 + A^{k-1}b + A^{k-2}b + \dots + Ab + b$</p>
-<p>可以写成：<br>
-$x_k = A^k x_0 + \sum_{i=0}^{k-1} A^i b = A^k x_0 + (A^{k-1} + A^{k-2} + \dots + A + I)b$</p>
-<p>因为 $\rho(A) &lt; 1$，所以 $\lim_{k\to\infty} A^k = 0$。 并且 $\sum_{i=0}^{\infty} A^i = (I - A)^{-1}$ （这是一个矩阵几何级数）。</p>
-<p>因此：</p>
-<p>$\lim_{k\to\infty} x_k = \lim_{k\to\infty} A^k x_0 + \lim_{k\to\infty}  \sum_{i=0}^{k-1} A^i b = 0 + (I - A)^{-1} b = (I - A)^{-1} b$</p>
-<p>固定点 $x^<em>$ 满足 $x^</em> = Ax^* + b$，因此 $x^* = (I - A)^{-1} b$。</p>
-<p>所以， $\lim_{k\to\infty} x_k = x^* = (I - A)^{-1} b$。</p>
-<p>同样，迭代收敛到固定点，与初值 $x_0$ 无关。</p>
-<p><strong>总结</strong></p>
-<p>当 $\rho(A) &lt; 1$ 时，误差会随着迭代次数的增加而减小（趋向于0），或者说迭代值会逐渐逼近固定点，与初始值无关。 这两种方法都展示了收敛性，并说明了为什么初值不影响最终的收敛结果。</p>
-<h2 id="Jacobi-迭代和-Gauss-Seidel-迭代">Jacobi 迭代和 Gauss-Seidel 迭代</h2>
-<p><strong>1. Jacobi 迭代</strong></p>
-<ul>
-<li><strong>原理：</strong> Jacobi 迭代是一种求解线性方程组 $Ax = b$ 的迭代方法。它的基本思想是将系数矩阵 $A$ 分解为对角矩阵 $D$，下三角矩阵 $L$ 和上三角矩阵 $U$，即 $A = D - L - U$，然后将方程组转化为 $x = D^{-1}(L + U)x + D^{-1}b$ 的形式，并进行迭代求解。</li>
-<li><strong>公式：</strong> 将 $A = D - L - U$ 代入 $Ax = b$，得到：<br>
-$(D - L - U)x = b$<br>
-$Dx = (L + U)x + b$<br>
-$x = D^{-1}(L + U)x + D^{-1}b$<br>
-因此，Jacobi 迭代的迭代公式为：<br>
-$x^{(k+1)} = D^{-1}(L + U)x^{(k)} + D^{-1}b$<br>
-或者写成逐个分量的形式：<br>
-$x_i^{(k+1)} = \frac{1}{a_{ii}} \left(b_i - \sum_{j=1, j \neq i}^{n} a_{ij} x_j^{(k)}\right)$,  $i = 1, 2, \dots, n$<br>
-其中，$x^{(k)}$ 表示第 $k$ 次迭代的解向量，$a_{ij}$ 是矩阵 $A$ 的元素，$b_i$ 是向量 $b$ 的元素。</li>
-<li><strong>收敛性条件：</strong> Jacobi 迭代的收敛性取决于迭代矩阵 $B_J = D^{-1}(L + U)$ 的谱半径 $\rho(B_J)$。
-<ul>
-<li>如果 $\rho(B_J) &lt; 1$，则 Jacobi 迭代收敛。</li>
-<li>充分条件：
-<ul>
-<li>矩阵 $A$ 是严格对角占优矩阵（Strictly Diagonally Dominant）：对于所有 $i$，满足 $|a_{ii}| &gt; \sum_{j=1, j \neq i}^{n} |a_{ij}|$。</li>
-<li>矩阵 $A$ 是不可约的对角占优矩阵。</li>
-</ul>
-</li>
-</ul>
-</li>
-<li><strong>算法步骤：</strong>
-<ol>
-<li>将矩阵 $A$ 分解为 $D - L - U$。</li>
-<li>计算迭代矩阵 $B_J = D^{-1}(L + U)$ 和向量 $f = D^{-1}b$。</li>
-<li>选择初始向量 $x^{(0)}$。</li>
-<li>迭代计算 $x^{(k+1)} = B_J x^{(k)} + f$，直到满足收敛条件（例如，$|x^{(k+1)} - x^{(k)}| &lt; \epsilon$，其中 $\epsilon$ 是一个很小的正数）。</li>
-</ol>
-</li>
-<li><strong>优点：</strong>
-<ul>
-<li>每次迭代的计算量较小。</li>
-<li>算法简单，容易实现。</li>
-</ul>
-</li>
-<li><strong>缺点：</strong>
-<ul>
-<li>收敛速度可能较慢。</li>
-<li>收敛条件较为苛刻，可能不收敛。</li>
-<li>需要存储多个向量，占用内存空间较大。</li>
-</ul>
-</li>
-</ul>
-<p><strong>2. Gauss-Seidel 迭代</strong></p>
-<ul>
-<li><strong>原理：</strong> Gauss-Seidel 迭代也是一种求解线性方程组 $Ax = b$ 的迭代方法。与 Jacobi 迭代类似，它也将系数矩阵 $A$ 分解为 $A = D - L - U$。不同之处在于，Gauss-Seidel 迭代在计算 $x_i^{(k+1)}$ 时，会立即使用已经计算出的 $x_1^{(k+1)}, x_2^{(k+1)}, \dots, x_{i-1}^{(k+1)}$，而不是像 Jacobi 迭代那样使用上一轮迭代的值。</li>
-<li><strong>公式：</strong> 将 $A = D - L - U$ 代入 $Ax = b$，得到：<br>
-$(D - L - U)x = b$<br>
-$(D - L)x = Ux + b$<br>
-$x = (D - L)^{-1}Ux + (D - L)^{-1}b$<br>
-因此，Gauss-Seidel 迭代的迭代公式为：<br>
-$x^{(k+1)} = (D - L)^{-1}Ux^{(k)} + (D - L)^{-1}b$<br>
-或者写成逐个分量的形式：<br>
-$x_i^{(k+1)} = \frac{1}{a_{ii}} \left(b_i - \sum_{j=1}^{i-1} a_{ij} x_j^{(k+1)} - \sum_{j=i+1}^{n} a_{ij} x_j^{(k)}\right)$,  $i = 1, 2, \dots, n$</li>
-<li><strong>收敛性条件：</strong> Gauss-Seidel 迭代的收敛性取决于迭代矩阵 $B_{GS} = (D - L)^{-1}U$ 的谱半径 $\rho(B_{GS})$。
-<ul>
-<li>如果 $\rho(B_{GS}) &lt; 1$，则 Gauss-Seidel 迭代收敛。</li>
-<li>充分条件：
-<ul>
-<li>矩阵 $A$ 是严格对角占优矩阵。</li>
-<li>矩阵 $A$ 是对称正定矩阵。</li>
-</ul>
-</li>
-</ul>
-</li>
-<li><strong>算法步骤：</strong>
-<ol>
-<li>将矩阵 $A$ 分解为 $D - L - U$。</li>
-<li>选择初始向量 $x^{(0)}$。</li>
-<li>对于 $i = 1, 2, \dots, n$，依次计算 $x_i^{(k+1)} = \frac{1}{a_{ii}} \left(b_i - \sum_{j=1}^{i-1} a_{ij} x_j^{(k+1)} - \sum_{j=i+1}^{n} a_{ij} x_j^{(k)}\right)$。</li>
-<li>重复步骤 3，直到满足收敛条件。</li>
-</ol>
-</li>
-<li><strong>优点：</strong>
-<ul>
-<li>通常比 Jacobi 迭代收敛速度更快。</li>
-<li>只需要存储一个向量，占用内存空间较小。</li>
-</ul>
-</li>
-<li><strong>缺点：</strong>
-<ul>
-<li>每次迭代的计算量比 Jacobi 迭代略大。</li>
-<li>收敛性分析比 Jacobi 迭代更复杂。</li>
-<li>不适合并行计算，因为计算依赖于之前的结果。</li>
-</ul>
-</li>
-</ul>
+<p>vmalloc的工作方式类似于kmalloc，只不过前者分配的内存虚拟地址连续，而物理地址则无需连续，因此不能用于dma缓冲区<br>通过vmalloc获得的页必须一个一个地进行映射，效率不高，因此不得已时才使用，同时vmalloc分配的一般是大块内存<br>vmalloc分配的一般是高端内存，只有当内存不够的时候，才会分配低端内存</p>
+<p>slab：<br>三级结构<br>层级	作用<br>Slab缓存	每个缓存管理同一类型对象（如task_struct），包含多个Slab。<br>Slab	一组连续的物理页（来自伙伴系统），划分为多个对象槽（Object Chunk）。<br>对象	实际分配的内存单元，大小固定（如task_struct占1KB）。<br>状态分类<br>Full Slab：所有对象已被分配。<br>Partial Slab：部分对象空闲（优先从此分配）。<br>Empty Slab：所有对象空闲（可返还给伙伴系统）。<br>Slab分配器不直接处理任意大小的内存请求，而是通过以下方式分层管理：</p>
+<p>专用缓存（kmem_cache）</p>
+<p>为高频使用的内核对象（如task_struct）预定义固定大小的缓存（通过kmem_cache_create创建）。<br>对象大小由类型本身决定（如sizeof(struct task_struct)）。<br>通用缓存（kmalloc）</p>
+<p>提供一组预定义尺寸的Slab缓存（如32B、64B、128B、…、8KB等2的幂次方大小）。<br>当调用kmalloc(size)时，内核选择最小适配的Slab缓存（如申请100B→分配128B的Slab）。</p>
 
       
     </div>
@@ -505,7 +424,7 @@ $x_i^{(k+1)} = \frac{1}{a_{ii}} \left(b_i - \sum_{j=1}^{i-1} a_{ij} x_j^{(k+1)} 
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="https://chenzhan20050128.github.io/notes.github.io/2025/06/23/%E8%B0%B1%E5%88%86%E8%A7%A3note/">
+    <link itemprop="mainEntityOfPage" href="https://chenzhan20050128.github.io/notes.github.io/2025/06/23/note1/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="image" content="/notes.github.io/images/woshicaigou.jpg">
@@ -519,7 +438,7 @@ $x_i^{(k+1)} = \frac{1}{a_{ii}} \left(b_i - \sum_{j=1}^{i-1} a_{ij} x_j^{(k+1)} 
       <header class="post-header">
         <h2 class="post-title" itemprop="name headline">
           
-            <a href="/notes.github.io/2025/06/23/%E8%B0%B1%E5%88%86%E8%A7%A3note/" class="post-title-link" itemprop="url">谱分解note</a>
+            <a href="/notes.github.io/2025/06/23/note1/" class="post-title-link" itemprop="url">note1</a>
         </h2>
 
         <div class="post-meta">
@@ -543,262 +462,22 @@ $x_i^{(k+1)} = \frac{1}{a_{ii}} \left(b_i - \sum_{j=1}^{i-1} a_{ij} x_j^{(k+1)} 
     <div class="post-body" itemprop="articleBody">
 
       
-          <h1>正交基线性组合的推导</h1>
-<p>任意向量可以表示为一组正规正交基 ${v_i}$ 的线性组合，并给出了几个关键公式。让我们一步步推导这些结果。</p>
-<h2 id="正交基的性质">正交基的性质</h2>
-<p>首先，我们有一组正规正交基 ${v_i}$，这意味着：</p>
+          <ul>
+<li><p><strong>距离与纠错能力</strong>：通过上述讨论，我们知道：</p>
 <ul>
-<li>$v_i^T v_j = 0$ 当 $i \neq j$ (正交性)</li>
-<li>$v_i^T v_i = 1$ (单位向量，即正规化)</li>
-</ul>
-<h2 id="恒等矩阵的表示">恒等矩阵的表示</h2>
-<p>$$I = \sum_i v_i v_i^T$$</p>
-<p><strong>推导</strong>：<br>
-对于正交基，如果我们对任意向量 $x$ 应用上述和式：</p>
-<p>$$\left(\sum_i v_i v_i^T\right)x = \sum_i v_i (v_i^T x)$$</p>
-<p>由于 $v_i^T x$ 是标量，它表示 $x$ 在 $v_i$ 方向上的投影分量。因此，上式实际上是将 $x$ 分解为各个正交方向的分量，然后再重新组合，结果仍为 $x$。这正是恒等矩阵的作用，所以 $\sum_i v_i v_i^T = I$。</p>
-<h2 id="矩阵-A-的谱分解">矩阵 $A$ 的谱分解</h2>
-<p>$$Av_i = \lambda_i v_i \Rightarrow A = \sum_i \lambda_i v_i v_i^T$$</p>
-<p><strong>推导</strong>：<br>
-这里 $v_i$ 是矩阵 $A$ 的特征向量，$\lambda_i$ 是对应的特征值。要证明 $A = \sum_i \lambda_i v_i v_i^T$，我们可以验证对任意特征向量 $v_j$，应用两边得到相同结果：</p>
-<p>左边：$Av_j = \lambda_j v_j$</p>
-<p>右边：<br>
-$$\left(\sum_i \lambda_i v_i v_i^T\right)v_j = \sum_i \lambda_i v_i (v_i^T v_j)$$</p>
-<p>由于正交性，当 $i \neq j$ 时，$v_i^T v_j = 0$；当 $i = j$ 时，$v_i^T v_j = 1$。因此：</p>
-<p>$$\sum_i \lambda_i v_i (v_i^T v_j) = \lambda_j v_j$$</p>
-<p>两边结果相同，因此 $A = \sum_i \lambda_i v_i v_i^T$。这就是矩阵的谱分解表示。</p>
-<h2 id="矩阵-A-的逆矩阵">矩阵 $A$ 的逆矩阵</h2>
-<p>$$A^{-1} = \sum_i \lambda_i^{-1} v_i v_i^T, \quad \text{if } A^{-1} \text{ exists.}$$</p>
-<p><strong>推导</strong>：<br>
-当所有 $\lambda_i \neq 0$ 时，$A$ 是可逆的。我们需要证明 $A \cdot A^{-1} = I$：</p>
-<p>$$A \cdot A^{-1} = \left(\sum_i \lambda_i v_i v_i^T\right) \cdot \left(\sum_j \lambda_j^{-1} v_j v_j^T\right)$$</p>
-<p>使用矩阵乘法的分配律展开：</p>
-<p>$$A \cdot A^{-1} = \sum_i \sum_j \lambda_i \lambda_j^{-1} (v_i v_i^T) (v_j v_j^T)$$</p>
-<p>进一步计算内部矩阵乘积：<br>
-$$(v_i v_i^T) (v_j v_j^T) = v_i (v_i^T v_j) v_j^T =<br>
-\begin{cases}<br>
-v_i v_j^T &amp; \text{if } i = j \<br>
-0 &amp; \text{if } i \neq j<br>
-\end{cases}$$</p>
-<p>因此：<br>
-$$A \cdot A^{-1} = \sum_i \lambda_i \lambda_i^{-1} v_i v_i^T = \sum_i v_i v_i^T = I$$</p>
-<p>这证明了 $A^{-1} = \sum_i \lambda_i^{-1} v_i v_i^T$。</p>
-<h2 id="矩阵-A-的伪逆-Moore-Penrose-逆">矩阵 $A$ 的伪逆 (Moore-Penrose 逆)</h2>
-<p>$$A^+ = \sum_{i:\lambda_i\neq 0} \lambda_i^{-1} v_i v_i^T$$</p>
-<p><strong>推导</strong>：<br>
-当矩阵 $A$ 不是满秩（即有些 $\lambda_i = 0$）时，$A$ 不可逆。伪逆 $A^+$ 是逆矩阵概念的推广，仅在非零特征值对应的子空间上计算&quot;逆&quot;。</p>
-<p>从计算角度看，伪逆忽略了零特征值对应的特征向量，只在非零特征值对应的子空间上计算逆。故有：</p>
-<p>$$A^+ = \sum_{i:\lambda_i\neq 0} \lambda_i^{-1} v_i v_i^T$$</p>
-<p>我们可以验证伪逆满足以下性质：</p>
-<ol>
-<li>$AA^+A = A$</li>
-<li>$A^+AA^+ = A^+$</li>
-<li>$(AA^+)^T = AA^+$</li>
-<li>$(A^+A)^T = A^+A$</li>
-</ol>
-<p>这些性质可以通过将 $A$ 和 $A^+$ 的谱分解表示代入方程并利用正交基的性质来验证。</p>
-<p>以上就是正交基线性组合表示矩阵的一系列重要公式的详细推导。</p>
-<h1>格什戈林圆盘定理（Gershgorin Circle Theorem）详解</h1>
-<p>格什戈林圆盘定理是矩阵分析中的一个重要结果，它提供了矩阵特征值位置的估计。我将详细解释这个定理及其证明。</p>
-<h2 id="定理内容">定理内容</h2>
-<p>定理指出：</p>
-<ol>
-<li>设 $A$ 为 $n \times n$ 矩阵，定义 $R_i := \sum_{j \neq i} |a_{ij}|$（即第 $i$ 行除对角元素外所有元素的绝对值之和）</li>
-<li>则 $A$ 的所有特征值都位于复平面上的某些圆盘 $D(a_{ii}, R_i)$ 内</li>
-</ol>
-<p>这里，$D(a_{ii}, R_i)$ 表示以对角元素 $a_{ii}$ 为圆心，$R_i$ 为半径的圆盘。</p>
-<h2 id="证明解释">证明解释</h2>
-<p>证明的关键步骤如下：</p>
-<ol>
-<li>
-<p><strong>选取特征值和特征向量</strong>：</p>
-<ul>
-<li>取 $A$ 的一个特征值 $\lambda$ 和对应的特征向量 $v$</li>
-<li>设 $i$ 使得 $|v_i|$ 为向量 $v$ 中绝对值最大的分量</li>
+<li>要处理 ( k ) 个擦除错误，需要最小距离 ( \ge k+1 )。</li>
+<li>要处理 ( k ) 个一般错误，需要最小距离 ( \ge 2k+1 )。</li>
 </ul>
 </li>
-<li>
-<p><strong>特征值方程</strong>：</p>
+<li><p><strong>Reed-Solomon码的性质</strong>：</p>
 <ul>
-<li>根据特征值定义 $Av = \lambda v$</li>
-<li>这意味着 $\sum_j a_{ij} v_j = \lambda v_i$</li>
-<li>将此式改写为 $\sum_{j \neq i} a_{ij} v_j = (\lambda - a_{ii})v_i$</li>
+<li>Reed-Solomon 码通过将 ( n ) 个消息映射到一个具有 ( n + 2k ) 个符号的码字，其理论最小距离正好是 ( 2k+1 )。</li>
+<li>我们通过构造两个在 ( n-1 ) 点相同的不同码字得到了上界 ( 2k+1 )，同时从译码正确性（错误不能互相混淆）知下界也为 ( 2k+1 )，因此二者相等。</li>
 </ul>
 </li>
-<li>
-<p><strong>推导不等式</strong>：</p>
-<ul>
-<li>$|\lambda - a_{ii}| = |\sum_{j \neq i} \frac{a_{ij} v_j}{v_i}|$</li>
-<li>$\leq \sum_{j \neq i} | \frac{a_{ij} v_j}{v_i}|$</li>
-<li>$\leq \sum_{j \neq i} |a_{ij}| \cdot |\frac{v_j}{v_i}|$</li>
-<li>由于 $|v_i|$ 是最大值，所以 $|\frac{v_j}{v_i}| \leq 1$</li>
-<li>因此 $|\lambda - a_{ii}| \leq \sum_{j \neq i} |a_{ij}| = R_i$</li>
+<li><p><strong>侧记</strong>：这种证明方式实际上等价于利用了Singleton界，是衡量码设计中极限性能的重要工具。</p>
+</li>
 </ul>
-</li>
-<li>
-<p><strong>结论</strong>：</p>
-<ul>
-<li>这表明特征值 $\lambda$ 到对角元素 $a_{ii}$ 的距离不超过 $R_i$</li>
-<li>因此 $\lambda$ 必须位于以 $a_{ii}$ 为圆心，$R_i$ 为半径的圆盘内</li>
-</ul>
-</li>
-</ol>
-<h2 id="定理意义">定理意义</h2>
-<ol>
-<li>这个定理提供了矩阵特征值的位置估计，不需要求解特征方程。</li>
-<li>所有特征值都位于 $n$ 个圆盘的并集内。</li>
-<li>如果圆盘互不相交，则每个圆盘恰好包含一个特征值。</li>
-<li>对角占优的矩阵（即 $|a_{ii}| &gt; R_i$）可以确保所有特征值非零。</li>
-</ol>
-<p>这个定理在数值分析、矩阵稳定性分析和迭代方法收敛性证明中有广泛应用。<br>
-不，<strong>行格尔绍戈林圆盘（Row Gershgorin disc）和列格尔绍戈林圆盘（Column Gershgorin disc）不一定等价，但所有特征值都必须位于它们的并集中</strong>。让我详细解释一下，并用LaTeX格式化。</p>
-<p><strong>定义</strong></p>
-<ul>
-<li><strong>行格尔绍戈林圆盘（Row Gershgorin disc）</strong>： 对于一个 $n \times n$ 矩阵 $A$，第 $i$ 个行格尔绍戈林圆盘的中心是 $a_{ii}$，半径是该行中非对角线元素的绝对值之和，即 $R_i = \sum_{j \neq i} |a_{ij}|$.</li>
-<li><strong>列格尔绍戈林圆盘（Column Gershgorin disc）</strong>： 对于一个 $n \times n$ 矩阵 $A$，第 $j$ 个列格尔绍戈林圆盘的中心是 $a_{jj}$，半径是该列中非对角线元素的绝对值之和，即 $C_j = \sum_{i \neq j} |a_{ij}|$.</li>
-</ul>
-<p><strong>定理回顾</strong></p>
-<p>格尔绍戈林圆盘定理指出：</p>
-<ul>
-<li>$A$ 的所有特征值位于行圆盘的并集中：  $\lambda(A) \subseteq \bigcup_{i=1}^{n} D(a_{ii}, R_i)$</li>
-<li>$A$ 的所有特征值位于列圆盘的并集中：  $\lambda(A) \subseteq \bigcup_{j=1}^{n} D(a_{jj}, C_j)$</li>
-</ul>
-<p>行盖尔圆盘和列盖尔圆盘通常不完全等价。 为了更好地估计特征值的位置，通常将行圆盘和列圆盘的并集结合起来考虑。 也就是说：<br>
-$\lambda(A) \subseteq \left( \bigcup_{i=1}^{n} D(a_{ii}, R_i) \right) \cap \left( \bigcup_{j=1}^{n} D(a_{jj}, C_j) \right)$<br>
-这样的估计会更加精确。</p>
-<h1>Bauer-Fike定理及其证明</h1>
-<h2 id="定理陈述">定理陈述</h2>
-<p>设 $\mu$ 是矩阵 $A+E \in \mathbb{R}^{n\times n}$ 的一个特征值，且存在可逆矩阵 $P$ 使得 $P^{-1}AP=D=\text{diag}(\lambda_1,\lambda_2,\cdots,\lambda_n)$，则有：</p>
-<p>$$\min_{\lambda\in\sigma(A)}|\lambda-\mu|\leq |P^{-1}|_p|P|_p|E|_p$$</p>
-<p>其中 $|\cdot|_p$ 表示 $p$ 范数，$p=1,2,\infty$。</p>
-<h2 id="证明步骤">证明步骤</h2>
-<ol>
-<li>
-<p>首先，我们只需考虑 $\mu\notin\sigma(A)$ 的情况（即 $\mu$ 不是 $A$ 的特征值）。此时 $D-\mu I$ 非奇异。</p>
-</li>
-<li>
-<p>设 $x$ 是 $A+E$ 对应于特征值 $\mu$ 的特征向量，则：<br>
-$$(A+E-\mu I)x=0$$</p>
-</li>
-<li>
-<p>左乘 $P^{-1}$ 得到：<br>
-$$(D-\mu I)(P^{-1}x)=-(P^{-1}EP)(P^{-1}x)$$</p>
-</li>
-<li>
-<p>因此：<br>
-$$P^{-1}x=-(D-\mu I)^{-1}(P^{-1}EP)(P^{-1}x)$$</p>
-</li>
-<li>
-<p>$P^{-1}x$ 是非零向量。对上式两边取 $p$ 范数：<br>
-$$|(D-\mu I)^{-1}(P^{-1}EP)|_p\geq 1$$</p>
-</li>
-<li>
-<p>对角矩阵 $(D-\mu I)^{-1}$ 的范数为：<br>
-$$|(D-\mu I)^{-1}|<em>p=\frac{1}{m},\quad \text{其中} \quad m=\min</em>{\lambda\in\sigma(A)}|\lambda-\mu|$$</p>
-</li>
-<li>
-<p>根据范数的性质，有：<br>
-$$|P^{-1}|_p|E|_p|P|_p\geq m$$</p>
-</li>
-</ol>
-<p>这就证明了定理中的不等式 (1.5)。</p>
-<h2 id="补充说明">补充说明</h2>
-<ol>
-<li>
-<p>条件数 $\text{cond}(P)=|P^{-1}||P|$ 是特征值扰动的放大系数。</p>
-</li>
-<li>
-<p>由于将 $A$ 对角化的相似变换矩阵 $P$ 不是唯一的，因此定义：<br>
-$$\nu(A)=\inf{\text{cond}(P)|P^{-1}AP=\text{diag}(\lambda_1,\lambda_2,\cdots,\lambda_n)}$$</p>
-</li>
-<li>
-<p>$\nu(A)$ 称为特征值问题的条件数。当 $\nu(A)$ 较小时，矩阵微小扰动只会带来特征值的微小扰动。</p>
-</li>
-<li>
-<p>实际应用中，$\nu(A)$ 难以计算，有时只对一个特定的 $P$ 计算 $\text{cond}(P)$ 来代替 $\nu(A)$。</p>
-</li>
-</ol>
-<p>这个定理的重要意义在于：它给出了矩阵受扰动后，其特征值偏离原特征值的上界估计，这个上界与矩阵的条件数和扰动大小有关。</p>
-<h1>第 $k$ 个特征值 $\lambda_k$</h1>
-<p>现在我们看更一般的 $\lambda_k$（第 $k$ 个特征值），它稍微复杂一点，因为它需要在某些限制条件下找最大或最小值。公式有两种等价的表达方式：</p>
-<h4 id="第一种表达：-lambda-k-min-x-neq-0-x-top-v-i-0-forall-i-in-1-dots-k-1-frac-x-top-A-x-x-top-x">第一种表达：$\lambda_k = \min_{x \neq 0, x^\top v_i = 0, \forall i \in {1, \dots, k-1}} \frac{x^\top A x}{x^\top x}$</h4>
-<ul>
-<li><strong>意思</strong>：<br>
-你要找一个方向 $x$，让 $\frac{x^\top A x}{x^\top x}$ 尽量小，但有个条件：$x$ 必须跟前 $k-1$ 个特征向量（$v_1, v_2, \dots, v_{k-1}$）垂直。</li>
-<li><strong>通俗解释</strong>：<br>
-想象你在 $n$ 维空间里，前 $k-1$ 个特征向量是已经占好的“最佳方向”（对应 $\lambda_1$ 到 $\lambda_{k-1}$）。现在你不能走这些方向，只能找一个新的方向，尽量让 $A$ 的效果最小。这个最小值就是 $\lambda_k$。</li>
-</ul>
-<h4 id="第二种表达：-lambda-k-max-U-dim-U-k-min-x-in-U-x-neq-0-frac-x-top-A-x-x-top-x">第二种表达：$\lambda_k = \max_{U: \dim U = k} \min_{x \in U, x \neq 0} \frac{x^\top A x}{x^\top x}$</h4>
-<ul>
-<li><strong>意思</strong>：<br>
-你先挑一个 $k$ 维的空间 $U$（包含 $k$ 个独立方向），然后在这个空间里找一个方向 $x$，让 $\frac{x^\top A x}{x^\top x}$ 最小。接着，在所有可能的 $k$ 维空间中，挑一个让这个最小值最大的。结果就是 $\lambda_k$。</li>
-<li><strong>通俗解释</strong>：<br>
-假设你在选一个 $k$ 人团队，每个人代表一个方向。你要保证团队里最差的表现（最小拉伸）尽可能好。$\lambda_k$ 就是你能找到的最优团队的最差表现。</li>
-</ul>
-<hr>
-<h3 id="另一种角度：-lambda-k-max-x-neq-0-x-top-v-i-0-forall-i-in-k-1-dots-n-frac-x-top-A-x-x-top-x">另一种角度：$\lambda_k = \max_{x \neq 0, x^\top v_i = 0, \forall i \in {k+1, \dots, n}} \frac{x^\top A x}{x^\top x}$</h3>
-<ul>
-<li><strong>意思</strong>：<br>
-这次你找一个方向 $x$，让 $\frac{x^\top A x}{x^\top x}$ 尽量大，但 $x$ 必须跟后面的特征向量（$v_{k+1}, \dots, v_n$）垂直。</li>
-<li><strong>通俗解释</strong>：<br>
-你把后面 $n-k$ 个较小的特征值方向“封锁”掉，只在剩下的空间里找最大的拉伸效果，结果就是 $\lambda_k$。</li>
-</ul>
-<hr>
-<p>如果 $A$ 是正定阵，<br>
-$$<br>
-\frac{x^T A x}{x^T x} = \max_{x\neq 0} \frac{x^T A x}{|x|<em>2^2} = \lambda</em>{\max}(A)<br>
-$$<br>
-则<br>
-$$<br>
-\text{cond}_2(A) = |A|_2|A^{-1}|_2<br>
-$$</p>
-<p>$$<br>
-|A|<em>2 = \max</em>{|x|<em>2 \leq 1} \sqrt{x^T A^T A x} = \sqrt{\lambda</em>{\max}(A^T A)}<br>
-$$<br>
-这里假设$A$是正定矩阵<br>
-否则要写成奇异值<br>
-$$<br>
-\text{cond}<em>2(A) = \frac{\lambda</em>{\max}(A)}{\lambda_{\min}(A)}<br>
-$$</p>
-<h1>Cayley-Hamilton 定理证明</h1>
-<h2 id="定理-Cayley-Hamilton">定理 (Cayley-Hamilton)</h2>
-<p>对于任意 $n \times n$ 矩阵 $A$，如果我们定义其特征多项式 $q_A(x) = \det(A - xI)$，则：<br>
-$$q_A(A) = 0$$<br>
-其中 $0$ 表示 $n \times n$ 的零矩阵。</p>
-<h2 id="证明-sketch">证明 (sketch)</h2>
-<p>我们首先考虑 $A$ 是可对角化的情况。</p>
-<h3 id="步骤-1-特征多项式的性质">步骤 1: 特征多项式的性质</h3>
-<p>假设 $A$ 是可对角化的，那么 $q_A(A)$ 也必然是可对角化的。</p>
-<h3 id="步骤-2-特征值与特征向量分析">步骤 2: 特征值与特征向量分析</h3>
-<p>取 $A$ 的任一特征值 $\lambda \in \mathbb{R}$ 和对应的特征向量 $v$ 满足 $Av = \lambda v$。</p>
-<h3 id="步骤-3-特征多项式作用于特征向量">步骤 3: 特征多项式作用于特征向量</h3>
-<p>由步骤 1 的观察可知，$v$ 也是 $q_A(A)$ 的特征向量，且其对应的特征值为：<br>
-$$q_A(A)v = q_A(\lambda)v$$</p>
-<h3 id="步骤-4-特征多项式在特征值处的取值">步骤 4: 特征多项式在特征值处的取值</h3>
-<p>由特征多项式的定义，对于任意特征值 $\lambda$，有：<br>
-$$q_A(\lambda) = \det(A - \lambda I) = 0$$</p>
-<h3 id="步骤-5-推导-q-A-A-的特征值">步骤 5: 推导 $q_A(A)$ 的特征值</h3>
-<p>因此：<br>
-$$q_A(A)v = q_A(\lambda)v = 0 \cdot v = 0$$</p>
-<p>这表明 $q_A(A)$ 的每个特征向量对应的特征值均为 0。</p>
-<h3 id="步骤-6-结论">步骤 6: 结论</h3>
-<p>由于 $q_A(A)$ 可对角化，且其所有特征值均为 0，因此 $q_A(A)$ 只能是全零矩阵。</p>
-<p>对于不可对角化的矩阵，可以通过 Jordan 标准型或极限论证完成证明。</p>
-<h1><strong>最小二乘法：</strong></h1>
-<p>求 $\lambda$ 以最小化 $||Ax - \lambda x||_2^2$</p>
-<p>$||Ax - \lambda x||_2^2 = ||Ax||_2^2 + \lambda^2 ||x||_2^2 - 2\lambda x^\top Ax$</p>
-<p>法线方程：$\lambda = \frac{x^\top Ax}{x^\top x}$, Rayleigh quotient!</p>
-<p><strong>定理：</strong></p>
-<p>对于实数对称矩阵 $A$，假设近似特征向量 $x$ 满足 $||x||_2 = 1$，并且实数 $\lambda$ 满足 $||Ax - \lambda x||_2 &lt; \epsilon$，则有</p>
-<p>$\min_{1 \leq j \leq n} |\lambda_j - \lambda| &lt; \epsilon$</p>
-<p><strong>证明：</strong></p>
-<p>对于实数对称矩阵，可以选择特征向量 $v_1, v_2, \dots, v_n$ 使得它们是正交且归一化的。 展开 $x = \alpha_1 v_1 + \alpha_2 v_2 + \dots + \alpha_n v_n$</p>
-<p>$||Ax - \lambda x||<em>2^2 = \left| \sum</em>{j=1}^n \alpha_j (\lambda_j - \lambda) v_j \right|_2^2$</p>
-<p>$= \sum_{j=1}^n \alpha_j^2 (\lambda_j - \lambda)^2 ||v_j||_2^2$</p>
-<p>$= \sum_{j=1}^n \alpha_j^2 (\lambda_j - \lambda)^2$</p>
-<p>$\geq \min_{1 \leq j \leq n} (\lambda_j - \lambda)^2 \sum_{j=1}^n \alpha_j^2$</p>
-<p>其中 $\sum_{j=1}^n \alpha_j^2 = ||x||_2^2 = 1$， 所以 $\epsilon^2 &gt; ||Ax - \lambda x||<em>2^2 \geq \min</em>{1 \leq j \leq n} (\lambda_j - \lambda)^2$</p>
-<p>因此 $\epsilon &gt; \min_{1 \leq j \leq n} |\lambda_j - \lambda|$</p>
 
       
     </div>
@@ -977,10 +656,58 @@ $$q_A(A)v = q_A(\lambda)v = 0 \cdot v = 0$$</p>
 
   
       
-<link rel="stylesheet" href="//cdn.jsdelivr.net/npm/katex@0/dist/katex.min.css">
-  <script src="//cdn.jsdelivr.net/npm/katex@0/dist/contrib/copy-tex.min.js"></script>
-  <link rel="stylesheet" href="//cdn.jsdelivr.net/npm/katex@0/dist/contrib/copy-tex.min.css">
 
+<script>
+  if (typeof MathJax === 'undefined') {
+    window.MathJax = {
+      loader: {
+        source: {
+          '[tex]/amsCd': '[tex]/amscd',
+          '[tex]/AMScd': '[tex]/amscd'
+        }
+      },
+      tex: {
+        inlineMath: {'[+]': [['$', '$']]},
+        tags: 'ams'
+      },
+      options: {
+        renderActions: {
+          findScript: [10, doc => {
+            document.querySelectorAll('script[type^="math/tex"]').forEach(node => {
+              const display = !!node.type.match(/; *mode=display/);
+              const math = new doc.options.MathItem(node.textContent, doc.inputJax[0], display);
+              const text = document.createTextNode('');
+              node.parentNode.replaceChild(text, node);
+              math.start = {node: text, delim: '', n: 0};
+              math.end = {node: text, delim: '', n: 0};
+              doc.math.push(math);
+            });
+          }, '', false],
+          insertedScript: [200, () => {
+            document.querySelectorAll('mjx-container').forEach(node => {
+              let target = node.parentNode;
+              if (target.nodeName.toLowerCase() === 'li') {
+                target.parentNode.classList.add('has-jax');
+              }
+            });
+          }, '', false]
+        }
+      }
+    };
+    (function () {
+      var script = document.createElement('script');
+      script.src = '//cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js?config=TeX-MML-AM_CHTML';
+      script.defer = true;
+      document.head.appendChild(script);
+    })();
+  } else {
+    MathJax.startup.document.state(0);
+    MathJax.texReset();
+    MathJax.typeset();
+  }
+</script>
+
+    
 
   
 

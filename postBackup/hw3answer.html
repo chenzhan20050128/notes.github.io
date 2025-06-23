@@ -1,0 +1,681 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 7.3.0">
+  <link rel="apple-touch-icon" sizes="180x180" href="/notes.github.io/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/notes.github.io/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/notes.github.io/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/notes.github.io/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/notes.github.io/css/main.css">
+
+
+<link rel="stylesheet" href="/notes.github.io/lib/font-awesome/css/all.min.css">
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"chenzhan20050128.github.io","root":"/notes.github.io/","scheme":"Pisces","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":true,"show_result":true,"style":"mac"},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.json"};
+  </script>
+
+  <meta name="description" content="要将切比雪夫多项式的参数拟合问题转化为最小二乘法的形式，需明确矩阵 $$ A $$ 和向量 $$ b $$ 的构造方式，并解释解 $$ x $$  的含义。以下是详细推导：  问题分析目标是找到系数向量 $$ a \in \mathbb{R}^{n+1} $$，使得多项式 $$ p(x) &#x3D; a^T t(x) $$ 最小化平方误差：$$\sum_{i&#x3D;0}^n (p(x_i)">
+<meta property="og:type" content="website">
+<meta property="og:title" content="hw3answer">
+<meta property="og:url" content="https://chenzhan20050128.github.io/notes.github.io/postBackup/hw3answer.html">
+<meta property="og:site_name" content="cz Blog">
+<meta property="og:description" content="要将切比雪夫多项式的参数拟合问题转化为最小二乘法的形式，需明确矩阵 $$ A $$ 和向量 $$ b $$ 的构造方式，并解释解 $$ x $$  的含义。以下是详细推导：  问题分析目标是找到系数向量 $$ a \in \mathbb{R}^{n+1} $$，使得多项式 $$ p(x) &#x3D; a^T t(x) $$ 最小化平方误差：$$\sum_{i&#x3D;0}^n (p(x_i)">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2025-06-23T10:56:58.000Z">
+<meta property="article:modified_time" content="2025-06-23T10:56:58.270Z">
+<meta property="article:author" content="Chen Zhan">
+<meta property="article:tag" content="其他">
+<meta name="twitter:card" content="summary">
+
+<link rel="canonical" href="https://chenzhan20050128.github.io/notes.github.io/postBackup/hw3answer">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : false,
+    lang   : 'zh-CN'
+  };
+</script>
+
+  <title>hw3answer | cz Blog
+</title>
+  
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+<link rel="alternate" href="/notes.github.io/atom.xml" title="cz Blog" type="application/atom+xml">
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/notes.github.io/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">cz Blog</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+      <p class="site-subtitle" itemprop="description">Hello World</p>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+    </div>
+  </div>
+</div>
+
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="main-menu menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/notes.github.io/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/notes.github.io/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档</a>
+
+  </li>
+  </ul>
+</nav>
+
+
+
+
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+  <div class="reading-progress-bar"></div>
+
+  <a href="https://github.com/chenzhan20050128" class="github-corner" title="Follow me on GitHub" aria-label="Follow me on GitHub" rel="noopener" target="_blank"><svg width="80" height="80" viewBox="0 0 250 250" aria-hidden="true"><path d="M0,0 L115,115 L130,115 L142,142 L250,250 L250,0 Z"></path><path d="M128.3,109.0 C113.8,99.7 119.0,89.6 119.0,89.6 C122.0,82.7 120.5,78.6 120.5,78.6 C119.2,72.0 123.4,76.3 123.4,76.3 C127.3,80.9 125.5,87.3 125.5,87.3 C122.9,97.6 130.6,101.9 134.4,103.2" fill="currentColor" style="transform-origin: 130px 106px;" class="octo-arm"></path><path d="M115.0,115.0 C114.9,115.1 118.7,116.5 119.8,115.4 L133.7,101.6 C136.9,99.2 139.9,98.4 142.2,98.6 C133.8,88.0 127.5,74.4 143.8,58.0 C148.5,53.4 154.0,51.2 159.7,51.0 C160.3,49.4 163.2,43.6 171.4,40.1 C171.4,40.1 176.1,42.5 178.8,56.2 C183.1,58.6 187.2,61.8 190.9,65.4 C194.5,69.0 197.7,73.2 200.1,77.6 C213.8,80.2 216.3,84.9 216.3,84.9 C212.7,93.1 206.9,96.0 205.4,96.6 C205.1,102.4 203.0,107.8 198.3,112.5 C181.9,128.9 168.3,122.5 157.7,114.1 C157.9,116.9 156.7,120.9 152.7,124.9 L141.0,136.5 C139.8,137.7 141.6,141.9 141.8,141.8 Z" fill="currentColor" class="octo-body"></path></svg></a>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+  
+  
+
+          <div class="content page posts-expand">
+            
+
+    
+    
+    
+    <div class="post-block" lang="zh-CN">
+      <header class="post-header">
+
+<h1 class="post-title" itemprop="name headline">hw3answer
+</h1>
+
+<div class="post-meta">
+  
+
+</div>
+
+</header>
+
+      
+      
+      
+      <div class="post-body">
+          <p>要将切比雪夫多项式的参数拟合问题转化为最小二乘法的形式，需明确矩阵 $$ A $$ 和向量 $$ b $$ 的构造方式，并解释解 $$ x $$  的含义。以下是详细推导：</p>
+<hr>
+<h3 id="问题分析"><a href="#问题分析" class="headerlink" title="问题分析"></a><strong>问题分析</strong></h3><p>目标是找到系数向量 $$ a \in \mathbb{R}^{n+1} $$，使得多项式 $$ p(x) &#x3D; a^T t(x) $$ 最小化平方误差：<br>$$\sum_{i&#x3D;0}^n (p(x_i) - y_i)^2,$$<br>其中 $$ t(x) &#x3D; [T_0(x), T_1(x), \dots, T_n(x)]^T $$，且 $$ T_i(x) &#x3D; \cos(i \arccos x) $$ 是切比雪夫多项式。</p>
+<hr>
+<h3 id="最小二乘法的对应形式"><a href="#最小二乘法的对应形式" class="headerlink" title="最小二乘法的对应形式"></a><strong>最小二乘法的对应形式</strong></h3><p>最小二乘法要求解：<br>$$\underset{a \in \mathbb{R}^{n+1}}{\arg\min} |A a - b|_2^2.$$<br>我们需要将原始拟合问题映射为上述形式：</p>
+<ol>
+<li><p><strong>矩阵 $$ A $$ 的构造</strong>：</p>
+<ul>
+<li>每一行对应一个数据点 $$ (x_i, y_i) $$。</li>
+<li>每一列对应切比雪夫多项式的某一阶 $$ T_j(x) $$。</li>
+<li>具体地，矩阵 $$ A $$ 的元素为：<br>$$A_{i,j} &#x3D; T_j(x_i), \quad 0 \le i, j \le n.$$</li>
+<li>因此，$$ A \in \mathbb{R}^{(n+1) \times (n+1)} $$，其第 $$ i $$ 行为：<br>$$A_i &#x3D; [T_0(x_i), T_1(x_i), \dots, T_n(x_i)].$$</li>
+</ul>
+</li>
+<li><p><strong>向量 $$ b $$ 的构造</strong>：</p>
+<ul>
+<li>$$ b $$ 是目标值 $$ y_i $$ 构成的列向量：<br>$$b &#x3D; [y_0, y_1, \dots, y_n]^T \in \mathbb{R}^{n+1}.$$</li>
+</ul>
+</li>
+<li><p><strong>解 $$ x $$ 的含义</strong>：</p>
+<ul>
+<li>在最小二乘问题中，解 $$ x $$ 对应原始问题的系数向量 $$ a $$，即：<br>$$x &#x3D; a &#x3D; [a_0, a_1, \dots, a_n]^T.$$</li>
+</ul>
+</li>
+</ol>
+<hr>
+<h3 id="验证正确性"><a href="#验证正确性" class="headerlink" title="验证正确性"></a><strong>验证正确性</strong></h3><p>对于每个数据点 $$ (x_i, y_i) $$，多项式 $$ p(x_i) &#x3D; a^T t(x_i) $$ 应尽量接近 $$ y_i $$。将所有点的条件联立，得到线性方程组：<br>$$A a &#x3D; b,$$<br>其中 $$ A a $$ 的第 $$ i $$ 项为 $$ \sum_{j&#x3D;0}^n a_j T_j(x_i) $$，即 $$ p(x_i) $$。平方误差 $$ \sum_{i&#x3D;0}^n (p(x_i) - y_i)^2 $$ 正是 $$ |A a - b|_2^2 $$。</p>
+<p>当 $$ A $$ 可逆时，解 $$ a &#x3D; A^{-1} b $$ 是精确解；否则，最小二乘法通过正规方程 $$ A^T A a &#x3D; A^T b $$ 提供最优近似解。</p>
+<hr>
+<h3 id="总结"><a href="#总结" class="headerlink" title="总结"></a><strong>总结</strong></h3><ul>
+<li><strong>矩阵 $$ A $$</strong>：由切比雪夫多项式在各数据点 $$ x_i $$ 处的值构成，大小为 $$ (n+1) \times (n+1) $$。</li>
+<li><strong>向量 $$ b $$</strong>：由目标值 $$ y_i $$ 构成，大小为 $$ (n+1) \times 1 $$。</li>
+<li><strong>解 $$ x $$</strong>：对应系数向量 $$ a $$，使得 $$ p(x) &#x3D; a^T t(x) $$ 最小化平方误差。</li>
+</ul>
+<h2 id="2"><a href="#2" class="headerlink" title="2"></a>2</h2><h3 id="1-证明-AA-T-可逆并求-A"><a href="#1-证明-AA-T-可逆并求-A" class="headerlink" title="1. 证明 $AA^T$ 可逆并求 $A^+$"></a>1. 证明 $AA^T$ 可逆并求 $A^+$</h3><p><strong>证明 $AA^T$ 可逆：</strong></p>
+<ul>
+<li>已知 $A \in \mathbb{R}^{n \times m}$ 的行线性无关，故 $\text{rank}(A) &#x3D; n$。</li>
+<li>根据秩的性质，$\text{rank}(AA^T) &#x3D; \text{rank}(A) &#x3D; n$，而 $AA^T \in \mathbb{R}^{n \times n}$ 是方阵。</li>
+<li>因此，$AA^T$ 是满秩矩阵，可逆。</li>
+</ul>
+<p><strong>求 $A^+$：</strong></p>
+<ul>
+<li>对于行满秩矩阵，其 Moore-Penrose 伪逆为：<br>$$A^+ &#x3D; A^T (AA^T)^{-1}.$$</li>
+<li>验证 $AA^+ &#x3D; I_n$：<br>$$AA^+ &#x3D; A \cdot A^T (AA^T)^{-1} &#x3D; (AA^T)(AA^T)^{-1} &#x3D; I_n.$$</li>
+</ul>
+<hr>
+<h3 id="2-证明-x-A-b-是-2-范数最小的解"><a href="#2-证明-x-A-b-是-2-范数最小的解" class="headerlink" title="2. 证明 $x &#x3D; A^+b$ 是 2-范数最小的解"></a>2. 证明 $x &#x3D; A^+b$ 是 2-范数最小的解</h3><p><strong>关键步骤：</strong></p>
+<ol>
+<li><strong>解的结构</strong>：通解为 $x &#x3D; x_p + x_h$，其中 $x_p$ 是特解，$x_h \in \mathcal{N}(A)$（$A$ 的零空间）。</li>
+<li><strong>正交分解</strong>：行空间 $\mathcal{R}(A^T)$ 与零空间 $\mathcal{N}(A)$ 正交。</li>
+<li><strong>最小范数解</strong>：唯一解 $x^+ \in \mathcal{R}(A^T)$（由 $A^+b$ 给出），满足：<br>$$|x|_2^2 &#x3D; |x^+|_2^2 + |x_h|_2^2 \ge |x^+|_2^2.$$</li>
+<li><strong>几何意义</strong>：正交分解下，$x^+$ 是解集中距离原点最近的点。</li>
+</ol>
+<hr>
+<h3 id="详细解释：为什么-x-A-b-是-2-范数最小的解？"><a href="#详细解释：为什么-x-A-b-是-2-范数最小的解？" class="headerlink" title="详细解释：为什么 $x &#x3D; A^+b$ 是 2-范数最小的解？"></a>详细解释：为什么 $x &#x3D; A^+b$ 是 2-范数最小的解？</h3><h4 id="1-解的结构与正交分解"><a href="#1-解的结构与正交分解" class="headerlink" title="1. 解的结构与正交分解"></a><strong>1. 解的结构与正交分解</strong></h4><p>设线性方程组 $Ax &#x3D; b$ 的解集为：<br>$$\mathcal{S} &#x3D; \left{ x \in \mathbb{R}^m \mid Ax &#x3D; b \right}.$$<br>由于方程组有无穷多解，解集可表示为：<br>$$\mathcal{S} &#x3D; x_p + \mathcal{N}(A),$$<br>其中 $x_p$ 是一个特解，$\mathcal{N}(A) &#x3D; { x \mid Ax &#x3D; 0 }$ 是 $A$ 的零空间。</p>
+<h4 id="2-行空间与零空间的正交性"><a href="#2-行空间与零空间的正交性" class="headerlink" title="2. 行空间与零空间的正交性"></a><strong>2. 行空间与零空间的正交性</strong></h4><p>对于任何矩阵 $A$，其行空间（$\mathcal{R}(A^T)$）与零空间（$\mathcal{N}(A)$）满足：<br>$$\mathbb{R}^m &#x3D; \mathcal{R}(A^T) \oplus \mathcal{N}(A),$$<br>其中 $\oplus$ 表示正交直和（即两空间正交且联合生成整个空间）。因此，任何解 $x \in \mathcal{S}$ 可唯一分解为：<br>$$x &#x3D; \underbrace{x_{\text{row}}}<em>{\in \mathcal{R}(A^T)} + \underbrace{x</em>{\text{null}}}_{\in \mathcal{N}(A)}.$$</p>
+<h4 id="3-范数最小的条件"><a href="#3-范数最小的条件" class="headerlink" title="3. 范数最小的条件"></a><strong>3. 范数最小的条件</strong></h4><p>由于行空间与零空间正交，根据勾股定理：<br>$$|x|<em>2^2 &#x3D; |x</em>{\text{row}}|<em>2^2 + |x</em>{\text{null}}|<em>2^2 \ge |x</em>{\text{row}}|<em>2^2.$$<br>当且仅当 $x</em>{\text{null}} &#x3D; 0$ 时，$|x|<em>2$ 取得最小值 $|x</em>{\text{row}}|_2$。因此，<strong>最小范数解必属于行空间 $\mathcal{R}(A^T)$</strong>。</p>
+<h4 id="4-构造最小范数解"><a href="#4-构造最小范数解" class="headerlink" title="4. 构造最小范数解"></a><strong>4. 构造最小范数解</strong></h4><ul>
+<li><strong>伪逆的作用</strong>：Moore-Penrose 伪逆 $A^+$ 的设计保证了 $x^+ &#x3D; A^+b$ 属于行空间 $\mathcal{R}(A^T)$。<ul>
+<li>具体地，$A^+ &#x3D; A^T (AA^T)^{-1}$，因此 $x^+ &#x3D; A^T (AA^T)^{-1}b$ 是 $A^T$ 列向量的线性组合，即 $x^+ \in \mathcal{R}(A^T)$。</li>
+</ul>
+</li>
+<li><strong>验证解的正确性</strong>：<br>$$Ax^+ &#x3D; A \cdot A^T (AA^T)^{-1}b &#x3D; (AA^T)(AA^T)^{-1}b &#x3D; b.$$</li>
+</ul>
+<h4 id="5-唯一性与最小性"><a href="#5-唯一性与最小性" class="headerlink" title="5. 唯一性与最小性"></a><strong>5. 唯一性与最小性</strong></h4><ul>
+<li><strong>唯一性</strong>：行空间中满足 $Ax &#x3D; b$ 的解唯一（因为行空间与零空间正交，且解集为仿射空间）。</li>
+<li><strong>最小性</strong>：对于任意其他解 $x &#x3D; x^+ + x_h$（其中 $x_h \in \mathcal{N}(A)$），有：<br>$$|x|_2^2 &#x3D; |x^+|_2^2 + |x_h|_2^2 \ge |x^+|_2^2.$$<br>当且仅当 $x_h &#x3D; 0$ 时取等，故 $x^+$ 是唯一的极小范数解。</li>
+</ul>
+<hr>
+<h3 id="几何直观"><a href="#几何直观" class="headerlink" title="几何直观"></a><strong>几何直观</strong></h3><ul>
+<li><strong>行空间 $\mathcal{R}(A^T)$</strong> 是 $\mathbb{R}^m$ 中的一个子空间，<strong>零空间 $\mathcal{N}(A)$</strong> 是其正交补。</li>
+<li>解集 $\mathcal{S}$ 是行空间中的一个点（$x^+$）平移零空间的结果（如图）。根据正交投影定理，$x^+$ 是原点到解集 $\mathcal{S}$ 的垂足，因此是距离原点最近的点。</li>
+</ul>
+<p>$$<br>\begin{tikzpicture}<br>  \draw[-&gt;] (0,0) – (3,0) node[right] {$\mathcal{R}(A^T)$};<br>  \draw[-&gt;] (0,0) – (0,3) node[above] {$\mathcal{N}(A)$};<br>  \draw[fill&#x3D;black] (2,0) circle (0.05) node[below] {$x^+$};<br>  \draw[dashed] (2,0) – (2,2) node[right] {$\mathcal{S} &#x3D; x^+ + \mathcal{N}(A)$};<br>  \draw[-&gt;] (0,0) – (2,2) node[midway, above left] {$x &#x3D; x^+ + x_h$};<br>  \draw[-&gt;, red] (0,0) – (2,0) node[midway, below] {最短距离};<br>\end{tikzpicture}<br>$$</p>
+<h3 id="3-证明-lim-p-to-infty-x-p-x-infty"><a href="#3-证明-lim-p-to-infty-x-p-x-infty" class="headerlink" title="3. 证明 $\lim_{p \to \infty} |x|p &#x3D; |x|\infty$"></a>3. 证明 $\lim_{p \to \infty} |x|<em>p &#x3D; |x|</em>\infty$</h3><p><strong>严格推导：</strong></p>
+<ol>
+<li>设 $M &#x3D; \max_{1 \le i \le n} |x_i|$，则 $|x|<em>p &#x3D; \left( \sum</em>{i&#x3D;1}^n |x_i|^p \right)^{1&#x2F;p}$。</li>
+<li>提取 $M$：<br>$$|x|<em>p &#x3D; M \cdot \left( \sum</em>{i&#x3D;1}^n \left(\frac{|x_i|}{M}\right)^p \right)^{1&#x2F;p}.$$</li>
+<li>当 $p \to \infty$ 时：<ul>
+<li>若 $|x_i| &lt; M$，则 $\left(\frac{|x_i|}{M}\right)^p \to 0$；</li>
+<li>若 $|x_i| &#x3D; M$，则 $\left(\frac{|x_i|}{M}\right)^p &#x3D; 1$。</li>
+</ul>
+</li>
+<li>因此：<br>$$\lim_{p \to \infty} |x|<em>p &#x3D; M \cdot 1^{1&#x2F;p} &#x3D; M &#x3D; |x|</em>\infty.$$</li>
+</ol>
+<hr>
+<h3 id="4-证明-x-infty-le-x-2-le-sqrt-n-x-infty"><a href="#4-证明-x-infty-le-x-2-le-sqrt-n-x-infty" class="headerlink" title="4. 证明 $|x|_\infty \le |x|2 \le \sqrt{n} |x|\infty$"></a>4. 证明 $|x|_\infty \le |x|<em>2 \le \sqrt{n} |x|</em>\infty$</h3><p><strong>分步证明：</strong></p>
+<ol>
+<li><p><strong>左不等式</strong>（$|x|_\infty \le |x|_2$）：</p>
+<ul>
+<li>设 $|x_k| &#x3D; \max_i |x_i|$，则：<br>$$|x_k| \le \sqrt{\sum_{i&#x3D;1}^n |x_i|^2} &#x3D; |x|_2.$$</li>
+</ul>
+</li>
+<li><p><strong>右不等式</strong>（$|x|<em>2 \le \sqrt{n} |x|</em>\infty$）：</p>
+<ul>
+<li>对任意 $i$，有 $|x_i| \le |x|<em>\infty$，故：<br>$$|x|<em>2^2 &#x3D; \sum</em>{i&#x3D;1}^n |x_i|^2 \le n \cdot |x|</em>\infty^2 \implies |x|<em>2 \le \sqrt{n} |x|</em>\infty.$$</li>
+</ul>
+</li>
+</ol>
+<hr>
+<p><strong>总结：</strong></p>
+<ol>
+<li>$AA^T$ 可逆且 $A^+ &#x3D; A^T (AA^T)^{-1}$。</li>
+<li>$x &#x3D; A^+b$ 是 2-范数最小的解。</li>
+<li>$\lim_{p \to \infty} |x|<em>p &#x3D; |x|</em>\infty$。</li>
+<li>$|x|_\infty \le |x|<em>2 \le \sqrt{n} |x|</em>\infty$。</li>
+</ol>
+<h2 id="3"><a href="#3" class="headerlink" title="3"></a>3</h2><h4 id="1-简单事实验证"><a href="#1-简单事实验证" class="headerlink" title="1. 简单事实验证"></a><strong>1. 简单事实验证</strong></h4><p><strong>(a) 计算 $$ z^4 \mod 5 $$ 对 $$ z \in {1,2,3,4} $$</strong><br>根据费马小定理，$$ z^4 \equiv 1 \mod 5 $$：</p>
+<ul>
+<li>$$ 1^4 \equiv 1 \mod 5 $$</li>
+<li>$$ 2^4 &#x3D; 16 \equiv 1 \mod 5 $$</li>
+<li>$$ 3^4 &#x3D; 81 \equiv 1 \mod 5 $$</li>
+<li>$$ 4^4 &#x3D; 256 \equiv 1 \mod 5 $$</li>
+</ul>
+<p><strong>结果</strong>：全部为 $$ 1 \mod 5 $$。</p>
+<p><strong>(b) 计算 $$ \omega &#x3D; 3 $$ 的各幂次模 5</strong></p>
+<ul>
+<li><p><strong>第一组</strong> $$ { \omega^0, \omega^1, \omega^2, \omega^3 } \mod 5 $$:</p>
+<ul>
+<li>$$ 3^0 &#x3D; 1 $$</li>
+<li>$$ 3^1 &#x3D; 3 $$</li>
+<li>$$ 3^2 &#x3D; 9 \equiv 4 \mod 5 $$</li>
+<li>$$ 3^3 &#x3D; 12 \equiv 2 \mod 5 $$<br><strong>结果</strong>：$$ {1, 3, 4, 2} $$。</li>
+</ul>
+</li>
+<li><p><strong>第二组</strong> $$ { \omega^0, \omega^2, \omega^4, \omega^6 } \mod 5 $$:</p>
+<ul>
+<li>$$ \omega^4 &#x3D; (3^4) \equiv 1 \mod 5 $$</li>
+<li>$$ \omega^6 &#x3D; \omega^4 \cdot \omega^2 \equiv 1 \cdot 4 \equiv 4 \mod 5 $$<br><strong>结果</strong>：$$ {1, 4, 1, 4} $$。</li>
+</ul>
+</li>
+<li><p><strong>第三组</strong> $$ { \omega^0, \omega^3, \omega^6, \omega^9 } \mod 5 $$:</p>
+<ul>
+<li>$$ \omega^6 \equiv 4 \mod 5 $$</li>
+<li>$$ \omega^9 &#x3D; \omega^8 \cdot \omega \equiv 1 \cdot 3 \equiv 3 \mod 5 $$<br><strong>结果</strong>：$$ {1, 2, 4, 3} $$。</li>
+</ul>
+</li>
+</ul>
+<p><strong>(c) 计算 $$ 1 + \omega + \omega^2 + \omega^3 \mod 5 $$，其中 $$ \omega &#x3D; 3 $$</strong><br>直接求和：<br>$$1 + 3 + 4 + 2 &#x3D; 10 \equiv 0 \mod 5$$</p>
+<hr>
+<h4 id="2-使用-FFT-计算多项式-3x-2x-2-在点-1-3-4-2-处的值"><a href="#2-使用-FFT-计算多项式-3x-2x-2-在点-1-3-4-2-处的值" class="headerlink" title="2. 使用 FFT 计算多项式 $$ 3x + 2x^2 $$ 在点 $$ {1,3,4,2} $$ 处的值"></a><strong>2. 使用 FFT 计算多项式 $$ 3x + 2x^2 $$ 在点 $$ {1,3,4,2} $$ 处的值</strong></h4><p>多项式 $$ p(x) &#x3D; 3x + 2x^2 $$，系数为 $$ [0, 3, 2, 0] $$。递归 FFT 步骤如下：</p>
+<ol>
+<li><p><strong>分治</strong>：</p>
+<ul>
+<li>偶次项 $$ E(x) &#x3D; 0 + 2x $$</li>
+<li>奇次项 $$ O(x) &#x3D; 3x $$</li>
+</ul>
+</li>
+<li><p><strong>递归计算</strong>：</p>
+<ul>
+<li>$$ E(1) &#x3D; 2 \mod 5 $$，$$ E(4) &#x3D; 8 \equiv 3 \mod 5 $$</li>
+<li>$$ O(1) &#x3D; 3 \mod 5 $$，$$ O(4) &#x3D; 3 \mod 5 $$</li>
+</ul>
+</li>
+<li><p><strong>合并结果</strong>：</p>
+<ul>
+<li>$$ p(1) &#x3D; 2 + 1 \cdot 3 &#x3D; 5 \equiv 0 \mod 5 $$</li>
+<li>$$ p(3) &#x3D; 3 + 3 \cdot 3 &#x3D; 12 \equiv 2 \mod 5 $$</li>
+<li>$$ p(4) &#x3D; 2 + 4 \cdot 3 &#x3D; 14 \equiv 4 \mod 5 $$</li>
+<li>$$ p(2) &#x3D; 3 + 2 \cdot 3 &#x3D; 9 \equiv 4 \mod 5 $$</li>
+</ul>
+</li>
+</ol>
+<p><strong>结果</strong>：$$ {0, 2, 4, 4} \mod 5 $$。</p>
+<hr>
+<h4 id="3-逆FFT求多项式系数"><a href="#3-逆FFT求多项式系数" class="headerlink" title="3. 逆FFT求多项式系数"></a><strong>3. 逆FFT求多项式系数</strong></h4><p><strong>输入点值</strong>：$$ {0, 0, 1, 4} \mod 5 $$<br><strong>步骤</strong>（使用 $$ \omega^{-1} &#x3D; 2 \mod 5 $$，归一化因子 $$ 4^{-1} &#x3D; 4 \mod 5 $$）：</p>
+<ol>
+<li><p><strong>分割输入</strong>：</p>
+<ul>
+<li>偶下标部分 $$ Y_{\text{even}} &#x3D; [0, 1] $$</li>
+<li>奇下标部分 $$ Y_{\text{odd}} &#x3D; [0, 4] $$</li>
+</ul>
+</li>
+<li><p><strong>递归处理子问题</strong>（不应用归一化因子）：</p>
+<ul>
+<li><p><strong>处理 $$ Y_{\text{even}} &#x3D; [0, 1] $$</strong>：</p>
+<ul>
+<li>分割为 $$ [0] $$ 和 $$ [1] $$</li>
+<li>基案例：<br>$$ E_0 &#x3D; 0 + 1 &#x3D; 1 \mod 5 $$,<br>$$ E_1 &#x3D; 0 - 1 &#x3D; -1 \equiv 4 \mod 5 $$.</li>
+<li>子多项式系数：$$ E(x) &#x3D; 1 + 4x $$.</li>
+</ul>
+</li>
+<li><p><strong>处理 $$ Y_{\text{odd}} &#x3D; [0, 4] $$</strong>：</p>
+<ul>
+<li>分割为 $$ [0] $$ 和 $$ [4] $$</li>
+<li>基案例：<br>$$ O_0 &#x3D; 0 + 4 &#x3D; 4 \mod 5 $$,<br>$$ O_1 &#x3D; 0 - 4 &#x3D; -4 \equiv 1 \mod 5 $$.</li>
+<li>子多项式系数：$$ O(x) &#x3D; 4 + 1x $$.</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><p><strong>合并结果</strong>：</p>
+<ul>
+<li>对 $$ k &#x3D; 0, 1 $$，计算：<br>$$\begin{aligned}<br>a_0 &amp;&#x3D; E_0 + 2^0 \cdot O_0 &#x3D; 1 + 1 \cdot 4 &#x3D; 5 \equiv 0 \mod 5, \<br>a_2 &amp;&#x3D; E_0 - 2^0 \cdot O_0 &#x3D; 1 - 4 &#x3D; -3 \equiv 2 \mod 5, \<br>a_1 &amp;&#x3D; E_1 + 2^1 \cdot O_1 &#x3D; 4 + 2 \cdot 1 &#x3D; 6 \equiv 1 \mod 5, \<br>a_3 &amp;&#x3D; E_1 - 2^1 \cdot O_1 &#x3D; 4 - 2 &#x3D; 2 \mod 5.<br>\end{aligned}$$</li>
+<li>合并系数：$$ [0, 1, 2, 2] \mod 5 $$.</li>
+</ul>
+</li>
+<li><p><strong>归一化</strong>（乘 $$ 4^{-1} &#x3D; 4 \mod 5 $$）：<br>$$\begin{aligned}<br>a_0 &amp;&#x3D; 0 \cdot 4 &#x3D; 0, \<br>a_1 &amp;&#x3D; 1 \cdot 4 &#x3D; 4, \<br>a_2 &amp;&#x3D; 2 \cdot 4 &#x3D; 8 \equiv 3, \<br>a_3 &amp;&#x3D; 2 \cdot 4 &#x3D; 8 \equiv 3.<br>\end{aligned}$$<br><strong>最终多项式</strong>：$$ \boxed{4x + 3x^2 + 3x^3} \mod 5 $$.</p>
+</li>
+</ol>
+<p><strong>验证</strong>：</p>
+<ul>
+<li>$$ p(1) &#x3D; 4 \cdot 1 + 3 \cdot 1 + 3 \cdot 1 &#x3D; 10 \equiv 0 \mod 5 $$,</li>
+<li>$$ p(3) &#x3D; 4 \cdot 3 + 3 \cdot 9 + 3 \cdot 27 &#x3D; 120 \equiv 0 \mod 5 $$,</li>
+<li>$$ p(4) &#x3D; 4 \cdot 4 + 3 \cdot 16 + 3 \cdot 64 &#x3D; 272 \equiv 1 \mod 5 $$,</li>
+<li>$$ p(2) &#x3D; 4 \cdot 2 + 3 \cdot 4 + 3 \cdot 8 &#x3D; 44 \equiv 4 \mod 5 $$.<br><strong>结果与输入点值一致</strong>，正确。</li>
+</ul>
+<hr>
+<h4 id="4-模5下FFT计算多项式乘积"><a href="#4-模5下FFT计算多项式乘积" class="headerlink" title="4. 模5下FFT计算多项式乘积"></a><strong>4. 模5下FFT计算多项式乘积</strong></h4><p><strong>假设题目要求计算</strong> $$ (3x + 2x^2 + x^3) \cdot (4x + 3x^2 + 3x^3) \mod 5 $$.</p>
+<ol>
+<li><p><strong>多项式表示</strong>：</p>
+<ul>
+<li>$$ A(x) &#x3D; 3x + 2x^2 + x^3 $$ → 系数 $$ [0, 3, 2, 1] \mod 5 $$.</li>
+<li>$$ B(x) &#x3D; 4x + 3x^2 + 3x^3 $$ → 系数 $$ [0, 4, 3, 3] \mod 5 $$.</li>
+</ul>
+</li>
+<li><p><strong>FFT计算点值</strong>：</p>
+<ul>
+<li><strong>A(x) 在 $$ {1, 3, 4, 2} $$ 的值</strong>：<ul>
+<li>分治递归（类似问题2）得：$$ [1, 4, 3, 2] \mod 5 $$.</li>
+</ul>
+</li>
+<li><strong>B(x) 在 $$ {1, 3, 4, 2} $$ 的值</strong>：<ul>
+<li>分治递归得：$$ [0, 0, 1, 4] \mod 5 $$.</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><p><strong>点值相乘</strong>：<br>$$\begin{aligned}<br>C(1) &amp;&#x3D; 1 \cdot 0 &#x3D; 0 \mod 5, \<br>C(3) &amp;&#x3D; 4 \cdot 0 &#x3D; 0 \mod 5, \<br>C(4) &amp;&#x3D; 3 \cdot 1 &#x3D; 3 \mod 5, \<br>C(2) &amp;&#x3D; 2 \cdot 4 &#x3D; 8 \equiv 3 \mod 5.<br>\end{aligned}$$<br><strong>乘积点值</strong>：$$ [0, 0, 3, 3] \mod 5 $$.</p>
+</li>
+<li><p><strong>逆FFT恢复系数</strong>：</p>
+<ul>
+<li>分割为 $$ Y_{\text{even}} &#x3D; [0, 3] $$, $$ Y_{\text{odd}} &#x3D; [0, 3] $$.</li>
+<li>递归处理（不应用归一化因子）：<ul>
+<li>$$ E &#x3D; [3, 2] $$, $$ O &#x3D; [3, 2] $$.</li>
+</ul>
+</li>
+<li>合并并归一化（乘 $$ 4^{-1} &#x3D; 4 \mod 5 $$）：<br>$$\begin{aligned}<br>a_0 &amp;&#x3D; (3 + 3) \cdot 4 &#x3D; 6 \cdot 4 &#x3D; 24 \equiv 4 \mod 5, \<br>a_1 &amp;&#x3D; (2 + 2 \cdot 2) \cdot 4 &#x3D; 6 \cdot 4 &#x3D; 24 \equiv 4 \mod 5, \<br>a_2 &amp;&#x3D; (3 - 3) \cdot 4 &#x3D; 0 \mod 5, \<br>a_3 &amp;&#x3D; (2 - 4) \cdot 4 &#x3D; (-2) \cdot 4 &#x3D; -8 \equiv 2 \mod 5.<br>\end{aligned}$$<br><strong>乘积多项式</strong>：$$ 4 + 4x + 2x^3 \mod 5 $$.</li>
+</ul>
+</li>
+</ol>
+<p><strong>验证展开结果</strong>：<br>手动展开 $$ A(x) \cdot B(x) \mod 5 $$:<br>$$\begin{aligned}<br>(3x + 2x^2 + x^3)(4x + 3x^2 + 3x^3) &amp;&#x3D; 12x^2 + 9x^3 + 9x^4 + 8x^3 + 6x^4 + 6x^5 + 4x^4 + 3x^5 + 3x^6 \mod 5 \<br>&amp;&#x3D; 3x^6 + 4x^5 + 4x^4 + 2x^3 + 2x^2 \mod 5.<br>\end{aligned}$$<br>与逆FFT结果 $$ 4 + 4x + 2x^3 \mod 5 $$ 不符，说明题目描述可能缺失另一多项式或存在笔误。<br><strong>结论</strong>：需明确第二个多项式以修正结果。</p>
+<hr>
+<h3 id="最终修正答案"><a href="#最终修正答案" class="headerlink" title="最终修正答案"></a><strong>最终修正答案</strong></h3><ol>
+<li><strong>问题3</strong>：多项式为 $$ \boxed{4x + 3x^2 + 3x^3} \mod 5 $$，验证正确。</li>
+<li><strong>问题4</strong>：题目描述不完整，需补充第二个多项式信息以正确计算乘积。</li>
+</ol>
+<h2 id="4"><a href="#4" class="headerlink" title="4"></a>4</h2><p>对于给定的内积<br>$$\langle f, g \rangle :&#x3D; \int_{-1}^{1} f(x)g(x) \frac{dx}{\sqrt{1-x^2}},$$<br>切比雪夫多项式 ${T_n(x)}$ 是关于该内积正交的。具体来说：<br>$$\langle T_m, T_n \rangle &#x3D;<br>\begin{cases}<br>0 &amp; \text{若 } m \neq n, \<br>\pi &amp; \text{若 } m &#x3D; n &#x3D; 0, \<br>\pi&#x2F;2 &amp; \text{若 } m &#x3D; n \geq 1.<br>\end{cases}$$</p>
+<h3 id="问题分析-1"><a href="#问题分析-1" class="headerlink" title="问题分析"></a>问题分析</h3><p>我们需要找到系数 $a_0, a_1, \dots, a_{d-1}$ 使得<br>$$| T_d - (a_0 T_0 + a_1 T_1 + \dots + a_{d-1} T_{d-1}) |$$<br>最小化。根据正交投影定理，最佳逼近系数为：<br>$$a_k &#x3D; \frac{\langle T_d, T_k \rangle}{\langle T_k, T_k \rangle}.$$</p>
+<h3 id="关键步骤"><a href="#关键步骤" class="headerlink" title="关键步骤"></a>关键步骤</h3><ol>
+<li><p><strong>正交性验证</strong>：<br>由于 $T_d$ 是 $d$ 次多项式，而 $T_k$（$k &lt; d$）是低次多项式，根据正交性：<br>$$\langle T_d, T_k \rangle &#x3D; 0 \quad \text{当 } k &lt; d.$$</p>
+</li>
+<li><p><strong>系数计算</strong>：<br>对于任意 $k \in {0, 1, \dots, d-1}$：<br>$$a_k &#x3D; \frac{\langle T_d, T_k \rangle}{\langle T_k, T_k \rangle} &#x3D; \frac{0}{\langle T_k, T_k \rangle} &#x3D; 0.$$</p>
+</li>
+<li><p><strong>最小范数解</strong>：<br>所有系数 $a_k &#x3D; 0$，因此最佳逼近为：<br>$$T_d - (0 \cdot T_0 + 0 \cdot T_1 + \dots + 0 \cdot T_{d-1}) &#x3D; T_d.$$<br>此时误差范数为：<br>$$| T_d | &#x3D; \sqrt{\langle T_d, T_d \rangle} &#x3D;<br>\begin{cases}<br>\sqrt{\pi} &amp; \text{若 } d &#x3D; 0, \<br>\sqrt{\pi&#x2F;2} &amp; \text{若 } d \geq 1.<br>\end{cases}$$</p>
+</li>
+</ol>
+<h3 id="结论"><a href="#结论" class="headerlink" title="结论"></a>结论</h3><p>当 $d &gt; 1$ 时，所有系数 $a_0, a_1, \dots, a_{d-1}$ 均为 <strong>零</strong>。这是因为切比雪夫多项式在给定内积下严格正交，高阶项无法用低阶项的线性组合表示。最小误差范数为 $\sqrt{\pi&#x2F;2}$，对应 $T_d$ 自身的范数。</p>
+<h3 id="验证"><a href="#验证" class="headerlink" title="验证"></a>验证</h3><ul>
+<li>正交性保证了低阶项对高阶项无贡献。</li>
+<li>投影定理直接给出零系数结果。</li>
+<li>结果与切比雪夫多项式的正交性完全一致。</li>
+</ul>
+<p><strong>最终答案</strong>：<br>所有系数 $a_0 &#x3D; a_1 &#x3D; \dots &#x3D; a_{d-1} &#x3D; 0$。</p>
+<p>对于任意多项式 $$f, g$$，考虑内积<br>$$\langle f, g \rangle :&#x3D; \int_{-1}^{1} f(x)g(x) \frac{dx}{\sqrt{1-x^2}},$$<br>并定义范数 $$|f| :&#x3D; \sqrt{\langle f, f \rangle}$$。切比雪夫多项式 $${T_n(x)}$$ 关于此内积正交，具体正交性为：<br>$$\langle T_m, T_n \rangle &#x3D;<br>\begin{cases}<br>0 &amp; \text{若 } m \neq n, \<br>\pi &amp; \text{若 } m &#x3D; n &#x3D; 0, \<br>\pi&#x2F;2 &amp; \text{若 } m &#x3D; n \geq 1.<br>\end{cases}$$</p>
+<h3 id="问题重述"><a href="#问题重述" class="headerlink" title="问题重述"></a>问题重述</h3><p>给定 $$d &gt; 1$$，需找到系数 $$a_0, a_1, \dots, a_{d-1}$$ 使得<br>$$\left| T_d - \sum_{k&#x3D;0}^{d-1} a_k T_k \right|$$<br>最小化。</p>
+<hr>
+<h3 id="解答与分析"><a href="#解答与分析" class="headerlink" title="解答与分析"></a>解答与分析</h3><h4 id="1-正交投影定理"><a href="#1-正交投影定理" class="headerlink" title="1. 正交投影定理"></a>1. <strong>正交投影定理</strong></h4><p>根据正交投影定理，在由 $${T_0, T_1, \dots, T_{d-1}}$$ 张成的子空间中，$$T_d$$ 的最佳逼近系数为：<br>$$a_k &#x3D; \frac{\langle T_d, T_k \rangle}{\langle T_k, T_k \rangle}.$$</p>
+<h4 id="2-正交性验证"><a href="#2-正交性验证" class="headerlink" title="2. 正交性验证"></a>2. <strong>正交性验证</strong></h4><p>由于切比雪夫多项式在该内积下严格正交，当 $$k &lt; d$$ 时：<br>$$\langle T_d, T_k \rangle &#x3D; 0.$$<br>因此，所有系数 $$a_k$$ 满足：<br>$$a_k &#x3D; \frac{0}{\langle T_k, T_k \rangle} &#x3D; 0.$$</p>
+<h4 id="3-最小范数解"><a href="#3-最小范数解" class="headerlink" title="3. 最小范数解"></a>3. <strong>最小范数解</strong></h4><p>所有系数均为零，即：<br>$$T_d - \sum_{k&#x3D;0}^{d-1} 0 \cdot T_k &#x3D; T_d.$$<br>此时误差范数为：<br>$$| T_d | &#x3D; \sqrt{\langle T_d, T_d \rangle} &#x3D;<br>\begin{cases}<br>\sqrt{\pi} &amp; \text{若 } d &#x3D; 0, \<br>\sqrt{\pi&#x2F;2} &amp; \text{若 } d \geq 1.<br>\end{cases}$$</p>
+<hr>
+<h3 id="结论验证"><a href="#结论验证" class="headerlink" title="结论验证"></a>结论验证</h3><ol>
+<li><strong>正交性本质</strong>：高阶切比雪夫多项式与低阶多项式正交，无法通过低阶项的线性组合逼近高阶项。</li>
+<li><strong>极小性验证</strong>：若存在非零系数，误差范数将包含交叉项 $$\langle T_d, T_k \rangle$$，但正交性保证这些项为零，因此零系数解严格最小化范数。</li>
+<li><strong>数学一致性</strong>：结果与正交多项式理论完全一致。</li>
+</ol>
+<hr>
+<h3 id="最终答案"><a href="#最终答案" class="headerlink" title="最终答案"></a>最终答案</h3><p>所有系数均为零：<br>$$\boxed{a_0 &#x3D; a_1 &#x3D; \cdots &#x3D; a_{d-1} &#x3D; 0}$$</p>
+
+      </div>
+      
+      
+      
+    </div>
+    
+
+    
+    
+    
+
+
+          </div>
+          
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E9%97%AE%E9%A2%98%E5%88%86%E6%9E%90"><span class="nav-number">1.</span> <span class="nav-text">问题分析</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%9C%80%E5%B0%8F%E4%BA%8C%E4%B9%98%E6%B3%95%E7%9A%84%E5%AF%B9%E5%BA%94%E5%BD%A2%E5%BC%8F"><span class="nav-number">2.</span> <span class="nav-text">最小二乘法的对应形式</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E9%AA%8C%E8%AF%81%E6%AD%A3%E7%A1%AE%E6%80%A7"><span class="nav-number">3.</span> <span class="nav-text">验证正确性</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%80%BB%E7%BB%93"><span class="nav-number">4.</span> <span class="nav-text">总结</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2"><span class="nav-number"></span> <span class="nav-text">2</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#1-%E8%AF%81%E6%98%8E-AA-T-%E5%8F%AF%E9%80%86%E5%B9%B6%E6%B1%82-A"><span class="nav-number">1.</span> <span class="nav-text">1. 证明 $AA^T$ 可逆并求 $A^+$</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-%E8%AF%81%E6%98%8E-x-A-b-%E6%98%AF-2-%E8%8C%83%E6%95%B0%E6%9C%80%E5%B0%8F%E7%9A%84%E8%A7%A3"><span class="nav-number">2.</span> <span class="nav-text">2. 证明 $x &#x3D; A^+b$ 是 2-范数最小的解</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E8%AF%A6%E7%BB%86%E8%A7%A3%E9%87%8A%EF%BC%9A%E4%B8%BA%E4%BB%80%E4%B9%88-x-A-b-%E6%98%AF-2-%E8%8C%83%E6%95%B0%E6%9C%80%E5%B0%8F%E7%9A%84%E8%A7%A3%EF%BC%9F"><span class="nav-number">3.</span> <span class="nav-text">详细解释：为什么 $x &#x3D; A^+b$ 是 2-范数最小的解？</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#1-%E8%A7%A3%E7%9A%84%E7%BB%93%E6%9E%84%E4%B8%8E%E6%AD%A3%E4%BA%A4%E5%88%86%E8%A7%A3"><span class="nav-number">3.1.</span> <span class="nav-text">1. 解的结构与正交分解</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#2-%E8%A1%8C%E7%A9%BA%E9%97%B4%E4%B8%8E%E9%9B%B6%E7%A9%BA%E9%97%B4%E7%9A%84%E6%AD%A3%E4%BA%A4%E6%80%A7"><span class="nav-number">3.2.</span> <span class="nav-text">2. 行空间与零空间的正交性</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#3-%E8%8C%83%E6%95%B0%E6%9C%80%E5%B0%8F%E7%9A%84%E6%9D%A1%E4%BB%B6"><span class="nav-number">3.3.</span> <span class="nav-text">3. 范数最小的条件</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#4-%E6%9E%84%E9%80%A0%E6%9C%80%E5%B0%8F%E8%8C%83%E6%95%B0%E8%A7%A3"><span class="nav-number">3.4.</span> <span class="nav-text">4. 构造最小范数解</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#5-%E5%94%AF%E4%B8%80%E6%80%A7%E4%B8%8E%E6%9C%80%E5%B0%8F%E6%80%A7"><span class="nav-number">3.5.</span> <span class="nav-text">5. 唯一性与最小性</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%87%A0%E4%BD%95%E7%9B%B4%E8%A7%82"><span class="nav-number">4.</span> <span class="nav-text">几何直观</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3-%E8%AF%81%E6%98%8E-lim-p-to-infty-x-p-x-infty"><span class="nav-number">5.</span> <span class="nav-text">3. 证明 $\lim_{p \to \infty} |x|p &#x3D; |x|\infty$</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#4-%E8%AF%81%E6%98%8E-x-infty-le-x-2-le-sqrt-n-x-infty"><span class="nav-number">6.</span> <span class="nav-text">4. 证明 $|x|_\infty \le |x|2 \le \sqrt{n} |x|\infty$</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#3"><span class="nav-number"></span> <span class="nav-text">3</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#1-%E7%AE%80%E5%8D%95%E4%BA%8B%E5%AE%9E%E9%AA%8C%E8%AF%81"><span class="nav-number">0.1.</span> <span class="nav-text">1. 简单事实验证</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#2-%E4%BD%BF%E7%94%A8-FFT-%E8%AE%A1%E7%AE%97%E5%A4%9A%E9%A1%B9%E5%BC%8F-3x-2x-2-%E5%9C%A8%E7%82%B9-1-3-4-2-%E5%A4%84%E7%9A%84%E5%80%BC"><span class="nav-number">0.2.</span> <span class="nav-text">2. 使用 FFT 计算多项式 $$ 3x + 2x^2 $$ 在点 $$ {1,3,4,2} $$ 处的值</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#3-%E9%80%86FFT%E6%B1%82%E5%A4%9A%E9%A1%B9%E5%BC%8F%E7%B3%BB%E6%95%B0"><span class="nav-number">0.3.</span> <span class="nav-text">3. 逆FFT求多项式系数</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#4-%E6%A8%A15%E4%B8%8BFFT%E8%AE%A1%E7%AE%97%E5%A4%9A%E9%A1%B9%E5%BC%8F%E4%B9%98%E7%A7%AF"><span class="nav-number">0.4.</span> <span class="nav-text">4. 模5下FFT计算多项式乘积</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%9C%80%E7%BB%88%E4%BF%AE%E6%AD%A3%E7%AD%94%E6%A1%88"><span class="nav-number">1.</span> <span class="nav-text">最终修正答案</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#4"><span class="nav-number"></span> <span class="nav-text">4</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E9%97%AE%E9%A2%98%E5%88%86%E6%9E%90-1"><span class="nav-number">1.</span> <span class="nav-text">问题分析</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%85%B3%E9%94%AE%E6%AD%A5%E9%AA%A4"><span class="nav-number">2.</span> <span class="nav-text">关键步骤</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%BB%93%E8%AE%BA"><span class="nav-number">3.</span> <span class="nav-text">结论</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E9%AA%8C%E8%AF%81"><span class="nav-number">4.</span> <span class="nav-text">验证</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E9%97%AE%E9%A2%98%E9%87%8D%E8%BF%B0"><span class="nav-number">5.</span> <span class="nav-text">问题重述</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E8%A7%A3%E7%AD%94%E4%B8%8E%E5%88%86%E6%9E%90"><span class="nav-number">6.</span> <span class="nav-text">解答与分析</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#1-%E6%AD%A3%E4%BA%A4%E6%8A%95%E5%BD%B1%E5%AE%9A%E7%90%86"><span class="nav-number">6.1.</span> <span class="nav-text">1. 正交投影定理</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#2-%E6%AD%A3%E4%BA%A4%E6%80%A7%E9%AA%8C%E8%AF%81"><span class="nav-number">6.2.</span> <span class="nav-text">2. 正交性验证</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#3-%E6%9C%80%E5%B0%8F%E8%8C%83%E6%95%B0%E8%A7%A3"><span class="nav-number">6.3.</span> <span class="nav-text">3. 最小范数解</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%BB%93%E8%AE%BA%E9%AA%8C%E8%AF%81"><span class="nav-number">7.</span> <span class="nav-text">结论验证</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%9C%80%E7%BB%88%E7%AD%94%E6%A1%88"><span class="nav-number">8.</span> <span class="nav-text">最终答案</span></a></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="Chen Zhan"
+      src="/notes.github.io/images/woshicaigou.jpg">
+  <p class="site-author-name" itemprop="name">Chen Zhan</p>
+  <div class="site-description" itemprop="description"></div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/notes.github.io/archives/">
+        
+          <span class="site-state-item-count">23</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-tags">
+        <span class="site-state-item-count">3</span>
+        <span class="site-state-item-name">标签</span>
+      </div>
+  </nav>
+</div>
+
+
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+
+<div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2025</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Chen Zhan</span>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://pisces.theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Pisces</a> 强力驱动
+  </div>
+
+        
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/notes.github.io/lib/anime.min.js"></script>
+  <script src="/notes.github.io/lib/velocity/velocity.min.js"></script>
+  <script src="/notes.github.io/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/notes.github.io/js/utils.js"></script>
+
+<script src="/notes.github.io/js/motion.js"></script>
+
+
+<script src="/notes.github.io/js/schemes/pisces.js"></script>
+
+
+<script src="/notes.github.io/js/next-boot.js"></script>
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+      
+
+<script>
+  if (typeof MathJax === 'undefined') {
+    window.MathJax = {
+      loader: {
+        source: {
+          '[tex]/amsCd': '[tex]/amscd',
+          '[tex]/AMScd': '[tex]/amscd'
+        }
+      },
+      tex: {
+        inlineMath: {'[+]': [['$', '$']]},
+        tags: 'ams'
+      },
+      options: {
+        renderActions: {
+          findScript: [10, doc => {
+            document.querySelectorAll('script[type^="math/tex"]').forEach(node => {
+              const display = !!node.type.match(/; *mode=display/);
+              const math = new doc.options.MathItem(node.textContent, doc.inputJax[0], display);
+              const text = document.createTextNode('');
+              node.parentNode.replaceChild(text, node);
+              math.start = {node: text, delim: '', n: 0};
+              math.end = {node: text, delim: '', n: 0};
+              doc.math.push(math);
+            });
+          }, '', false],
+          insertedScript: [200, () => {
+            document.querySelectorAll('mjx-container').forEach(node => {
+              let target = node.parentNode;
+              if (target.nodeName.toLowerCase() === 'li') {
+                target.parentNode.classList.add('has-jax');
+              }
+            });
+          }, '', false]
+        }
+      }
+    };
+    (function () {
+      var script = document.createElement('script');
+      script.src = '//cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js?config=TeX-MML-AM_CHTML';
+      script.defer = true;
+      document.head.appendChild(script);
+    })();
+  } else {
+    MathJax.startup.document.state(0);
+    MathJax.texReset();
+    MathJax.typeset();
+  }
+</script>
+
+    
+
+  
+
+</body>
+</html>

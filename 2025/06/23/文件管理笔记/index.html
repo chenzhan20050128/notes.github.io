@@ -20,20 +20,20 @@
     var CONFIG = {"hostname":"chenzhan20050128.github.io","root":"/notes.github.io/","scheme":"Pisces","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":true,"show_result":true,"style":"mac"},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.json"};
   </script>
 
-  <meta name="description" content="用户打开文件表、系统打开文件表和主存活动inode表的作用及其相互关系：  1. 用户打开文件表（文件描述符表）  位置：位于每个进程的PCB（进程控制块）中，是一个名为files_struct的结构。 作用：  每个进程独立维护自己的打开文件列表，通过**文件描述符（fd）**来索引。 fd是一个整数（如0、1、2分别对应标准输入、输出、错误），是进程访问文件的句柄。   表项内容：  每个表项">
+  <meta name="description" content="用户打开文件表、系统打开文件表和主存活动inode表的作用及其相互关系： 1. 用户打开文件表（文件描述符表） 位置：位于每个进程的PCB（进程控制块）中，是一个名为files_struct的结构。 作用： 每个进程独立维护自己的打开文件列表，通过**文件描述符（fd）**来索引。 fd是一个整数（如0、1、2分别对应标准输入、输出、错误），是进程访问文件的句柄。   表项内容： 每个表项存储一个">
 <meta property="og:type" content="article">
 <meta property="og:title" content="文件管理笔记">
 <meta property="og:url" content="https://chenzhan20050128.github.io/notes.github.io/2025/06/23/%E6%96%87%E4%BB%B6%E7%AE%A1%E7%90%86%E7%AC%94%E8%AE%B0/index.html">
 <meta property="og:site_name" content="cz Blog">
-<meta property="og:description" content="用户打开文件表、系统打开文件表和主存活动inode表的作用及其相互关系：  1. 用户打开文件表（文件描述符表）  位置：位于每个进程的PCB（进程控制块）中，是一个名为files_struct的结构。 作用：  每个进程独立维护自己的打开文件列表，通过**文件描述符（fd）**来索引。 fd是一个整数（如0、1、2分别对应标准输入、输出、错误），是进程访问文件的句柄。   表项内容：  每个表项">
+<meta property="og:description" content="用户打开文件表、系统打开文件表和主存活动inode表的作用及其相互关系： 1. 用户打开文件表（文件描述符表） 位置：位于每个进程的PCB（进程控制块）中，是一个名为files_struct的结构。 作用： 每个进程独立维护自己的打开文件列表，通过**文件描述符（fd）**来索引。 fd是一个整数（如0、1、2分别对应标准输入、输出、错误），是进程访问文件的句柄。   表项内容： 每个表项存储一个">
 <meta property="og:locale" content="zh_CN">
-<meta property="og:image" content="https://chenzhan20050128.github.io/notes.github.io/2025/06/23/%E6%96%87%E4%BB%B6%E7%AE%A1%E7%90%86%E7%AC%94%E8%AE%B0/image.png">
+<meta property="og:image" content="https://chenzhan20050128.github.io/notes.github.io/image.png">
 <meta property="article:published_time" content="2025-06-23T04:25:29.000Z">
 <meta property="article:modified_time" content="2025-06-23T04:25:29.603Z">
 <meta property="article:author" content="Chen Zhan">
 <meta property="article:tag" content="操作系统往年卷&#x2F;2020-OS">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:image" content="https://chenzhan20050128.github.io/notes.github.io/2025/06/23/%E6%96%87%E4%BB%B6%E7%AE%A1%E7%90%86%E7%AC%94%E8%AE%B0/image.png">
+<meta name="twitter:image" content="https://chenzhan20050128.github.io/notes.github.io/image.png">
 
 <link rel="canonical" href="https://chenzhan20050128.github.io/notes.github.io/2025/06/23/%E6%96%87%E4%BB%B6%E7%AE%A1%E7%90%86%E7%AC%94%E8%AE%B0/">
 
@@ -195,98 +195,81 @@
     <div class="post-body" itemprop="articleBody">
 
       
-        <h2 id="用户打开文件表、系统打开文件表和主存活动inode表的作用及其相互关系：">用户打开文件表、系统打开文件表和主存活动inode表的作用及其相互关系：</h2>
-<hr>
-<h3 id="1-用户打开文件表（文件描述符表）">1. <strong>用户打开文件表（文件描述符表）</strong></h3>
-<ul>
+        <h2 id="用户打开文件表、系统打开文件表和主存活动inode表的作用及其相互关系："><a href="#用户打开文件表、系统打开文件表和主存活动inode表的作用及其相互关系：" class="headerlink" title="用户打开文件表、系统打开文件表和主存活动inode表的作用及其相互关系："></a>用户打开文件表、系统打开文件表和主存活动inode表的作用及其相互关系：</h2><hr>
+<h3 id="1-用户打开文件表（文件描述符表）"><a href="#1-用户打开文件表（文件描述符表）" class="headerlink" title="1. 用户打开文件表（文件描述符表）"></a>1. <strong>用户打开文件表（文件描述符表）</strong></h3><ul>
 <li><strong>位置</strong>：位于每个进程的PCB（进程控制块）中，是一个名为<code>files_struct</code>的结构。</li>
-<li><strong>作用</strong>：
-<ul>
+<li><strong>作用</strong>：<ul>
 <li>每个进程独立维护自己的打开文件列表，通过**文件描述符（fd）**来索引。</li>
 <li><code>fd</code>是一个整数（如0、1、2分别对应标准输入、输出、错误），是进程访问文件的句柄。</li>
 </ul>
 </li>
-<li><strong>表项内容</strong>：
-<ul>
+<li><strong>表项内容</strong>：<ul>
 <li>每个表项存储一个指针（<code>fp</code>），指向<strong>系统打开文件表</strong>中的某个表项（<code>file</code>结构）。</li>
 </ul>
 </li>
-<li><strong>特点</strong>：
-<ul>
+<li><strong>特点</strong>：<ul>
 <li>进程通过<code>fd</code>操作文件时，内核会通过<code>fp</code>找到系统级文件信息。</li>
 <li>不同进程的<code>fd</code>可能指向同一个系统打开文件表项（例如父子进程继承文件描述符）。</li>
 </ul>
 </li>
 </ul>
 <hr>
-<h3 id="2-系统打开文件表（file-struct）">2. <strong>系统打开文件表（file_struct）</strong></h3>
-<ul>
+<h3 id="2-系统打开文件表（file-struct）"><a href="#2-系统打开文件表（file-struct）" class="headerlink" title="2. 系统打开文件表（file_struct）"></a>2. <strong>系统打开文件表（file_struct）</strong></h3><ul>
 <li><strong>位置</strong>：内核内存区，全局共享，最多256项（具体数量取决于内核配置）。</li>
-<li><strong>作用</strong>：
-<ul>
+<li><strong>作用</strong>：<ul>
 <li>解决多进程共享文件或同一文件被多次打开的问题。</li>
 <li>每次打开文件（即使同一文件）会创建一个独立的<code>file</code>结构，记录<strong>当前操作的上下文</strong>。</li>
 </ul>
 </li>
-<li><strong>表项内容</strong>：
-<ul>
+<li><strong>表项内容</strong>：<ul>
 <li>文件当前偏移量（读写位置）。</li>
 <li>文件访问模式（读、写、追加等）。</li>
 <li>指向<strong>主存活动inode</strong>的指针。</li>
 </ul>
 </li>
-<li><strong>关键特性</strong>：
-<ul>
+<li><strong>关键特性</strong>：<ul>
 <li><strong>多file对应一个inode</strong>：同一文件被多次打开时，每个<code>file</code>有自己的偏移量，但共享同一个inode。</li>
 <li><strong>父子进程共享</strong>：子进程继承父进程的<code>file</code>结构，共享偏移量（除非显式调用<code>dup</code>或<code>fork</code>后独立操作）。</li>
 </ul>
 </li>
 </ul>
 <hr>
-<h3 id="3-主存活动inode表">3. <strong>主存活动inode表</strong></h3>
-<ul>
+<h3 id="3-主存活动inode表"><a href="#3-主存活动inode表" class="headerlink" title="3. 主存活动inode表"></a>3. <strong>主存活动inode表</strong></h3><ul>
 <li><strong>位置</strong>：内核内存区，缓存频繁访问的磁盘inode。</li>
-<li><strong>作用</strong>：
-<ul>
+<li><strong>作用</strong>：<ul>
 <li>避免每次文件操作都从磁盘读取inode，提升性能。</li>
 <li>维护文件的<strong>元数据</strong>（如权限、大小、磁盘块位置等）。</li>
 </ul>
 </li>
-<li><strong>表项内容</strong>：
-<ul>
+<li><strong>表项内容</strong>：<ul>
 <li>磁盘inode的完整信息（如UID、GID、大小、时间戳等）。</li>
 <li>文件数据块的磁盘地址。</li>
 <li>引用计数（被多少个<code>file</code>结构引用）。</li>
 </ul>
 </li>
-<li><strong>关键特性</strong>：
-<ul>
+<li><strong>关键特性</strong>：<ul>
 <li><strong>动态加载</strong>：当文件被打开时，其inode从磁盘调入内存；引用计数为0时可能被回收。</li>
 <li><strong>共享与同步</strong>：多个<code>file</code>可能指向同一个inode，修改inode会反映到所有关联的<code>file</code>（如文件大小变化）。</li>
 </ul>
 </li>
 </ul>
 <hr>
-<h3 id="三者的协作流程">三者的协作流程</h3>
-<ol>
-<li>
-<p><strong>进程打开文件</strong>：</p>
+<h3 id="三者的协作流程"><a href="#三者的协作流程" class="headerlink" title="三者的协作流程"></a>三者的协作流程</h3><ol>
+<li><p><strong>进程打开文件</strong>：</p>
 <ul>
 <li>内核在<strong>主存活动inode表</strong>中查找或加载文件的inode。</li>
 <li>创建<strong>系统打开文件表</strong>项（<code>file</code>结构），初始化偏移量等，并指向inode。</li>
 <li>在进程的<strong>用户打开文件表</strong>中分配一个<code>fd</code>，指向对应的<code>file</code>结构。</li>
 </ul>
 </li>
-<li>
-<p><strong>进程读写文件</strong>：</p>
+<li><p><strong>进程读写文件</strong>：</p>
 <ul>
 <li>通过<code>fd</code>找到<code>file</code>结构，获取当前偏移量。</li>
 <li>通过<code>file</code>找到inode，进而定位磁盘数据块。</li>
 <li>更新<code>file</code>中的偏移量（除非是<code>O_APPEND</code>模式，此时直接同步inode中的文件大小）。</li>
 </ul>
 </li>
-<li>
-<p><strong>文件关闭</strong>：</p>
+<li><p><strong>文件关闭</strong>：</p>
 <ul>
 <li>释放<code>fd</code>，减少<code>file</code>和inode的引用计数。</li>
 <li>若inode引用计数为0，可能写回磁盘并释放内存。</li>
@@ -296,75 +279,60 @@
 <hr>
 <p>以下是文件创建过程 <code>create(&quot;path&quot;, 0775)</code> 的详细步骤解析，结合文件系统的磁盘和内存结构：</p>
 <hr>
-<h3 id="1-目录检索与inode分配"><strong>1. 目录检索与inode分配</strong></h3>
-<ul>
-<li><strong>目录检索</strong>：
-<ul>
+<h3 id="1-目录检索与inode分配"><a href="#1-目录检索与inode分配" class="headerlink" title="1. 目录检索与inode分配"></a><strong>1. 目录检索与inode分配</strong></h3><ul>
+<li><strong>目录检索</strong>：<ul>
 <li>内核解析路径<code>&quot;path&quot;</code>，逐级查找目录项（如<code>/</code> → <code>path</code>），确认父目录存在且用户有写权限。</li>
 <li>检查<code>path</code>下是否已存在同名文件，若存在则可能报错（除非指定覆盖）。</li>
 </ul>
 </li>
-<li><strong>分配磁盘inode</strong>：
-<ul>
+<li><strong>分配磁盘inode</strong>：<ul>
 <li>从磁盘的<strong>空闲inode位图</strong>中找到一个未使用的inode编号（假设为<code>inode_num</code>）。</li>
 <li>在磁盘的<strong>inode表</strong>中初始化该inode的元数据（如<code>i_mode=0775</code>、<code>i_nlink=1</code>、<code>i_size=0</code>等）。</li>
 </ul>
 </li>
-<li><strong>更新目录</strong>：
-<ul>
+<li><strong>更新目录</strong>：<ul>
 <li>在父目录的数据块中添加新目录项，格式为：<code>（文件名：newfile, inode编号：inode_num）</code>。</li>
 </ul>
 </li>
 </ul>
 <hr>
-<h3 id="2-主存活动inode表初始化"><strong>2. 主存活动inode表初始化</strong></h3>
-<ul>
-<li><strong>加载inode到内存</strong>：
-<ul>
+<h3 id="2-主存活动inode表初始化"><a href="#2-主存活动inode表初始化" class="headerlink" title="2. 主存活动inode表初始化"></a><strong>2. 主存活动inode表初始化</strong></h3><ul>
+<li><strong>加载inode到内存</strong>：<ul>
 <li>将磁盘上刚分配的<code>inode_num</code>对应的inode读入<strong>主存活动inode表</strong>。</li>
-<li>初始化内存中的inode结构：<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">i_mode = <span class="number">0775</span>;     <span class="comment">// 文件权限：rwxrwxr-x</span></span><br><span class="line">i_nlink = <span class="number">1</span>;       <span class="comment">// 初始链接数（仅当前目录项引用）</span></span><br><span class="line">i_uid = 调用进程UID; <span class="comment">// 文件所有者</span></span><br><span class="line">i_gid = 调用进程GID; <span class="comment">// 文件所属组</span></span><br><span class="line">i_size = <span class="number">0</span>;        <span class="comment">// 初始文件大小为0</span></span><br><span class="line">i_blocks = <span class="number">0</span>;      <span class="comment">// 尚未分配磁盘块</span></span><br></pre></td></tr></table></figure>
-</li>
+<li>初始化内存中的inode结构：<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">i_mode = <span class="number">0775</span>;     <span class="comment">// 文件权限：rwxrwxr-x</span></span><br><span class="line">i_nlink = <span class="number">1</span>;       <span class="comment">// 初始链接数（仅当前目录项引用）</span></span><br><span class="line">i_uid = 调用进程UID; <span class="comment">// 文件所有者</span></span><br><span class="line">i_gid = 调用进程GID; <span class="comment">// 文件所属组</span></span><br><span class="line">i_size = <span class="number">0</span>;        <span class="comment">// 初始文件大小为0</span></span><br><span class="line">i_blocks = <span class="number">0</span>;      <span class="comment">// 尚未分配磁盘块</span></span><br></pre></td></tr></table></figure></li>
 </ul>
 </li>
 <li><strong>引用计数</strong>：活动inode的引用计数置为1（被即将创建的<code>file</code>结构引用）。</li>
 </ul>
 <hr>
-<h3 id="3-系统打开文件表（file-struct）初始化"><strong>3. 系统打开文件表（file_struct）初始化</strong></h3>
-<ul>
-<li><strong>分配file结构</strong>：
-<ul>
+<h3 id="3-系统打开文件表（file-struct）初始化"><a href="#3-系统打开文件表（file-struct）初始化" class="headerlink" title="3. 系统打开文件表（file_struct）初始化"></a><strong>3. 系统打开文件表（file_struct）初始化</strong></h3><ul>
+<li><strong>分配file结构</strong>：<ul>
 <li>在全局的<strong>系统打开文件表</strong>中分配一个空闲表项（<code>struct file</code>）。</li>
-<li>初始化关键字段：<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">f_mode = O_WRONLY | O_CREAT; <span class="comment">// 以写方式创建</span></span><br><span class="line">f_offset = <span class="number">0</span>;                <span class="comment">// 初始读写位置为文件开头</span></span><br><span class="line">f_flags = 写特征位;           <span class="comment">// 标记为可写</span></span><br><span class="line">f_inode = 活动inode的指针;    <span class="comment">// 指向内存中的inode</span></span><br><span class="line">f_count = <span class="number">1</span>;                 <span class="comment">// 引用计数（被用户打开文件表引用）</span></span><br></pre></td></tr></table></figure>
-</li>
+<li>初始化关键字段：<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">f_mode = O_WRONLY | O_CREAT; <span class="comment">// 以写方式创建</span></span><br><span class="line">f_offset = <span class="number">0</span>;                <span class="comment">// 初始读写位置为文件开头</span></span><br><span class="line">f_flags = 写特征位;           <span class="comment">// 标记为可写</span></span><br><span class="line">f_inode = 活动inode的指针;    <span class="comment">// 指向内存中的inode</span></span><br><span class="line">f_count = <span class="number">1</span>;                 <span class="comment">// 引用计数（被用户打开文件表引用）</span></span><br></pre></td></tr></table></figure></li>
 </ul>
 </li>
 </ul>
 <hr>
-<h3 id="4-用户打开文件表（文件描述符表）关联"><strong>4. 用户打开文件表（文件描述符表）关联</strong></h3>
-<ul>
-<li><strong>分配文件描述符（fd）</strong>：
-<ul>
+<h3 id="4-用户打开文件表（文件描述符表）关联"><a href="#4-用户打开文件表（文件描述符表）关联" class="headerlink" title="4. 用户打开文件表（文件描述符表）关联"></a><strong>4. 用户打开文件表（文件描述符表）关联</strong></h3><ul>
+<li><strong>分配文件描述符（fd）</strong>：<ul>
 <li>在调用进程的<code>files_struct</code>（用户打开文件表）中找到一个最小空闲序号（如<code>fd=3</code>）。</li>
 <li>将该表项的指针指向刚创建的<strong>系统打开文件表项</strong>（<code>file</code>结构）。</li>
 </ul>
 </li>
-<li><strong>返回fd</strong>：
-<ul>
+<li><strong>返回fd</strong>：<ul>
 <li>将<code>fd</code>（如<code>3</code>）返回给用户进程，后续通过<code>fd</code>操作文件。</li>
 </ul>
 </li>
 </ul>
 <hr>
-<h3 id="5-指针连接关系"><strong>5. 指针连接关系</strong></h3>
-<p>最终数据结构间的关联如下：</p>
+<h3 id="5-指针连接关系"><a href="#5-指针连接关系" class="headerlink" title="5. 指针连接关系"></a><strong>5. 指针连接关系</strong></h3><p>最终数据结构间的关联如下：</p>
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">进程PCB → files_struct[fd] → file_struct → 活动inode → 磁盘inode</span><br></pre></td></tr></table></figure>
 <ul>
 <li><strong>用户层</strong>：通过<code>fd</code>（如<code>3</code>）读写文件。</li>
 <li><strong>内核层</strong>：通过<code>file</code>结构管理当前打开实例的偏移量，通过<code>inode</code>管理文件元数据。</li>
 </ul>
 <hr>
-<h3 id="示例流程"><strong>示例流程</strong></h3>
-<p>用户调用<code>create(&quot;dir/newfile&quot;, 0775)</code>：</p>
+<h3 id="示例流程"><a href="#示例流程" class="headerlink" title="示例流程"></a><strong>示例流程</strong></h3><p>用户调用<code>create(&quot;dir/newfile&quot;, 0775)</code>：</p>
 <ol>
 <li>检查<code>dir</code>是否存在，权限合法。</li>
 <li>分配磁盘inode（假设<code>inode_num=100</code>），初始化磁盘inode。</li>
@@ -372,46 +340,32 @@
 <li>内存中加载inode 100，设置权限、链接数等。</li>
 <li>创建<code>file</code>结构，关联inode，返回<code>fd=3</code>给进程。</li>
 </ol>
-<h2 id="f-count-和-i-count"><code>f_count</code> 和 <code>i_count</code></h2>
-<hr>
-<h3 id="1-f-count（文件表项引用计数）"><strong>1. <code>f_count</code>（文件表项引用计数）</strong></h3>
-<ul>
-<li><strong>位置</strong>：<br>
-<code>f_count</code> 位于 <strong>系统打开文件表（File Table）的表项</strong> 中。
-<ul>
-<li>系统打开文件表是一个内核全局数据结构，每个表项（<code>struct file</code>）包含：<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">struct</span> <span class="title">file</span> &#123;</span></span><br><span class="line">    <span class="type">mode_t</span> f_mode;      <span class="comment">// 文件访问模式</span></span><br><span class="line">    <span class="type">loff_t</span> f_pos;       <span class="comment">// 当前读写偏移（f_offset）</span></span><br><span class="line">    <span class="type">atomic_t</span> f_count;   <span class="comment">// 引用计数（f_count）</span></span><br><span class="line">    <span class="class"><span class="keyword">struct</span> <span class="title">inode</span> *<span class="title">f_inode</span>;</span> <span class="comment">// 指向对应的 inode</span></span><br><span class="line">    <span class="comment">// 其他字段...</span></span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
-</li>
+<h2 id="f-count-和-i-count"><a href="#f-count-和-i-count" class="headerlink" title="f_count 和 i_count"></a><code>f_count</code> 和 <code>i_count</code></h2><hr>
+<h3 id="1-f-count（文件表项引用计数）"><a href="#1-f-count（文件表项引用计数）" class="headerlink" title="1. f_count（文件表项引用计数）"></a><strong>1. <code>f_count</code>（文件表项引用计数）</strong></h3><ul>
+<li><strong>位置</strong>：<br><code>f_count</code> 位于 <strong>系统打开文件表（File Table）的表项</strong> 中。  <ul>
+<li>系统打开文件表是一个内核全局数据结构，每个表项（<code>struct file</code>）包含：<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">struct</span> <span class="title">file</span> &#123;</span></span><br><span class="line">    <span class="type">mode_t</span> f_mode;      <span class="comment">// 文件访问模式</span></span><br><span class="line">    <span class="type">loff_t</span> f_pos;       <span class="comment">// 当前读写偏移（f_offset）</span></span><br><span class="line">    <span class="type">atomic_t</span> f_count;   <span class="comment">// 引用计数（f_count）</span></span><br><span class="line">    <span class="class"><span class="keyword">struct</span> <span class="title">inode</span> *<span class="title">f_inode</span>;</span> <span class="comment">// 指向对应的 inode</span></span><br><span class="line">    <span class="comment">// 其他字段...</span></span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure></li>
 </ul>
 </li>
-<li><strong>作用</strong>：<br>
-记录有多少个 <strong>用户打开文件表项（即进程的文件描述符）</strong> 引用了该系统打开文件表项。
-<ul>
+<li><strong>作用</strong>：<br>记录有多少个 <strong>用户打开文件表项（即进程的文件描述符）</strong> 引用了该系统打开文件表项。  <ul>
 <li>当进程通过 <code>dup()</code>、<code>fork()</code> 或多次 <code>open()</code> 同一个文件时，多个文件描述符可能共享同一个系统打开文件表项，此时 <code>f_count</code> 会递增。</li>
 <li>关闭文件时，<code>f_count</code> 减 1；若变为 0，则释放该系统打开文件表项。</li>
 </ul>
 </li>
 </ul>
 <hr>
-<h3 id="2-i-count（活动-inode-引用计数）"><strong>2. <code>i_count</code>（活动 inode 引用计数）</strong></h3>
-<ul>
-<li><strong>位置</strong>：<br>
-<code>i_count</code> 位于 <strong>内存中的活动 inode（VFS inode）</strong> 中（<code>struct inode</code>）。
-<ul>
-<li>活动 inode 是内核为已打开文件维护的运行时数据结构，与磁盘上的静态 inode 分离：<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">struct</span> <span class="title">inode</span> &#123;</span></span><br><span class="line">    <span class="type">atomic_t</span> i_count;    <span class="comment">// 引用计数（i_count）</span></span><br><span class="line">    <span class="type">unsigned</span> <span class="type">long</span> i_nlink; <span class="comment">// 磁盘 inode 的硬链接数</span></span><br><span class="line">    <span class="class"><span class="keyword">struct</span> <span class="title">super_block</span> *<span class="title">i_sb</span>;</span> <span class="comment">// 所属文件系统</span></span><br><span class="line">    <span class="comment">// 其他字段...</span></span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
-</li>
+<h3 id="2-i-count（活动-inode-引用计数）"><a href="#2-i-count（活动-inode-引用计数）" class="headerlink" title="2. i_count（活动 inode 引用计数）"></a><strong>2. <code>i_count</code>（活动 inode 引用计数）</strong></h3><ul>
+<li><strong>位置</strong>：<br><code>i_count</code> 位于 <strong>内存中的活动 inode（VFS inode）</strong> 中（<code>struct inode</code>）。  <ul>
+<li>活动 inode 是内核为已打开文件维护的运行时数据结构，与磁盘上的静态 inode 分离：<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">struct</span> <span class="title">inode</span> &#123;</span></span><br><span class="line">    <span class="type">atomic_t</span> i_count;    <span class="comment">// 引用计数（i_count）</span></span><br><span class="line">    <span class="type">unsigned</span> <span class="type">long</span> i_nlink; <span class="comment">// 磁盘 inode 的硬链接数</span></span><br><span class="line">    <span class="class"><span class="keyword">struct</span> <span class="title">super_block</span> *<span class="title">i_sb</span>;</span> <span class="comment">// 所属文件系统</span></span><br><span class="line">    <span class="comment">// 其他字段...</span></span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure></li>
 </ul>
 </li>
-<li><strong>作用</strong>：<br>
-记录有多少个 <strong>系统打开文件表项</strong> 或 <strong>内核其他模块</strong> 引用了该活动 inode。
-<ul>
+<li><strong>作用</strong>：<br>记录有多少个 <strong>系统打开文件表项</strong> 或 <strong>内核其他模块</strong> 引用了该活动 inode。  <ul>
 <li>当不同进程通过不同路径（不同 <code>open()</code> 调用）访问同一文件时，每个 <code>open()</code> 会创建独立的系统打开文件表项，但这些表项指向同一个活动 inode，此时 <code>i_count</code> 递增。</li>
 <li>关闭文件时，<code>i_count</code> 减 1；若变为 0，则将内存中的活动 inode 写回磁盘（若脏）并释放。</li>
 </ul>
 </li>
 </ul>
 <hr>
-<h3 id="关键区别"><strong>关键区别</strong></h3>
-<table>
+<h3 id="关键区别"><a href="#关键区别" class="headerlink" title="关键区别"></a><strong>关键区别</strong></h3><table>
 <thead>
 <tr>
 <th>计数器</th>
@@ -419,8 +373,7 @@
 <th>作用场景</th>
 </tr>
 </thead>
-<tbody>
-<tr>
+<tbody><tr>
 <td><code>f_count</code></td>
 <td>系统打开文件表（<code>struct file</code>）</td>
 <td>跟踪共享同一个 <strong>文件偏移和状态</strong> 的进程（如 <code>fork()</code> 或 <code>dup()</code> 产生的共享）。</td>
@@ -430,40 +383,28 @@
 <td>内存中的活动 inode（<code>struct inode</code>）</td>
 <td>跟踪共享同一个 <strong>文件数据</strong> 的进程（如不同进程独立调用 <code>open()</code> 同一个文件）。</td>
 </tr>
-</tbody>
-</table>
+</tbody></table>
 <hr>
-<h3 id="示例场景"><strong>示例场景</strong></h3>
-<ol>
-<li>
-<p><strong><code>f_count &gt; 1</code></strong>：<br>
-进程 A 和 B 通过 <code>fork()</code> 共享同一个文件描述符，它们会共用同一个系统打开文件表项（<code>f_count=2</code>），读写偏移同步变化。</p>
+<h3 id="示例场景"><a href="#示例场景" class="headerlink" title="示例场景"></a><strong>示例场景</strong></h3><ol>
+<li><p><strong><code>f_count &gt; 1</code></strong>：<br>进程 A 和 B 通过 <code>fork()</code> 共享同一个文件描述符，它们会共用同一个系统打开文件表项（<code>f_count=2</code>），读写偏移同步变化。</p>
 </li>
-<li>
-<p><strong><code>i_count &gt; 1</code></strong>：<br>
-进程 A 和 B 分别调用 <code>open(&quot;/tmp/file&quot;)</code>，生成两个独立的系统打开文件表项（<code>f_count=1</code> 每个），但指向同一个活动 inode（<code>i_count=2</code>），读写偏移独立。</p>
+<li><p><strong><code>i_count &gt; 1</code></strong>：<br>进程 A 和 B 分别调用 <code>open(&quot;/tmp/file&quot;)</code>，生成两个独立的系统打开文件表项（<code>f_count=1</code> 每个），但指向同一个活动 inode（<code>i_count=2</code>），读写偏移独立。</p>
 </li>
 </ol>
 <hr>
-<h3 id="重点：为什么不在磁盘-inode-中？">重点：<strong>为什么不在磁盘 inode 中？</strong></h3>
-<ul>
-<li>磁盘上的 inode 是静态的，仅记录文件的持久属性（如权限、大小、数据块位置等）。</li>
+<h3 id="重点：为什么不在磁盘-inode-中？"><a href="#重点：为什么不在磁盘-inode-中？" class="headerlink" title="重点：为什么不在磁盘 inode 中？"></a>重点：<strong>为什么不在磁盘 inode 中？</strong></h3><ul>
+<li>磁盘上的 inode 是静态的，仅记录文件的持久属性（如权限、大小、数据块位置等）。  </li>
 <li><code>i_count</code> 和 <code>f_count</code> 是运行时动态共享的临时状态，由内核在内存中管理，无需持久化到磁盘。</li>
 </ul>
-<p>你提到的教材内容涉及<strong>文件系统的挂载（Mounting）和硬链接（Hard Link）的限制</strong>，这是操作系统管理多磁盘/分区时的重要机制。下面我会逐步拆解这段话的含义，并用实例说明。</p>
+<p>你提到的教材内容涉及<strong>文件系统的挂载（Mounting）和硬链接（Hard Link）的限制</strong>，这是操作系统管理多磁盘&#x2F;分区时的重要机制。下面我会逐步拆解这段话的含义，并用实例说明。</p>
 <hr>
-<h3 id="1-单磁盘-vs-多磁盘的文件目录树"><strong>1. 单磁盘 vs 多磁盘的文件目录树</strong></h3>
-<h4 id="1-Windows-风格（多棵目录树）"><strong>(1) Windows 风格（多棵目录树）</strong></h4>
-<ul>
-<li><strong>盘符分配</strong>：每个物理磁盘或分区被分配一个盘符（如 <code>C:\</code>、<code>D:\</code>），形成独立的目录树。
-<ul>
-<li>例如：
-<ul>
+<h3 id="1-单磁盘-vs-多磁盘的文件目录树"><a href="#1-单磁盘-vs-多磁盘的文件目录树" class="headerlink" title="1. 单磁盘 vs 多磁盘的文件目录树"></a><strong>1. 单磁盘 vs 多磁盘的文件目录树</strong></h3><h4 id="1-Windows-风格（多棵目录树）"><a href="#1-Windows-风格（多棵目录树）" class="headerlink" title="(1) Windows 风格（多棵目录树）"></a><strong>(1) Windows 风格（多棵目录树）</strong></h4><ul>
+<li><strong>盘符分配</strong>：每个物理磁盘或分区被分配一个盘符（如 <code>C:\</code>、<code>D:\</code>），形成独立的目录树。<ul>
+<li>例如：<ul>
 <li><code>C:\Users\file.txt</code> 和 <code>D:\Data\file.txt</code> 是两棵完全独立的目录树。</li>
 </ul>
 </li>
-<li><strong>特点</strong>：
-<ul>
+<li><strong>特点</strong>：<ul>
 <li>不同磁盘的文件路径通过盘符区分，inode 号只需在各自磁盘内唯一。</li>
 <li>跨磁盘访问文件需明确指定盘符（如 <code>D:\Data\file.txt</code>）。</li>
 </ul>
@@ -471,18 +412,14 @@
 </ul>
 </li>
 </ul>
-<h4 id="2-UNIX-Linux-风格（单棵目录树）"><strong>(2) UNIX/Linux 风格（单棵目录树）</strong></h4>
-<ul>
-<li><strong>挂载（Mounting）</strong>：所有磁盘/分区通过挂载到根目录（<code>/</code>）下的某个子目录，整合成一棵统一的目录树。
-<ul>
-<li>例如：
-<ul>
+<h4 id="2-UNIX-Linux-风格（单棵目录树）"><a href="#2-UNIX-Linux-风格（单棵目录树）" class="headerlink" title="(2) UNIX&#x2F;Linux 风格（单棵目录树）"></a><strong>(2) UNIX&#x2F;Linux 风格（单棵目录树）</strong></h4><ul>
+<li><strong>挂载（Mounting）</strong>：所有磁盘&#x2F;分区通过挂载到根目录（<code>/</code>）下的某个子目录，整合成一棵统一的目录树。<ul>
+<li>例如：<ul>
 <li>根文件系统挂载在 <code>/</code>，另一个磁盘挂载到 <code>/mnt/disk2</code>。</li>
 <li>文件路径可能是 <code>/home/user/file.txt</code>（根磁盘）和 <code>/mnt/disk2/file.txt</code>（另一磁盘）。</li>
 </ul>
 </li>
-<li><strong>特点</strong>：
-<ul>
+<li><strong>特点</strong>：<ul>
 <li>用户看到的是单一的目录树，无需关心文件实际在哪个磁盘。</li>
 <li>不同磁盘的 inode 号可能重复（因为各自文件系统独立管理 inode）。</li>
 </ul>
@@ -491,30 +428,23 @@
 </li>
 </ul>
 <hr>
-<h3 id="2-Inode-的唯一性问题"><strong>2. Inode 的唯一性问题</strong></h3>
-<ul>
-<li><strong>Inode 的本质</strong>：
-<ul>
+<h3 id="2-Inode-的唯一性问题"><a href="#2-Inode-的唯一性问题" class="headerlink" title="2. Inode 的唯一性问题"></a><strong>2. Inode 的唯一性问题</strong></h3><ul>
+<li><strong>Inode 的本质</strong>：<ul>
 <li>Inode 是文件系统内部的元数据结构，用于标识文件（存储权限、大小、数据块位置等）。</li>
 <li><strong>Inode 号仅在同一个文件系统内唯一</strong>。</li>
 </ul>
 </li>
-<li><strong>多磁盘/分区的冲突</strong>：
-<ul>
+<li><strong>多磁盘&#x2F;分区的冲突</strong>：<ul>
 <li>磁盘A 和 磁盘B 可能同时存在 inode 号为 <code>100</code> 的文件，但这两个文件完全不同。</li>
 <li>当挂载后整合成一棵目录树时，系统如何区分这两个 inode <code>100</code>？</li>
 </ul>
 </li>
 </ul>
-<h4 id="解决方案："><strong>解决方案</strong>：</h4>
-<ul>
-<li><strong>文件系统挂载隔离</strong>：
-<ul>
+<h4 id="解决方案："><a href="#解决方案：" class="headerlink" title="解决方案："></a><strong>解决方案</strong>：</h4><ul>
+<li><strong>文件系统挂载隔离</strong>：<ul>
 <li>内核会记录每个挂载点的文件系统信息（如设备ID）。</li>
-<li>访问文件时，内核不仅检查 inode 号，还会确认其所属的文件系统。
-<ul>
-<li>例如：
-<ul>
+<li>访问文件时，内核不仅检查 inode 号，还会确认其所属的文件系统。<ul>
+<li>例如：<ul>
 <li><code>/home/file</code>（inode 100，设备ID 1）</li>
 <li><code>/mnt/disk2/file</code>（inode 100，设备ID 2）</li>
 <li>系统通过设备ID + inode 号唯一标识文件。</li>
@@ -526,66 +456,51 @@
 </li>
 </ul>
 <hr>
-<h3 id="3-为什么禁止跨文件系统的硬链接？"><strong>3. 为什么禁止跨文件系统的硬链接？</strong></h3>
-<h4 id="1-硬链接的实现原理"><strong>(1) 硬链接的实现原理</strong></h4>
-<ul>
-<li>硬链接本质是<strong>多个目录项指向同一个 inode</strong>。
-<ul>
-<li>例如：
-<ul>
+<h3 id="3-为什么禁止跨文件系统的硬链接？"><a href="#3-为什么禁止跨文件系统的硬链接？" class="headerlink" title="3. 为什么禁止跨文件系统的硬链接？"></a><strong>3. 为什么禁止跨文件系统的硬链接？</strong></h3><h4 id="1-硬链接的实现原理"><a href="#1-硬链接的实现原理" class="headerlink" title="(1) 硬链接的实现原理"></a><strong>(1) 硬链接的实现原理</strong></h4><ul>
+<li>硬链接本质是<strong>多个目录项指向同一个 inode</strong>。<ul>
+<li>例如：<ul>
 <li>创建硬链接：<code>ln /disk1/file /disk2/link</code>。</li>
 <li>此时 <code>/disk1/file</code> 和 <code>/disk2/link</code> 的目录项会指向相同的 inode。</li>
 </ul>
 </li>
 </ul>
 </li>
-<li><strong>硬链接的限制</strong>：
-<ul>
+<li><strong>硬链接的限制</strong>：<ul>
 <li>硬链接必须与目标文件在同一个文件系统内（即相同的设备ID）。</li>
 <li>因为不同文件系统的 inode 号可能重复，无法跨文件系统唯一标识文件。</li>
 </ul>
 </li>
 </ul>
-<h4 id="2-跨文件系统的后果"><strong>(2) 跨文件系统的后果</strong></h4>
-<ul>
-<li>假设允许跨文件系统硬链接：
-<ul>
+<h4 id="2-跨文件系统的后果"><a href="#2-跨文件系统的后果" class="headerlink" title="(2) 跨文件系统的后果"></a><strong>(2) 跨文件系统的后果</strong></h4><ul>
+<li>假设允许跨文件系统硬链接：<ul>
 <li><code>ln /disk1/file /disk2/link</code>（<code>disk1</code> 和 <code>disk2</code> 是不同的文件系统）。</li>
 <li>若 <code>disk1</code> 的 inode <code>100</code> 和 <code>disk2</code> 的 inode <code>100</code> 冲突，系统无法区分该链接指向哪个文件。</li>
 <li>文件系统卸载时，硬链接可能指向无效数据。</li>
 </ul>
 </li>
 </ul>
-<h4 id="3-替代方案：软链接（符号链接）"><strong>(3) 替代方案：软链接（符号链接）</strong></h4>
-<ul>
-<li>软链接是一个独立文件，存储目标文件的路径（而非 inode）。
-<ul>
-<li>例如：
-<ul>
+<h4 id="3-替代方案：软链接（符号链接）"><a href="#3-替代方案：软链接（符号链接）" class="headerlink" title="(3) 替代方案：软链接（符号链接）"></a><strong>(3) 替代方案：软链接（符号链接）</strong></h4><ul>
+<li>软链接是一个独立文件，存储目标文件的路径（而非 inode）。<ul>
+<li>例如：<ul>
 <li><code>ln -s /disk1/file /disk2/link</code>（允许跨文件系统）。</li>
 </ul>
 </li>
-<li>特点：
-<ul>
+<li>特点：<ul>
 <li>可以跨文件系统。</li>
-<li>若目标文件被删除，软链接会失效（“悬空链接”）。</li>
+<li>若目标文件被删除，软链接会失效（”悬空链接”）。</li>
 </ul>
 </li>
 </ul>
 </li>
 </ul>
-<h2 id="成组链接法">成组链接法</h2>
-<p>成组链接法是一种高效管理磁盘空闲块的方法，结合了分组和链表的思想，通过减少磁盘I/O操作提升性能。以下是其分配和归还算法的详细解释：</p>
-<h3 id="成组链接法的核心结构"><strong>成组链接法的核心结构</strong></h3>
-<ul>
+<h2 id="成组链接法"><a href="#成组链接法" class="headerlink" title="成组链接法"></a>成组链接法</h2><p>成组链接法是一种高效管理磁盘空闲块的方法，结合了分组和链表的思想，通过减少磁盘I&#x2F;O操作提升性能。以下是其分配和归还算法的详细解释：</p>
+<h3 id="成组链接法的核心结构"><a href="#成组链接法的核心结构" class="headerlink" title="成组链接法的核心结构"></a><strong>成组链接法的核心结构</strong></h3><ul>
 <li><strong>分组管理</strong>：空闲块被划分为多个组，每组包含若干空闲块及指向下一组的指针。</li>
 <li><strong>超级块</strong>：驻留在内存中，记录当前组的信息，包括空闲块数量、下一组指针及当前组的空闲块列表。初始时加载第一个组的信息。</li>
 </ul>
-<h3 id="分配算法"><strong>分配算法</strong></h3>
-<ol>
+<h3 id="分配算法"><a href="#分配算法" class="headerlink" title="分配算法"></a><strong>分配算法</strong></h3><ol>
 <li><strong>检查当前组</strong>：若超级块中空闲块数量 &gt; 0，直接分配一个块（通常从列表末尾取出），并减少空闲块计数。</li>
-<li><strong>组耗尽处理</strong>：若当前组空闲块计数减至0：
-<ul>
+<li><strong>组耗尽处理</strong>：若当前组空闲块计数减至0：<ul>
 <li>读取当前组指向的下一组的头信息（通过下一组指针）。</li>
 <li>将下一组的信息加载到超级块中，更新空闲块列表和指针。</li>
 <li>若无下一组（指针为空），表明无空闲块可分配，返回错误。</li>
@@ -597,11 +512,9 @@
 <li>当前组有100个块，分配第100个块后计数为0。</li>
 <li>将下一组（如块200）的信息加载到超级块，后续分配从新组继续。</li>
 </ul>
-<h3 id="归还算法"><strong>归还算法</strong></h3>
-<ol>
+<h3 id="归还算法"><a href="#归还算法" class="headerlink" title="归还算法"></a><strong>归还算法</strong></h3><ol>
 <li><strong>直接归还</strong>：若当前组未满（空闲块数 &lt; 组大小上限），将释放的块加入空闲列表，计数加1。</li>
-<li><strong>组已满处理</strong>：若当前组已满：
-<ul>
+<li><strong>组已满处理</strong>：若当前组已满：<ul>
 <li>将超级块当前信息（计数、下一组指针、空闲列表）写入待释放块。</li>
 <li>更新超级块：下一组指针指向该释放块，空闲列表重置为仅含此块，计数设为1。</li>
 </ul>
@@ -612,37 +525,28 @@
 <li>当前组已满100块，释放块300。</li>
 <li>将当前组信息存入块300，超级块指向块300，空闲列表为[300]，计数为1。</li>
 </ul>
-<h3 id="优势与特点"><strong>优势与特点</strong></h3>
-<ul>
-<li><strong>减少I/O操作</strong>：通过内存中的超级块批量处理，仅在组切换时访问磁盘。</li>
+<h3 id="优势与特点"><a href="#优势与特点" class="headerlink" title="优势与特点"></a><strong>优势与特点</strong></h3><ul>
+<li><strong>减少I&#x2F;O操作</strong>：通过内存中的超级块批量处理，仅在组切换时访问磁盘。</li>
 <li><strong>高效链表管理</strong>：通过分组形成链式结构，避免遍历长链表。</li>
 <li><strong>动态扩展</strong>：释放时自动生成新组，适应空间变化。</li>
 </ul>
-<h3 id="关键细节"><strong>关键细节</strong></h3>
-<ul>
+<h3 id="关键细节"><a href="#关键细节" class="headerlink" title="关键细节"></a><strong>关键细节</strong></h3><ul>
 <li><strong>组头结构</strong>：每个组的首个块存储下一组指针、本组空闲块数及空闲块列表。</li>
 <li><strong>超级块作用</strong>：作为缓存，加速分配和释放操作。</li>
 </ul>
-<h3 id="总结"><strong>总结</strong></h3>
-<p>成组链接法通过分组和链表的结合，优化了空闲块管理。分配时优先使用当前组，耗尽后切换；归还时若组满则创建新组。这种设计显著降低了磁盘访问频率，提升了存储管理效率。</p>
-<p><img src="image.png" alt="alt text"></p>
-<p>理解你的问题！你描述的流程是文件访问中<strong>从用户态系统调用到物理I/O操作</strong>的完整操作系统处理链条，包含了逻辑文件控制、访问控制、物理文件控制和I/O执行四层子系统。让我们通过一个具体例子来演示全过程：</p>
+<h3 id="总结"><a href="#总结" class="headerlink" title="总结"></a><strong>总结</strong></h3><p>成组链接法通过分组和链表的结合，优化了空闲块管理。分配时优先使用当前组，耗尽后切换；归还时若组满则创建新组。这种设计显著降低了磁盘访问频率，提升了存储管理效率。</p>
+<p><img src="/notes.github.io/image.png" alt="alt text"></p>
+<p>理解你的问题！你描述的流程是文件访问中<strong>从用户态系统调用到物理I&#x2F;O操作</strong>的完整操作系统处理链条，包含了逻辑文件控制、访问控制、物理文件控制和I&#x2F;O执行四层子系统。让我们通过一个具体例子来演示全过程：</p>
 <hr>
-<h3 id="📂-案例场景">📂 案例场景</h3>
-<p><strong>用户操作</strong>：运行程序执行 <code>read(fd, buf, 4096)</code>，读取文件 <code>/home/user/data.txt</code> 的4KB数据（该文件大小为8KB，存储在Ext4文件系统上）</p>
+<h3 id="📂-案例场景"><a href="#📂-案例场景" class="headerlink" title="📂 案例场景"></a>📂 案例场景</h3><p><strong>用户操作</strong>：运行程序执行 <code>read(fd, buf, 4096)</code>，读取文件 <code>/home/user/data.txt</code> 的4KB数据（该文件大小为8KB，存储在Ext4文件系统上）</p>
 <hr>
-<h3 id="🔄-操作系统处理全过程（分层解析）">🔄 操作系统处理全过程（分层解析）</h3>
-<h4 id="✅-第1层：用户接口与语法检查">✅ 第1层：用户接口与语法检查</h4>
-<ol>
-<li><strong>系统调用触发</strong>
-<ul>
+<h3 id="🔄-操作系统处理全过程（分层解析）"><a href="#🔄-操作系统处理全过程（分层解析）" class="headerlink" title="🔄 操作系统处理全过程（分层解析）"></a>🔄 操作系统处理全过程（分层解析）</h3><h4 id="✅-第1层：用户接口与语法检查"><a href="#✅-第1层：用户接口与语法检查" class="headerlink" title="✅ 第1层：用户接口与语法检查"></a>✅ 第1层：用户接口与语法检查</h4><ol>
+<li><strong>系统调用触发</strong>  <ul>
 <li>用户程序调用 <code>read(fd, buf, 4096)</code>，通过软中断（如 <code>syscall</code>指令）进入内核态</li>
 </ul>
 </li>
-<li><strong>语法检查</strong>
-<ul>
-<li>内核检查：
-<ul>
+<li><strong>语法检查</strong>  <ul>
+<li>内核检查：<ul>
 <li><code>fd</code> 是否有效（是否存在进程打开文件表中）</li>
 <li><code>buf</code> 地址是否在用户空间合法</li>
 <li><code>size</code> 是否为非负整数</li>
@@ -656,17 +560,13 @@
 <p>✅ <strong>进入逻辑文件控制子系统</strong></p>
 </blockquote>
 <hr>
-<h4 id="✅-第2层：逻辑文件控制子系统">✅ 第2层：逻辑文件控制子系统</h4>
-<ol>
-<li><strong>路径解析</strong>
-<ul>
-<li>通过 <code>fd</code> 找到文件描述符表 → 打开文件表项 → inode编号（假设inode=123）</li>
+<h4 id="✅-第2层：逻辑文件控制子系统"><a href="#✅-第2层：逻辑文件控制子系统" class="headerlink" title="✅ 第2层：逻辑文件控制子系统"></a>✅ 第2层：逻辑文件控制子系统</h4><ol>
+<li><strong>路径解析</strong>  <ul>
+<li>通过 <code>fd</code> 找到文件描述符表 → 打开文件表项 → inode编号（假设inode&#x3D;123）</li>
 </ul>
 </li>
-<li><strong>文件结构解析</strong>
-<ul>
-<li>查询inode元数据：
-<ul>
+<li><strong>文件结构解析</strong>  <ul>
+<li>查询inode元数据：<ul>
 <li>文件大小：8192 Bytes</li>
 <li>块大小：4KB（Ext4默认）</li>
 <li>物理结构：Extent树（现代Ext4结构）</li>
@@ -674,12 +574,10 @@
 </li>
 </ul>
 </li>
-<li><strong>逻辑地址转换</strong>
-<ul>
-<li>计算当前读写位置（假设偏移量 <code>offset=0</code>）：
-<ul>
-<li><strong>逻辑块号</strong> = <code>offset / block_size = 0</code></li>
-<li><strong>块内偏移</strong> = <code>0</code></li>
+<li><strong>逻辑地址转换</strong>  <ul>
+<li>计算当前读写位置（假设偏移量 <code>offset=0</code>）：<ul>
+<li><strong>逻辑块号</strong> &#x3D; <code>offset / block_size = 0</code></li>
+<li><strong>块内偏移</strong> &#x3D; <code>0</code></li>
 </ul>
 </li>
 <li>此次读取只需一个完整块（4KB）</li>
@@ -690,26 +588,21 @@
 <p>📊 输出：目标数据在<strong>逻辑块0</strong>（文件内相对位置）</p>
 </blockquote>
 <hr>
-<h4 id="✅-第3层：文件保护子系统">✅ 第3层：文件保护子系统</h4>
-<ol>
-<li><strong>身份识别</strong>
-<ul>
-<li>获取调用进程的UID/GID（假设UID=1000）</li>
+<h4 id="✅-第3层：文件保护子系统"><a href="#✅-第3层：文件保护子系统" class="headerlink" title="✅ 第3层：文件保护子系统"></a>✅ 第3层：文件保护子系统</h4><ol>
+<li><strong>身份识别</strong>  <ul>
+<li>获取调用进程的UID&#x2F;GID（假设UID&#x3D;1000）</li>
 </ul>
 </li>
-<li><strong>权限验证</strong>
-<ul>
+<li><strong>权限验证</strong>  <ul>
 <li>检查inode权限位：<code>-rw-r--r--</code></li>
-<li>比对：
-<ul>
+<li>比对：  <ul>
 <li>所有者权限：1000可读写 → <strong>允许读操作</strong></li>
 <li>其他用户：只读权限 → 符合要求</li>
 </ul>
 </li>
 </ul>
 </li>
-<li><strong>访问控制</strong>
-<ul>
+<li><strong>访问控制</strong>  <ul>
 <li>若配置了SELinux：检查进程上下文标签是否允许读取该文件</li>
 </ul>
 </li>
@@ -718,74 +611,58 @@
 <p>🔐 验证通过，允许操作</p>
 </blockquote>
 <hr>
-<h4 id="✅-第4层：物理文件控制子系统">✅ 第4层：物理文件控制子系统</h4>
-<ol>
-<li><strong>缓存管理</strong>
-<ul>
-<li>查询页缓存（Page Cache）：
-<ul>
+<h4 id="✅-第4层：物理文件控制子系统"><a href="#✅-第4层：物理文件控制子系统" class="headerlink" title="✅ 第4层：物理文件控制子系统"></a>✅ 第4层：物理文件控制子系统</h4><ol>
+<li><strong>缓存管理</strong>  <ul>
+<li>查询页缓存（Page Cache）：<ul>
 <li>逻辑块0是否已缓存 → 假设未命中</li>
 </ul>
 </li>
 </ul>
 </li>
-<li><strong>物理地址转换</strong>
-<ul>
+<li><strong>物理地址转换</strong>  <ul>
 <li>通过inode的Extent树查找逻辑块0 → 物理块号（如磁盘块号1024）</li>
 </ul>
 </li>
-<li><strong>空间管理</strong>
-<ul>
+<li><strong>空间管理</strong>  <ul>
 <li>读操作无需分配新空间</li>
 </ul>
 </li>
-<li><strong>I/O请求封装</strong>
-<ul>
-<li>构造bio请求：<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">struct</span> <span class="title">bio</span> &#123;</span></span><br><span class="line">   .bi_sector = <span class="number">1024</span> * <span class="number">8</span>,   <span class="comment">// 1024块 * 每块8扇区</span></span><br><span class="line">   .bi_size   = <span class="number">4096</span>,       <span class="comment">// 请求大小</span></span><br><span class="line">   .bi_io_vec → 指向内核缓存页</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-</li>
+<li><strong>I&#x2F;O请求封装</strong>  <ul>
+<li>构造bio请求：  <figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">struct</span> <span class="title">bio</span> &#123;</span></span><br><span class="line">   .bi_sector = <span class="number">1024</span> * <span class="number">8</span>,   <span class="comment">// 1024块 * 每块8扇区</span></span><br><span class="line">   .bi_size   = <span class="number">4096</span>,       <span class="comment">// 请求大小</span></span><br><span class="line">   .bi_io_vec → 指向内核缓存页</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></li>
 </ul>
 </li>
 </ol>
 <blockquote>
-<p>💾 输出：物理I/O请求（从磁盘块1024读取4KB数据）</p>
+<p>💾 输出：物理I&#x2F;O请求（从磁盘块1024读取4KB数据）</p>
 </blockquote>
 <hr>
-<h4 id="✅-第5层：I-O控制子系统">✅ 第5层：I/O控制子系统</h4>
-<ol>
-<li><strong>I/O调度</strong>
-<ul>
+<h4 id="✅-第5层：I-O控制子系统"><a href="#✅-第5层：I-O控制子系统" class="headerlink" title="✅ 第5层：I&#x2F;O控制子系统"></a>✅ 第5层：I&#x2F;O控制子系统</h4><ol>
+<li><strong>I&#x2F;O调度</strong>  <ul>
 <li>请求加入块设备队列（如deadline调度器）</li>
-<li>可能合并相邻I/O请求（本例无相邻请求）</li>
+<li>可能合并相邻I&#x2F;O请求（本例无相邻请求）</li>
 </ul>
 </li>
-<li><strong>驱动执行</strong>
-<ul>
-<li>SATA磁盘流程：<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">sequenceDiagram</span><br><span class="line">   CPU-&gt;&gt;磁盘控制器： 发送DMA命令 (LBA=8192, size=4096)</span><br><span class="line">   磁盘控制器-&gt;&gt;磁盘缓存： 读取数据到控制器缓存</span><br><span class="line">   磁盘控制器-&gt;&gt;内存： DMA传输到内核缓存页</span><br><span class="line">   磁盘控制器-&gt;&gt;CPU： 触发中断 IRQ 45</span><br></pre></td></tr></table></figure>
-</li>
+<li><strong>驱动执行</strong>  <ul>
+<li>SATA磁盘流程：<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">sequenceDiagram</span><br><span class="line">   CPU-&gt;&gt;磁盘控制器： 发送DMA命令 (LBA=8192, size=4096)</span><br><span class="line">   磁盘控制器-&gt;&gt;磁盘缓存： 读取数据到控制器缓存</span><br><span class="line">   磁盘控制器-&gt;&gt;内存： DMA传输到内核缓存页</span><br><span class="line">   磁盘控制器-&gt;&gt;CPU： 触发中断 IRQ 45</span><br></pre></td></tr></table></figure></li>
 </ul>
 </li>
-<li><strong>中断处理</strong>
-<ul>
-<li>中断服务例程(ISR)确认I/O完成</li>
+<li><strong>中断处理</strong>  <ul>
+<li>中断服务例程(ISR)确认I&#x2F;O完成</li>
 <li>唤醒等待进程</li>
 </ul>
 </li>
 </ol>
 <hr>
-<h3 id="🔄-最终结果交付">🔄 最终结果交付</h3>
-<ol>
-<li><strong>数据拷贝</strong>
-<ul>
+<h3 id="🔄-最终结果交付"><a href="#🔄-最终结果交付" class="headerlink" title="🔄 最终结果交付"></a>🔄 最终结果交付</h3><ol>
+<li><strong>数据拷贝</strong>  <ul>
 <li>从内核缓存页复制4096字节到用户空间<code>buf</code></li>
 </ul>
 </li>
-<li><strong>更新元数据</strong>
-<ul>
+<li><strong>更新元数据</strong>  <ul>
 <li>文件偏移量更新：<code>offset += 4096</code></li>
 </ul>
 </li>
-<li><strong>用户态返回</strong>
-<ul>
+<li><strong>用户态返回</strong>  <ul>
 <li>系统调用返回成功读取字节数：<strong>4096</strong></li>
 </ul>
 </li>
@@ -808,12 +685,12 @@
         
     <div class="post-nav">
       <div class="post-nav-item">
-    <a href="/notes.github.io/2025/06/23/%E5%B9%B6%E5%8F%91%E7%BC%96%E7%A8%8B/" rel="prev" title="操作系统：并发编程">
-      <i class="fa fa-chevron-left"></i> 操作系统：并发编程
+    <a href="/notes.github.io/2025/06/23/%E8%AE%BE%E5%A4%87%E7%AE%A1%E7%90%86%E7%AC%94%E8%AE%B0/" rel="prev" title="设备管理笔记">
+      <i class="fa fa-chevron-left"></i> 设备管理笔记
     </a></div>
       <div class="post-nav-item">
-    <a href="/notes.github.io/2025/06/23/%E5%A4%8D%E4%B9%A0%E7%AC%94%E8%AE%B0/" rel="next" title="操作系统：第二章复习笔记">
-      操作系统：第二章复习笔记 <i class="fa fa-chevron-right"></i>
+    <a href="/notes.github.io/2025/06/23/%E4%BD%9C%E4%B8%9A2PV%E9%A2%98%E7%9B%AE%E6%95%B4%E7%90%86/" rel="next" title="作业2PV题目整理">
+      作业2PV题目整理 <i class="fa fa-chevron-right"></i>
     </a></div>
     </div>
       </footer>
@@ -981,10 +858,58 @@
 
   
       
-<link rel="stylesheet" href="//cdn.jsdelivr.net/npm/katex@0/dist/katex.min.css">
-  <script src="//cdn.jsdelivr.net/npm/katex@0/dist/contrib/copy-tex.min.js"></script>
-  <link rel="stylesheet" href="//cdn.jsdelivr.net/npm/katex@0/dist/contrib/copy-tex.min.css">
 
+<script>
+  if (typeof MathJax === 'undefined') {
+    window.MathJax = {
+      loader: {
+        source: {
+          '[tex]/amsCd': '[tex]/amscd',
+          '[tex]/AMScd': '[tex]/amscd'
+        }
+      },
+      tex: {
+        inlineMath: {'[+]': [['$', '$']]},
+        tags: 'ams'
+      },
+      options: {
+        renderActions: {
+          findScript: [10, doc => {
+            document.querySelectorAll('script[type^="math/tex"]').forEach(node => {
+              const display = !!node.type.match(/; *mode=display/);
+              const math = new doc.options.MathItem(node.textContent, doc.inputJax[0], display);
+              const text = document.createTextNode('');
+              node.parentNode.replaceChild(text, node);
+              math.start = {node: text, delim: '', n: 0};
+              math.end = {node: text, delim: '', n: 0};
+              doc.math.push(math);
+            });
+          }, '', false],
+          insertedScript: [200, () => {
+            document.querySelectorAll('mjx-container').forEach(node => {
+              let target = node.parentNode;
+              if (target.nodeName.toLowerCase() === 'li') {
+                target.parentNode.classList.add('has-jax');
+              }
+            });
+          }, '', false]
+        }
+      }
+    };
+    (function () {
+      var script = document.createElement('script');
+      script.src = '//cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js?config=TeX-MML-AM_CHTML';
+      script.defer = true;
+      document.head.appendChild(script);
+    })();
+  } else {
+    MathJax.startup.document.state(0);
+    MathJax.texReset();
+    MathJax.typeset();
+  }
+</script>
+
+    
 
   
 

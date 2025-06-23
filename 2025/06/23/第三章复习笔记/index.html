@@ -20,24 +20,24 @@
     var CONFIG = {"hostname":"chenzhan20050128.github.io","root":"/notes.github.io/","scheme":"Pisces","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":true,"show_result":true,"style":"mac"},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.json"};
   </script>
 
-  <meta name="description" content="可变分区方式的内存分配 内存分配算法整理    算法 分配策略 优点 缺点 适用场景     最先适应 (First-Fit) 从头找第一个足够大的 简单高效，适合大作业 低&#x2F;高地址利用不均，回收麻烦 通用   邻近适应 (Next-Fit) 从上次位置开始找 查找更快，空间均衡 可能分割大空闲区 中等负载   最优适应 (Best-Fit) 找最小的足够大的 减少大分区浪费 产生小碎片，查找慢">
+  <meta name="description" content="可变分区方式的内存分配内存分配算法整理   算法 分配策略 优点 缺点 适用场景    最先适应 (First-Fit) 从头找第一个足够大的 简单高效，适合大作业 低&#x2F;高地址利用不均，回收麻烦 通用   邻近适应 (Next-Fit) 从上次位置开始找 查找更快，空间均衡 可能分割大空闲区 中等负载   最优适应 (Best-Fit) 找最小的足够大的 减少大分区浪费 产生小碎片，查找">
 <meta property="og:type" content="article">
 <meta property="og:title" content="操作系统：第三章复习笔记">
 <meta property="og:url" content="https://chenzhan20050128.github.io/notes.github.io/2025/06/23/%E7%AC%AC%E4%B8%89%E7%AB%A0%E5%A4%8D%E4%B9%A0%E7%AC%94%E8%AE%B0/index.html">
 <meta property="og:site_name" content="cz Blog">
-<meta property="og:description" content="可变分区方式的内存分配 内存分配算法整理    算法 分配策略 优点 缺点 适用场景     最先适应 (First-Fit) 从头找第一个足够大的 简单高效，适合大作业 低&#x2F;高地址利用不均，回收麻烦 通用   邻近适应 (Next-Fit) 从上次位置开始找 查找更快，空间均衡 可能分割大空闲区 中等负载   最优适应 (Best-Fit) 找最小的足够大的 减少大分区浪费 产生小碎片，查找慢">
+<meta property="og:description" content="可变分区方式的内存分配内存分配算法整理   算法 分配策略 优点 缺点 适用场景    最先适应 (First-Fit) 从头找第一个足够大的 简单高效，适合大作业 低&#x2F;高地址利用不均，回收麻烦 通用   邻近适应 (Next-Fit) 从上次位置开始找 查找更快，空间均衡 可能分割大空闲区 中等负载   最优适应 (Best-Fit) 找最小的足够大的 减少大分区浪费 产生小碎片，查找">
 <meta property="og:locale" content="zh_CN">
-<meta property="og:image" content="https://chenzhan20050128.github.io/notes.github.io/2025/06/23/%E7%AC%AC%E4%B8%89%E7%AB%A0%E5%A4%8D%E4%B9%A0%E7%AC%94%E8%AE%B0/image-13.png">
-<meta property="og:image" content="https://chenzhan20050128.github.io/notes.github.io/2025/06/23/%E7%AC%AC%E4%B8%89%E7%AB%A0%E5%A4%8D%E4%B9%A0%E7%AC%94%E8%AE%B0/image-14.png">
-<meta property="og:image" content="https://chenzhan20050128.github.io/notes.github.io/2025/06/23/%E7%AC%AC%E4%B8%89%E7%AB%A0%E5%A4%8D%E4%B9%A0%E7%AC%94%E8%AE%B0/image-15.png">
-<meta property="og:image" content="https://chenzhan20050128.github.io/notes.github.io/2025/06/23/%E7%AC%AC%E4%B8%89%E7%AB%A0%E5%A4%8D%E4%B9%A0%E7%AC%94%E8%AE%B0/image-16.png">
-<meta property="og:image" content="https://chenzhan20050128.github.io/notes.github.io/2025/06/23/%E7%AC%AC%E4%B8%89%E7%AB%A0%E5%A4%8D%E4%B9%A0%E7%AC%94%E8%AE%B0/image-17.png">
+<meta property="og:image" content="https://chenzhan20050128.github.io/notes.github.io/image-13.png">
+<meta property="og:image" content="https://chenzhan20050128.github.io/notes.github.io/image-14.png">
+<meta property="og:image" content="https://chenzhan20050128.github.io/notes.github.io/image-15.png">
+<meta property="og:image" content="https://chenzhan20050128.github.io/notes.github.io/image-16.png">
+<meta property="og:image" content="https://chenzhan20050128.github.io/notes.github.io/image-17.png">
 <meta property="article:published_time" content="2025-06-23T04:25:29.000Z">
 <meta property="article:modified_time" content="2025-06-23T04:26:30.441Z">
 <meta property="article:author" content="Chen Zhan">
 <meta property="article:tag" content="操作系统往年卷">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:image" content="https://chenzhan20050128.github.io/notes.github.io/2025/06/23/%E7%AC%AC%E4%B8%89%E7%AB%A0%E5%A4%8D%E4%B9%A0%E7%AC%94%E8%AE%B0/image-13.png">
+<meta name="twitter:image" content="https://chenzhan20050128.github.io/notes.github.io/image-13.png">
 
 <link rel="canonical" href="https://chenzhan20050128.github.io/notes.github.io/2025/06/23/%E7%AC%AC%E4%B8%89%E7%AB%A0%E5%A4%8D%E4%B9%A0%E7%AC%94%E8%AE%B0/">
 
@@ -200,9 +200,7 @@
     <div class="post-body" itemprop="articleBody">
 
       
-        <h2 id="可变分区方式的内存分配">可变分区方式的内存分配</h2>
-<h3 id="内存分配算法整理"><strong>内存分配算法整理</strong></h3>
-<table>
+        <h2 id="可变分区方式的内存分配"><a href="#可变分区方式的内存分配" class="headerlink" title="可变分区方式的内存分配"></a>可变分区方式的内存分配</h2><h3 id="内存分配算法整理"><a href="#内存分配算法整理" class="headerlink" title="内存分配算法整理"></a><strong>内存分配算法整理</strong></h3><table>
 <thead>
 <tr>
 <th>算法</th>
@@ -212,12 +210,11 @@
 <th>适用场景</th>
 </tr>
 </thead>
-<tbody>
-<tr>
+<tbody><tr>
 <td><strong>最先适应 (First-Fit)</strong></td>
 <td>从头找第一个足够大的</td>
 <td>简单高效，适合大作业</td>
-<td>低/高地址利用不均，回收麻烦</td>
+<td>低&#x2F;高地址利用不均，回收麻烦</td>
 <td>通用</td>
 </tr>
 <tr>
@@ -248,19 +245,10 @@
 <td>合并复杂，额外开销</td>
 <td>特定场景</td>
 </tr>
-</tbody>
-</table>
+</tbody></table>
 <p><strong>最常用</strong>：最先适应（简单高效） &gt; 邻近适应 &gt; 最优适应。</p>
-<h2 id="外部碎片-内部碎片">外部碎片 内部碎片</h2>
-<p>内部零头（Internal Fragmentation）​<br>
-​定义：分配给进程的内存块比实际需求大，导致块内部有未使用的空间。<br>
-外部零头（External Fragmentation）​<br>
-​定义：内存中存在多个分散的小空闲区，但每个单独的空闲区都太小，无法满足进程需求。<br>
-​最先适应（First-Fit）​：倾向于使用低地址的大空闲区，可能保留高地址的大块空闲区，外零头较少。<br>
-​最坏适应（Worst-Fit）​：总是分配最大的空闲区，减少小碎片产生，但可能耗尽大分区。<br>
-​最优适应（Best-Fit）​：​最激进地切割空闲区，故外零头问题最严重。</p>
-<h1>页式存储管理</h1>
-<table>
+<h2 id="外部碎片-内部碎片"><a href="#外部碎片-内部碎片" class="headerlink" title="外部碎片 内部碎片"></a>外部碎片 内部碎片</h2><p>内部零头（Internal Fragmentation）​<br>​定义：分配给进程的内存块比实际需求大，导致块内部有未使用的空间。<br>外部零头（External Fragmentation）​<br>​定义：内存中存在多个分散的小空闲区，但每个单独的空闲区都太小，无法满足进程需求。<br>​最先适应（First-Fit）​：倾向于使用低地址的大空闲区，可能保留高地址的大块空闲区，外零头较少。<br>​最坏适应（Worst-Fit）​：总是分配最大的空闲区，减少小碎片产生，但可能耗尽大分区。<br>​最优适应（Best-Fit）​：​最激进地切割空闲区，故外零头问题最严重。</p>
+<h1 id="页式存储管理"><a href="#页式存储管理" class="headerlink" title="页式存储管理"></a>页式存储管理</h1><table>
 <thead>
 <tr>
 <th><strong>概念</strong></th>
@@ -268,143 +256,46 @@
 <th><strong>作用</strong></th>
 </tr>
 </thead>
-<tbody>
-<tr>
+<tbody><tr>
 <td><strong>页号</strong></td>
 <td>进程虚拟地址空间的逻辑划分单元编号（如4KB一页的序号）</td>
 <td>标识虚拟内存中的逻辑页位置</td>
 </tr>
 <tr>
 <td><strong>页框号</strong></td>
-<td>物理内存中实际存储块的编号（与页大小相同的物理块，也称页帧号/Physical Frame）</td>
+<td>物理内存中实际存储块的编号（与页大小相同的物理块，也称页帧号&#x2F;Physical Frame）</td>
 <td>定位数据在物理内存中的实际存储位置</td>
 </tr>
-</tbody>
-</table>
-<p><strong>关键区别</strong>：</p>
+</tbody></table>
+<p><strong>关键区别</strong>：  </p>
 <ul>
-<li>页号属于<strong>虚拟地址空间</strong>（进程视角），页框号属于<strong>物理地址空间</strong>（硬件视角）。</li>
-<li>页表的核心功能就是完成<strong>页号→页框号</strong>的映射（如下图所示）：<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">虚拟地址 = [页号][页内偏移] </span><br><span class="line">          ↓ 页表转换</span><br><span class="line">物理地址 = [页框号][页内偏移]</span><br></pre></td></tr></table></figure>
-</li>
+<li>页号属于<strong>虚拟地址空间</strong>（进程视角），页框号属于<strong>物理地址空间</strong>（硬件视角）。  </li>
+<li>页表的核心功能就是完成<strong>页号→页框号</strong>的映射（如下图所示）：  <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">虚拟地址 = [页号][页内偏移] </span><br><span class="line">          ↓ 页表转换</span><br><span class="line">物理地址 = [页框号][页内偏移]</span><br></pre></td></tr></table></figure>
+<img src="/notes.github.io/image-13.png" alt="alt text"></li>
 </ul>
-<p><img src="image-13.png" alt="alt text"></p>
-<h2 id="反置页表">反置页表</h2>
-<p>正向页表（每个进程一个）：​<br>
-​索引：​ 虚拟页号 (VPN)<br>
-​表项内容：​ 物理页框号 (PFN) + 标志位<br>
-​大小：​ 与进程的虚拟地址空间大小成正比（每个可能的虚拟页都有一个表项，即使该页未使用）。<br>
-​反置页表（整个系统一个）：​<br>
-​索引：​ 物理页框号 (PFN) (隐含在表项位置中)<br>
-​表项内容：​ 进程ID (PID) + 虚拟页号 (VPN) + 标志位<br>
-​大小：​ 与物理内存大小成正比（每个物理页框对应一个表项）。<br>
-适用场景：​ 主要用在物理内存相对较小而虚拟地址空间非常大的系统中（如64位系统），或者嵌入式系统等资源受限环境。<br>
-反置页表的页表项<br>
-页号：虚拟地址页号<br>
-进程标志符：使用该页的进程号(页号和进程标志符结合起来标志一个特定进程的虚拟地址空间的一页)<br>
-标志位：有效、引用、修改、保护和锁定等标志信息<br>
-链指针：哈希链，如果某个项没有链项，则该域为空(允许用一个单独的位来表示)<br>
-<img src="image-14.png" alt="alt text"></p>
-<h2 id="段式">段式</h2>
-<p>页式存储管理中页的划分对程序员不可见。<br>
-段式存储管理中段的划分对程序员可见。<br>
-分段是信息的逻辑单位，由源程序的逻辑结构所决定，用户可见<br>
-段长可根据用户需要来规定，段起始地址可从任何主存地址开始。<br>
-分段方式中，源程序(段号，段内位移)经连结装配后地址仍保持二维结构。<br>
-分页是信息的物理单位，与源程序的逻辑结构无关，用户不可见，<br>
-页长由系统确定，页面只能以页大小的整倍数地址开始<br>
-分页方式中，源程序(页号，页内位移)经连结装配后地址变成了一维结构<br>
-<img src="image-15.png" alt="alt text"></p>
-<p>传统教科书中的段页式 = ​分段（逻辑划分）+ 分页（物理划分）​：<br>
-程序地址空间被划分为逻辑段​（代码、数据、堆、栈等）。<br>
-每个逻辑段被独立分页​（即段内地址再被拆分为页号和页内偏移）。<br>
-​硬件流程：CPU生成地址（段号, 段内偏移）→ 段表 → 得到段基址和线性地址 → 线性地址通过页表 → 物理地址。</p>
-<h2 id="页式">页式</h2>
-<p>需要扩充页表项，至少包含如上信息，指出：<br>
-主存驻留标志：指出页面是否已经装入内存。1表示在内存中可以被正常访问，0表示不能立即访问，产生缺页异常。<br>
-修改位：被设置后，该页被调出内存前必须先写回磁盘，保障数据一致性<br>
-保护位：限制页面访问权限<br>
-引用位：在页面被引用无论是读写时设置，用来帮助系统进行页面淘汰。<br>
-内存块号：页面对应的页框号，用来地址转换</p>
-<p><img src="image-16.png" alt="alt text"><br>
-维度	全局替换	局部替换<br>
-置换范围	全系统物理帧	当前进程分配的帧<br>
-帧分配方式	动态（按需调整）	静态（预先固定）<br>
-公平性	低（强者通吃）	高（隔离保护）<br>
-适用场景	通用计算（如Linux/Windows）	实时系统、嵌入式系统</p>
-<h1>全局页面替换策略</h1>
-<h2 id="OPT页面调度算法-Belady算法">OPT页面调度算法(Belady算法)</h2>
-<p>算法描述：当要调入新页面时，首先淘汰以后不再访问的页，然后选择距现在最长时间后再访问的页。<br>
-该方法由Belady提出，称为BeLady算法，又称最佳算法(OPT)<br>
-OPT只可以模拟，不可以实现，因为永远无法预知之后的事情。<br>
-这种算法可以用作衡量其他各种算法的标准</p>
-<h2 id="先进先出页面调度算法-FIFO">先进先出页面调度算法(FIFO)</h2>
-<p>算法描述：首先淘汰最先调入主存的那一页，或者说主存驻留时间最长的那一页(常驻的除外)<br>
-模拟的是程序执行的顺序性，有一定合理性，并不能很好模拟程序的循环性。<br>
-根据估计，缺页中断率也是最佳算法的2-3倍。<br>
-<img src="image-17.png" alt="alt text"></p>
-<h2 id="最近最少用LRU页面调度算法">最近最少用LRU页面调度算法</h2>
-<p>淘汰最近一段时间较久未被访问的那一页，即那些刚被使用过的页面，可以马上还要被使用到。<br>
-模拟了程序执行的局部属性，既考虑了循环性，又兼顾了顺序性<br>
-LRU算法得到模拟实现：模拟是相当的不严谨，非常粗粒度的一个模拟。<br>
-引用位法：每页建立一个引用标志，供硬件使用，设置一个时间间隔中断，发生时将页引用标志置0，访问页面时将引用标志置为1，页面置换的时候选择标志为0的页面，在选中淘汰页时，将所有的页的引用为全部置为0<br>
-计数法：每页添加页面引用计数器，根据计数器选择最小的，定时清空页面引用计数器<br>
-计时法：每页添加计时单元，引用时，将绝对时间记录进入计时单元，定时清空计时单元。<br>
-老化算法：设置一个多位寄存器，被访问将最左侧设置为1，定时将寄存器右移，缺页中断时找到最小值的寄存器界面淘汰，被采用较多。</p>
-<h2 id="第二次机会页面替换算法-SCR，Second-Chance-Replacement">第二次机会页面替换算法(SCR，Second Chance Replacement)</h2>
-<p>将FIFO算法和页表中引用位结合。<br>
-算法描述：<br>
-首先检查FIFO页面队列队首<br>
-引用位为0，则淘汰该页面<br>
-引用位为1，将引用位清0，并将该页面移到队列尾部<br>
-如果第一遍全为1，则循环</p>
-<h2 id="最不常用LFU的页面调度算法">最不常用LFU的页面调度算法</h2>
-<p>淘汰最近一段时间内访问次数较少的页面，对OPT的模拟性比LRU更好<br>
-算法过程：基于时间间隔中断，并给每一页设置一个计数器，时间间隔中断发生后，所有计数器清0，每访问页1次就给计数器加1，选择计数最小的页面淘汰</p>
-<h2 id="伙伴算法与slab">伙伴算法与slab</h2>
-<p>伙伴系统的分配和回收过程<br>
-分配过程：当系统需要内存时，从对应大小的链表中查找空闲块。如果没有找到，就向更大的内存块查找，并将其分裂为合适的大小进行分配。</p>
-<p>伙伴系统分配内存的过程较为复杂。首先，当系统需要内存时，会根据所需内存的大小确定对应的页阶（order）。然后从对应页阶的链表中查找空闲块。如果在该链表中没有找到空闲块，就会向更大页阶的链表查找。例如，当需要一个 128 个页的页块时，先检查 128 个页的页块链表是否有空闲块。如果没有，则查 256 个页的页块链表；如果有空闲块的话，则将 256 个页的页块分成两份，一份使用，一份插入 128 个页的页块链表中。如果还是没有，就查 512 个页的页块链表；如果有的话，就分裂为 128、128、256 三个页块，一个 128 的使用，剩余两个插入对应页块链表。<br>
-其实伙伴系统算法有如下3个基本条件需要满足：</p>
+<h2 id="反置页表"><a href="#反置页表" class="headerlink" title="反置页表"></a>反置页表</h2><p>正向页表（每个进程一个）：​<br>​索引：​ 虚拟页号 (VPN)<br>​表项内容：​ 物理页框号 (PFN) + 标志位<br>​大小：​ 与进程的虚拟地址空间大小成正比（每个可能的虚拟页都有一个表项，即使该页未使用）。<br>​反置页表（整个系统一个）：​<br>​索引：​ 物理页框号 (PFN) (隐含在表项位置中)<br>​表项内容：​ 进程ID (PID) + 虚拟页号 (VPN) + 标志位<br>​大小：​ 与物理内存大小成正比（每个物理页框对应一个表项）。<br>适用场景：​ 主要用在物理内存相对较小而虚拟地址空间非常大的系统中（如64位系统），或者嵌入式系统等资源受限环境。<br> 反置页表的页表项<br>页号：虚拟地址页号<br>进程标志符：使用该页的进程号(页号和进程标志符结合起来标志一个特定进程的虚拟地址空间的一页)<br>标志位：有效、引用、修改、保护和锁定等标志信息<br>链指针：哈希链，如果某个项没有链项，则该域为空(允许用一个单独的位来表示)<br><img src="/notes.github.io/image-14.png" alt="alt text"></p>
+<h2 id="段式"><a href="#段式" class="headerlink" title="段式"></a>段式</h2><p>页式存储管理中页的划分对程序员不可见。<br>段式存储管理中段的划分对程序员可见。<br>分段是信息的逻辑单位，由源程序的逻辑结构所决定，用户可见<br>段长可根据用户需要来规定，段起始地址可从任何主存地址开始。<br>分段方式中，源程序(段号，段内位移)经连结装配后地址仍保持二维结构。<br>分页是信息的物理单位，与源程序的逻辑结构无关，用户不可见，<br>页长由系统确定，页面只能以页大小的整倍数地址开始<br>分页方式中，源程序(页号，页内位移)经连结装配后地址变成了一维结构<br><img src="/notes.github.io/image-15.png" alt="alt text"></p>
+<p>传统教科书中的段页式 &#x3D; ​分段（逻辑划分）+ 分页（物理划分）​：<br>程序地址空间被划分为逻辑段​（代码、数据、堆、栈等）。<br>每个逻辑段被独立分页​（即段内地址再被拆分为页号和页内偏移）。<br>​硬件流程：CPU生成地址（段号, 段内偏移）→ 段表 → 得到段基址和线性地址 → 线性地址通过页表 → 物理地址。</p>
+<h2 id="页式"><a href="#页式" class="headerlink" title="页式"></a>页式</h2><p>需要扩充页表项，至少包含如上信息，指出：<br>主存驻留标志：指出页面是否已经装入内存。1表示在内存中可以被正常访问，0表示不能立即访问，产生缺页异常。<br>修改位：被设置后，该页被调出内存前必须先写回磁盘，保障数据一致性<br>保护位：限制页面访问权限<br>引用位：在页面被引用无论是读写时设置，用来帮助系统进行页面淘汰。<br>内存块号：页面对应的页框号，用来地址转换</p>
+<p><img src="/notes.github.io/image-16.png" alt="alt text"><br>维度	全局替换	局部替换<br>置换范围	全系统物理帧	当前进程分配的帧<br>帧分配方式	动态（按需调整）	静态（预先固定）<br>公平性	低（强者通吃）	高（隔离保护）<br>适用场景	通用计算（如Linux&#x2F;Windows）	实时系统、嵌入式系统</p>
+<h1 id="全局页面替换策略"><a href="#全局页面替换策略" class="headerlink" title="全局页面替换策略"></a>全局页面替换策略</h1><h2 id="OPT页面调度算法-Belady算法"><a href="#OPT页面调度算法-Belady算法" class="headerlink" title="OPT页面调度算法(Belady算法)"></a>OPT页面调度算法(Belady算法)</h2><p>算法描述：当要调入新页面时，首先淘汰以后不再访问的页，然后选择距现在最长时间后再访问的页。<br>该方法由Belady提出，称为BeLady算法，又称最佳算法(OPT)<br>OPT只可以模拟，不可以实现，因为永远无法预知之后的事情。<br>这种算法可以用作衡量其他各种算法的标准</p>
+<h2 id="先进先出页面调度算法-FIFO"><a href="#先进先出页面调度算法-FIFO" class="headerlink" title="先进先出页面调度算法(FIFO)"></a>先进先出页面调度算法(FIFO)</h2><p>算法描述：首先淘汰最先调入主存的那一页，或者说主存驻留时间最长的那一页(常驻的除外)<br>模拟的是程序执行的顺序性，有一定合理性，并不能很好模拟程序的循环性。<br>根据估计，缺页中断率也是最佳算法的2-3倍。<br><img src="/notes.github.io/image-17.png" alt="alt text"></p>
+<h2 id="最近最少用LRU页面调度算法"><a href="#最近最少用LRU页面调度算法" class="headerlink" title="最近最少用LRU页面调度算法"></a>最近最少用LRU页面调度算法</h2><p>淘汰最近一段时间较久未被访问的那一页，即那些刚被使用过的页面，可以马上还要被使用到。<br>模拟了程序执行的局部属性，既考虑了循环性，又兼顾了顺序性<br>LRU算法得到模拟实现：模拟是相当的不严谨，非常粗粒度的一个模拟。<br>引用位法：每页建立一个引用标志，供硬件使用，设置一个时间间隔中断，发生时将页引用标志置0，访问页面时将引用标志置为1，页面置换的时候选择标志为0的页面，在选中淘汰页时，将所有的页的引用为全部置为0<br>计数法：每页添加页面引用计数器，根据计数器选择最小的，定时清空页面引用计数器<br>计时法：每页添加计时单元，引用时，将绝对时间记录进入计时单元，定时清空计时单元。<br>老化算法：设置一个多位寄存器，被访问将最左侧设置为1，定时将寄存器右移，缺页中断时找到最小值的寄存器界面淘汰，被采用较多。</p>
+<h2 id="第二次机会页面替换算法-SCR，Second-Chance-Replacement"><a href="#第二次机会页面替换算法-SCR，Second-Chance-Replacement" class="headerlink" title="第二次机会页面替换算法(SCR，Second Chance Replacement)"></a>第二次机会页面替换算法(SCR，Second Chance Replacement)</h2><p>将FIFO算法和页表中引用位结合。<br>算法描述：<br>首先检查FIFO页面队列队首<br>引用位为0，则淘汰该页面<br>引用位为1，将引用位清0，并将该页面移到队列尾部<br>如果第一遍全为1，则循环</p>
+<h2 id="最不常用LFU的页面调度算法"><a href="#最不常用LFU的页面调度算法" class="headerlink" title="最不常用LFU的页面调度算法"></a>最不常用LFU的页面调度算法</h2><p>淘汰最近一段时间内访问次数较少的页面，对OPT的模拟性比LRU更好<br>算法过程：基于时间间隔中断，并给每一页设置一个计数器，时间间隔中断发生后，所有计数器清0，每访问页1次就给计数器加1，选择计数最小的页面淘汰</p>
+<h2 id="伙伴算法与slab"><a href="#伙伴算法与slab" class="headerlink" title="伙伴算法与slab"></a>伙伴算法与slab</h2><p>伙伴系统的分配和回收过程<br>分配过程：当系统需要内存时，从对应大小的链表中查找空闲块。如果没有找到，就向更大的内存块查找，并将其分裂为合适的大小进行分配。</p>
+<p>伙伴系统分配内存的过程较为复杂。首先，当系统需要内存时，会根据所需内存的大小确定对应的页阶（order）。然后从对应页阶的链表中查找空闲块。如果在该链表中没有找到空闲块，就会向更大页阶的链表查找。例如，当需要一个 128 个页的页块时，先检查 128 个页的页块链表是否有空闲块。如果没有，则查 256 个页的页块链表；如果有空闲块的话，则将 256 个页的页块分成两份，一份使用，一份插入 128 个页的页块链表中。如果还是没有，就查 512 个页的页块链表；如果有的话，就分裂为 128、128、256 三个页块，一个 128 的使用，剩余两个插入对应页块链表。<br>其实伙伴系统算法有如下3个基本条件需要满足：</p>
 <p>两个内存块的大小相同</p>
 <p>两个内存块的地址连续</p>
-<p>两个内存块必须是从同一个大的内存块中分离出来的<br>
-小于 4KB 的内存分配：Slab 分配器<br>
-伙伴系统的最小分配单位是 4KB 页框，分配更小内存会产生内部碎片。​Slab 分配器​（及其演进版本 SLUB/SLOB）专门解决此问题，为内核对象提供精细化分配。</p>
+<p>两个内存块必须是从同一个大的内存块中分离出来的<br>小于 4KB 的内存分配：Slab 分配器<br>伙伴系统的最小分配单位是 4KB 页框，分配更小内存会产生内部碎片。​Slab 分配器​（及其演进版本 SLUB&#x2F;SLOB）专门解决此问题，为内核对象提供精细化分配。</p>
 <ol>
-<li>​Slab 的核心机制<br>
-​对象缓存池：<br>
-为高频小对象（如 task_struct、inode）创建专用缓存（kmem_cache），预分配并初始化对象。<br>
-​内存来源：<br>
-从伙伴系统申请整页（4KB），再划分为多个小对象（如 64B、128B）。<br>
-​分配流程：<br>
-优先从 ​Per-CPU 本地缓存 获取空闲对象（无锁操作）。<br>
-若本地缓存空，从 ​部分空闲的 Slab 补充对象。<br>
-若无可用 Slab，向伙伴系统申请新页并初始化新 Slab。<br>
-4MB+： vmalloc<br>
-伙伴系统（Buddy System）分配的内存空间是虚拟地址连续且物理地址连续的，而 vmalloc 分配的内存是虚拟地址连续但物理地址不连续的<br>
-vmalloc 是 Linux 内核提供的内存分配函数之一，它用于在虚拟地址空间中分配连续的内存块。与 kmalloc 主要用于物理内存的分配不同，vmalloc 分配的内存并不要求物理内存是连续的，但它确保分配的虚拟地址空间是连续的。<br>
-在Linux内核中对于物理上连续的分配方式，采用伙伴系统和slub分配器分配内存，但是知道物理上连续的映射是最好的分配方式，但并不总能成功地使用。在分配一大块内存时，可能竭尽全力也无法找到连续的内存块。针对这种情况内核提供了一种申请一片连续的虚拟地址空间，但不保证物理空间连续，也就是vmalloc接口。</li>
+<li>​Slab 的核心机制<br>​对象缓存池：<br>为高频小对象（如 task_struct、inode）创建专用缓存（kmem_cache），预分配并初始化对象。<br>​内存来源：<br>从伙伴系统申请整页（4KB），再划分为多个小对象（如 64B、128B）。<br>​分配流程：<br>优先从 ​Per-CPU 本地缓存 获取空闲对象（无锁操作）。<br>若本地缓存空，从 ​部分空闲的 Slab 补充对象。<br>若无可用 Slab，向伙伴系统申请新页并初始化新 Slab。<br>4MB+： vmalloc<br>伙伴系统（Buddy System）分配的内存空间是虚拟地址连续且物理地址连续的，而 vmalloc 分配的内存是虚拟地址连续但物理地址不连续的<br>vmalloc 是 Linux 内核提供的内存分配函数之一，它用于在虚拟地址空间中分配连续的内存块。与 kmalloc 主要用于物理内存的分配不同，vmalloc 分配的内存并不要求物理内存是连续的，但它确保分配的虚拟地址空间是连续的。<br>在Linux内核中对于物理上连续的分配方式，采用伙伴系统和slub分配器分配内存，但是知道物理上连续的映射是最好的分配方式，但并不总能成功地使用。在分配一大块内存时，可能竭尽全力也无法找到连续的内存块。针对这种情况内核提供了一种申请一片连续的虚拟地址空间，但不保证物理空间连续，也就是vmalloc接口。</li>
 </ol>
-<p>vmalloc的工作方式类似于kmalloc，只不过前者分配的内存虚拟地址连续，而物理地址则无需连续，因此不能用于dma缓冲区<br>
-通过vmalloc获得的页必须一个一个地进行映射，效率不高，因此不得已时才使用，同时vmalloc分配的一般是大块内存<br>
-vmalloc分配的一般是高端内存，只有当内存不够的时候，才会分配低端内存</p>
-<p>slab：<br>
-三级结构<br>
-层级	作用<br>
-Slab缓存	每个缓存管理同一类型对象（如task_struct），包含多个Slab。<br>
-Slab	一组连续的物理页（来自伙伴系统），划分为多个对象槽（Object Chunk）。<br>
-对象	实际分配的内存单元，大小固定（如task_struct占1KB）。<br>
-状态分类<br>
-Full Slab：所有对象已被分配。<br>
-Partial Slab：部分对象空闲（优先从此分配）。<br>
-Empty Slab：所有对象空闲（可返还给伙伴系统）。<br>
-Slab分配器不直接处理任意大小的内存请求，而是通过以下方式分层管理：</p>
+<p>vmalloc的工作方式类似于kmalloc，只不过前者分配的内存虚拟地址连续，而物理地址则无需连续，因此不能用于dma缓冲区<br>通过vmalloc获得的页必须一个一个地进行映射，效率不高，因此不得已时才使用，同时vmalloc分配的一般是大块内存<br>vmalloc分配的一般是高端内存，只有当内存不够的时候，才会分配低端内存</p>
+<p>slab：<br>三级结构<br>层级	作用<br>Slab缓存	每个缓存管理同一类型对象（如task_struct），包含多个Slab。<br>Slab	一组连续的物理页（来自伙伴系统），划分为多个对象槽（Object Chunk）。<br>对象	实际分配的内存单元，大小固定（如task_struct占1KB）。<br>状态分类<br>Full Slab：所有对象已被分配。<br>Partial Slab：部分对象空闲（优先从此分配）。<br>Empty Slab：所有对象空闲（可返还给伙伴系统）。<br>Slab分配器不直接处理任意大小的内存请求，而是通过以下方式分层管理：</p>
 <p>专用缓存（kmem_cache）</p>
-<p>为高频使用的内核对象（如task_struct）预定义固定大小的缓存（通过kmem_cache_create创建）。<br>
-对象大小由类型本身决定（如sizeof(struct task_struct)）。<br>
-通用缓存（kmalloc）</p>
-<p>提供一组预定义尺寸的Slab缓存（如32B、64B、128B、…、8KB等2的幂次方大小）。<br>
-当调用kmalloc(size)时，内核选择最小适配的Slab缓存（如申请100B→分配128B的Slab）。</p>
+<p>为高频使用的内核对象（如task_struct）预定义固定大小的缓存（通过kmem_cache_create创建）。<br>对象大小由类型本身决定（如sizeof(struct task_struct)）。<br>通用缓存（kmalloc）</p>
+<p>提供一组预定义尺寸的Slab缓存（如32B、64B、128B、…、8KB等2的幂次方大小）。<br>当调用kmalloc(size)时，内核选择最小适配的Slab缓存（如申请100B→分配128B的Slab）。</p>
 
     </div>
 
@@ -423,12 +314,12 @@ Slab分配器不直接处理任意大小的内存请求，而是通过以下方�
         
     <div class="post-nav">
       <div class="post-nav-item">
-    <a href="/notes.github.io/2025/06/23/%E8%AE%BE%E5%A4%87%E7%AE%A1%E7%90%86%E7%AC%94%E8%AE%B0/" rel="prev" title="设备管理笔记">
-      <i class="fa fa-chevron-left"></i> 设备管理笔记
+    <a href="/notes.github.io/2025/06/23/note1/" rel="prev" title="note1">
+      <i class="fa fa-chevron-left"></i> note1
     </a></div>
       <div class="post-nav-item">
-    <a href="/notes.github.io/2025/06/23/%E5%B9%B6%E5%8F%91%E7%BC%96%E7%A8%8B/" rel="next" title="操作系统：并发编程">
-      操作系统：并发编程 <i class="fa fa-chevron-right"></i>
+    <a href="/notes.github.io/2025/06/23/%E8%AE%BE%E5%A4%87%E7%AE%A1%E7%90%86%E7%AC%94%E8%AE%B0/" rel="next" title="设备管理笔记">
+      设备管理笔记 <i class="fa fa-chevron-right"></i>
     </a></div>
     </div>
       </footer>
@@ -488,7 +379,7 @@ Slab分配器不直接处理任意大小的内存请求，而是通过以下方�
 
       <!--noindex-->
       <div class="post-toc-wrap sidebar-panel">
-          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%8F%AF%E5%8F%98%E5%88%86%E5%8C%BA%E6%96%B9%E5%BC%8F%E7%9A%84%E5%86%85%E5%AD%98%E5%88%86%E9%85%8D"><span class="nav-number">1.</span> <span class="nav-text">可变分区方式的内存分配</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%86%85%E5%AD%98%E5%88%86%E9%85%8D%E7%AE%97%E6%B3%95%E6%95%B4%E7%90%86"><span class="nav-number">1.1.</span> <span class="nav-text">内存分配算法整理</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%A4%96%E9%83%A8%E7%A2%8E%E7%89%87-%E5%86%85%E9%83%A8%E7%A2%8E%E7%89%87"><span class="nav-number">2.</span> <span class="nav-text">外部碎片 内部碎片</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link"><span class="nav-number"></span> <span class="nav-text">页式存储管理</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%8F%8D%E7%BD%AE%E9%A1%B5%E8%A1%A8"><span class="nav-number">1.</span> <span class="nav-text">反置页表</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%AE%B5%E5%BC%8F"><span class="nav-number">2.</span> <span class="nav-text">段式</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E9%A1%B5%E5%BC%8F"><span class="nav-number">3.</span> <span class="nav-text">页式</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link"><span class="nav-number"></span> <span class="nav-text">全局页面替换策略</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#OPT%E9%A1%B5%E9%9D%A2%E8%B0%83%E5%BA%A6%E7%AE%97%E6%B3%95-Belady%E7%AE%97%E6%B3%95"><span class="nav-number">1.</span> <span class="nav-text">OPT页面调度算法(Belady算法)</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%85%88%E8%BF%9B%E5%85%88%E5%87%BA%E9%A1%B5%E9%9D%A2%E8%B0%83%E5%BA%A6%E7%AE%97%E6%B3%95-FIFO"><span class="nav-number">2.</span> <span class="nav-text">先进先出页面调度算法(FIFO)</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%9C%80%E8%BF%91%E6%9C%80%E5%B0%91%E7%94%A8LRU%E9%A1%B5%E9%9D%A2%E8%B0%83%E5%BA%A6%E7%AE%97%E6%B3%95"><span class="nav-number">3.</span> <span class="nav-text">最近最少用LRU页面调度算法</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%AC%AC%E4%BA%8C%E6%AC%A1%E6%9C%BA%E4%BC%9A%E9%A1%B5%E9%9D%A2%E6%9B%BF%E6%8D%A2%E7%AE%97%E6%B3%95-SCR%EF%BC%8CSecond-Chance-Replacement"><span class="nav-number">4.</span> <span class="nav-text">第二次机会页面替换算法(SCR，Second Chance Replacement)</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%9C%80%E4%B8%8D%E5%B8%B8%E7%94%A8LFU%E7%9A%84%E9%A1%B5%E9%9D%A2%E8%B0%83%E5%BA%A6%E7%AE%97%E6%B3%95"><span class="nav-number">5.</span> <span class="nav-text">最不常用LFU的页面调度算法</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%BC%99%E4%BC%B4%E7%AE%97%E6%B3%95%E4%B8%8Eslab"><span class="nav-number">6.</span> <span class="nav-text">伙伴算法与slab</span></a></li></ol></div>
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%8F%AF%E5%8F%98%E5%88%86%E5%8C%BA%E6%96%B9%E5%BC%8F%E7%9A%84%E5%86%85%E5%AD%98%E5%88%86%E9%85%8D"><span class="nav-number">1.</span> <span class="nav-text">可变分区方式的内存分配</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%86%85%E5%AD%98%E5%88%86%E9%85%8D%E7%AE%97%E6%B3%95%E6%95%B4%E7%90%86"><span class="nav-number">1.1.</span> <span class="nav-text">内存分配算法整理</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%A4%96%E9%83%A8%E7%A2%8E%E7%89%87-%E5%86%85%E9%83%A8%E7%A2%8E%E7%89%87"><span class="nav-number">2.</span> <span class="nav-text">外部碎片 内部碎片</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E9%A1%B5%E5%BC%8F%E5%AD%98%E5%82%A8%E7%AE%A1%E7%90%86"><span class="nav-number"></span> <span class="nav-text">页式存储管理</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%8F%8D%E7%BD%AE%E9%A1%B5%E8%A1%A8"><span class="nav-number">1.</span> <span class="nav-text">反置页表</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%AE%B5%E5%BC%8F"><span class="nav-number">2.</span> <span class="nav-text">段式</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E9%A1%B5%E5%BC%8F"><span class="nav-number">3.</span> <span class="nav-text">页式</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%85%A8%E5%B1%80%E9%A1%B5%E9%9D%A2%E6%9B%BF%E6%8D%A2%E7%AD%96%E7%95%A5"><span class="nav-number"></span> <span class="nav-text">全局页面替换策略</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#OPT%E9%A1%B5%E9%9D%A2%E8%B0%83%E5%BA%A6%E7%AE%97%E6%B3%95-Belady%E7%AE%97%E6%B3%95"><span class="nav-number">1.</span> <span class="nav-text">OPT页面调度算法(Belady算法)</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%85%88%E8%BF%9B%E5%85%88%E5%87%BA%E9%A1%B5%E9%9D%A2%E8%B0%83%E5%BA%A6%E7%AE%97%E6%B3%95-FIFO"><span class="nav-number">2.</span> <span class="nav-text">先进先出页面调度算法(FIFO)</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%9C%80%E8%BF%91%E6%9C%80%E5%B0%91%E7%94%A8LRU%E9%A1%B5%E9%9D%A2%E8%B0%83%E5%BA%A6%E7%AE%97%E6%B3%95"><span class="nav-number">3.</span> <span class="nav-text">最近最少用LRU页面调度算法</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%AC%AC%E4%BA%8C%E6%AC%A1%E6%9C%BA%E4%BC%9A%E9%A1%B5%E9%9D%A2%E6%9B%BF%E6%8D%A2%E7%AE%97%E6%B3%95-SCR%EF%BC%8CSecond-Chance-Replacement"><span class="nav-number">4.</span> <span class="nav-text">第二次机会页面替换算法(SCR，Second Chance Replacement)</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%9C%80%E4%B8%8D%E5%B8%B8%E7%94%A8LFU%E7%9A%84%E9%A1%B5%E9%9D%A2%E8%B0%83%E5%BA%A6%E7%AE%97%E6%B3%95"><span class="nav-number">5.</span> <span class="nav-text">最不常用LFU的页面调度算法</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%BC%99%E4%BC%B4%E7%AE%97%E6%B3%95%E4%B8%8Eslab"><span class="nav-number">6.</span> <span class="nav-text">伙伴算法与slab</span></a></li></ol></div>
       </div>
       <!--/noindex-->
 
@@ -596,10 +487,58 @@ Slab分配器不直接处理任意大小的内存请求，而是通过以下方�
 
   
       
-<link rel="stylesheet" href="//cdn.jsdelivr.net/npm/katex@0/dist/katex.min.css">
-  <script src="//cdn.jsdelivr.net/npm/katex@0/dist/contrib/copy-tex.min.js"></script>
-  <link rel="stylesheet" href="//cdn.jsdelivr.net/npm/katex@0/dist/contrib/copy-tex.min.css">
 
+<script>
+  if (typeof MathJax === 'undefined') {
+    window.MathJax = {
+      loader: {
+        source: {
+          '[tex]/amsCd': '[tex]/amscd',
+          '[tex]/AMScd': '[tex]/amscd'
+        }
+      },
+      tex: {
+        inlineMath: {'[+]': [['$', '$']]},
+        tags: 'ams'
+      },
+      options: {
+        renderActions: {
+          findScript: [10, doc => {
+            document.querySelectorAll('script[type^="math/tex"]').forEach(node => {
+              const display = !!node.type.match(/; *mode=display/);
+              const math = new doc.options.MathItem(node.textContent, doc.inputJax[0], display);
+              const text = document.createTextNode('');
+              node.parentNode.replaceChild(text, node);
+              math.start = {node: text, delim: '', n: 0};
+              math.end = {node: text, delim: '', n: 0};
+              doc.math.push(math);
+            });
+          }, '', false],
+          insertedScript: [200, () => {
+            document.querySelectorAll('mjx-container').forEach(node => {
+              let target = node.parentNode;
+              if (target.nodeName.toLowerCase() === 'li') {
+                target.parentNode.classList.add('has-jax');
+              }
+            });
+          }, '', false]
+        }
+      }
+    };
+    (function () {
+      var script = document.createElement('script');
+      script.src = '//cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js?config=TeX-MML-AM_CHTML';
+      script.defer = true;
+      document.head.appendChild(script);
+    })();
+  } else {
+    MathJax.startup.document.state(0);
+    MathJax.texReset();
+    MathJax.typeset();
+  }
+</script>
+
+    
 
   
 
