@@ -1,0 +1,1506 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 7.3.0">
+  <link rel="apple-touch-icon" sizes="180x180" href="/notes.github.io/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/notes.github.io/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/notes.github.io/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/notes.github.io/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/notes.github.io/css/main.css">
+
+
+<link rel="stylesheet" href="/notes.github.io/lib/font-awesome/css/all.min.css">
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"chenzhan20050128.github.io","root":"/notes.github.io/","scheme":"Pisces","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":true,"show_result":true,"style":"mac"},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.json"};
+  </script>
+
+  <meta name="description" content="这个问题涉及矩阵多项式的特征空间视角以及对称矩阵的梯度下降方法之间的联系。以下我将详细解释这两个视角，并逐步推导和阐明它们之间的关系。  1. 矩阵多项式的特征空间视角 矩阵多项式的定义 给定一个矩阵 ( A \in \mathbb{R}^{n \times n} ) 和一个多项式 ( p(x) &#x3D; c_k x^k + c_{k-1} x^{k-1} + \cdots + c_1 x + c_0">
+<meta property="og:type" content="article">
+<meta property="og:title" content="noteRichardsoniteration">
+<meta property="og:url" content="https://chenzhan20050128.github.io/notes.github.io/2025/06/23/noteRichardsoniteration/index.html">
+<meta property="og:site_name" content="cz Blog">
+<meta property="og:description" content="这个问题涉及矩阵多项式的特征空间视角以及对称矩阵的梯度下降方法之间的联系。以下我将详细解释这两个视角，并逐步推导和阐明它们之间的关系。  1. 矩阵多项式的特征空间视角 矩阵多项式的定义 给定一个矩阵 ( A \in \mathbb{R}^{n \times n} ) 和一个多项式 ( p(x) &#x3D; c_k x^k + c_{k-1} x^{k-1} + \cdots + c_1 x + c_0">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2025-06-23T04:22:32.000Z">
+<meta property="article:modified_time" content="2025-06-23T04:22:32.098Z">
+<meta property="article:author" content="Chen Zhan">
+<meta property="article:tag" content="其他">
+<meta name="twitter:card" content="summary">
+
+<link rel="canonical" href="https://chenzhan20050128.github.io/notes.github.io/2025/06/23/noteRichardsoniteration/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'zh-CN'
+  };
+</script>
+
+  <title>noteRichardsoniteration | cz Blog</title>
+  
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+<link rel="alternate" href="/notes.github.io/atom.xml" title="cz Blog" type="application/atom+xml">
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/notes.github.io/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">cz Blog</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+      <p class="site-subtitle" itemprop="description">Hello World</p>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+    </div>
+  </div>
+</div>
+
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="main-menu menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/notes.github.io/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/notes.github.io/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档</a>
+
+  </li>
+  </ul>
+</nav>
+
+
+
+
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+  <div class="reading-progress-bar"></div>
+
+  <a href="https://github.com/chenzhan20050128" class="github-corner" title="Follow me on GitHub" aria-label="Follow me on GitHub" rel="noopener" target="_blank"><svg width="80" height="80" viewBox="0 0 250 250" aria-hidden="true"><path d="M0,0 L115,115 L130,115 L142,142 L250,250 L250,0 Z"></path><path d="M128.3,109.0 C113.8,99.7 119.0,89.6 119.0,89.6 C122.0,82.7 120.5,78.6 120.5,78.6 C119.2,72.0 123.4,76.3 123.4,76.3 C127.3,80.9 125.5,87.3 125.5,87.3 C122.9,97.6 130.6,101.9 134.4,103.2" fill="currentColor" style="transform-origin: 130px 106px;" class="octo-arm"></path><path d="M115.0,115.0 C114.9,115.1 118.7,116.5 119.8,115.4 L133.7,101.6 C136.9,99.2 139.9,98.4 142.2,98.6 C133.8,88.0 127.5,74.4 143.8,58.0 C148.5,53.4 154.0,51.2 159.7,51.0 C160.3,49.4 163.2,43.6 171.4,40.1 C171.4,40.1 176.1,42.5 178.8,56.2 C183.1,58.6 187.2,61.8 190.9,65.4 C194.5,69.0 197.7,73.2 200.1,77.6 C213.8,80.2 216.3,84.9 216.3,84.9 C212.7,93.1 206.9,96.0 205.4,96.6 C205.1,102.4 203.0,107.8 198.3,112.5 C181.9,128.9 168.3,122.5 157.7,114.1 C157.9,116.9 156.7,120.9 152.7,124.9 L141.0,136.5 C139.8,137.7 141.6,141.9 141.8,141.8 Z" fill="currentColor" class="octo-body"></path></svg></a>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content post posts-expand">
+            
+
+    
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://chenzhan20050128.github.io/notes.github.io/2025/06/23/noteRichardsoniteration/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/notes.github.io/images/woshicaigou.jpg">
+      <meta itemprop="name" content="Chen Zhan">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="cz Blog">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          noteRichardsoniteration
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2025-06-23 12:22:32" itemprop="dateCreated datePublished" datetime="2025-06-23T12:22:32+08:00">2025-06-23</time>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <p>这个问题涉及矩阵多项式的特征空间视角以及对称矩阵的梯度下降方法之间的联系。以下我将详细解释这两个视角，并逐步推导和阐明它们之间的关系。</p>
+<hr>
+<h3 id="1-矩阵多项式的特征空间视角"><strong>1. 矩阵多项式的特征空间视角</strong></h3>
+<h4 id="矩阵多项式的定义"><strong>矩阵多项式的定义</strong></h4>
+<p>给定一个矩阵 ( A \in \mathbb{R}^{n \times n} ) 和一个多项式 ( p(x) = c_k x^k + c_{k-1} x^{k-1} + \cdots + c_1 x + c_0 )，矩阵多项式 ( p(A) ) 定义为：<br>
+[<br>
+p(A) = c_k A^k + c_{k-1} A^{k-1} + \cdots + c_1 A + c_0 I,<br>
+]<br>
+其中 ( I ) 是单位矩阵，( A^k ) 表示矩阵 ( A ) 的 ( k ) 次幂。</p>
+<h4 id="特征空间的性质"><strong>特征空间的性质</strong></h4>
+<p>假设矩阵 ( A ) 有特征值 ( \lambda_1, \lambda_2, \dots, \lambda_n ) 以及对应的特征向量 ( v_1, v_2, \dots, v_n )，满足：<br>
+[<br>
+A v_i = \lambda_i v_i.<br>
+]<br>
+对于矩阵多项式 ( p(A) )，我们有：<br>
+[<br>
+p(A) v_i = p(\lambda_i) v_i.<br>
+]<br>
+<strong>推导</strong>：<br>
+[<br>
+p(A) v_i = \left( c_k A^k + c_{k-1} A^{k-1} + \cdots + c_1 A + c_0 I \right) v_i.<br>
+]<br>
+由于 ( A v_i = \lambda_i v_i )，我们可以计算：<br>
+[<br>
+A^2 v_i = A (A v_i) = A (\lambda_i v_i) = \lambda_i (A v_i) = \lambda_i^2 v_i,<br>
+]<br>
+依次类推，( A^k v_i = \lambda_i^k v_i )。因此：<br>
+[<br>
+p(A) v_i = c_k A^k v_i + c_{k-1} A^{k-1} v_i + \cdots + c_1 A v_i + c_0 v_i<br>
+= c_k \lambda_i^k v_i + c_{k-1} \lambda_i^{k-1} v_i + \cdots + c_1 \lambda_i v_i + c_0 v_i<br>
+= \left( c_k \lambda_i^k + c_{k-1} \lambda_i^{k-1} + \cdots + c_1 \lambda_i + c_0 \right) v_i<br>
+= p(\lambda_i) v_i.<br>
+]<br>
+这表明，如果 ( v_i ) 是 ( A ) 的特征向量，对应的特征值为 ( \lambda_i )，那么 ( v_i ) 也是 ( p(A) ) 的特征向量，对应的特征值为 ( p(\lambda_i) )。</p>
+<h4 id="从-A-to-p-A-和-lambda-i-to-p-lambda-i"><strong>从 ( A \to p(A) ) 和 ( \lambda_i \to p(\lambda_i) )</strong></h4>
+<ul>
+<li>矩阵 ( A ) 的特征值 ( \lambda_1, \lambda_2, \dots, \lambda_n ) 通过多项式 ( p ) 映射为 ( p(\lambda_1), p(\lambda_2), \dots, p(\lambda_n) )。</li>
+<li>特征向量保持不变，只是特征值被多项式变换。这种映射在谱分析和矩阵函数（如矩阵指数、对数等）中非常重要。</li>
+</ul>
+<hr>
+<h3 id="2-对称矩阵与梯度下降的视角"><strong>2. 对称矩阵与梯度下降的视角</strong></h3>
+<h4 id="目标函数"><strong>目标函数</strong></h4>
+<p>考虑二次目标函数：<br>
+[<br>
+f(x) = \frac{1}{2} x^\top A x - b^\top x,<br>
+]<br>
+其中 ( A \in \mathbb{R}^{n \times n} ) 是一个对称矩阵（即 ( A = A^\top )，这保证了 ( A ) 的特征值是实数且特征向量可以构成正交基），( x, b \in \mathbb{R}^n )。</p>
+<h4 id="梯度计算"><strong>梯度计算</strong></h4>
+<p>我们计算目标函数的梯度：<br>
+[<br>
+\nabla f(x) = \nabla \left( \frac{1}{2} x^\top A x - b^\top x \right).<br>
+]</p>
+<ul>
+<li>对于第一项 ( \frac{1}{2} x^\top A x )：<br>
+[<br>
+\nabla \left( \frac{1}{2} x^\top A x \right) = \frac{1}{2} (A + A^\top) x.<br>
+]<br>
+由于 ( A ) 是对称的，( A^\top = A )，因此：<br>
+[<br>
+\frac{1}{2} (A + A^\top) x = \frac{1}{2} (A + A) x = \frac{1}{2} \cdot 2A x = A x.<br>
+]</li>
+<li>对于第二项 ( -b^\top x )：<br>
+[<br>
+\nabla (-b^\top x) = -b.<br>
+]<br>
+因此，梯度为：<br>
+[<br>
+\nabla f(x) = A x - b.<br>
+]</li>
+</ul>
+<h4 id="梯度下降方法"><strong>梯度下降方法</strong></h4>
+<p>梯度下降的迭代公式为：<br>
+[<br>
+x_{k+1} = x_k - \alpha \nabla f(x_k),<br>
+]<br>
+其中 ( \alpha ) 是步长。代入梯度：<br>
+[<br>
+\nabla f(x_k) = A x_k - b,<br>
+]<br>
+得到：<br>
+[<br>
+x_{k+1} = x_k - \alpha (A x_k - b) = (I - \alpha A) x_k + \alpha b.<br>
+]<br>
+这是一个线性迭代过程，形式为：<br>
+[<br>
+x_{k+1} = T x_k + c,<br>
+]<br>
+其中 ( T = I - \alpha A )，( c = \alpha b )。</p>
+<h4 id="梯度下降与矩阵多项式的联系"><strong>梯度下降与矩阵多项式的联系</strong></h4>
+<p>梯度下降的迭代可以看作是对初始向量 ( x_0 ) 应用一系列矩阵多项式。假设初始点为 ( x_0 )，迭代 ( k ) 次后：<br>
+[<br>
+x_k = (I - \alpha A)^k x_0 + \sum_{j=0}^{k-1} (I - \alpha A)^j \alpha b.<br>
+]<br>
+这里，矩阵 ( I - \alpha A ) 是一个多项式（一次多项式）的形式，多次迭代形成了高次多项式 ( (I - \alpha A)^k )。如果我们考虑误差 ( e_k = x_k - x^* )，其中 ( x^* ) 是目标函数的最优解（满足 ( A x^* = b )，即 ( x^* = A^{-1} b \）），则：<br>
+[<br>
+e_k = (I - \alpha A)^k e_0.<br>
+]<br>
+在特征空间中，假设 ( A ) 的特征值为 ( \lambda_i )，特征向量为 ( v_i )，则 ( I - \alpha A ) 的特征值为：<br>
+[<br>
+1 - \alpha \lambda_i.<br>
+]<br>
+因此，误差在特征向量 ( v_i ) 方向上的分量会按 ( (1 - \alpha \lambda_i)^k ) 收敛。收敛速度取决于 ( |1 - \alpha \lambda_i| &lt; 1 )，这与矩阵多项式 ( p(A) = (I - \alpha A)^k ) 的特征值 ( p(\lambda_i) = (1 - \alpha \lambda_i)^k ) 直接相关。</p>
+<hr>
+<h3 id="3-两个视角的联系"><strong>3. 两个视角的联系</strong></h3>
+<h4 id="特征空间与梯度下降"><strong>特征空间与梯度下降</strong></h4>
+<ul>
+<li><strong>矩阵多项式视角</strong>：矩阵 ( A ) 的特征值 ( \lambda_i ) 通过多项式 ( p ) 映射到 ( p(\lambda_i) )。在梯度下降中，矩阵多项式 ( p(A) = (I - \alpha A)^k ) 将特征值 ( \lambda_i ) 映射到 ( (1 - \alpha \lambda_i)^k )。这决定了误差在每个特征方向上的收敛速度。</li>
+<li><strong>梯度下降视角</strong>：目标函数 ( f(x) = \frac{1}{2} x^\top A x - b^\top x ) 的优化过程通过迭代 ( x_{k+1} = (I - \alpha A) x_k + \alpha b ) 逐步逼近最优解 ( x^* = A^{-1} b )。迭代矩阵 ( I - \alpha A ) 的谱性质（即特征值 ( 1 - \alpha \lambda_i )）决定了收敛行为。</li>
+</ul>
+<h4 id="对称矩阵的特殊性"><strong>对称矩阵的特殊性</strong></h4>
+<p>当 ( A ) 是对称矩阵时：</p>
+<ul>
+<li>( A ) 的特征值是实数，特征向量正交，这简化了特征空间的分析。</li>
+<li>目标函数 ( f(x) ) 是凸的（若 ( A ) 正定，则严格凸），梯度下降保证收敛到全局最优解。</li>
+<li>梯度下降的收敛速度由 ( A ) 的条件数（最大特征值与最小特征值的比值）决定，因为 ( |1 - \alpha \lambda_i| ) 的最大值决定了误差缩小的速度。</li>
+</ul>
+<h4 id="多项式优化"><strong>多项式优化</strong></h4>
+<p>在梯度下降中，矩阵多项式 ( p(A) = (I - \alpha A)^k ) 的作用是将初始误差 ( e_0 ) 映射到 ( e_k = p(A) e_0 )。为了加速收敛，可以选择更复杂的多项式 ( p(A) )，例如使用<strong>多项式预条件子</strong>或<strong>共轭梯度法</strong>（Conjugate Gradient, CG）。CG 方法本质上是通过构造一个最优的多项式 ( p(A) )，使得误差 ( | e_k |_A = \sqrt{e_k^\top A e_k} ) 最小化，其中 ( p(\lambda_i) ) 在特征值范围内尽可能小。</p>
+<hr>
+<h3 id="4-补充：梯度公式中的问题"><strong>4. 补充：梯度公式中的问题</strong></h3>
+<p>在问题中，梯度计算部分提到：<br>
+[<br>
+\nabla \left( \frac{1}{2} x^\top A x - b^\top x \right) = \frac{1}{2} (A + A^\top) x - b = A x_k - ?.<br>
+]<br>
+从推导来看：<br>
+[<br>
+\nabla f(x) = \frac{1}{2} (A + A^\top) x - b.<br>
+]<br>
+由于 ( A ) 是对称的，( A = A^\top )，所以：<br>
+[<br>
+\frac{1}{2} (A + A^\top) x = \frac{1}{2} (A + A) x = A x.<br>
+]<br>
+因此：<br>
+[<br>
+\nabla f(x) = A x - b.<br>
+]<br>
+在迭代中，( x = x_k ) 时，梯度为：<br>
+[<br>
+\nabla f(x_k) = A x_k - b.<br>
+]<br>
+问题中的“( A x_k - ? )” 应该是指：<br>
+[<br>
+\nabla f(x_k) = A x_k - b.<br>
+]<br>
+这里的 ( ? ) 就是 ( b )。如果问题中暗示了其他上下文（例如某种近似或变体），请提供更多细节，我可以进一步分析。</p>
+<hr>
+<h3 id="总结"><strong>总结</strong></h3>
+<ul>
+<li><strong>矩阵多项式视角</strong>：矩阵 ( A ) 的特征值 ( \lambda_i ) 通过多项式 ( p ) 映射到 ( p(\lambda_i) )，特征向量不变。这在分析矩阵函数和迭代方法（如梯度下降）的谱性质时非常有用。</li>
+<li><strong>梯度下降视角</strong>：对于对称矩阵 ( A )，目标函数 ( f(x) = \frac{1}{2} x^\top A x - b^\top x ) 的梯度下降迭代可以看作是矩阵多项式 ( (I - \alpha A)^k ) 的应用，收敛速度由特征值 ( 1 - \alpha \lambda_i ) 决定。</li>
+<li><strong>联系</strong>：梯度下降的迭代本质上是通过矩阵多项式操作特征空间中的误差分量，特征值的变换 ( \lambda_i \to (1 - \alpha \lambda_i)^k ) 决定了收敛行为。</li>
+<li><strong>对称矩阵的优势</strong>：对称性保证了实特征值和正交特征向量，使得分析和优化更简单，梯度下降收敛到全局最优。</li>
+</ul>
+<p>如果有进一步的问题或需要更深入的推导（例如共轭梯度法、预条件子或谱分析），请告诉我！</p>
+<p>这个问题涉及矩阵逆的近似、Richardson迭代的收敛性分析，以及条件数与迭代步数的关系。以下我将详细推导每个部分，帮助你理解问题的核心内容和推导过程。</p>
+<hr>
+<h3 id="1-矩阵逆的近似：-A-1-approx-p-A"><strong>1. 矩阵逆的近似：( A^{-1} \approx p(A) )</strong></h3>
+<h4 id="目标"><strong>目标</strong></h4>
+<p>我们希望通过一个多项式 ( p(A) ) 来近似矩阵 ( A ) 的逆 ( A^{-1} )，即：<br>
+[<br>
+A^{-1} \approx p(A),<br>
+]<br>
+其中 ( p(A) ) 是矩阵 ( A ) 的多项式，形式为：<br>
+[<br>
+p(A) = c_k A^k + c_{k-1} A^{k-1} + \cdots + c_1 A + c_0 I.<br>
+]<br>
+理想情况下，( p(A) A = I )，但我们通常只能找到一个近似，使得 ( p(A) A \approx I )。</p>
+<h4 id="等价的多项式-q-x"><strong>等价的多项式 ( q(x) )</strong></h4>
+<p>为了近似 ( A^{-1} )，我们引入一个辅助多项式：<br>
+[<br>
+q(x) = 1 - x p(x).<br>
+]<br>
+目标是让 ( q(A) = I - A p(A) \approx 0 )，因为：<br>
+[<br>
+I - A p(A) = 0 \implies A p(A) = I \implies p(A) = A^{-1}.<br>
+]<br>
+因此，我们希望找到一个多项式 ( p(x) )，使得：<br>
+[<br>
+q(x) = 1 - x p(x) \approx 0, \quad \forall x \in {\lambda_1, \lambda_2, \dots, \lambda_n},<br>
+]<br>
+其中 ( \lambda_i ) 是矩阵 ( A ) 的特征值。同时，注意到：<br>
+[<br>
+q(0) = 1 - 0 \cdot p(0) = 1.<br>
+]<br>
+假设 ( A ) 是正定对称矩阵（常见于优化问题），其特征值满足 ( \lambda_i &gt; 0 )。我们需要：</p>
+<ul>
+<li>( q(0) = 1 ),</li>
+<li>( q(x) \approx 0 ) 对于 ( x \in [\lambda_1, \lambda_n] )，其中 ( \lambda_1 \leq \lambda_i \leq \lambda_n ) 是 ( A ) 的最小和最大特征值。</li>
+</ul>
+<h4 id="意义"><strong>意义</strong></h4>
+<p>寻找这样的 ( p(x) ) 是一个多项式逼近问题，类似于用多项式逼近函数 ( 1/x )。在实际中，可以使用切比雪夫多项式或其他优化多项式来构造 ( p(x) )，以最小化 ( |q(x)| ) 在特征值区间 ( [\lambda_1, \lambda_n] ) 上的最大值。</p>
+<hr>
+<h3 id="2-求解线性系统-Ax-b"><strong>2. 求解线性系统 ( Ax = b )</strong></h3>
+<h4 id="目标-2"><strong>目标</strong></h4>
+<p>我们希望解线性方程组：<br>
+[<br>
+Ax = b,<br>
+]<br>
+其解为：<br>
+[<br>
+x^* = A^{-1} b.<br>
+]<br>
+如果我们用多项式 ( p(A) ) 近似 ( A^{-1} )，则：<br>
+[<br>
+x^* \approx p(A) b.<br>
+]<br>
+注意到 ( p(A) b ) 是 ( A ) 的幂次作用在 ( b ) 上的线性组合：<br>
+[<br>
+p(A) b = \left( c_k A^k + c_{k-1} A^{k-1} + \cdots + c_1 A + c_0 I \right) b = c_k A^k b + c_{k-1} A^{k-1} b + \cdots + c_1 A b + c_0 b.<br>
+]<br>
+因此，( p(A) b ) 属于 Krylov 子空间：<br>
+[<br>
+x^* \approx p(A) b \in \text{span}{b, A b, A^2 b, \dots}.<br>
+]</p>
+<hr>
+<h3 id="3-Richardson-迭代"><strong>3. Richardson 迭代</strong></h3>
+<h4 id="迭代公式"><strong>迭代公式</strong></h4>
+<p>Richardson 迭代是一种简单的迭代方法，用于解 ( Ax = b )。其迭代公式为：<br>
+[<br>
+x_{k+1} = (I - \alpha A) x_k + \alpha b,<br>
+]<br>
+初始点设为 ( x_0 = 0 )。其中，( \alpha ) 是步长（类似梯度下降中的学习率）。</p>
+<h4 id="误差分析"><strong>误差分析</strong></h4>
+<p>令误差 ( e_k = x_k - x^* )，其中 ( x^* = A^{-1} b ) 是精确解。则：<br>
+[<br>
+e_{k+1} = x_{k+1} - x^* = (I - \alpha A) x_k + \alpha b - x^<em>.<br>
+]<br>
+因为 ( A x^</em> = b )，所以 ( \alpha b = \alpha A x^* )。代入：<br>
+[<br>
+e_{k+1} = (I - \alpha A) x_k + \alpha A x^* - x^* = (I - \alpha A) x_k + (\alpha A x^* - x^<em>) = (I - \alpha A) x_k - (I - \alpha A) x^</em>.<br>
+]<br>
+因此：<br>
+[<br>
+e_{k+1} = (I - \alpha A) (x_k - x^<em>) = (I - \alpha A) e_k.<br>
+]<br>
+递归展开：<br>
+[<br>
+e_k = (I - \alpha A)^k e_0,<br>
+]<br>
+其中 ( e_0 = x_0 - x^</em> = 0 - x^* = -x^* )（因为 ( x_0 = 0 )）。</p>
+<h4 id="收敛性分析"><strong>收敛性分析</strong></h4>
+<p>误差的收敛取决于矩阵 ( I - \alpha A ) 的谱半径 ( \rho(I - \alpha A) )。假设 ( A ) 是对称正定矩阵，特征值为 ( 0 &lt; \lambda_1 \leq \lambda_2 \leq \cdots \leq \lambda_n )。则 ( I - \alpha A ) 的特征值为：<br>
+[<br>
+1 - \alpha \lambda_i.<br>
+]<br>
+谱半径定义为：<br>
+[<br>
+\rho(I - \alpha A) = \max_i |1 - \alpha \lambda_i|.<br>
+]<br>
+为了保证收敛，需要：<br>
+[<br>
+\rho(I - \alpha A) = \max_i |1 - \alpha \lambda_i| &lt; 1.<br>
+]<br>
+这意味着对于所有特征值 ( \lambda_i )，必须有：<br>
+[<br>
+-1 &lt; 1 - \alpha \lambda_i &lt; 1 \implies 0 &lt; \alpha \lambda_i &lt; 2 \implies 0 &lt; \alpha &lt; \frac{2}{\lambda_i}.<br>
+]<br>
+由于 ( \lambda_n ) 是最大特征值，约束条件为：<br>
+[<br>
+0 &lt; \alpha &lt; \frac{2}{\lambda_n}.<br>
+]<br>
+谱半径具体为：<br>
+[<br>
+\rho(I - \alpha A) = \max { |1 - \alpha \lambda_1|, |1 - \alpha \lambda_n| },<br>
+]<br>
+因为 ( \lambda_1 \leq \lambda_i \leq \lambda_n )，且 ( 1 - \alpha \lambda_i ) 在 ( [1 - \alpha \lambda_n, 1 - \alpha \lambda_1] ) 之间。</p>
+<hr>
+<h3 id="4-选择最优步长-alpha"><strong>4. 选择最优步长 ( \alpha )</strong></h3>
+<h4 id="优化-alpha"><strong>优化 ( \alpha )</strong></h4>
+<p>为了最小化谱半径 ( \rho(I - \alpha A) )，我们希望：<br>
+[<br>
+|1 - \alpha \lambda_1| = |1 - \alpha \lambda_n|.<br>
+]<br>
+设：<br>
+[<br>
+1 - \alpha \lambda_1 = -(1 - \alpha \lambda_n).<br>
+]<br>
+解这个方程：<br>
+[<br>
+1 - \alpha \lambda_1 = -1 + \alpha \lambda_n \implies 1 + 1 = \alpha \lambda_n + \alpha \lambda_1 \implies 2 = \alpha (\lambda_n + \lambda_1) \implies \alpha = \frac{2}{\lambda_1 + \lambda_n}.<br>
+]<br>
+代入 ( \alpha = \frac{2}{\lambda_1 + \lambda_n} )，计算：<br>
+[<br>
+1 - \alpha \lambda_1 = 1 - \frac{2 \lambda_1}{\lambda_1 + \lambda_n} = \frac{\lambda_1 + \lambda_n - 2 \lambda_1}{\lambda_1 + \lambda_n} = \frac{\lambda_n - \lambda_1}{\lambda_1 + \lambda_n}.<br>
+]<br>
+类似地：<br>
+[<br>
+1 - \alpha \lambda_n = 1 - \frac{2 \lambda_n}{\lambda_1 + \lambda_n} = \frac{\lambda_1 + \lambda_n - 2 \lambda_n}{\lambda_1 + \lambda_n} = \frac{\lambda_1 - \lambda_n}{\lambda_1 + \lambda_n} = -\frac{\lambda_n - \lambda_1}{\lambda_1 + \lambda_n}.<br>
+]<br>
+因此：<br>
+[<br>
+|1 - \alpha \lambda_1| = \frac{\lambda_n - \lambda_1}{\lambda_1 + \lambda_n}, \quad |1 - \alpha \lambda_n| = \frac{\lambda_n - \lambda_1}{\lambda_1 + \lambda_n}.<br>
+]<br>
+谱半径为：<br>
+[<br>
+\rho(I - \alpha A) = \frac{\lambda_n - \lambda_1}{\lambda_1 + \lambda_n} = \frac{\frac{\lambda_n}{\lambda_1} - 1}{\frac{\lambda_n}{\lambda_1} + 1} = \frac{\kappa - 1}{\kappa + 1},<br>
+]<br>
+其中 ( \kappa = \frac{\lambda_n}{\lambda_1} ) 是 ( A ) 的条件数。</p>
+<h4 id="验证"><strong>验证</strong></h4>
+<p>注意到：<br>
+[<br>
+\frac{\kappa - 1}{\kappa + 1} = 1 - \frac{2}{\kappa + 1} = 1 - \frac{2}{\frac{\lambda_n}{\lambda_1} + 1}.<br>
+]<br>
+这与问题中的表达式一致：<br>
+[<br>
+\rho(I - \alpha A) = 1 - \frac{2}{\frac{\lambda_n}{\lambda_1} + 1}.<br>
+]</p>
+<hr>
+<h3 id="5-收敛步数估计"><strong>5. 收敛步数估计</strong></h3>
+<h4 id="误差收敛"><strong>误差收敛</strong></h4>
+<p>误差满足：<br>
+[<br>
+e_k = (I - \alpha A)^k e_0.<br>
+]<br>
+在范数中：<br>
+[<br>
+|e_k| \leq |(I - \alpha A)^k| |e_0| \leq [\rho(I - \alpha A)]^k |e_0|.<br>
+]<br>
+为了使误差满足 ( |e_k| \leq \epsilon |e_0| )，需要：<br>
+[<br>
+[\rho(I - \alpha A)]^k \leq \epsilon.<br>
+]<br>
+取对数：<br>
+[<br>
+k \ln \rho(I - \alpha A) \leq \ln \epsilon \implies k \geq \frac{\ln \epsilon}{\ln \rho(I - \alpha A)}.<br>
+]<br>
+由于 ( \rho(I - \alpha A) &lt; 1 )，( \ln \rho(I - \alpha A) &lt; 0 )，所以：<br>
+[<br>
+k \geq \frac{\ln (1/\epsilon)}{-\ln \rho(I - \alpha A)}.<br>
+]<br>
+近似地，当 ( \rho = \frac{\kappa - 1}{\kappa + 1} = 1 - \frac{2}{\kappa + 1} ) 接近 1 时（即 ( \kappa ) 较大）：<br>
+[<br>
+-\ln \rho \approx -\ln \left( 1 - \frac{2}{\kappa + 1} \right) \approx \frac{2}{\kappa + 1} \quad (\text{因为 } \ln(1 - x) \approx -x \text{ 当 } x \text{ 小时}).<br>
+]<br>
+因此：<br>
+[<br>
+k \gtrsim \frac{\ln (1/\epsilon)}{\frac{2}{\kappa + 1}} = \frac{\kappa + 1}{2} \ln \frac{1}{\epsilon}.<br>
+]<br>
+考虑到 ( \kappa = \frac{\lambda_n}{\lambda_1} )，我们得到：<br>
+[<br>
+k \sim O\left( \left( \frac{\lambda_n}{\lambda_1} + 1 \right) \ln \frac{1}{\epsilon} \right) = O\left( (\kappa + 1) \ln \frac{1}{\epsilon} \right).<br>
+]<br>
+这表明收敛步数与条件数 ( \kappa ) 成正比，条件数越大，收敛越慢。</p>
+<hr>
+<h3 id="6-条件数的作用"><strong>6. 条件数的作用</strong></h3>
+<h4 id="条件数-kappa-frac-lambda-n-lambda-1"><strong>条件数 ( \kappa = \frac{\lambda_n}{\lambda_1} )</strong></h4>
+<ul>
+<li>条件数 ( \kappa ) 衡量了矩阵 ( A ) 的“病态”程度。较大的 ( \kappa ) 表示特征值分布范围广，迭代方法收敛较慢。</li>
+<li>在 Richardson 迭代中，谱半径 ( \rho(I - \alpha A) = \frac{\kappa - 1}{\kappa + 1} ) 接近 1（当 ( \kappa ) 很大时），导致收敛缓慢。</li>
+<li>条件数直接影响收敛步数，步数与 ( \kappa ) 成线性关系。</li>
+</ul>
+<h4 id="改进方法"><strong>改进方法</strong></h4>
+<p>为了克服条件数大的问题，可以使用：</p>
+<ul>
+<li><strong>预条件子</strong>：引入预条件矩阵 ( M )，将系统转化为 ( M^{-1} A x = M^{-1} b )，减小 ( M^{-1} A ) 的条件数。</li>
+<li><strong>共轭梯度法</strong>：通过构造 Krylov 子空间中的最优解，收敛步数从 ( O(\kappa) ) 降低到 ( O(\sqrt{\kappa}) )。</li>
+</ul>
+<hr>
+<h3 id="总结-2"><strong>总结</strong></h3>
+<ul>
+<li><strong>矩阵逆近似</strong>：通过多项式 ( p(A) ) 近似 ( A^{-1} )，等价于构造 ( q(x) = 1 - x p(x) \approx 0 )，满足 ( q(0) = 1 )。</li>
+<li><strong>Richardson 迭代</strong>：迭代 ( x_{k+1} = (I - \alpha A) x_k + \alpha b )，误差 ( e_k = (I - \alpha A)^k e_0 )，收敛由谱半径 ( \rho(I - \alpha A) ) 决定。</li>
+<li><strong>最优步长</strong>：选择 ( \alpha = \frac{2}{\lambda_1 + \lambda_n} )，使 ( \rho(I - \alpha A) = \frac{\kappa - 1}{\kappa + 1} = 1 - \frac{2}{\kappa + 1} )。</li>
+<li><strong>收敛步数</strong>：需要 ( O((\kappa + 1) \ln (1/\epsilon)) ) 步，条件数 ( \kappa = \frac{\lambda_n}{\lambda_1} ) 是关键因素。</li>
+<li><strong>条件数</strong>：较大的 ( \kappa ) 导致收敛缓慢，可通过预条件子或共轭梯度法改进。</li>
+</ul>
+<p>如果你对某些部分（如切比雪夫多项式逼近、预条件子或共轭梯度法的具体实现）有进一步疑问，请告诉我，我可以更深入地推导或解释！</p>
+<p>好的，下面是对上面 Chebyshev 迭代和共轭梯度 (CG) 方法的详细解释和推导的中文翻译，力求流畅准确：</p>
+<hr>
+<h3 id="1-Chebyshev-迭代"><strong>1. Chebyshev 迭代</strong></h3>
+<h4 id="目标-3"><strong>目标</strong></h4>
+<p>Chebyshev 迭代法的目标是通过求解线性方程组 ( Ax = b ) 来逼近逆矩阵 ( A^{-1} )，其中 ( A ) 是一个对称正定 (SPD) 矩阵。该方法将 ( A^{-1} ) 近似为一个多项式 ( p(A) )，使得 ( x^* = A^{-1}b \approx p(A)b )。 等价地说，我们希望找到一个多项式 ( q(x) = 1 - x p(x) )，满足：</p>
+<ul>
+<li>( q(0) = 1 ),</li>
+<li>( q(x) \approx 0 ) 对于 ( x &gt; 0 ) （特别地，对于 ( x ) 在 ( A ) 的谱内）。</li>
+</ul>
+<p>因为 ( A ) 是 SPD 矩阵，它的特征值都是正的，假设 ( \lambda_i \in [\lambda_{\text{min}}, \lambda_{\text{max}}] )，其中 ( \lambda_{\text{min}} &gt; 0 )。</p>
+<h4 id="迭代方案"><strong>迭代方案</strong></h4>
+<p>Chebyshev 迭代法的迭代公式为：<br>
+[<br>
+x_{k+1} = (I - \alpha_k A) x_k + \alpha_k b<br>
+]<br>
+其中 ( \alpha_k ) 是标量，用于优化收敛速度。 让我们推导误差传播公式来理解这个过程。</p>
+<h4 id="误差分析-2"><strong>误差分析</strong></h4>
+<p>精确解为 ( x^* = A^{-1}b )。定义第 ( k ) 步的误差：<br>
+[<br>
+e_k = x_k - x^*<br>
+]<br>
+从迭代公式中减去 ( x^* ) 的迭代公式（( A x^* = b )），得到：<br>
+[<br>
+x_{k+1} - x^* = (I - \alpha_k A) x_k + \alpha_k b - x^*<br>
+]<br>
+因为 ( b = A x^* )，所以：<br>
+[<br>
+\alpha_k b = \alpha_k A x^*<br>
+]<br>
+因此：<br>
+[<br>
+x_{k+1} - x^* = (I - \alpha_k A) x_k - (I - \alpha_k A) x^* = (I - \alpha_k A) (x_k - x^*)<br>
+]<br>
+所以：<br>
+[<br>
+e_{k+1} = (I - \alpha_k A) e_k<br>
+]<br>
+通过归纳法：<br>
+[<br>
+e_k = \prod_{i=0}^{k-1} (I - \alpha_i A) e_0<br>
+]<br>
+通过应用矩阵多项式 ( \prod_{i=0}^{k-1} (I - \alpha_i A) ) 来减小误差。 目标是选择 ( \alpha_i ) 来最小化这个算子的范数。</p>
+<h4 id="与多项式逼近的联系"><strong>与多项式逼近的联系</strong></h4>
+<p>因为 ( e_k = \left( \prod_{i=0}^{k-1} (I - \alpha_i A) \right) e_0 )，我们希望：<br>
+[<br>
+\left| \prod_{i=0}^{k-1} (I - \alpha_i A) \right|<br>
+]<br>
+尽可能小。 对于 SPD 矩阵 ( A )，该范数取决于应用于 ( A ) 的多项式的特征值。 设这个多项式为：<br>
+[<br>
+P_k(A) = \prod_{i=0}^{k-1} (I - \alpha_i A)<br>
+]<br>
+对于 ( A ) 的任何特征值 ( \lambda_i )，该多项式的值为：<br>
+[<br>
+P_k(\lambda_i) = \prod_{i=0}^{k-1} (1 - \alpha_i \lambda_i)<br>
+]<br>
+我们需要 ( P_k(\lambda_i) \approx 0 ) 对于 ( \lambda_i \in [\lambda_{\text{min}}, \lambda_{\text{max}}] )。 这就是 Chebyshev 多项式发挥作用的地方。</p>
+<h4 id="Chebyshev-多项式"><strong>Chebyshev 多项式</strong></h4>
+<p>第一类 Chebyshev 多项式定义为：<br>
+[<br>
+T_k(x) = \cos(k \arccos(x)), \quad x \in [-1, 1]<br>
+]<br>
+它们在 ([-1, 1]) 区间内振荡于 (-1) 和 (1) 之间，并在该区间外迅速增长。为了将它们应用于 ( A ) 的谱，我们通过线性变换将区间 ( [\lambda_{\text{min}}, \lambda_{\text{max}}] ) 映射到 ([-1, 1])：<br>
+[<br>
+z = \frac{2\lambda - (\lambda_{\text{max}} + \lambda_{\text{min}})}{\lambda_{\text{max}} - \lambda_{\text{min}}}<br>
+]<br>
+这个变换将 ( \lambda = \lambda_{\text{min}} ) 映射到 ( z = -1 )，将 ( \lambda = \lambda_{\text{max}} ) 映射到 ( z = 1 )。Chebyshev 多项式 ( T_k(z) ) 用于构造 ( P_k(\lambda) )，使其在 ( [\lambda_{\text{min}}, \lambda_{\text{max}}] ) 上尽可能小。</p>
+<p>参数 ( \alpha_k ) 的选择基于 Chebyshev 多项式的根，并调整到区间 ( [\lambda_{\text{min}}, \lambda_{\text{max}}] )。 具体来说，( T_k ) 在 ([-1, 1]) 上的根被映射回 ( [\lambda_{\text{min}}, \lambda_{\text{max}}] )，且 ( \alpha_k = 1/\lambda_k )，其中 ( \lambda_k ) 是这些映射的根。 这确保了多项式 ( P_k(\lambda) ) 在特征值范围内的最大范数上被最小化。</p>
+<h4 id="Krylov-子空间"><strong>Krylov 子空间</strong></h4>
+<p>注意：<br>
+[<br>
+x_{k+1} = (I - \alpha_k A) x_k + \alpha_k b<br>
+]<br>
+从 ( x_0 = 0 ) 开始：<br>
+[<br>
+x_1 = \alpha_0 b<br>
+]<br>
+[<br>
+x_2 = (I - \alpha_1 A) (\alpha_0 b) + \alpha_1 b = \alpha_1 b + \alpha_0 (I - \alpha_1 A) b<br>
+]<br>
+每次迭代都会添加涉及更高次幂的 ( A ) 应用于 ( b ) 的项。 因此：<br>
+[<br>
+x_k \in \text{span}{ b, A b, A^2 b, \dots, A^{k-1} b }<br>
+]<br>
+这就是 Krylov 子空间 ( \mathcal{K}_k = \text{span}{ b, A b, \dots, A^{k-1} b } )。</p>
+<h4 id="Chebyshev-迭代的总结"><strong>Chebyshev 迭代的总结</strong></h4>
+<ul>
+<li>该方法构造 ( x_k ) 作为 ( A ) 的多项式应用于 ( b )。</li>
+<li>误差 ( e_k = P_k(A) e_0 )，其中 ( P_k(A) ) 使用 Chebyshev 多项式设计，以最小化 ( A ) 的特征值上的谱范数。</li>
+<li>需要估计 ( \lambda_{\text{min}} ) 和 ( \lambda_{\text{max}} ) 来设置 ( \alpha_k )。</li>
+<li>对于条件良好的矩阵（小的 ( \kappa = \lambda_{\text{max}} / \lambda_{\text{min}} )），收敛速度更快。</li>
+</ul>
+<hr>
+<h3 id="2-共轭梯度-CG"><strong>2. 共轭梯度 (CG)</strong></h3>
+<h4 id="目标-4"><strong>目标</strong></h4>
+<p>共轭梯度法也用于求解 ( Ax = b )，其中 ( A ) 是一个 SPD 矩阵。它通过利用 ( A ) 内积的几何性质，最小化 Krylov 子空间内的 ( A ) 范数误差。</p>
+<h4 id="A-内积"><strong>A-内积</strong></h4>
+<p>定义向量 ( x, y ) 的 ( A )-内积：<br>
+[<br>
+\langle x, y \rangle_A = x^\top A y<br>
+]<br>
+由于 ( A ) 是 SPD 矩阵：</p>
+<ul>
+<li><strong>线性性</strong>: ( \langle \alpha x + \beta y, z \rangle_A = \alpha \langle x, z \rangle_A + \beta \langle y, z \rangle_A )。</li>
+<li><strong>对称性</strong>: ( \langle x, y \rangle_A = \langle y, x \rangle_A )。</li>
+<li><strong>正定性</strong>: ( \langle x, x \rangle_A = x^\top A x &gt; 0 ) 对于 ( x \neq 0 )。</li>
+</ul>
+<p>相关的 ( A )-范数为：<br>
+[<br>
+| x |_A = \sqrt{\langle x, x \rangle_A} = \sqrt{x^\top A x}<br>
+]<br>
+如果满足以下条件，则向量 ( x, y ) 是 ( A )-共轭的（或 ( A )-正交的）：<br>
+[<br>
+\langle x, y \rangle_A = x^\top A y = 0<br>
+]</p>
+<h4 id="优化视角"><strong>优化视角</strong></h4>
+<p>考虑二次函数：<br>
+[<br>
+f(x) = \frac{1}{2} x^\top A x - b^\top x<br>
+]<br>
+梯度为：<br>
+[<br>
+\nabla f(x) = A x - b<br>
+]<br>
+当 ( \nabla f(x) = 0 ) 时，即 ( A x = b ) 时，达到最小值。计算：<br>
+[<br>
+f(x) = \frac{1}{2} x^\top A x - b^\top x = \frac{1}{2} (x - x^<em>)^\top A (x - x^</em>) - \frac{1}{2} x^{<em>\top} A x^</em><br>
+]<br>
+其中 ( x^* = A^{-1} b )。 因此：<br>
+[<br>
+f(x) = \frac{1}{2} | x - x^* |_A^2 + \text{常量}<br>
+]<br>
+最小化 ( f(x) ) 等价于最小化 ( | x - x^* |_A )。</p>
+<h4 id="CG-算法"><strong>CG 算法</strong></h4>
+<p>CG 算法生成迭代点 ( x_k \in \mathcal{K}<em>k = \text{span}{ b, A b, \dots, A^{k-1} b } )，使得：<br>
+[<br>
+x_k = \arg\min</em>{x \in \mathcal{K}_k} | x - x^* |_A^2<br>
+]<br>
+定义：</p>
+<ul>
+<li>( v_i = x_i - x_{i-1} ) (搜索方向),</li>
+<li>( r_i = b - A x_i ) (残差).</li>
+</ul>
+<p>关键性质是 ( v_i ) 是 ( A )-共轭的：<br>
+[<br>
+v_i^\top A v_j = 0, \quad \forall i \neq j<br>
+]</p>
+<h4 id="搜索方向的共轭性"><strong>搜索方向的共轭性</strong></h4>
+<p><strong>引理</strong>: 向量 ( { v_i } ) 是 ( A )-共轭的。</p>
+<p><strong>证明</strong>:<br>
+假设 ( i &lt; j )。 因为 ( x_j = \arg\min_{x \in \mathcal{K}<em>j} | x - x^* |<em>A^2 )，所以目标函数在 ( x_j ) 处的梯度：<br>
+[<br>
+\nabla \left( \frac{1}{2} | x - x^* |<em>A^2 \right) = A x_j - b = -r_j<br>
+]<br>
+必须与标准内积中的 ( \mathcal{K}<em>j ) 正交（因为 ( A )-范数最小化意味着梯度与子空间正交）。因此：<br>
+[<br>
+r_j^\top z = 0, \quad \forall z \in \mathcal{K}<em>j<br>
+]<br>
+因为 ( \mathcal{K}</em>{j-1} \subset \mathcal{K}<em>j )，我们有：<br>
+[<br>
+r_j^\top z = 0, \quad \forall z \in \mathcal{K}</em>{j-1}<br>
+]<br>
+类似地，( r</em>{j-1} = b - A x</em>{j-1} ) 与 ( \mathcal{K}</em>{j-1} ) 正交。现在：<br>
+[<br>
+A v_j = A (x_j - x</em>{j-1}) = A x_j - A x_{j-1} = (b - r_j) - (b - r_{j-1}) = r_{j-1} - r_j<br>
+]<br>
+因为 ( r_{j-1}, r_j \in \mathcal{K}_j ) （因为 ( r_i = b - A x_i )，且 ( x_i \in \mathcal{K}<em>i )），所以 ( A v_j \in \text{span}{ r</em>{j-1}, r_j } )。我们需要证明 ( v_i^\top A v_j = 0 ) 对于 ( i &lt; j )。</p>
+<p>因为 ( v_i = x_i - x_{i-1} \in \mathcal{K}<em>i \subset \mathcal{K}</em>{j-1} )，且 ( r_j \perp \mathcal{K}<em>{j-1} )，我们有：<br>
+[<br>
+r_j^\top v_i = 0<br>
+]<br>
+现在计算：<br>
+[<br>
+v_i^\top A v_j = v_i^\top (r</em>{j-1} - r_j) = v_i^\top r_{j-1} - v_i^\top r_j = v_i^\top r_{j-1}<br>
+]<br>
+我们需要 ( v_i^\top r_{j-1} = 0 )。 注意到 ( r_{j-1} \perp \mathcal{K}<em>{j-1} )，并且由于 ( i \leq j-1 )，所以 ( v_i \in \mathcal{K}<em>i \subset \mathcal{K}</em>{j-1} )。因此：<br>
+[<br>
+v_i^\top r</em>{j-1} = 0<br>
+]<br>
+因此：<br>
+[<br>
+v_i^\top A v_j = 0, \quad \forall i &lt; j<br>
+]<br>
+向量 ( { v_i } ) 是 ( A )-共轭的。</p>
+<p><strong>推论</strong>: Krylov 子空间是：<br>
+[<br>
+\mathcal{K}<em>i = \text{span}{ v_1, v_2, \dots, v_i }<br>
+]<br>
+因为 ( x_i = x</em>{i-1} + v_i = x_{i-2} + v_{i-1} + v_i = \dots = \sum_{j=1}^i v_j )，所以 ( x_i \in \text{span}{ v_1, \dots, v_i } )。</p>
+<h4 id="共轭向量的线性无关性"><strong>共轭向量的线性无关性</strong></h4>
+<p><strong>声明</strong>: ( A )-共轭向量是线性无关的。</p>
+<p><strong>证明</strong>:<br>
+假设 ( p_1, p_2, \dots, p_k ) 是 ( A )-共轭的（( p_i^\top A p_j = 0 ) 对于 ( i \neq j )），并且是线性相关的：<br>
+[<br>
+\alpha_1 p_1 + \dots + \alpha_k p_k = 0<br>
+]<br>
+计算：<br>
+[<br>
+\left( \sum_{i=1}^k \alpha_i p_i \right)^\top A \left( \sum_{j=1}^k \alpha_j p_j \right) = \sum_{i,j} \alpha_i \alpha_j p_i^\top A p_j = \sum_{i=1}^k \alpha_i^2 p_i^\top A p_i<br>
+]<br>
+因为 ( p_i^\top A p_i = | p_i |<em>A^2 &gt; 0 ) （因为 ( A ) 是 SPD 且 ( p_i \neq 0 )），并且该总和仅在以下情况下为零：<br>
+[<br>
+\sum</em>{i=1}^k \alpha_i^2 | p_i |_A^2 = 0 \implies \alpha_i = 0, \forall i<br>
+]<br>
+因此，( p_i ) 是线性无关的。</p>
+<h4 id="CG-迭代公式"><strong>CG 迭代公式</strong></h4>
+<p><strong>引理</strong>: 定义 ( v_i = x_i - x_{i-1} )，( r_i = b - A x_i )。 那么：<br>
+[<br>
+v_i = \frac{v_i^\top r_{i-1}}{r_{i-1}^\top r_{i-1}} \left( r_{i-1} - \frac{r_{i-1}^\top A v_{i-1}}{v_{i-1}^\top A v_{i-1}} v_{i-1} \right)<br>
+]</p>
+<p><strong>证明概要</strong>:<br>
+因为 ( x_i \in \mathcal{K}<em>i )，且 ( \mathcal{K}<em>i = \text{span}{ v_1, \dots, v</em>{i-1}, r</em>{i-1} } ) （因为 ( r_{i-1} = b - A x_{i-1} )，且 ( x_{i-1} \in \mathcal{K}<em>{i-1} )），我们可以写成：<br>
+[<br>
+v_i = c_0 r</em>{i-1} + \sum_{j=1}^{i-1} c_j v_j<br>
+]<br>
+为了找到 ( c_0 )，取与 ( r_{i-1} ) 的内积：<br>
+[<br>
+v_i^\top r_{i-1} = c_0 r_{i-1}^\top r_{i-1} + \sum_{j=1}^{i-1} c_j v_j^\top r_{i-1}<br>
+]<br>
+因为 ( v_j \in \mathcal{K}<em>j \subset \mathcal{K}</em>{i-1} )，且 ( r_{i-1} \perp \mathcal{K}<em>{i-1} )，所以 ( v_j^\top r</em>{i-1} = 0 )。因此：<br>
+[<br>
+c_0 = \frac{v_i^\top r_{i-1}}{r_{i-1}^\top r_{i-1}}<br>
+]<br>
+对于 ( c_j )，强制共轭性 ( v_i^\top A v_j = 0 ) 对于 ( j &lt; i )。 计算：<br>
+[<br>
+v_i^\top A v_j = \left( c_0 r_{i-1} + \sum_{l=1}^{i-1} c_l v_l \right)^\top A v_j = c_0 r_{i-1}^\top A v_j + c_j v_j^\top A v_j<br>
+]<br>
+因为 ( v_i \perp_A v_j )，所以我们需要：<br>
+[<br>
+c_0 r_{i-1}^\top A v_j + c_j v_j^\top A v_j = 0<br>
+]<br>
+对于 ( j &lt; i-1 )，( v_j \in \mathcal{K}<em>j \subset \mathcal{K}</em>{i-1} )，且 ( r_{i-1} \perp \mathcal{K}<em>{i-1} )，所以 ( r</em>{i-1}^\top A v_j = v_j^\top A r_{i-1} = 0 )。 因此，( c_j = 0 ) 对于 ( j &lt; i-1 )。 对于 ( j = i-1 )：<br>
+[<br>
+c_{i-1} = -c_0 \frac{r_{i-1}^\top A v_{i-1}}{v_{i-1}^\top A v_{i-1}}<br>
+]<br>
+所以：<br>
+[<br>
+v_i = c_0 \left( r_{i-1} - \frac{r_{i-1}^\top A v_{i-1}}{v_{i-1}^\top A v_{i-1}} v_{i-1} \right)<br>
+]<br>
+在替换 ( c_0 ) 后，这与给定的形式匹配。</p>
+<h4 id="简化的-CG-算法"><strong>简化的 CG 算法</strong></h4>
+<p>定义：<br>
+[<br>
+d_i = \frac{r_{i-1}^\top r_{i-1}}{v_i^\top r_{i-1}} v_i<br>
+]<br>
+那么：<br>
+[<br>
+x_i = x_{i-1} + \frac{r_{i-1}^\top r_{i-1}}{d_i^\top A d_i} d_i<br>
+]<br>
+[<br>
+d_i = r_{i-1} + \frac{r_{i-1}^\top r_{i-1}}{r_{i-2}^\top r_{i-2}} d_{i-1}<br>
+]<br>
+这是标准的 CG 算法，其中 ( d_i ) 是共轭方向，使用残差进行更新。</p>
+<h4 id="误差界"><strong>误差界</strong></h4>
+<p>CG 中的误差满足：<br>
+[<br>
+| x_k - x^* |<em>A^2 \leq \inf</em>{\substack{q(0)=1 \ \deg q \leq k}} \max_i |q(\lambda_i)|^2 \cdot | b |_{A^{-1}}^2<br>
+]<br>
+这是因为 ( x_k ) 是 ( \mathcal{K}_k ) 中的最佳近似值，并且误差 ( e_k = x_k - x^* ) 位于多项式空间中。 选择多项式 ( q(\lambda) ) 以最小化特征值 ( \lambda_i ) 上的最大值，类似于 Chebyshev 迭代，但 CG 会自动适应谱。</p>
+<h4 id="收敛性"><strong>收敛性</strong></h4>
+<p>CG 最多在 ( n ) 次迭代中收敛（在精确算术中），因为 Krylov 子空间 ( \mathcal{K}_n ) 跨越 ( \mathbb{R}^n )。 在实践中，对于稀疏矩阵或条件良好的 ( A )，CG 的收敛速度比高斯消元法等直接方法快得多。</p>
+<hr>
+<h3 id="比较和联系"><strong>比较和联系</strong></h3>
+<ul>
+<li><strong>Krylov 子空间</strong>: 这两种方法都在 ( \mathcal{K}_k = \text{span}{ b, A b, \dots, A^{k-1} b } ) 中生成迭代点。</li>
+<li><strong>多项式逼近</strong>: 两者都通过多项式 ( p(A) ) 逼近 ( A^{-1} )。 Chebyshev 迭代显式使用 Chebyshev 多项式，需要特征值估计。 CG 通过最小化 ( A ) 范数隐式构造最佳多项式，无需显式特征值信息即可适应谱。</li>
+<li><strong>收敛性</strong>: CG 通常对于 SPD 矩阵更有效，因为它直接在 ( A ) 范数中优化误差，而 Chebyshev 迭代依赖于特征值范围上的均匀逼近。</li>
+<li><strong>实现</strong>: Chebyshev 需要根据 ( \lambda_{\text{min}}, \lambda_{\text{max}} ) 调整 ( \alpha_k )。 CG 使用内积即时计算步长和方向。</li>
+</ul>
+<hr>
+<h3 id="结论"><strong>结论</strong></h3>
+<ul>
+<li><strong>Chebyshev 迭代</strong>: 一种基于多项式的方法，通过设计一个在 ( A ) 的谱上很小的多项式来最小化误差，使用 Chebyshev 多项式。 它很有效，但需要特征值估计。</li>
+<li><strong>共轭梯度</strong>: 一种自适应方法，可最小化 Krylov 子空间中的 ( A ) 范数误差，使用 ( A ) 共轭搜索方向。 它更稳健，并且通常对于 SPD 系统更快。</li>
+</ul>
+<p>如果你想更深入地探索特定部分（例如，编写 CG 代码、数值示例或更深入的误差分析），请告诉我！</p>
+<h1>引理的证明推导</h1>
+<h3 id="引理重述">引理重述</h3>
+<p>给定对称正定矩阵 ( A ) 和向量 ( b )，定义 Krylov 子空间：<br>
+[ \mathcal{K}_i = \text{span}{b, Ab, A^2b, \dots, A^{i-1}b}, \quad \mathcal{K}<em>0 = {0}. ]<br>
+设 ( x_i ) 是 ( \mathcal{K}<em>i ) 中最小化 ( A )-范数误差的解：<br>
+[ x_i = \arg\min</em>{x \in \mathcal{K}<em>i} |x - x</em><em>|<em>A^2, ]<br>
+其中 ( x</em></em> ) 是 ( Ax</em>* = b ) 的解，( |x|_A = \sqrt{x^T A x} )。定义：</p>
+<ul>
+<li>( v_i = x_i - x_{i-1} )（解的增量），</li>
+<li>( r_i = b - A x_i )（残差）。</li>
+</ul>
+<p>需要证明：<br>
+[ v_i = \frac{v_i^T r_{i-1}}{|r_{i-1}|^2} \left( r_{i-1} - \frac{r_{i-1}^T A v_{i-1}}{v_{i-1}^T A v_{i-1}} v_{i-1} \right). ]</p>
+<h3 id="证明思路">证明思路</h3>
+<ol>
+<li>
+<p><strong>最优性条件</strong>：</p>
+<ul>
+<li>( x_i ) 是 ( \mathcal{K}<em>i ) 中最小化 ( |x - x</em>*|_A ) 的解，因此残差 ( r_i ) 与 ( \mathcal{K}_i ) 正交：<br>
+[ \forall y \in \mathcal{K}_i, \quad y^T r_i = 0. ]</li>
+<li>类似地，( r_{i-1} \perp \mathcal{K}_{i-1} )。</li>
+</ul>
+</li>
+<li>
+<p><strong>增量方向</strong>：</p>
+<ul>
+<li>( v_i = x_i - x_{i-1} \in \mathcal{K}<em>i )，且 ( v_i ) 必须与 ( \mathcal{K}</em>{i-1} ) 在 ( A )-内积下正交：<br>
+[ \forall y \in \mathcal{K}_{i-1}, \quad v_i^T A y = 0. ]</li>
+<li>因此，( v_i ) 可以表示为 ( r_{i-1} ) 与 ( \mathcal{K}_{i-1} ) 的某种正交化结果。</li>
+</ul>
+</li>
+<li>
+<p><strong>构造 ( v_i )</strong>：</p>
+<ul>
+<li>设 ( v_i ) 的方向为 ( d_i )，其中 ( d_i ) 是 ( r_{i-1} ) 减去其在 ( v_{i-1} ) 方向上的 ( A )-分量：<br>
+[ d_i = r_{i-1} - \frac{r_{i-1}^T A v_{i-1}}{v_{i-1}^T A v_{i-1}} v_{i-1}. ]</li>
+<li>这样构造的 ( d_i ) 满足 ( d_i \perp_A \mathcal{K}_{i-1} )。</li>
+</ul>
+</li>
+<li>
+<p><strong>步长确定</strong>：</p>
+<ul>
+<li>令 ( v_i = c_i d_i )，其中 ( c_i ) 是最优步长。</li>
+<li>由 ( x_i = x_{i-1} + v_i ) 是最优解，残差 ( r_i ) 应与 ( \mathcal{K}_i ) 正交，从而可推导 ( c_i )。</li>
+</ul>
+</li>
+<li>
+<p><strong>系数计算</strong>：</p>
+<ul>
+<li>利用 ( r_{i-1} \perp \mathcal{K}<em>{i-1} ) 和 ( v</em>{i-1} \in \mathcal{K}<em>{i-1} )，有 ( v</em>{i-1}^T r_{i-1} = 0 )。</li>
+<li>计算 ( v_i^T r_{i-1} = c_i d_i^T r_{i-1} = c_i |r_{i-1}|^2 )，因此：<br>
+[ c_i = \frac{v_i^T r_{i-1}}{|r_{i-1}|^2}. ]</li>
+</ul>
+</li>
+</ol>
+<h3 id="详细证明">详细证明</h3>
+<ol>
+<li>
+<p><strong>方向构造</strong>：</p>
+<ul>
+<li>设 ( v_i = c_i d_i )，其中：<br>
+[ d_i = r_{i-1} - \frac{r_{i-1}^T A v_{i-1}}{v_{i-1}^T A v_{i-1}} v_{i-1}. ]</li>
+<li>验证 ( d_i \perp_A v_{i-1} )：<br>
+[<br>
+d_i^T A v_{i-1} = r_{i-1}^T A v_{i-1} - \frac{r_{i-1}^T A v_{i-1}}{v_{i-1}^T A v_{i-1}} v_{i-1}^T A v_{i-1} = 0.<br>
+]</li>
+<li>因此 ( v_i \perp_A \mathcal{K}_{i-1} )。</li>
+</ul>
+</li>
+<li>
+<p><strong>步长计算</strong>：</p>
+<ul>
+<li>由 ( x_i = x_{i-1} + v_i ) 是最优解，残差 ( r_i = b - A x_i ) 满足 ( r_i \perp \mathcal{K}_i )。</li>
+<li>特别地，( r_i \perp v_i )：<br>
+[<br>
+v_i^T r_i = v_i^T (b - A x_i) = v_i^T r_{i-1} - v_i^T A v_i = 0.<br>
+]<br>
+因此：<br>
+[<br>
+v_i^T r_{i-1} = v_i^T A v_i.<br>
+]</li>
+<li>另一方面：<br>
+[<br>
+v_i^T A v_i = c_i^2 d_i^T A d_i, \quad v_i^T r_{i-1} = c_i d_i^T r_{i-1}.<br>
+]<br>
+由 ( d_i^T r_{i-1} = |r_{i-1}|^2 )（因为 ( v_{i-1}^T r_{i-1} = 0 )），有：<br>
+[<br>
+c_i |r_{i-1}|^2 = c_i^2 d_i^T A d_i \implies c_i = \frac{|r_{i-1}|^2}{d_i^T A d_i}.<br>
+]</li>
+<li>但由 ( v_i^T r_{i-1} = c_i |r_{i-1}|^2 )，可得：<br>
+[<br>
+c_i = \frac{v_i^T r_{i-1}}{|r_{i-1}|^2}.<br>
+]<br>
+这与步长 ( \alpha_{i-1} ) 的计算一致。</li>
+</ul>
+</li>
+<li>
+<p><strong>综合表达式</strong>：</p>
+<ul>
+<li>将 ( c_i ) 和 ( d_i ) 代入：<br>
+[<br>
+v_i = c_i d_i = \frac{v_i^T r_{i-1}}{|r_{i-1}|^2} \left( r_{i-1} - \frac{r_{i-1}^T A v_{i-1}}{v_{i-1}^T A v_{i-1}} v_{i-1} \right).<br>
+]</li>
+</ul>
+</li>
+</ol>
+<h3 id="共轭梯度法过程">共轭梯度法过程</h3>
+<ol>
+<li>
+<p><strong>初始化</strong>：</p>
+<ul>
+<li>( x_0 = 0 ), ( r_0 = b ), ( p_0 = r_0 ).</li>
+</ul>
+</li>
+<li>
+<p><strong>迭代步骤</strong>（( i \geq 1 )）：</p>
+<ul>
+<li>计算步长：<br>
+[<br>
+\alpha_{i-1} = \frac{r_{i-1}^T r_{i-1}}{p_{i-1}^T A p_{i-1}}.<br>
+]</li>
+<li>更新解：<br>
+[<br>
+x_i = x_{i-1} + \alpha_{i-1} p_{i-1}.<br>
+]</li>
+<li>更新残差：<br>
+[<br>
+r_i = r_{i-1} - \alpha_{i-1} A p_{i-1}.<br>
+]</li>
+<li>计算系数：<br>
+[<br>
+\beta_i = \frac{r_i^T r_i}{r_{i-1}^T r_{i-1}}.<br>
+]</li>
+<li>更新搜索方向：<br>
+[<br>
+p_i = r_i + \beta_i p_{i-1}.<br>
+]</li>
+</ul>
+</li>
+<li>
+<p><strong>终止条件</strong>：</p>
+<ul>
+<li>当 ( |r_i| ) 足够小时停止。</li>
+</ul>
+</li>
+</ol>
+<hr>
+<h3 id="问题背景：我们在解决什么？">问题背景：我们在解决什么？</h3>
+<p>我们需要解决一个线性方程组 ( Ax = b )，其中：</p>
+<ul>
+<li>( A ) 是一个对称正定矩阵（就像一个“公平的规则书”，保证方程有唯一解，而且解起来比较“友好”）。</li>
+<li>( b ) 是一个已知的向量（可以看作是我们想要达到的目标）。</li>
+<li>( x ) 是我们要找的解（我们的“答案”）。</li>
+</ul>
+<p>直接求解 ( Ax = b ) 可能很麻烦，尤其是当 ( A ) 很大时（比如一个巨大的矩阵）。所以，我们用一种叫<strong>共轭梯度法</strong>的迭代方法，像爬山一样一步步接近答案 ( x_* )（真正的解，满足 ( Ax_* = b )）。</p>
+<p>在这个过程中，我们会用到一个叫 <strong>Krylov 子空间</strong> 的东西，还有一些向量，比如残差 ( r_i )、方向向量 ( v_i )。我们要证明一个关于 ( v_i ) 的公式（引理），然后解释共轭梯度法是怎么工作的。</p>
+<hr>
+<h3 id="什么是-Krylov-子空间？">什么是 Krylov 子空间？</h3>
+<p>想象你在一个迷宫里，起点是向量 ( b )。你可以用矩阵 ( A ) 像“魔法”一样，把 ( b ) 变成新的向量：( Ab )、( A^2b )、( A^3b )，等等。这些向量就像迷宫里的不同路径。<strong>Krylov 子空间</strong> ( \mathcal{K}_i ) 就是由这些向量张成的“区域”：<br>
+[<br>
+\mathcal{K}_i = \text{span}{b, Ab, A^2b, \dots, A^{i-1}b}.<br>
+]</p>
+<ul>
+<li>当 ( i = 1 )，( \mathcal{K}_1 = \text{span}{b} )，只有 ( b ) 这一条路。</li>
+<li>当 ( i = 2 )，( \mathcal{K}_2 = \text{span}{b, Ab} )，多了 ( Ab ) 这条路。</li>
+<li>当 ( i = 0 )，( \mathcal{K}_0 = {0} )，就是“什么也没有”。</li>
+</ul>
+<p>我们会在这些子空间里找一个“最接近”真解 ( x_* ) 的近似解 ( x_i )。</p>
+<hr>
+<h3 id="什么是-A-范数？">什么是 ( A )-范数？</h3>
+<p>我们需要一个方法来衡量我们的近似解 ( x_i ) 离真解 ( x_* ) 有多远。这里的“距离”是用 <strong>( A )-范数</strong> 来定义的：<br>
+[<br>
+|x - x_<em>|<em>A = \sqrt{(x - x</em></em>)^T A (x - x_*)}.<br>
+]<br>
+你可以把 ( A )-范数想象成一个“加权距离”。普通距离是 ( \sqrt{x^T x} )，但这里用 ( A ) 来调整方向的重要性（因为 ( A ) 是对称正定的，它像一个“放大镜”，让某些方向更重要）。</p>
+<p>我们的目标是：<strong>在 ( \mathcal{K}<em>i ) 中找到 ( x_i )，使得 ( |x_i - x</em>*|_A ) 最小</strong>。这就像在迷宫的某块区域里，找到离终点最近的位置。</p>
+<hr>
+<h3 id="定义一些关键向量">定义一些关键向量</h3>
+<ol>
+<li>
+<p><strong>残差 ( r_i )</strong>：<br>
+[<br>
+r_i = b - A x_i.<br>
+]<br>
+残差是“误差向量”，告诉你近似解 ( x_i ) 离目标 ( b ) 还有多远。如果 ( x_i = x_* )，那么 ( A x_i = b )，于是 ( r_i = 0 )，说明我们到终点了。</p>
+</li>
+<li>
+<p><strong>增量 ( v_i )</strong>：<br>
+[<br>
+v_i = x_i - x_{i-1}.<br>
+]<br>
+这是从上一步的近似解 ( x_{i-1} ) 到当前解 ( x_i ) 的“步伐”。你可以把它看作我们迈出的一步，方向和大小都很重要。</p>
+</li>
+</ol>
+<hr>
+<h3 id="引理：我们要证明什么？">引理：我们要证明什么？</h3>
+<p>我们需要证明：<br>
+[<br>
+v_i = \frac{v_i^T r_{i-1}}{|r_{i-1}|^2} \left( r_{i-1} - \frac{r_{i-1}^T A v_{i-1}}{v_{i-1}^T A v_{i-1}} v_{i-1} \right).<br>
+]<br>
+这个公式看起来有点吓人，但别慌！我们把它拆开：</p>
+<ul>
+<li><strong>左边</strong>：( v_i )，是我们从 ( x_{i-1} ) 到 ( x_i ) 的步伐。</li>
+<li><strong>右边</strong>：
+<ul>
+<li>( r_{i-1} = b - A x_{i-1} )，是上一步的残差，像一个“指南针”，告诉我们还差多远。</li>
+<li>( \frac{r_{i-1}^T A v_{i-1}}{v_{i-1}^T A v_{i-1}} v_{i-1} )，是从 ( r_{i-1} ) 中减去一部分与 ( v_{i-1} ) 相关的分量（稍后解释）。</li>
+<li>( \frac{v_i^T r_{i-1}}{|r_{i-1}|^2} )，是一个系数，决定步伐的大小（像“步长”）。</li>
+</ul>
+</li>
+</ul>
+<p>这个公式在说：<strong>我们的新步伐 ( v_i ) 是基于上一步的残差 ( r_{i-1} )，但调整了方向，确保它和之前的步伐 ( v_{i-1} ) 在某种意义上“垂直”（A-正交）</strong>。</p>
+<hr>
+<h3 id="共轭梯度法：像爬山一样找答案">共轭梯度法：像爬山一样找答案</h3>
+<p>在证明引理之前，我们先了解共轭梯度法的大致思路，方便理解为什么公式长这样。</p>
+<p>共轭梯度法就像在山谷里找最低点（真解 ( x_* )）。你从一个起点 ( x_0 ) 开始，每次迈一步，调整方向，尽量快地到达最低点。关键是：</p>
+<ul>
+<li><strong>每一步的方向</strong>（叫搜索方向 ( p_i )）要很“聪明”，不能重复走过的路。</li>
+<li><strong>方向之间要 A-正交</strong>（也叫共轭），意思是 ( p_i^T A p_j = 0 )（当 ( i \neq j \））。这就像在不同方向上“垂直”，避免浪费精力。</li>
+<li><strong>步长</strong>（叫 ( \alpha_i )）要选得恰到好处，确保每一步都离目标更近。</li>
+</ul>
+<p>在我们的引理里，( v_i = x_i - x_{i-1} ) 就像是“步长 × 方向”。我们要证明它的具体形式。</p>
+<hr>
+<h3 id="证明引理：一步步拆解">证明引理：一步步拆解</h3>
+<h4 id="1-最优性条件：为什么-x-i-是最好的？">1. <strong>最优性条件：为什么 ( x_i ) 是最好的？</strong></h4>
+<p>我们知道，( x_i ) 是在 ( \mathcal{K}<em>i ) 中使得 ( |x_i - x</em><em>|<em>A ) 最小的解。数学上，这意味着：<br>
+[<br>
+|x_i - x</em></em>|<em>A^2 = (x_i - x</em><em>)^T A (x_i - x_</em>)<br>
+]<br>
+要最小化。我们把这个看成一个函数：<br>
+[<br>
+f(x) = (x - x_<em>)^T A (x - x_</em>) = x^T A x - 2 x^T A x_* + x_<em>^T A x_</em>.<br>
+]<br>
+因为 ( A x_* = b )，所以 ( x^T A x_* = x^T b )。于是：<br>
+[<br>
+f(x) = x^T A x - 2 x^T b + \text{常数}.<br>
+]<br>
+我们要在 ( x \in \mathcal{K}_i ) 中让 ( f(x) ) 最小。这就像在一个有限的区域里找最低点。</p>
+<p><strong>关键性质</strong>：当 ( x_i ) 是最优解时，残差 ( r_i = b - A x_i ) 会和 ( \mathcal{K}<em>i ) 中的所有向量“垂直”（标准内积下）：<br>
+[<br>
+\forall y \in \mathcal{K}<em>i, \quad y^T r_i = 0.<br>
+]<br>
+为什么？因为 ( r_i = b - A x_i = A (x</em>* - x_i) )，所以：<br>
+[<br>
+y^T r_i = y^T A (x</em>* - x_i).<br>
+]<br>
+如果 ( x_i ) 使 ( f(x) ) 最小，梯度 ( \nabla f(x) = 2 A x - 2 b ) 在 ( \mathcal{K}<em>i ) 方向上为零，意味着 ( r_i \perp \mathcal{K}<em>i )。同样，( r</em>{i-1} \perp \mathcal{K}</em>{i-1} )。</p>
+<h4 id="2-增量-v-i-是什么？">2. <strong>增量 ( v_i ) 是什么？</strong></h4>
+<p>因为：<br>
+[<br>
+x_i = x_{i-1} + v_i,<br>
+]<br>
+所以：<br>
+[<br>
+v_i = x_i - x_{i-1}.<br>
+]</p>
+<ul>
+<li>( x_{i-1} \in \mathcal{K}_{i-1} )，是上一步的最优解。</li>
+<li>( x_i \in \mathcal{K}_i )，是当前的最优解。</li>
+<li>( \mathcal{K}<em>i ) 比 ( \mathcal{K}</em>{i-1} ) 多了一个方向（比如 ( A^{i-1}b )）。</li>
+</ul>
+<p>所以，( v_i ) 必须在 ( \mathcal{K}<em>i ) 中，但它得是个“新方向”，不能完全重复 ( \mathcal{K}</em>{i-1} ) 里的内容。类比：你在迷宫里，( x_{i-1} ) 是你之前走到的地方，( v_i ) 是你新迈出的一步，指向 ( \mathcal{K}_i ) 里的新区域。</p>
+<h4 id="3-构造-v-i-的方向">3. <strong>构造 ( v_i ) 的方向</strong></h4>
+<p>我们假设 ( v_i ) 可以写成：<br>
+[<br>
+v_i = c_i d_i,<br>
+]<br>
+其中：</p>
+<ul>
+<li>( d_i ) 是方向（像“指南针”），在 ( \mathcal{K}_i ) 中。</li>
+<li>( c_i ) 是步长（决定走多远）。</li>
+</ul>
+<p><strong>方向 ( d_i )</strong> 怎么选？在共轭梯度法中，方向要和之前的方向 <strong>A-正交</strong>，即：<br>
+[<br>
+d_i^T A v_{i-1} = 0.<br>
+]<br>
+这确保我们不会走“回头路”。我们用上一步的残差 ( r_{i-1} = b - A x_{i-1} ) 作为起点，因为它指向我们还需要修正的方向。但 ( r_{i-1} ) 可能包含一些和 ( v_{i-1} ) 相关的成分，我们需要“清理”掉。</p>
+<p>所以，构造：<br>
+[<br>
+d_i = r_{i-1} - \gamma v_{i-1},<br>
+]<br>
+其中 ( \gamma ) 是系数，使得 ( d_i \perp_A v_{i-1} )：<br>
+[<br>
+d_i^T A v_{i-1} = (r_{i-1} - \gamma v_{i-1})^T A v_{i-1} = r_{i-1}^T A v_{i-1} - \gamma v_{i-1}^T A v_{i-1} = 0.<br>
+]<br>
+解出：<br>
+[<br>
+\gamma = \frac{r_{i-1}^T A v_{i-1}}{v_{i-1}^T A v_{i-1}}.<br>
+]<br>
+于是：<br>
+[<br>
+d_i = r_{i-1} - \frac{r_{i-1}^T A v_{i-1}}{v_{i-1}^T A v_{i-1}} v_{i-1}.<br>
+]<br>
+这个 ( d_i ) 就像是从 ( r_{i-1} ) 中“减去”了它在 ( v_{i-1} ) 方向上的投影（用 ( A )-内积），确保新方向和旧方向“垂直”。</p>
+<h4 id="4-确定步长-c-i">4. <strong>确定步长 ( c_i )</strong></h4>
+<p>现在 ( v_i = c_i d_i )，我们需要找 ( c_i )，让 ( x_i = x_{i-1} + v_i ) 是 ( \mathcal{K}<em>i ) 中最优的解。回忆 ( x_i ) 使残差 ( r_i \perp \mathcal{K}<em>i )。特别地，( r_i \perp v_i )：<br>
+[<br>
+v_i^T r_i = 0.<br>
+]<br>
+因为：<br>
+[<br>
+r_i = b - A x_i = b - A (x</em>{i-1} + v_i) = r</em>{i-1} - A v_i,<br>
+]<br>
+所以：<br>
+[<br>
+v_i^T r_i = v_i^T (r_{i-1} - A v_i) = v_i^T r_{i-1} - v_i^T A v_i = 0.<br>
+]<br>
+这推出：<br>
+[<br>
+v_i^T r_{i-1} = v_i^T A v_i.<br>
+]<br>
+代入 ( v_i = c_i d_i )，有：<br>
+[<br>
+v_i^T r_{i-1} = c_i d_i^T r_{i-1}, \quad v_i^T A v_i = c_i^2 d_i^T A d_i.<br>
+]<br>
+所以：<br>
+[<br>
+c_i d_i^T r_{i-1} = c_i^2 d_i^T A d_i \implies c_i = \frac{d_i^T r_{i-1}}{d_i^T A d_i}.<br>
+]<br>
+现在计算 ( d_i^T r_{i-1} )：<br>
+[<br>
+d_i = r_{i-1} - \frac{r_{i-1}^T A v_{i-1}}{v_{i-1}^T A v_{i-1}} v_{i-1},<br>
+]<br>
+[<br>
+d_i^T r_{i-1} = r_{i-1}^T r_{i-1} - \frac{r_{i-1}^T A v_{i-1}}{v_{i-1}^T A v_{i-1}} v_{i-1}^T r_{i-1}.<br>
+]<br>
+<strong>重要性质</strong>：因为 ( x_{i-1} \in \mathcal{K}<em>{i-1} ) 是最优解，( r</em>{i-1} \perp \mathcal{K}<em>{i-1} )。而 ( v</em>{i-1} = x_{i-1} - x_{i-2} \in \mathcal{K}<em>{i-1} )，所以：<br>
+[<br>
+v</em>{i-1}^T r_{i-1} = 0.<br>
+]<br>
+因此：<br>
+[<br>
+d_i^T r_{i-1} = |r_{i-1}|^2.<br>
+]<br>
+于是：<br>
+[<br>
+c_i = \frac{|r_{i-1}|^2}{d_i^T A d_i}.<br>
+]<br>
+但引理里给的系数是 ( \frac{v_i^T r_{i-1}}{|r_{i-1}|^2} )。我们验证：<br>
+[<br>
+v_i = c_i d_i \implies v_i^T r_{i-1} = c_i d_i^T r_{i-1} = c_i |r_{i-1}|^2.<br>
+]<br>
+所以：<br>
+[<br>
+\frac{v_i^T r_{i-1}}{|r_{i-1}|^2} = c_i.<br>
+]<br>
+这正好是我们需要的系数！</p>
+<h4 id="5-组合得到引理">5. <strong>组合得到引理</strong></h4>
+<p>把 ( c_i ) 和 ( d_i ) 代入：<br>
+[<br>
+v_i = c_i d_i = \frac{v_i^T r_{i-1}}{|r_{i-1}|^2} \left( r_{i-1} - \frac{r_{i-1}^T A v_{i-1}}{v_{i-1}^T A v_{i-1}} v_{i-1} \right).<br>
+]<br>
+这正是我们要证明的公式！虽然公式里 ( v_i ) 出现在两边，但 ( c_i = \frac{v_i^T r_{i-1}}{|r_{i-1}|^2} ) 是通过最优性条件推导出来的，符合共轭梯度法的逻辑。</p>
+<hr>
+<h3 id="共轭梯度法：完整流程">共轭梯度法：完整流程</h3>
+<p>现在我们明白了引理，来看共轭梯度法是怎么用这些想法一步步工作的。想象你在玩一个寻宝游戏，每次走一步，调整方向，尽量快地找到宝藏（( x_* )）。</p>
+<h4 id="初始化：">初始化：</h4>
+<ul>
+<li>选一个起点 ( x_0 )，通常设 ( x_0 = 0 )。</li>
+<li>计算初始残差：( r_0 = b - A x_0 = b )。</li>
+<li>初始方向：( p_0 = r_0 )。（第一步直接朝残差方向走）</li>
+</ul>
+<h4 id="迭代（每一步）：">迭代（每一步）：</h4>
+<p>对于 ( i = 1, 2, \dots )，做以下步骤：</p>
+<ol>
+<li>
+<p><strong>计算步长 ( \alpha_{i-1} )</strong>：<br>
+[<br>
+\alpha_{i-1} = \frac{r_{i-1}^T r_{i-1}}{p_{i-1}^T A p_{i-1}}.<br>
+]</p>
+<ul>
+<li>( r_{i-1}^T r_{i-1} ) 是残差的大小（告诉你还差多远）。</li>
+<li>( p_{i-1}^T A p_{i-1} ) 是方向的“阻力”（矩阵 ( A ) 影响方向的难度）。</li>
+<li>( \alpha_{i-1} ) 决定你沿 ( p_{i-1} ) 走多远。</li>
+</ul>
+</li>
+<li>
+<p><strong>更新解</strong>：<br>
+[<br>
+x_i = x_{i-1} + \alpha_{i-1} p_{i-1}.<br>
+]</p>
+</li>
+<li>
+<p><strong>更新残差</strong>：<br>
+[<br>
+r_i = r_{i-1} - \alpha_{i-1} A p_{i-1}.<br>
+]</p>
+<ul>
+<li>这是因为：<br>
+[<br>
+r_i = b - A x_i = b - A (x_{i-1} + \alpha_{i-1} p_{i-1}) = (b - A x_{i-1}) - \alpha_{i-1} A p_{i-1} = r_{i-1} - \alpha_{i-1} A p_{i-1}.<br>
+]</li>
+</ul>
+</li>
+<li>
+<p><strong>计算新方向的系数 ( \beta_i )</strong>：<br>
+[<br>
+\beta_i = \frac{r_i^T r_i}{r_{i-1}^T r_{i-1}}.<br>
+]</p>
+<ul>
+<li>这决定了新方向如何结合当前残差和旧方向。</li>
+</ul>
+</li>
+<li>
+<p><strong>更新方向</strong>：<br>
+[<br>
+p_i = r_i + \beta_i p_{i-1}.<br>
+]</p>
+<ul>
+<li>新方向是当前残差 ( r_i ) 加上一点旧方向 ( p_{i-1} )，确保它和之前的方向 A-正交。</li>
+</ul>
+</li>
+<li>
+<p><strong>检查是否到达终点</strong>：</p>
+<ul>
+<li>如果 ( |r_i| ) 很小（比如小于 ( 10^{-6} )），说明 ( x_i ) 很接近 ( x_* )，可以停止。</li>
+</ul>
+</li>
+</ol>
+<h4 id="为什么高效？">为什么高效？</h4>
+<ul>
+<li><strong>残差正交</strong>：( r_i^T r_j = 0 )（当 ( i \neq j \）），残差不会重复。</li>
+<li><strong>方向 A-正交</strong>：( p_i^T A p_j = 0 )（当 ( i \neq j \）），每一步都在新方向上前进。</li>
+<li><strong>最多 n 步</strong>：理论上，n 次迭代（n 是矩阵维度）就能找到精确解。</li>
+</ul>
+<hr>
+<h3 id="例子：手动算一步">例子：手动算一步</h3>
+<p>假设：</p>
+<ul>
+<li>( A = \begin{bmatrix} 4 &amp; 1 \ 1 &amp; 3 \end{bmatrix} )，( b = \begin{bmatrix} 1 \ 2 \end{bmatrix} )。</li>
+<li>初始：( x_0 = \begin{bmatrix} 0 \ 0 \end{bmatrix} )，( r_0 = b = \begin{bmatrix} 1 \ 2 \end{bmatrix} )，( p_0 = r_0 ).</li>
+</ul>
+<p><strong>第一步</strong>：</p>
+<ul>
+<li>步长：<br>
+[<br>
+r_0^T r_0 = 1^2 + 2^2 = 5,<br>
+]<br>
+[<br>
+p_0^T A p_0 = \begin{bmatrix} 1 &amp; 2 \end{bmatrix} \begin{bmatrix} 4 &amp; 1 \ 1 &amp; 3 \end{bmatrix} \begin{bmatrix} 1 \ 2 \end{bmatrix} = \begin{bmatrix} 1 &amp; 2 \end{bmatrix} \begin{bmatrix} 6 \ 7 \end{bmatrix} = 6 + 14 = 20,<br>
+]<br>
+[<br>
+\alpha_0 = \frac{5}{20} = 0.25.<br>
+]</li>
+<li>更新解：<br>
+[<br>
+x_1 = x_0 + \alpha_0 p_0 = \begin{bmatrix} 0 \ 0 \end{bmatrix} + 0.25 \begin{bmatrix} 1 \ 2 \end{bmatrix} = \begin{bmatrix} 0.25 \ 0.5 \end{bmatrix}.<br>
+]</li>
+<li>更新残差：<br>
+[<br>
+r_1 = r_0 - \alpha_0 A p_0 = \begin{bmatrix} 1 \ 2 \end{bmatrix} - 0.25 \begin{bmatrix} 4 &amp; 1 \ 1 &amp; 3 \end{bmatrix} \begin{bmatrix} 1 \ 2 \end{bmatrix} = \begin{bmatrix} 1 \ 2 \end{bmatrix} - 0.25 \begin{bmatrix} 6 \ 7 \end{bmatrix} = \begin{bmatrix} -0.5 \ 0.25 \end{bmatrix}.<br>
+]</li>
+<li>新方向系数：<br>
+[<br>
+r_1^T r_1 = (-0.5)^2 + (0.25)^2 = 0.25 + 0.0625 = 0.3125,<br>
+]<br>
+[<br>
+\beta_1 = \frac{0.3125}{5} = 0.0625.<br>
+]</li>
+<li>新方向：<br>
+[<br>
+p_1 = r_1 + \beta_1 p_0 = \begin{bmatrix} -0.5 \ 0.25 \end{bmatrix} + 0.0625 \begin{bmatrix} 1 \ 2 \end{bmatrix} = \begin{bmatrix} -0.4375 \ 0.375 \end{bmatrix}.<br>
+]</li>
+</ul>
+<p>继续迭代，直到 ( r_i ) 很小。</p>
+<hr>
+<h3 id="总结-3">总结</h3>
+<p><strong>引理</strong>：我们证明了 ( v_i ) 是通过残差 ( r_{i-1} ) 减去与 ( v_{i-1} ) 的 A-投影，再乘以一个步长系数得到的。这确保了每一步的方向都是“新”的（A-正交），而且步伐大小是最优的。</p>
+<p><strong>共轭梯度法</strong>：像一个聪明的导航系统，每次选一个新方向（A-正交），走恰当的距离（步长），在 Krylov 子空间里快速接近真解。</p>
+
+    </div>
+
+    
+    
+    
+
+      <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/notes.github.io/tags/%E5%85%B6%E4%BB%96/" rel="tag"># 其他</a>
+          </div>
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/notes.github.io/2025/06/23/noteSVD/" rel="prev" title="noteSVD">
+      <i class="fa fa-chevron-left"></i> noteSVD
+    </a></div>
+      <div class="post-nav-item">
+    <a href="/notes.github.io/2025/06/23/notePuGraph/" rel="next" title="notePuGraph">
+      notePuGraph <i class="fa fa-chevron-right"></i>
+    </a></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+
+
+          </div>
+          
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#1-%E7%9F%A9%E9%98%B5%E5%A4%9A%E9%A1%B9%E5%BC%8F%E7%9A%84%E7%89%B9%E5%BE%81%E7%A9%BA%E9%97%B4%E8%A7%86%E8%A7%92"><span class="nav-number">1.</span> <span class="nav-text">1. 矩阵多项式的特征空间视角</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E7%9F%A9%E9%98%B5%E5%A4%9A%E9%A1%B9%E5%BC%8F%E7%9A%84%E5%AE%9A%E4%B9%89"><span class="nav-number">1.1.</span> <span class="nav-text">矩阵多项式的定义</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E7%89%B9%E5%BE%81%E7%A9%BA%E9%97%B4%E7%9A%84%E6%80%A7%E8%B4%A8"><span class="nav-number">1.2.</span> <span class="nav-text">特征空间的性质</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E4%BB%8E-A-to-p-A-%E5%92%8C-lambda-i-to-p-lambda-i"><span class="nav-number">1.3.</span> <span class="nav-text">从 ( A \to p(A) ) 和 ( \lambda_i \to p(\lambda_i) )</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-%E5%AF%B9%E7%A7%B0%E7%9F%A9%E9%98%B5%E4%B8%8E%E6%A2%AF%E5%BA%A6%E4%B8%8B%E9%99%8D%E7%9A%84%E8%A7%86%E8%A7%92"><span class="nav-number">2.</span> <span class="nav-text">2. 对称矩阵与梯度下降的视角</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E7%9B%AE%E6%A0%87%E5%87%BD%E6%95%B0"><span class="nav-number">2.1.</span> <span class="nav-text">目标函数</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E6%A2%AF%E5%BA%A6%E8%AE%A1%E7%AE%97"><span class="nav-number">2.2.</span> <span class="nav-text">梯度计算</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E6%A2%AF%E5%BA%A6%E4%B8%8B%E9%99%8D%E6%96%B9%E6%B3%95"><span class="nav-number">2.3.</span> <span class="nav-text">梯度下降方法</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E6%A2%AF%E5%BA%A6%E4%B8%8B%E9%99%8D%E4%B8%8E%E7%9F%A9%E9%98%B5%E5%A4%9A%E9%A1%B9%E5%BC%8F%E7%9A%84%E8%81%94%E7%B3%BB"><span class="nav-number">2.4.</span> <span class="nav-text">梯度下降与矩阵多项式的联系</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3-%E4%B8%A4%E4%B8%AA%E8%A7%86%E8%A7%92%E7%9A%84%E8%81%94%E7%B3%BB"><span class="nav-number">3.</span> <span class="nav-text">3. 两个视角的联系</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E7%89%B9%E5%BE%81%E7%A9%BA%E9%97%B4%E4%B8%8E%E6%A2%AF%E5%BA%A6%E4%B8%8B%E9%99%8D"><span class="nav-number">3.1.</span> <span class="nav-text">特征空间与梯度下降</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%AF%B9%E7%A7%B0%E7%9F%A9%E9%98%B5%E7%9A%84%E7%89%B9%E6%AE%8A%E6%80%A7"><span class="nav-number">3.2.</span> <span class="nav-text">对称矩阵的特殊性</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%A4%9A%E9%A1%B9%E5%BC%8F%E4%BC%98%E5%8C%96"><span class="nav-number">3.3.</span> <span class="nav-text">多项式优化</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#4-%E8%A1%A5%E5%85%85%EF%BC%9A%E6%A2%AF%E5%BA%A6%E5%85%AC%E5%BC%8F%E4%B8%AD%E7%9A%84%E9%97%AE%E9%A2%98"><span class="nav-number">4.</span> <span class="nav-text">4. 补充：梯度公式中的问题</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%80%BB%E7%BB%93"><span class="nav-number">5.</span> <span class="nav-text">总结</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#1-%E7%9F%A9%E9%98%B5%E9%80%86%E7%9A%84%E8%BF%91%E4%BC%BC%EF%BC%9A-A-1-approx-p-A"><span class="nav-number">6.</span> <span class="nav-text">1. 矩阵逆的近似：( A^{-1} \approx p(A) )</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E7%9B%AE%E6%A0%87"><span class="nav-number">6.1.</span> <span class="nav-text">目标</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E7%AD%89%E4%BB%B7%E7%9A%84%E5%A4%9A%E9%A1%B9%E5%BC%8F-q-x"><span class="nav-number">6.2.</span> <span class="nav-text">等价的多项式 ( q(x) )</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E6%84%8F%E4%B9%89"><span class="nav-number">6.3.</span> <span class="nav-text">意义</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-%E6%B1%82%E8%A7%A3%E7%BA%BF%E6%80%A7%E7%B3%BB%E7%BB%9F-Ax-b"><span class="nav-number">7.</span> <span class="nav-text">2. 求解线性系统 ( Ax &#x3D; b )</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E7%9B%AE%E6%A0%87-2"><span class="nav-number">7.1.</span> <span class="nav-text">目标</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3-Richardson-%E8%BF%AD%E4%BB%A3"><span class="nav-number">8.</span> <span class="nav-text">3. Richardson 迭代</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E8%BF%AD%E4%BB%A3%E5%85%AC%E5%BC%8F"><span class="nav-number">8.1.</span> <span class="nav-text">迭代公式</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E8%AF%AF%E5%B7%AE%E5%88%86%E6%9E%90"><span class="nav-number">8.2.</span> <span class="nav-text">误差分析</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E6%94%B6%E6%95%9B%E6%80%A7%E5%88%86%E6%9E%90"><span class="nav-number">8.3.</span> <span class="nav-text">收敛性分析</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#4-%E9%80%89%E6%8B%A9%E6%9C%80%E4%BC%98%E6%AD%A5%E9%95%BF-alpha"><span class="nav-number">9.</span> <span class="nav-text">4. 选择最优步长 ( \alpha )</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E4%BC%98%E5%8C%96-alpha"><span class="nav-number">9.1.</span> <span class="nav-text">优化 ( \alpha )</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E9%AA%8C%E8%AF%81"><span class="nav-number">9.2.</span> <span class="nav-text">验证</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#5-%E6%94%B6%E6%95%9B%E6%AD%A5%E6%95%B0%E4%BC%B0%E8%AE%A1"><span class="nav-number">10.</span> <span class="nav-text">5. 收敛步数估计</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E8%AF%AF%E5%B7%AE%E6%94%B6%E6%95%9B"><span class="nav-number">10.1.</span> <span class="nav-text">误差收敛</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#6-%E6%9D%A1%E4%BB%B6%E6%95%B0%E7%9A%84%E4%BD%9C%E7%94%A8"><span class="nav-number">11.</span> <span class="nav-text">6. 条件数的作用</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E6%9D%A1%E4%BB%B6%E6%95%B0-kappa-frac-lambda-n-lambda-1"><span class="nav-number">11.1.</span> <span class="nav-text">条件数 ( \kappa &#x3D; \frac{\lambda_n}{\lambda_1} )</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E6%94%B9%E8%BF%9B%E6%96%B9%E6%B3%95"><span class="nav-number">11.2.</span> <span class="nav-text">改进方法</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%80%BB%E7%BB%93-2"><span class="nav-number">12.</span> <span class="nav-text">总结</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#1-Chebyshev-%E8%BF%AD%E4%BB%A3"><span class="nav-number">13.</span> <span class="nav-text">1. Chebyshev 迭代</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E7%9B%AE%E6%A0%87-3"><span class="nav-number">13.1.</span> <span class="nav-text">目标</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E8%BF%AD%E4%BB%A3%E6%96%B9%E6%A1%88"><span class="nav-number">13.2.</span> <span class="nav-text">迭代方案</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E8%AF%AF%E5%B7%AE%E5%88%86%E6%9E%90-2"><span class="nav-number">13.3.</span> <span class="nav-text">误差分析</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E4%B8%8E%E5%A4%9A%E9%A1%B9%E5%BC%8F%E9%80%BC%E8%BF%91%E7%9A%84%E8%81%94%E7%B3%BB"><span class="nav-number">13.4.</span> <span class="nav-text">与多项式逼近的联系</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Chebyshev-%E5%A4%9A%E9%A1%B9%E5%BC%8F"><span class="nav-number">13.5.</span> <span class="nav-text">Chebyshev 多项式</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Krylov-%E5%AD%90%E7%A9%BA%E9%97%B4"><span class="nav-number">13.6.</span> <span class="nav-text">Krylov 子空间</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Chebyshev-%E8%BF%AD%E4%BB%A3%E7%9A%84%E6%80%BB%E7%BB%93"><span class="nav-number">13.7.</span> <span class="nav-text">Chebyshev 迭代的总结</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-%E5%85%B1%E8%BD%AD%E6%A2%AF%E5%BA%A6-CG"><span class="nav-number">14.</span> <span class="nav-text">2. 共轭梯度 (CG)</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E7%9B%AE%E6%A0%87-4"><span class="nav-number">14.1.</span> <span class="nav-text">目标</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#A-%E5%86%85%E7%A7%AF"><span class="nav-number">14.2.</span> <span class="nav-text">A-内积</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E4%BC%98%E5%8C%96%E8%A7%86%E8%A7%92"><span class="nav-number">14.3.</span> <span class="nav-text">优化视角</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#CG-%E7%AE%97%E6%B3%95"><span class="nav-number">14.4.</span> <span class="nav-text">CG 算法</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E6%90%9C%E7%B4%A2%E6%96%B9%E5%90%91%E7%9A%84%E5%85%B1%E8%BD%AD%E6%80%A7"><span class="nav-number">14.5.</span> <span class="nav-text">搜索方向的共轭性</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%85%B1%E8%BD%AD%E5%90%91%E9%87%8F%E7%9A%84%E7%BA%BF%E6%80%A7%E6%97%A0%E5%85%B3%E6%80%A7"><span class="nav-number">14.6.</span> <span class="nav-text">共轭向量的线性无关性</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#CG-%E8%BF%AD%E4%BB%A3%E5%85%AC%E5%BC%8F"><span class="nav-number">14.7.</span> <span class="nav-text">CG 迭代公式</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E7%AE%80%E5%8C%96%E7%9A%84-CG-%E7%AE%97%E6%B3%95"><span class="nav-number">14.8.</span> <span class="nav-text">简化的 CG 算法</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E8%AF%AF%E5%B7%AE%E7%95%8C"><span class="nav-number">14.9.</span> <span class="nav-text">误差界</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E6%94%B6%E6%95%9B%E6%80%A7"><span class="nav-number">14.10.</span> <span class="nav-text">收敛性</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%AF%94%E8%BE%83%E5%92%8C%E8%81%94%E7%B3%BB"><span class="nav-number">15.</span> <span class="nav-text">比较和联系</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%BB%93%E8%AE%BA"><span class="nav-number">16.</span> <span class="nav-text">结论</span></a></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link"><span class="nav-number"></span> <span class="nav-text">引理的证明推导</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%BC%95%E7%90%86%E9%87%8D%E8%BF%B0"><span class="nav-number">1.</span> <span class="nav-text">引理重述</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E8%AF%81%E6%98%8E%E6%80%9D%E8%B7%AF"><span class="nav-number">2.</span> <span class="nav-text">证明思路</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E8%AF%A6%E7%BB%86%E8%AF%81%E6%98%8E"><span class="nav-number">3.</span> <span class="nav-text">详细证明</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%85%B1%E8%BD%AD%E6%A2%AF%E5%BA%A6%E6%B3%95%E8%BF%87%E7%A8%8B"><span class="nav-number">4.</span> <span class="nav-text">共轭梯度法过程</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E9%97%AE%E9%A2%98%E8%83%8C%E6%99%AF%EF%BC%9A%E6%88%91%E4%BB%AC%E5%9C%A8%E8%A7%A3%E5%86%B3%E4%BB%80%E4%B9%88%EF%BC%9F"><span class="nav-number">5.</span> <span class="nav-text">问题背景：我们在解决什么？</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%BB%80%E4%B9%88%E6%98%AF-Krylov-%E5%AD%90%E7%A9%BA%E9%97%B4%EF%BC%9F"><span class="nav-number">6.</span> <span class="nav-text">什么是 Krylov 子空间？</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%BB%80%E4%B9%88%E6%98%AF-A-%E8%8C%83%E6%95%B0%EF%BC%9F"><span class="nav-number">7.</span> <span class="nav-text">什么是 ( A )-范数？</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%AE%9A%E4%B9%89%E4%B8%80%E4%BA%9B%E5%85%B3%E9%94%AE%E5%90%91%E9%87%8F"><span class="nav-number">8.</span> <span class="nav-text">定义一些关键向量</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%BC%95%E7%90%86%EF%BC%9A%E6%88%91%E4%BB%AC%E8%A6%81%E8%AF%81%E6%98%8E%E4%BB%80%E4%B9%88%EF%BC%9F"><span class="nav-number">9.</span> <span class="nav-text">引理：我们要证明什么？</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%85%B1%E8%BD%AD%E6%A2%AF%E5%BA%A6%E6%B3%95%EF%BC%9A%E5%83%8F%E7%88%AC%E5%B1%B1%E4%B8%80%E6%A0%B7%E6%89%BE%E7%AD%94%E6%A1%88"><span class="nav-number">10.</span> <span class="nav-text">共轭梯度法：像爬山一样找答案</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E8%AF%81%E6%98%8E%E5%BC%95%E7%90%86%EF%BC%9A%E4%B8%80%E6%AD%A5%E6%AD%A5%E6%8B%86%E8%A7%A3"><span class="nav-number">11.</span> <span class="nav-text">证明引理：一步步拆解</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#1-%E6%9C%80%E4%BC%98%E6%80%A7%E6%9D%A1%E4%BB%B6%EF%BC%9A%E4%B8%BA%E4%BB%80%E4%B9%88-x-i-%E6%98%AF%E6%9C%80%E5%A5%BD%E7%9A%84%EF%BC%9F"><span class="nav-number">11.1.</span> <span class="nav-text">1. 最优性条件：为什么 ( x_i ) 是最好的？</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#2-%E5%A2%9E%E9%87%8F-v-i-%E6%98%AF%E4%BB%80%E4%B9%88%EF%BC%9F"><span class="nav-number">11.2.</span> <span class="nav-text">2. 增量 ( v_i ) 是什么？</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#3-%E6%9E%84%E9%80%A0-v-i-%E7%9A%84%E6%96%B9%E5%90%91"><span class="nav-number">11.3.</span> <span class="nav-text">3. 构造 ( v_i ) 的方向</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#4-%E7%A1%AE%E5%AE%9A%E6%AD%A5%E9%95%BF-c-i"><span class="nav-number">11.4.</span> <span class="nav-text">4. 确定步长 ( c_i )</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#5-%E7%BB%84%E5%90%88%E5%BE%97%E5%88%B0%E5%BC%95%E7%90%86"><span class="nav-number">11.5.</span> <span class="nav-text">5. 组合得到引理</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%85%B1%E8%BD%AD%E6%A2%AF%E5%BA%A6%E6%B3%95%EF%BC%9A%E5%AE%8C%E6%95%B4%E6%B5%81%E7%A8%8B"><span class="nav-number">12.</span> <span class="nav-text">共轭梯度法：完整流程</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%88%9D%E5%A7%8B%E5%8C%96%EF%BC%9A"><span class="nav-number">12.1.</span> <span class="nav-text">初始化：</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E8%BF%AD%E4%BB%A3%EF%BC%88%E6%AF%8F%E4%B8%80%E6%AD%A5%EF%BC%89%EF%BC%9A"><span class="nav-number">12.2.</span> <span class="nav-text">迭代（每一步）：</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E4%B8%BA%E4%BB%80%E4%B9%88%E9%AB%98%E6%95%88%EF%BC%9F"><span class="nav-number">12.3.</span> <span class="nav-text">为什么高效？</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%BE%8B%E5%AD%90%EF%BC%9A%E6%89%8B%E5%8A%A8%E7%AE%97%E4%B8%80%E6%AD%A5"><span class="nav-number">13.</span> <span class="nav-text">例子：手动算一步</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%80%BB%E7%BB%93-3"><span class="nav-number">14.</span> <span class="nav-text">总结</span></a></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="Chen Zhan"
+      src="/notes.github.io/images/woshicaigou.jpg">
+  <p class="site-author-name" itemprop="name">Chen Zhan</p>
+  <div class="site-description" itemprop="description"></div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/notes.github.io/archives/">
+        
+          <span class="site-state-item-count">23</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-tags">
+        <span class="site-state-item-count">3</span>
+        <span class="site-state-item-name">标签</span>
+      </div>
+  </nav>
+</div>
+
+
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+
+<div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2025</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Chen Zhan</span>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://pisces.theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Pisces</a> 强力驱动
+  </div>
+
+        
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/notes.github.io/lib/anime.min.js"></script>
+  <script src="/notes.github.io/lib/velocity/velocity.min.js"></script>
+  <script src="/notes.github.io/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/notes.github.io/js/utils.js"></script>
+
+<script src="/notes.github.io/js/motion.js"></script>
+
+
+<script src="/notes.github.io/js/schemes/pisces.js"></script>
+
+
+<script src="/notes.github.io/js/next-boot.js"></script>
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+      
+<link rel="stylesheet" href="//cdn.jsdelivr.net/npm/katex@0/dist/katex.min.css">
+  <script src="//cdn.jsdelivr.net/npm/katex@0/dist/contrib/copy-tex.min.js"></script>
+  <link rel="stylesheet" href="//cdn.jsdelivr.net/npm/katex@0/dist/contrib/copy-tex.min.css">
+
+
+  
+
+</body>
+</html>

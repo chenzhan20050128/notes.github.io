@@ -1,0 +1,899 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 7.3.0">
+  <link rel="apple-touch-icon" sizes="180x180" href="/notes.github.io/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/notes.github.io/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/notes.github.io/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/notes.github.io/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/notes.github.io/css/main.css">
+
+
+<link rel="stylesheet" href="/notes.github.io/lib/font-awesome/css/all.min.css">
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"chenzhan20050128.github.io","root":"/notes.github.io/","scheme":"Pisces","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":true,"show_result":true,"style":"mac"},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.json"};
+  </script>
+
+  <meta name="description" content="电路网络中的电流与电压求解方法 给定一个电阻网络，每条边 ( e ) 的电阻为 ( r_e )（或电导率 ( w_e &#x3D; 1&#x2F;r_e )），假设从节点 ( s ) 注入 1A 电流，并从节点 ( t ) 流出，如何计算网络内部的电流分布和电压分布？ 更一般地，设 ( b_v ) 表示从外部流入节点 ( v \in V ) 的净电流：  ( b_v &gt; 0 )：电流注入节点 ( v )（如源节">
+<meta property="og:type" content="article">
+<meta property="og:title" content="noteCircut">
+<meta property="og:url" content="https://chenzhan20050128.github.io/notes.github.io/2025/06/23/noteCircut/index.html">
+<meta property="og:site_name" content="cz Blog">
+<meta property="og:description" content="电路网络中的电流与电压求解方法 给定一个电阻网络，每条边 ( e ) 的电阻为 ( r_e )（或电导率 ( w_e &#x3D; 1&#x2F;r_e )），假设从节点 ( s ) 注入 1A 电流，并从节点 ( t ) 流出，如何计算网络内部的电流分布和电压分布？ 更一般地，设 ( b_v ) 表示从外部流入节点 ( v \in V ) 的净电流：  ( b_v &gt; 0 )：电流注入节点 ( v )（如源节">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2025-06-23T04:22:32.000Z">
+<meta property="article:modified_time" content="2025-06-23T04:22:32.097Z">
+<meta property="article:author" content="Chen Zhan">
+<meta property="article:tag" content="其他">
+<meta name="twitter:card" content="summary">
+
+<link rel="canonical" href="https://chenzhan20050128.github.io/notes.github.io/2025/06/23/noteCircut/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'zh-CN'
+  };
+</script>
+
+  <title>noteCircut | cz Blog</title>
+  
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+<link rel="alternate" href="/notes.github.io/atom.xml" title="cz Blog" type="application/atom+xml">
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/notes.github.io/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">cz Blog</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+      <p class="site-subtitle" itemprop="description">Hello World</p>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+    </div>
+  </div>
+</div>
+
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="main-menu menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/notes.github.io/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/notes.github.io/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档</a>
+
+  </li>
+  </ul>
+</nav>
+
+
+
+
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+  <div class="reading-progress-bar"></div>
+
+  <a href="https://github.com/chenzhan20050128" class="github-corner" title="Follow me on GitHub" aria-label="Follow me on GitHub" rel="noopener" target="_blank"><svg width="80" height="80" viewBox="0 0 250 250" aria-hidden="true"><path d="M0,0 L115,115 L130,115 L142,142 L250,250 L250,0 Z"></path><path d="M128.3,109.0 C113.8,99.7 119.0,89.6 119.0,89.6 C122.0,82.7 120.5,78.6 120.5,78.6 C119.2,72.0 123.4,76.3 123.4,76.3 C127.3,80.9 125.5,87.3 125.5,87.3 C122.9,97.6 130.6,101.9 134.4,103.2" fill="currentColor" style="transform-origin: 130px 106px;" class="octo-arm"></path><path d="M115.0,115.0 C114.9,115.1 118.7,116.5 119.8,115.4 L133.7,101.6 C136.9,99.2 139.9,98.4 142.2,98.6 C133.8,88.0 127.5,74.4 143.8,58.0 C148.5,53.4 154.0,51.2 159.7,51.0 C160.3,49.4 163.2,43.6 171.4,40.1 C171.4,40.1 176.1,42.5 178.8,56.2 C183.1,58.6 187.2,61.8 190.9,65.4 C194.5,69.0 197.7,73.2 200.1,77.6 C213.8,80.2 216.3,84.9 216.3,84.9 C212.7,93.1 206.9,96.0 205.4,96.6 C205.1,102.4 203.0,107.8 198.3,112.5 C181.9,128.9 168.3,122.5 157.7,114.1 C157.9,116.9 156.7,120.9 152.7,124.9 L141.0,136.5 C139.8,137.7 141.6,141.9 141.8,141.8 Z" fill="currentColor" class="octo-body"></path></svg></a>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content post posts-expand">
+            
+
+    
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://chenzhan20050128.github.io/notes.github.io/2025/06/23/noteCircut/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/notes.github.io/images/woshicaigou.jpg">
+      <meta itemprop="name" content="Chen Zhan">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="cz Blog">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          noteCircut
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2025-06-23 12:22:32" itemprop="dateCreated datePublished" datetime="2025-06-23T12:22:32+08:00">2025-06-23</time>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <h3 id="电路网络中的电流与电压求解方法"><strong>电路网络中的电流与电压求解方法</strong></h3>
+<p>给定一个电阻网络，每条边 ( e ) 的电阻为 ( r_e )（或电导率 ( w_e = 1/r_e )），假设从节点 ( s ) 注入 1A 电流，并从节点 ( t ) 流出，如何计算网络内部的电流分布和电压分布？</p>
+<p>更一般地，设 ( b_v ) 表示从外部流入节点 ( v \in V ) 的净电流：</p>
+<ul>
+<li>( b_v &gt; 0 )：电流<strong>注入</strong>节点 ( v )（如源节点 ( s )）</li>
+<li>( b_v &lt; 0 )：电流<strong>流出</strong>节点 ( v )（如汇节点 ( t )）</li>
+<li>其他内部节点满足 ( b_v = 0 )（基尔霍夫电流定律）</li>
+</ul>
+<hr>
+<h3 id="1-电路定律"><strong>1. 电路定律</strong></h3>
+<h4 id="1-基尔霍夫电流定律（KCL）"><strong>(1) 基尔霍夫电流定律（KCL）</strong></h4>
+<blockquote>
+<p><strong>流入节点的电流 = 流出节点的电流</strong><br>
+即，对任意节点 ( v )，所有相邻边的电流 ( i_{vu} ) 满足：<br>
+[<br>
+\sum_{u: (v,u) \in E} i_{vu} = b_v \quad \forall v \in V<br>
+]<br>
+（( i_{vu} ) 表示从 ( v ) 流向 ( u ) 的电流）</p>
+</blockquote>
+<h4 id="2-欧姆定律"><strong>(2) 欧姆定律</strong></h4>
+<blockquote>
+<p><strong>电压差 = 电流 × 电阻</strong><br>
+即，对任意边 ( (u,v) )，有：<br>
+[<br>
+\phi(u) - \phi(v) = i_{uv} \cdot r_{uv} \quad \Leftrightarrow \quad i_{uv} = w_{uv} \cdot (\phi(u) - \phi(v))<br>
+]<br>
+（( \phi(v) ) 表示节点 ( v ) 的电压，( w_{uv} = 1/r_{uv} ) 是电导率）</p>
+</blockquote>
+<hr>
+<h3 id="2-合并定律，建立方程"><strong>2. 合并定律，建立方程</strong></h3>
+<p>将欧姆定律代入基尔霍夫定律：<br>
+[<br>
+b_v = \sum_{u: (v,u) \in E} i_{vu} = \sum_{u: (v,u) \in E} w_{vu} (\phi(v) - \phi(u))<br>
+]<br>
+整理后得到：<br>
+[<br>
+b_v = \text{deg}<em>w(v) \cdot \phi(v) - \sum</em>{u: (v,u) \in E} w_{vu} \phi(u)<br>
+]<br>
+其中：</p>
+<ul>
+<li>( \text{deg}<em>w(v) = \sum</em>{u: (v,u) \in E} w_{vu} ) 是节点 ( v ) 的<strong>加权度数</strong>（即所有邻边电导率之和）</li>
+</ul>
+<p>特别地，如果所有电导率 ( w_{uv} = 1 )，则方程简化为：<br>
+[<br>
+b = L \phi<br>
+]<br>
+其中 ( L ) 是图的<strong>拉普拉斯矩阵（Laplacian Matrix）</strong>：<br>
+[<br>
+L_{uv} =<br>
+\begin{cases}<br>
+\text{deg}(v) &amp; \text{如果 } u = v \<br>
+-1 &amp; \text{如果 } (u,v) \in E \<br>
+0 &amp; \text{否则}<br>
+\end{cases}<br>
+]</p>
+<p>这就把电路方程和拉普拉斯矩阵建立了联系！</p>
+<h3 id="电路网络方程的可解性与唯一性分析"><strong>电路网络方程的可解性与唯一性分析</strong></h3>
+<h4 id="1-问题建模与矩阵表示"><strong>1. 问题建模与矩阵表示</strong></h4>
+<p>给定电阻网络 ( G=(V,E) )，每条边 ( e \in E ) 的电导率为 ( w_e = 1/r_e )，定义以下矩阵：</p>
+<ul>
+<li>
+<p><strong>关联矩阵（Incidence Matrix）( B )</strong>：<br>
+( B \in \mathbb{R}^{|V| \times |E|} )，每列对应一条边 ( e = (u,v) )，其中 ( B_{u,e} = +1 )，( B_{v,e} = -1 )，其余为 0。</p>
+</li>
+<li>
+<p><strong>电导率对角阵 ( W )</strong>：<br>
+( W \in \mathbb{R}^{|E| \times |E|} )，( W_{e,e} = w_e )。</p>
+</li>
+<li>
+<p><strong>拉普拉斯矩阵 ( L )</strong>：<br>
+( L = B W B^\top = \sum_{e} w_e b_e b_e^\top )，其中 ( b_e ) 是边 ( e ) 对应的关联矩阵列。</p>
+</li>
+<li>
+<p><strong>为什么 (L = B W B^\top)？</strong></p>
+</li>
+<li>
+<p><strong>直观理解</strong>：<br>
+(B) 提取电压差，(W) 转为电流，(B^\top) 将电流汇总到节点。</p>
+</li>
+<li>
+<p><strong>数学推导</strong>：<br>
+[<br>
+(B W B^\top \phi)<em>v = \sum</em>{e} B_{v,e} w_e (B^\top \phi)<em>e = \sum</em>{u} w_{vu} (\phi_v - \phi_u)<br>
+]<br>
+这正是节点 (v) 的净流出电流。<br>
+<strong>电流-电压关系</strong>：<br>
+[<br>
+i = W B^\top \phi, \quad b = L \phi = B i<br>
+]<br>
+其中 ( b ) 是外部注入电流向量（( b_s = 1 ), ( b_t = -1 ), 其余为 0），( \phi ) 是节点电压向量。</p>
+</li>
+<li>
+<p><strong>解释</strong>：</p>
+<ul>
+<li>(B^\top \phi) 计算每条边的电压差（(\phi_u - \phi_v)）。</li>
+<li>(W) 乘以电压差，得到电流 (i_e = w_e (\phi_u - \phi_v))（欧姆定律）。</li>
+</ul>
+</li>
+<li>
+<p><strong>解释</strong>：</p>
+<ul>
+<li>(L \phi)：计算每个节点的净流出电流（应等于外部注入 (b)）。</li>
+<li>(B i)：直接对边电流求和，验证节点电流守恒。</li>
+</ul>
+</li>
+</ul>
+<hr>
+<h4 id="2-方程的可解性"><strong>2. 方程的可解性</strong></h4>
+<p><strong>问题</strong>：方程 ( b = L \phi ) 何时有解？<br>
+<strong>结论</strong>：</p>
+<ul>
+<li><strong>可解条件</strong>：( b ) 必须满足 ( \sum_{v \in V} b_v = 0 )（即净注入电流为零，符合物理守恒律）。</li>
+<li><strong>物理意义</strong>：电流从源节点 ( s ) 注入后必须全部从汇节点 ( t ) 流出，系统才能达到稳态。</li>
+</ul>
+<p><strong>数学证明</strong>：<br>
+拉普拉斯矩阵 ( L ) 的行和为零（因 ( L \mathbf{1} = 0 )），故 ( b ) 必须正交于 ( \mathbf{1} )（即 ( \mathbf{1}^\top b = 0 )）。</p>
+<hr>
+<h4 id="3-解的唯一性"><strong>3. 解的唯一性</strong></h4>
+<p><strong>问题</strong>：解 ( \phi ) 是否唯一？<br>
+<strong>结论</strong>：</p>
+<ul>
+<li><strong>解不唯一</strong>：若 ( \phi ) 是解，则 ( \phi + c \mathbf{1} )（( c ) 为任意常数）也是解。</li>
+<li><strong>唯一性约束</strong>：需固定一个参考电压（如设 ( \phi_t = 0 )），此时解唯一。</li>
+</ul>
+<p><strong>数学解释</strong>：<br>
+拉普拉斯矩阵 ( L ) 的秩为 ( |V|-1 )，核空间（null space）为 ( \text{span}(\mathbf{1}) )。因此，解仅在相差一个全局电压常数时唯一。</p>
+<hr>
+<h4 id="4-与图论问题的联系"><strong>4. 与图论问题的联系</strong></h4>
+<p><strong>随机游走</strong>：</p>
+<ul>
+<li>电压 ( \phi ) 可解释为从节点 ( s ) 到 ( t ) 的逃逸概率（escape probability）。</li>
+<li>电导率 ( w_e ) 对应转移概率。</li>
+</ul>
+<p><strong>网络流</strong>：</p>
+<ul>
+<li>电流 ( i ) 是满足流量守恒的最小能量流（欧姆定律等价于能量最小化）。</li>
+</ul>
+<p><strong>谱图理论</strong>：</p>
+<ul>
+<li>拉普拉斯矩阵 ( L ) 的特征值反映了网络的连通性（如代数连通度 ( \lambda_2 ) 与 Cheeger 不等式相关）。</li>
+</ul>
+<hr>
+<h3 id="拉普拉斯矩阵的秩与解的唯一性分析"><strong>拉普拉斯矩阵的秩与解的唯一性分析</strong></h3>
+<h4 id="1-拉普拉斯矩阵的秩缺陷性"><strong>1. 拉普拉斯矩阵的秩缺陷性</strong></h4>
+<ul>
+<li>
+<p><strong>核心性质</strong>：<br>
+拉普拉斯矩阵 ( L ) <strong>不是满秩矩阵</strong>，因为 ( L \mathbf{1} = 0 )（其中 (\mathbf{1}) 是全1向量）。</p>
+<ul>
+<li><strong>物理意义</strong>：全局电压平移（(\phi \to \phi + c\mathbf{1})）不影响电流分布，符合电压的相对性。</li>
+</ul>
+</li>
+<li>
+<p><strong>零空间（Nullspace）</strong>：<br>
+若图是<strong>连通</strong>的，( L ) 的零空间仅由 (\text{span}(\mathbf{1})) 构成，即：<br>
+[<br>
+\text{null}(L) = { c \mathbf{1} \mid c \in \mathbb{R} }<br>
+]</p>
+</li>
+</ul>
+<h4 id="2-方程-L-phi-b-的解存在条件"><strong>2. 方程 ( L \phi = b ) 的解存在条件</strong></h4>
+<ul>
+<li>
+<p><strong>引理</strong>：若 ( L \phi = b ) 有解，则必须满足 ( b \perp \mathbf{1} )（即 (\sum_v b_v = 0)）。</p>
+<ul>
+<li><strong>证明</strong>：<br>
+由于 ( L \mathbf{1} = 0 )，对任意解 (\phi)，有：<br>
+[<br>
+\mathbf{1}^\top b = \mathbf{1}^\top (L \phi) = (L \mathbf{1})^\top \phi = 0<br>
+]</li>
+<li><strong>物理对应</strong>：外部注入电流的代数和为零（电流守恒）。</li>
+</ul>
+</li>
+<li>
+<p><strong>连通图的解结构</strong>：<br>
+若图连通且 ( b \perp \mathbf{1} )，则解存在且可表示为：<br>
+[<br>
+\phi = \phi_0 + c \mathbf{1}, \quad c \in \mathbb{R}<br>
+]<br>
+其中 (\phi_0) 是特解（如固定 (\phi_t = 0) 后唯一解）。</p>
+</li>
+</ul>
+<h4 id="3-特征值视角的解释"><strong>3. 特征值视角的解释</strong></h4>
+<ul>
+<li><strong>谱分解</strong>：<br>
+设 ( L ) 的特征值为 ( 0 = \lambda_1 &lt; \lambda_2 \leq \cdots \leq \lambda_n )，对应正交特征向量 ( \mathbf{1}, v_2, \dots, v_n )。
+<ul>
+<li><strong>解的存在性</strong>：<br>
+将 ( b ) 投影到特征空间，若 ( b ) 不含 ( \mathbf{1} ) 分量（即 ( b \perp \mathbf{1} )），则解存在。</li>
+<li><strong>解的表达式</strong>：<br>
+[<br>
+\phi = \sum_{i=2}^n \frac{\langle b, v_i \rangle}{\lambda_i} v_i + c \mathbf{1}<br>
+]<br>
+（( \lambda_2 &gt; 0 ) 保证连通图的可解性）</li>
+</ul>
+</li>
+</ul>
+<h4 id="4-物理意义与电路网络"><strong>4. 物理意义与电路网络</strong></h4>
+<ul>
+<li>
+<p><strong>电流平衡</strong>：<br>
+条件 ( \sum_v b_v = 0 ) 对应电路中的<strong>基尔霍夫电流定律</strong>（KCL），即注入电流等于流出电流。</p>
+<ul>
+<li><strong>示例</strong>：<br>
+若从节点 ( s ) 注入 ( 1\text{A} )，则必须有节点 ( t ) 流出 ( 1\text{A} )，其余 ( b_v = 0 )。</li>
+</ul>
+</li>
+<li>
+<p><strong>电压唯一性</strong>：<br>
+通过固定参考电压（如接地 ( \phi_t = 0 )），消除零空间自由度，得到唯一解。</p>
+</li>
+</ul>
+<h3 id="拉普拉斯矩阵的伪逆与解的结构"><strong>拉普拉斯矩阵的伪逆与解的结构</strong></h3>
+<h4 id="引理"><strong>引理</strong></h4>
+<p>若 ( b \perp \mathbf{1} )，则存在向量 ( \phi ) 使得 ( L \phi = b )。</p>
+<h4 id="证明"><strong>证明</strong></h4>
+<ol>
+<li>
+<p><strong>谱分解</strong>：<br>
+由于 ( L ) 是对称半正定矩阵，可分解为：<br>
+[<br>
+L = \sum_{i=2}^n \lambda_i v_i v_i^\top<br>
+]<br>
+其中 ( \lambda_1 = 0 )，对应特征向量 ( v_1 = \frac{1}{\sqrt{n}} \mathbf{1} )，且 ( \lambda_2, \dots, \lambda_n &gt; 0 )（若图连通）。</p>
+</li>
+<li>
+<p><strong>条件 ( b \perp \mathbf{1} )</strong>：<br>
+由正交性，( b ) 可表示为非零特征向量的线性组合：<br>
+[<br>
+b = \sum_{i=2}^n a_i v_i<br>
+]</p>
+</li>
+<li>
+<p><strong>构造解 ( \phi )</strong>：<br>
+取：<br>
+[<br>
+\phi = \sum_{i=2}^n \frac{a_i}{\lambda_i} v_i<br>
+]<br>
+验证：<br>
+[<br>
+L \phi = \sum_{i=2}^n \lambda_i v_i v_i^\top \left( \sum_{j=2}^n \frac{a_j}{\lambda_j} v_j \right) = \sum_{i=2}^n a_i v_i = b<br>
+]</p>
+</li>
+</ol>
+<hr>
+<h4 id="伪逆-L-dagger-的定义与性质"><strong>伪逆 ( L^\dagger ) 的定义与性质</strong></h4>
+<p>定义伪逆：<br>
+[<br>
+L^\dagger = \sum_{i=2}^n \frac{1}{\lambda_i} v_i v_i^\top<br>
+]</p>
+<p><strong>性质</strong>：</p>
+<ol>
+<li><strong>唯一性</strong>：
+<ul>
+<li>对任意 ( b \perp \mathbf{1} )，( \phi = L^\dagger b ) 是唯一满足 ( L \phi = b ) 且 ( \phi \perp \mathbf{1} ) 的解。</li>
+</ul>
+</li>
+<li><strong>通解结构</strong>：
+<ul>
+<li>方程 ( L \phi = b ) 的全体解为：<br>
+[<br>
+\phi = L^\dagger b + c \mathbf{1}, \quad c \in \mathbb{R}<br>
+]</li>
+</ul>
+</li>
+<li><strong>固定电压的唯一解</strong>：
+<ul>
+<li>若指定某节点电压（如 ( \phi_v = 0 )），则解唯一。</li>
+</ul>
+</li>
+</ol>
+<hr>
+<h4 id="物理意义"><strong>物理意义</strong></h4>
+<ol>
+<li><strong>伪逆的作用</strong>：
+<ul>
+<li>( L^\dagger ) 将电流分布 ( b ) 映射到<strong>最小范数电压解</strong>（即 ( \phi \perp \mathbf{1} )）。</li>
+</ul>
+</li>
+<li><strong>平移自由度</strong>：
+<ul>
+<li>解中的 ( c \mathbf{1} ) 反映电压的全局参考点可任意选择，不影响电流分布。</li>
+</ul>
+</li>
+</ol>
+<hr>
+<h2 id="一个引理">一个引理</h2>
+<p>引理：$R_{\text{eff}}(s, t) = b_{st}^\top L^\dagger b_{st}$，其中向量$b_{st} \in \mathbb{R}^n$满足<br>
+$b_{st}(s) = 1$, $b_{st}(t) = -1$，并且其它位置都为0。<br>
+<strong>等效电阻的表达式</strong>：</p>
+<ul>
+<li>从 ( \phi = L^\dagger b ) 和 ( R_{\text{eff}}(s, t) = \phi(s) - \phi(t) ) 出发：<br>
+[<br>
+\phi(s) = (L^\dagger b)(s) = \sum_j L^\dagger(s, j) b(j) = L^\dagger(s, s) \cdot 1 + L^\dagger(s, t) \cdot (-1),<br>
+]<br>
+[<br>
+\phi(t) = (L^\dagger b)(t) = \sum_j L^\dagger(t, j) b(j) = L^\dagger(t, s) \cdot 1 + L^\dagger(t, t) \cdot (-1).<br>
+]</li>
+<li>因此：<br>
+[<br>
+R_{\text{eff}}(s, t) = \phi(s) - \phi(t) = \left[ L^\dagger(s, s) - L^\dagger(s, t) \right] - \left[ L^\dagger(t, s) - L^\dagger(t, t) \right].<br>
+]</li>
+<li>由于 ( L^\dagger ) 对称，( L^\dagger(s, t) = L^\dagger(t, s) )，所以：<br>
+[<br>
+R_{\text{eff}}(s, t) = L^\dagger(s, s) + L^\dagger(t, t) - 2 L^\dagger(s, t).<br>
+]</li>
+<li>另一方面，( b_{st}^\top L^\dagger b_{st} ) 可以展开为：<br>
+[<br>
+b_{st}^\top L^\dagger b_{st} = \sum_i \sum_j b_{st}(i) L^\dagger(i, j) b_{st}(j) = L^\dagger(s, s) - L^\dagger(s, t) - L^\dagger(t, s) + L^\dagger(t, t).<br>
+]</li>
+<li>由于 ( L^\dagger ) 对称，因此：<br>
+[<br>
+b_{st}^\top L^\dagger b_{st} = L^\dagger(s, s) + L^\dagger(t, t) - 2 L^\dagger(s, t) = R_{\text{eff}}(s, t).<br>
+]</li>
+<li>引理得证。</li>
+</ul>
+<h1>拉普拉斯矩阵二次型的展开证明</h1>
+<p>设图$G=(V,E)$的边带有电阻$r_e$，对应的电导为$c_e = 1/r_e$。拉普拉斯矩阵$L$定义为：</p>
+<p>[<br>
+L_{uv} =<br>
+\begin{cases}<br>
+\sum_{w \sim u} c_{uw} &amp; \text{若 } u=v \<br>
+c_{uv} &amp; \text{若 } u \neq v \text{ 且 } (u,v)\in E \<br>
+0 &amp; \text{其他情况}<br>
+\end{cases}<br>
+]</p>
+<h2 id="步骤1：展开二次型">步骤1：展开二次型</h2>
+<p>考虑电势向量$\phi$的二次型：</p>
+<p>[<br>
+\phi^\top L\phi = \sum_{u \in V} \sum_{v \in V} \phi_u L_{uv} \phi_v<br>
+]</p>
+<h2 id="步骤2：分离对角线项和非对角线项">步骤2：分离对角线项和非对角线项</h2>
+<p>将求和分为$u=v$和$u\neq v$的情况：</p>
+<p>[<br>
+= \underbrace{\sum_{u \in V} \phi_u^2 L_{uu}}<em>{\text{对角线项}} + \underbrace{\sum</em>{u \neq v} \phi_u L_{uv} \phi_v}_{\text{非对角线项}}<br>
+]</p>
+<h2 id="步骤3：代入拉普拉斯矩阵定义">步骤3：代入拉普拉斯矩阵定义</h2>
+<p>对于对角线项：<br>
+[<br>
+\sum_{u \in V} \phi_u^2 \left(\sum_{w \sim u} c_{uw}\right) = \sum_{u \in V} \sum_{e=(u,w)\in E} \phi_u^2 c_e<br>
+]</p>
+<p>对于非对角线项：<br>
+[<br>
+\sum_{u \neq v} \phi_u (-c_{uv}) \phi_v = -\sum_{e=(u,v)\in E} \phi_u \phi_v c_e \quad (\text{每条边计算两次})<br>
+]</p>
+<h2 id="步骤4：合并对角线与非对角线项">步骤4：合并对角线与非对角线项</h2>
+<p>[<br>
+\phi^\top L\phi = \sum_{e=(u,v)\in E} \left[ \phi_u^2 c_e + \phi_v^2 c_e - 2\phi_u \phi_v c_e \right]<br>
+]</p>
+<h2 id="步骤5：重组为平方项">步骤5：重组为平方项</h2>
+<p>观察到：<br>
+[<br>
+\phi_u^2 c_e + \phi_v^2 c_e - 2\phi_u \phi_v c_e = c_e (\phi_u - \phi_v)^2<br>
+]</p>
+<p>因此：<br>
+[<br>
+\phi^\top L\phi = \sum_{e=(u,v)\in E} \frac{(\phi_u - \phi_v)^2}{r_e}<br>
+]</p>
+<h2 id="几何解释">几何解释</h2>
+<p>这个过程实现了从节点空间到边空间的转换：</p>
+<ol>
+<li>初始的二次型计算所有节点间的电势交互</li>
+<li>拉普拉斯矩阵的结构保证最终结果仅与相邻节点电势差相关</li>
+<li>每个边贡献的项可以理解为该边上的能量耗散</li>
+</ol>
+<h2 id="最终结论">最终结论</h2>
+<p>$\displaystyle \phi^\top L\phi = \sum_{e=(u,v)\in E} \frac{(\phi_u - \phi_v)^2}{r_e}$</p>
+<p>这个等式揭示了图拉普拉斯矩阵的物理意义：它编码了网络中所有边上的电势差能量。在电路理论中，这正好对应焦耳定律给出的能量耗散公式。</p>
+<h1>有效电阻与能量耗散的关系</h1>
+<p>设$G=(V,E)$为一个无向图，$r_e$为边$e$的电阻值，$i_e$为边$e$上的电流。考虑从源点$s$到汇点$t$的单位电流。</p>
+<h2 id="能量耗散表达式">能量耗散表达式</h2>
+<p>网络中的总能量耗散可以表示为：<br>
+[<br>
+\mathcal{E}(i) = \sum_{e\in E} i_e^2 \cdot r_e<br>
+]</p>
+<h2 id="电势表示">电势表示</h2>
+<p>根据欧姆定律，电流可以表示为电势差：<br>
+[<br>
+i_e = \frac{\phi_u - \phi_v}{r_e}<br>
+]<br>
+其中$\phi$是电势函数，满足基尔霍夫电流定律$L\phi = b_{st}$，这里$b_{st} = \mathbf{1}_s - \mathbf{1}_t$。</p>
+<p>因此能量耗散可改写为：<br>
+[<br>
+\mathcal{E}(i) = \sum_{e=(u,v)\in E} \left(\frac{\phi_u - \phi_v}{r_e}\right)^2 \cdot r_e = \sum_{e=(u,v)\in E} \frac{(\phi_u - \phi_v)^2}{r_e}<br>
+]</p>
+<h2 id="拉普拉斯矩阵形式">拉普拉斯矩阵形式</h2>
+<p>注意到：<br>
+[<br>
+\phi^\top L\phi = \sum_{u,v} \phi_u L_{uv} \phi_v = \sum_{e=(u,v)\in E} \frac{(\phi_u - \phi_v)^2}{r_e}<br>
+]<br>
+因此：<br>
+[<br>
+\mathcal{E}(i) = \phi^\top L\phi<br>
+]</p>
+<h2 id="有效电阻计算">有效电阻计算</h2>
+<p>由于$L\phi = b_{st}$，且$L$的伪逆$L^\dagger$满足$\phi = L^\dagger b_{st}$，代入得：<br>
+[<br>
+\mathcal{E}(i) = (L^\dagger b_{st})^\top L (L^\dagger b_{st}) = b_{st}^\top L^\dagger b_{st}<br>
+]</p>
+<p>这正是$s$和$t$之间的有效电阻$R_{\text{eff}}(s,t)$的定义：<br>
+[<br>
+R_{\text{eff}}(s,t) = b_{st}^\top L^\dagger b_{st} = (\mathbf{1}_s - \mathbf{1}_t)^\top L^\dagger (\mathbf{1}_s - \mathbf{1}_t)<br>
+]</p>
+<h2 id="结论">结论</h2>
+<p>因此我们证明了：<br>
+[<br>
+\mathcal{E}(i) = R_{\text{eff}}(s,t)<br>
+]<br>
+即<strong>单位电流下的能量耗散等于$s$和$t$之间的有效电阻。</strong></p>
+<h1>有效电阻与单位流的能量最小化定理</h1>
+<h2 id="Thompson’s-Principle-定理陈述">Thompson’s Principle 定理陈述</h2>
+<h2 id="对于任意图-G-V-E-和边上的电阻-r-e-1-（-forall-e-in-E-），有效电阻满足：-R-text-eff-s-t-leq-mathcal-E-g-其中-g-是任意单位-s-t-流。">对于任意图 $G=(V,E)$ 和边上的电阻 $r_e = 1$（$\forall e \in E$），有效电阻满足：<br>
+$$<br>
+R_{\text{eff}}(s,t) \leq \mathcal{E}(g)<br>
+$$<br>
+其中 $g$ 是任意单位 $s$-$t$ 流。</h2>
+<h3 id="1-问题形式化"><strong>1. 问题形式化</strong></h3>
+<p><strong>目标函数与约束条件</strong><br>
+考虑最小化能量：<br>
+[<br>
+\min_{g} \mathcal{E}(g) = \min_{g} \sum_{e \in E} g_e^2 \quad \text{s.t.} \quad B g = b_{st}<br>
+]<br>
+其中：</p>
+<ul>
+<li>( B ) 是图的关联矩阵（节点-边矩阵），维度为 ( n \times |E| )。</li>
+<li>( b_{st} ) 是单位流需求向量，满足 ( b_{st}(s) = +1 )，( b_{st}(t) = -1 )，其余节点为 0。</li>
+<li>流 ( g ) 满足基尔霍夫电流定律（流守恒）。</li>
+</ul>
+<hr>
+<h3 id="2-拉格朗日乘子法与KKT条件"><strong>2. 拉格朗日乘子法与KKT条件</strong></h3>
+<p><strong>拉格朗日函数</strong><br>
+引入拉格朗日乘子 ( \phi \in \mathbb{R}^n )，构造拉格朗日函数：<br>
+[<br>
+\mathcal{L}(g, \phi) = \sum_{e} g_e^2 + \phi^\top (B g - b_{st})<br>
+]</p>
+<p><strong>梯度条件</strong><br>
+对 ( g ) 求导并令导数为零：<br>
+[<br>
+\nabla_g \mathcal{L} = 2g + B^\top \phi = 0 \quad \implies \quad g = -\frac{1}{2} B^\top \phi<br>
+]<br>
+这表明最优流 ( g ) 由某个电势向量 ( \phi ) 通过 ( B^\top \phi ) 确定，符号由电阻方向决定。</p>
+<hr>
+<h3 id="3-代入约束条件"><strong>3. 代入约束条件</strong></h3>
+<p>将 ( g = -\frac{1}{2} B^\top \phi ) 代入约束 ( B g = b_{st} )：<br>
+[<br>
+B \left(-\frac{1}{2} B^\top \phi \right) = b_{st} \quad \implies \quad -\frac{1}{2} B B^\top \phi = b_{st}<br>
+]<br>
+注意到 ( L = B B^\top ) 是图的拉普拉斯矩阵，因此：<br>
+[<br>
+L \phi = -2 b_{st}<br>
+]<br>
+由于拉普拉斯矩阵 ( L ) 秩为 ( n-1 )，需设定参考点（如 ( \phi_t = 0 )）后解得：<br>
+[<br>
+\phi = -2 L^+ b_{st}<br>
+]<br>
+其中 ( L^+ ) 是 ( L ) 的伪逆矩阵。</p>
+<hr>
+<h3 id="4-最优能量与有效电阻的关系"><strong>4. 最优能量与有效电阻的关系</strong></h3>
+<p><strong>最优流的能量</strong><br>
+将 ( g = -\frac{1}{2} B^\top \phi ) 代入目标函数：<br>
+[<br>
+\mathcal{E}(g) = g^\top g = \left(-\frac{1}{2} B^\top \phi \right)^\top \left(-\frac{1}{2} B^\top \phi \right) = \frac{1}{4} \phi^\top B B^\top \phi<br>
+]<br>
+利用 ( L = B B^\top ) 和 ( \phi = -2 L^+ b_{st} )：<br>
+[<br>
+\mathcal{E}(g) = \frac{1}{4} \phi^\top L \phi = \frac{1}{4} (-2 b_{st}^\top L^+) L (-2 L^+ b_{st}) = b_{st}^\top L^+ b_{st}<br>
+]</p>
+<p><strong>有效电阻的定义</strong><br>
+有效电阻 ( R_{\text{eff}}(s, t) ) 定义为电势差除以单位电流：<br>
+[<br>
+R_{\text{eff}}(s, t) = \phi_s - \phi_t = (\chi_s - \chi_t)^\top \phi<br>
+]<br>
+其中 ( \chi_s ) 和 ( \chi_t ) 是 ( s ) 和 ( t ) 的指示向量。结合 ( \phi = -2 L^+ b_{st} )，有：<br>
+[<br>
+R_{\text{eff}}(s, t) = (\chi_s - \chi_t)^\top (-2 L^+ b_{st}) = -2 (\chi_s - \chi_t)^\top L^+ (\chi_s - \chi_t)<br>
+]<br>
+由于 ( b_{st} = \chi_s - \chi_t )，且 ( L^+ ) 对称，可得：<br>
+[<br>
+R_{\text{eff}}(s, t) = b_{st}^\top L^+ b_{st}<br>
+]<br>
+因此，最优能量 ( \mathcal{E}(g) = R_{\text{eff}}(s, t) )。</p>
+<hr>
+<h3 id="5-结论"><strong>5. 结论</strong></h3>
+<p>对任意单位 ( s )-( t ) 流 ( g )，其能量 ( \mathcal{E}(g) ) 满足：<br>
+[<br>
+\mathcal{E}(g) \geq \mathcal{E}(g^<em>) = R_{\text{eff}}(s, t)<br>
+]<br>
+其中 ( g^</em> ) 是最优流，由电势差通过欧姆定律生成。这表明有效电阻是所有可能单位流能量的最小值。</p>
+<hr>
+<h3 id="最终结论-2"><strong>最终结论</strong></h3>
+<p>[<br>
+R_{\text{eff}}(s, t) = \min_{g: Bg = b_{st}} \sum_{e} g_e^2 \quad \implies \quad R_{\text{eff}}(s, t) \leq \mathcal{E}(g) \quad \forall \text{单位 } s\text{-}t \text{流 } g.<br>
+]</p>
+<hr>
+<p><strong>关键点总结</strong></p>
+<ol>
+<li><strong>KKT条件</strong> 导出了最优流与电势的关系，符合欧姆定律。</li>
+<li><strong>拉普拉斯矩阵伪逆</strong> 将电势差与有效电阻直接关联。</li>
+<li><strong>凸优化唯一性</strong> 保证了最小能量的存在性，且等于有效电阻。</li>
+</ol>
+
+    </div>
+
+    
+    
+    
+
+      <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/notes.github.io/tags/%E5%85%B6%E4%BB%96/" rel="tag"># 其他</a>
+          </div>
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/notes.github.io/2025/06/23/FFT_Notes/" rel="prev" title="FFT_Notes">
+      <i class="fa fa-chevron-left"></i> FFT_Notes
+    </a></div>
+      <div class="post-nav-item">
+    <a href="/notes.github.io/2025/06/23/note1/" rel="next" title="note1">
+      note1 <i class="fa fa-chevron-right"></i>
+    </a></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+
+
+          </div>
+          
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%94%B5%E8%B7%AF%E7%BD%91%E7%BB%9C%E4%B8%AD%E7%9A%84%E7%94%B5%E6%B5%81%E4%B8%8E%E7%94%B5%E5%8E%8B%E6%B1%82%E8%A7%A3%E6%96%B9%E6%B3%95"><span class="nav-number">1.</span> <span class="nav-text">电路网络中的电流与电压求解方法</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#1-%E7%94%B5%E8%B7%AF%E5%AE%9A%E5%BE%8B"><span class="nav-number">2.</span> <span class="nav-text">1. 电路定律</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#1-%E5%9F%BA%E5%B0%94%E9%9C%8D%E5%A4%AB%E7%94%B5%E6%B5%81%E5%AE%9A%E5%BE%8B%EF%BC%88KCL%EF%BC%89"><span class="nav-number">2.1.</span> <span class="nav-text">(1) 基尔霍夫电流定律（KCL）</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#2-%E6%AC%A7%E5%A7%86%E5%AE%9A%E5%BE%8B"><span class="nav-number">2.2.</span> <span class="nav-text">(2) 欧姆定律</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-%E5%90%88%E5%B9%B6%E5%AE%9A%E5%BE%8B%EF%BC%8C%E5%BB%BA%E7%AB%8B%E6%96%B9%E7%A8%8B"><span class="nav-number">3.</span> <span class="nav-text">2. 合并定律，建立方程</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%94%B5%E8%B7%AF%E7%BD%91%E7%BB%9C%E6%96%B9%E7%A8%8B%E7%9A%84%E5%8F%AF%E8%A7%A3%E6%80%A7%E4%B8%8E%E5%94%AF%E4%B8%80%E6%80%A7%E5%88%86%E6%9E%90"><span class="nav-number">4.</span> <span class="nav-text">电路网络方程的可解性与唯一性分析</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#1-%E9%97%AE%E9%A2%98%E5%BB%BA%E6%A8%A1%E4%B8%8E%E7%9F%A9%E9%98%B5%E8%A1%A8%E7%A4%BA"><span class="nav-number">4.1.</span> <span class="nav-text">1. 问题建模与矩阵表示</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#2-%E6%96%B9%E7%A8%8B%E7%9A%84%E5%8F%AF%E8%A7%A3%E6%80%A7"><span class="nav-number">4.2.</span> <span class="nav-text">2. 方程的可解性</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#3-%E8%A7%A3%E7%9A%84%E5%94%AF%E4%B8%80%E6%80%A7"><span class="nav-number">4.3.</span> <span class="nav-text">3. 解的唯一性</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#4-%E4%B8%8E%E5%9B%BE%E8%AE%BA%E9%97%AE%E9%A2%98%E7%9A%84%E8%81%94%E7%B3%BB"><span class="nav-number">4.4.</span> <span class="nav-text">4. 与图论问题的联系</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%8B%89%E6%99%AE%E6%8B%89%E6%96%AF%E7%9F%A9%E9%98%B5%E7%9A%84%E7%A7%A9%E4%B8%8E%E8%A7%A3%E7%9A%84%E5%94%AF%E4%B8%80%E6%80%A7%E5%88%86%E6%9E%90"><span class="nav-number">5.</span> <span class="nav-text">拉普拉斯矩阵的秩与解的唯一性分析</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#1-%E6%8B%89%E6%99%AE%E6%8B%89%E6%96%AF%E7%9F%A9%E9%98%B5%E7%9A%84%E7%A7%A9%E7%BC%BA%E9%99%B7%E6%80%A7"><span class="nav-number">5.1.</span> <span class="nav-text">1. 拉普拉斯矩阵的秩缺陷性</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#2-%E6%96%B9%E7%A8%8B-L-phi-b-%E7%9A%84%E8%A7%A3%E5%AD%98%E5%9C%A8%E6%9D%A1%E4%BB%B6"><span class="nav-number">5.2.</span> <span class="nav-text">2. 方程 ( L \phi &#x3D; b ) 的解存在条件</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#3-%E7%89%B9%E5%BE%81%E5%80%BC%E8%A7%86%E8%A7%92%E7%9A%84%E8%A7%A3%E9%87%8A"><span class="nav-number">5.3.</span> <span class="nav-text">3. 特征值视角的解释</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#4-%E7%89%A9%E7%90%86%E6%84%8F%E4%B9%89%E4%B8%8E%E7%94%B5%E8%B7%AF%E7%BD%91%E7%BB%9C"><span class="nav-number">5.4.</span> <span class="nav-text">4. 物理意义与电路网络</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%8B%89%E6%99%AE%E6%8B%89%E6%96%AF%E7%9F%A9%E9%98%B5%E7%9A%84%E4%BC%AA%E9%80%86%E4%B8%8E%E8%A7%A3%E7%9A%84%E7%BB%93%E6%9E%84"><span class="nav-number">6.</span> <span class="nav-text">拉普拉斯矩阵的伪逆与解的结构</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%BC%95%E7%90%86"><span class="nav-number">6.1.</span> <span class="nav-text">引理</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E8%AF%81%E6%98%8E"><span class="nav-number">6.2.</span> <span class="nav-text">证明</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E4%BC%AA%E9%80%86-L-dagger-%E7%9A%84%E5%AE%9A%E4%B9%89%E4%B8%8E%E6%80%A7%E8%B4%A8"><span class="nav-number">6.3.</span> <span class="nav-text">伪逆 ( L^\dagger ) 的定义与性质</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E7%89%A9%E7%90%86%E6%84%8F%E4%B9%89"><span class="nav-number">6.4.</span> <span class="nav-text">物理意义</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%B8%80%E4%B8%AA%E5%BC%95%E7%90%86"><span class="nav-number"></span> <span class="nav-text">一个引理</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link"><span class="nav-number"></span> <span class="nav-text">拉普拉斯矩阵二次型的展开证明</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%AD%A5%E9%AA%A41%EF%BC%9A%E5%B1%95%E5%BC%80%E4%BA%8C%E6%AC%A1%E5%9E%8B"><span class="nav-number"></span> <span class="nav-text">步骤1：展开二次型</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%AD%A5%E9%AA%A42%EF%BC%9A%E5%88%86%E7%A6%BB%E5%AF%B9%E8%A7%92%E7%BA%BF%E9%A1%B9%E5%92%8C%E9%9D%9E%E5%AF%B9%E8%A7%92%E7%BA%BF%E9%A1%B9"><span class="nav-number"></span> <span class="nav-text">步骤2：分离对角线项和非对角线项</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%AD%A5%E9%AA%A43%EF%BC%9A%E4%BB%A3%E5%85%A5%E6%8B%89%E6%99%AE%E6%8B%89%E6%96%AF%E7%9F%A9%E9%98%B5%E5%AE%9A%E4%B9%89"><span class="nav-number"></span> <span class="nav-text">步骤3：代入拉普拉斯矩阵定义</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%AD%A5%E9%AA%A44%EF%BC%9A%E5%90%88%E5%B9%B6%E5%AF%B9%E8%A7%92%E7%BA%BF%E4%B8%8E%E9%9D%9E%E5%AF%B9%E8%A7%92%E7%BA%BF%E9%A1%B9"><span class="nav-number"></span> <span class="nav-text">步骤4：合并对角线与非对角线项</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%AD%A5%E9%AA%A45%EF%BC%9A%E9%87%8D%E7%BB%84%E4%B8%BA%E5%B9%B3%E6%96%B9%E9%A1%B9"><span class="nav-number"></span> <span class="nav-text">步骤5：重组为平方项</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%87%A0%E4%BD%95%E8%A7%A3%E9%87%8A"><span class="nav-number"></span> <span class="nav-text">几何解释</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%9C%80%E7%BB%88%E7%BB%93%E8%AE%BA"><span class="nav-number"></span> <span class="nav-text">最终结论</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link"><span class="nav-number"></span> <span class="nav-text">有效电阻与能量耗散的关系</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E8%83%BD%E9%87%8F%E8%80%97%E6%95%A3%E8%A1%A8%E8%BE%BE%E5%BC%8F"><span class="nav-number"></span> <span class="nav-text">能量耗散表达式</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%94%B5%E5%8A%BF%E8%A1%A8%E7%A4%BA"><span class="nav-number"></span> <span class="nav-text">电势表示</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%8B%89%E6%99%AE%E6%8B%89%E6%96%AF%E7%9F%A9%E9%98%B5%E5%BD%A2%E5%BC%8F"><span class="nav-number"></span> <span class="nav-text">拉普拉斯矩阵形式</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%9C%89%E6%95%88%E7%94%B5%E9%98%BB%E8%AE%A1%E7%AE%97"><span class="nav-number"></span> <span class="nav-text">有效电阻计算</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%BB%93%E8%AE%BA"><span class="nav-number"></span> <span class="nav-text">结论</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link"><span class="nav-number"></span> <span class="nav-text">有效电阻与单位流的能量最小化定理</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#Thompson%E2%80%99s-Principle-%E5%AE%9A%E7%90%86%E9%99%88%E8%BF%B0"><span class="nav-number"></span> <span class="nav-text">Thompson’s Principle 定理陈述</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%AF%B9%E4%BA%8E%E4%BB%BB%E6%84%8F%E5%9B%BE-G-V-E-%E5%92%8C%E8%BE%B9%E4%B8%8A%E7%9A%84%E7%94%B5%E9%98%BB-r-e-1-%EF%BC%88-forall-e-in-E-%EF%BC%89%EF%BC%8C%E6%9C%89%E6%95%88%E7%94%B5%E9%98%BB%E6%BB%A1%E8%B6%B3%EF%BC%9A-R-text-eff-s-t-leq-mathcal-E-g-%E5%85%B6%E4%B8%AD-g-%E6%98%AF%E4%BB%BB%E6%84%8F%E5%8D%95%E4%BD%8D-s-t-%E6%B5%81%E3%80%82"><span class="nav-number"></span> <span class="nav-text">对于任意图 $G&#x3D;(V,E)$ 和边上的电阻 $r_e &#x3D; 1$（$\forall e \in E$），有效电阻满足：
+$$
+R_{\text{eff}}(s,t) \leq \mathcal{E}(g)
+$$
+其中 $g$ 是任意单位 $s$-$t$ 流。</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#1-%E9%97%AE%E9%A2%98%E5%BD%A2%E5%BC%8F%E5%8C%96"><span class="nav-number">1.</span> <span class="nav-text">1. 问题形式化</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-%E6%8B%89%E6%A0%BC%E6%9C%97%E6%97%A5%E4%B9%98%E5%AD%90%E6%B3%95%E4%B8%8EKKT%E6%9D%A1%E4%BB%B6"><span class="nav-number">2.</span> <span class="nav-text">2. 拉格朗日乘子法与KKT条件</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3-%E4%BB%A3%E5%85%A5%E7%BA%A6%E6%9D%9F%E6%9D%A1%E4%BB%B6"><span class="nav-number">3.</span> <span class="nav-text">3. 代入约束条件</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#4-%E6%9C%80%E4%BC%98%E8%83%BD%E9%87%8F%E4%B8%8E%E6%9C%89%E6%95%88%E7%94%B5%E9%98%BB%E7%9A%84%E5%85%B3%E7%B3%BB"><span class="nav-number">4.</span> <span class="nav-text">4. 最优能量与有效电阻的关系</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#5-%E7%BB%93%E8%AE%BA"><span class="nav-number">5.</span> <span class="nav-text">5. 结论</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%9C%80%E7%BB%88%E7%BB%93%E8%AE%BA-2"><span class="nav-number">6.</span> <span class="nav-text">最终结论</span></a></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="Chen Zhan"
+      src="/notes.github.io/images/woshicaigou.jpg">
+  <p class="site-author-name" itemprop="name">Chen Zhan</p>
+  <div class="site-description" itemprop="description"></div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/notes.github.io/archives/">
+        
+          <span class="site-state-item-count">23</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-tags">
+        <span class="site-state-item-count">3</span>
+        <span class="site-state-item-name">标签</span>
+      </div>
+  </nav>
+</div>
+
+
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+
+<div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2025</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Chen Zhan</span>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://pisces.theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Pisces</a> 强力驱动
+  </div>
+
+        
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/notes.github.io/lib/anime.min.js"></script>
+  <script src="/notes.github.io/lib/velocity/velocity.min.js"></script>
+  <script src="/notes.github.io/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/notes.github.io/js/utils.js"></script>
+
+<script src="/notes.github.io/js/motion.js"></script>
+
+
+<script src="/notes.github.io/js/schemes/pisces.js"></script>
+
+
+<script src="/notes.github.io/js/next-boot.js"></script>
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+      
+<link rel="stylesheet" href="//cdn.jsdelivr.net/npm/katex@0/dist/katex.min.css">
+  <script src="//cdn.jsdelivr.net/npm/katex@0/dist/contrib/copy-tex.min.js"></script>
+  <link rel="stylesheet" href="//cdn.jsdelivr.net/npm/katex@0/dist/contrib/copy-tex.min.css">
+
+
+  
+
+</body>
+</html>

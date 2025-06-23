@@ -1,0 +1,807 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 7.3.0">
+  <link rel="apple-touch-icon" sizes="180x180" href="/notes.github.io/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/notes.github.io/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/notes.github.io/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/notes.github.io/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/notes.github.io/css/main.css">
+
+
+<link rel="stylesheet" href="/notes.github.io/lib/font-awesome/css/all.min.css">
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"chenzhan20050128.github.io","root":"/notes.github.io/","scheme":"Pisces","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":true,"show_result":true,"style":"mac"},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.json"};
+  </script>
+
+  <meta name="description" content="定理 设 ( A &#x3D; U \Sigma V^* ) 是 ( A \in \mathbb{C}^{m \times n} ) ( ( m \geq n ) ) 的奇异值分解，则： (1) ( A^*A ) 的特征值是 ( \sigma_i^2 )，对应的特征向量是 ( v_i ) 证明：  我们有 ( A^* A &#x3D; (U \Sigma V^)^ (U \Sigma V^) &#x3D; V \Sigma^">
+<meta property="og:type" content="article">
+<meta property="og:title" content="noteSVD">
+<meta property="og:url" content="https://chenzhan20050128.github.io/notes.github.io/2025/06/23/noteSVD/index.html">
+<meta property="og:site_name" content="cz Blog">
+<meta property="og:description" content="定理 设 ( A &#x3D; U \Sigma V^* ) 是 ( A \in \mathbb{C}^{m \times n} ) ( ( m \geq n ) ) 的奇异值分解，则： (1) ( A^*A ) 的特征值是 ( \sigma_i^2 )，对应的特征向量是 ( v_i ) 证明：  我们有 ( A^* A &#x3D; (U \Sigma V^)^ (U \Sigma V^) &#x3D; V \Sigma^">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2025-06-23T04:22:32.000Z">
+<meta property="article:modified_time" content="2025-06-23T04:22:32.098Z">
+<meta property="article:author" content="Chen Zhan">
+<meta property="article:tag" content="其他">
+<meta name="twitter:card" content="summary">
+
+<link rel="canonical" href="https://chenzhan20050128.github.io/notes.github.io/2025/06/23/noteSVD/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'zh-CN'
+  };
+</script>
+
+  <title>noteSVD | cz Blog</title>
+  
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+<link rel="alternate" href="/notes.github.io/atom.xml" title="cz Blog" type="application/atom+xml">
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/notes.github.io/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">cz Blog</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+      <p class="site-subtitle" itemprop="description">Hello World</p>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+    </div>
+  </div>
+</div>
+
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="main-menu menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/notes.github.io/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/notes.github.io/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档</a>
+
+  </li>
+  </ul>
+</nav>
+
+
+
+
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+  <div class="reading-progress-bar"></div>
+
+  <a href="https://github.com/chenzhan20050128" class="github-corner" title="Follow me on GitHub" aria-label="Follow me on GitHub" rel="noopener" target="_blank"><svg width="80" height="80" viewBox="0 0 250 250" aria-hidden="true"><path d="M0,0 L115,115 L130,115 L142,142 L250,250 L250,0 Z"></path><path d="M128.3,109.0 C113.8,99.7 119.0,89.6 119.0,89.6 C122.0,82.7 120.5,78.6 120.5,78.6 C119.2,72.0 123.4,76.3 123.4,76.3 C127.3,80.9 125.5,87.3 125.5,87.3 C122.9,97.6 130.6,101.9 134.4,103.2" fill="currentColor" style="transform-origin: 130px 106px;" class="octo-arm"></path><path d="M115.0,115.0 C114.9,115.1 118.7,116.5 119.8,115.4 L133.7,101.6 C136.9,99.2 139.9,98.4 142.2,98.6 C133.8,88.0 127.5,74.4 143.8,58.0 C148.5,53.4 154.0,51.2 159.7,51.0 C160.3,49.4 163.2,43.6 171.4,40.1 C171.4,40.1 176.1,42.5 178.8,56.2 C183.1,58.6 187.2,61.8 190.9,65.4 C194.5,69.0 197.7,73.2 200.1,77.6 C213.8,80.2 216.3,84.9 216.3,84.9 C212.7,93.1 206.9,96.0 205.4,96.6 C205.1,102.4 203.0,107.8 198.3,112.5 C181.9,128.9 168.3,122.5 157.7,114.1 C157.9,116.9 156.7,120.9 152.7,124.9 L141.0,136.5 C139.8,137.7 141.6,141.9 141.8,141.8 Z" fill="currentColor" class="octo-body"></path></svg></a>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content post posts-expand">
+            
+
+    
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://chenzhan20050128.github.io/notes.github.io/2025/06/23/noteSVD/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/notes.github.io/images/woshicaigou.jpg">
+      <meta itemprop="name" content="Chen Zhan">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="cz Blog">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          noteSVD
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2025-06-23 12:22:32" itemprop="dateCreated datePublished" datetime="2025-06-23T12:22:32+08:00">2025-06-23</time>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <h3 id="定理">定理</h3>
+<p>设 ( A = U \Sigma V^* ) 是 ( A \in \mathbb{C}^{m \times n} ) ( ( m \geq n ) ) 的奇异值分解，则：</p>
+<h4 id="1-A-A-的特征值是-sigma-i-2-，对应的特征向量是-v-i">(1) ( A^*A ) 的特征值是 ( \sigma_i^2 )，对应的特征向量是 ( v_i )</h4>
+<p>证明：</p>
+<ul>
+<li>我们有 ( A^* A = (U \Sigma V^<em>)^</em> (U \Sigma V^<em>) = V \Sigma^</em> U^* U \Sigma V^* = V \Sigma^2 V^* )。</li>
+<li>由于 ( U^* U = I )，所以 ( A^* A = V \Sigma^2 V^* )。</li>
+<li>因此，( A^* A ) 的特征值为 ( \sigma_i^2 )，对应的特征向量为 ( v_i )。</li>
+</ul>
+<h4 id="2-AA-的特征值是-sigma-i-2-和-m-n-个零，对应的特征向量是-u-i">(2) ( AA^* ) 的特征值是 ( \sigma_i^2 ) 和 ( m-n ) 个零，对应的特征向量是 ( u_i )</h4>
+<p>证明：</p>
+<ul>
+<li>我们有 ( AA^* = (U \Sigma V^<em>)(U \Sigma V^</em>)^* = U \Sigma V^* V \Sigma^* U^* = U \Sigma \Sigma^* U^* )。</li>
+<li>由于 ( V^* V = I_n )，所以 ( AA^* = U \Sigma \Sigma^* U^* )。</li>
+<li>注意到 ( \Sigma ) 是一个 ( n \times n ) 的对角矩阵，且只有 ( r ) 个非零对角元素，因此 ( AA^* ) 的特征值为 ( \sigma_i^2 ) 和 ( m-n ) 个零，对应的特征向量为 ( u_i )。</li>
+</ul>
+<h4 id="3-A-2-sigma-1-A-F-sqrt-sigma-1-2-sigma-2-2-cdots-sigma-n-2">(3) ( |A|_2 = \sigma_1, |A|_F = \sqrt{\sigma_1^2 + \sigma_2^2 + \cdots + \sigma_n^2} )</h4>
+<p>证明：</p>
+<ul>
+<li>矩阵的谱范数 ( |A|_2 ) 定义为最大的奇异值，即 ( |A|_2 = \sigma_1 )。</li>
+<li>Frobenius 范数定义为 ( |A|<em>F = \sqrt{\sum</em>{i=1}^{n} \sigma_i^2} )，所以 ( |A|_F = \sqrt{\sigma_1^2 + \sigma_2^2 + \cdots + \sigma_n^2} )。</li>
+</ul>
+<h4 id="4-若-text-rank-A-r-leq-n-，则-text-Ran-A-text-span-u-1-u-2-ldots-u-r-，-text-Ker-A-text-span-v-r-1-v-r-2-ldots-v-n">(4) 若 ( \text{rank}(A) = r \leq n )，则 ( \text{Ran}(A) = \text{span}{u_1, u_2, \ldots, u_r} )，( \text{Ker}(A) = \text{span}{v_{r+1}, v_{r+2}, \ldots, v_n} )</h4>
+<p>证明：</p>
+<ul>
+<li>因为 ( A ) 的秩为 ( r )，所以 ( A ) 的列空间 ( \text{Ran}(A) ) 由 ( r ) 个线性无关的列生成，即 ( \text{Ran}(A) = \text{span}{u_1, u_2, \ldots, u_r} )。</li>
+<li>核空间 ( \text{Ker}(A) ) 由 ( n-r ) 个线性无关的列生成，即 ( \text{Ker}(A) = \text{span}{v_{r+1}, v_{r+2}, \ldots, v_n} )。</li>
+</ul>
+<h4 id="5-设-x-in-mathbb-C-n-且-x-2-1-，则-sigma-n-leq-Ax-2-leq-sigma-1">(5) 设 ( x \in \mathbb{C}^n ) 且 ( |x|_2 = 1 )，则 ( \sigma_n \leq |Ax|_2 \leq \sigma_1 )</h4>
+<p>证明：</p>
+<ul>
+<li>根据奇异值分解，( |Ax|_2 = |U \Sigma V^* x|_2 = |\Sigma V^* x|_2 )。</li>
+<li>由于 ( V^* x ) 是一个 ( n )-维向量，且其 2 范数的最大值为 1，( |Ax|_2 ) 的最小值为 ( \sigma_n )（对应于最小的奇异值），最大值为 ( \sigma_1 )（对应于最大的奇异值）。</li>
+</ul>
+<h4 id="6-酉不变性-设-X-in-mathbb-C-m-times-m-和-Y-in-mathbb-C-n-times-n-是酉矩阵，则-sigma-i-X-AY-sigma-i-A">(6) (酉不变性) 设 ( X \in \mathbb{C}^{m \times m} ) 和 ( Y \in \mathbb{C}^{n \times n} ) 是酉矩阵，则 ( \sigma_i(X^*AY) = \sigma_i(A) )</h4>
+<p>证明：</p>
+<ul>
+<li>由于 ( X ) 和 ( Y ) 是酉矩阵，( X^* A Y ) 和 ( A ) 具有相同的奇异值，因为酉矩阵在范数下是等距的，这意味着奇异值不变。</li>
+</ul>
+<p>条件数的几何意义<br>
+条件数反映了矩阵将单位球映射到椭球后的最长轴与最短轴之比。即使特征值全为 1，椭球的形状仍可能高度拉伸（由奇异值决定）。</p>
+<h3 id="低秩逼近定理的详细解释"><strong>低秩逼近定理的详细解释</strong></h3>
+<h4 id="1-定理陈述"><strong>1. 定理陈述</strong></h4>
+<p>设 ( A = U \Sigma V^* ) 是 ( A \in \mathbb{C}^{m \times n} ) 的细奇异值分解（即紧凑形式的 SVD，仅保留非零奇异值）。定义：<br>
+[<br>
+A_k = \sum_{i=1}^k \sigma_i u_i v_i^*<br>
+]<br>
+其中 ( \sigma_1 \geq \sigma_2 \geq \cdots \geq \sigma_r &gt; 0 ) 是 ( A ) 的非零奇异值（( r = \text{rank}(A) )）。则：</p>
+<ol>
+<li>( A_k ) 是 <strong>所有秩为 ( k ) 的矩阵中，在 2-范数下最接近 ( A ) 的解</strong>，即：<br>
+[<br>
+|A - A_k|<em>2 = \sigma</em>{k+1},<br>
+]<br>
+且 ( A_k ) 满足：<br>
+[<br>
+A_k = \arg\min_{\substack{B \in \mathbb{C}^{m \times n} \ \text{rank}(B) = k}} |A - B|_2.<br>
+]</li>
+<li>对于 Frobenius 范数，类似结论成立：<br>
+[<br>
+|A - A_k|<em>F = \sqrt{\sum</em>{i=k+1}^r \sigma_i^2}.<br>
+]</li>
+</ol>
+<hr>
+<h4 id="2-直观解释"><strong>2. 直观解释</strong></h4>
+<p>矩阵的低秩逼近目标是：用秩为 ( k ) 的矩阵 ( A_k ) 尽可能接近原矩阵 ( A )。</p>
+<ul>
+<li><strong>几何意义</strong>：将 ( A ) 的作用分解到正交方向（由奇异向量 ( u_i, v_i ) 定义），保留前 ( k ) 个最重要的方向（对应最大奇异值），截断后面的方向。</li>
+<li><strong>应用场景</strong>：数据压缩、主成分分析（PCA）、去噪等。</li>
+</ul>
+<hr>
+<h4 id="3-为什么-A-k-是最优解？"><strong>3. 为什么 ( A_k ) 是最优解？</strong></h4>
+<h5 id="1-2-范数的最优性"><strong>(1) 2-范数的最优性</strong></h5>
+<ul>
+<li>
+<p><strong>奇异值的性质</strong>：<br>
+矩阵的 2-范数 ( |A|<em>2 ) 是其最大奇异值 ( \sigma_1 )。构造 ( A_k ) 时，保留了前 ( k ) 个奇异值 ( \sigma_1, \dots, \sigma_k )，将后面的奇异值置零。<br>
+因此，误差矩阵 ( A - A_k ) 的奇异值为 ( \sigma</em>{k+1}, \dots, \sigma_r )，其 2-范数为最大剩余奇异值：<br>
+[<br>
+|A - A_k|<em>2 = \sigma</em>{k+1}.<br>
+]</p>
+</li>
+<li>
+<p><strong>极值性证明（Eckart–Young–Mirsky 定理）</strong>：<br>
+对任意秩为 ( k ) 的矩阵 ( B )，其奇异值最多有 ( k ) 个非零值。由于奇异值已按降序排列，保留前 ( k ) 个最大奇异值会最小化剩余奇异值的最大值，即：<br>
+[<br>
+\sigma_{k+1} \leq |A - B|<em>2 \quad \text{对所有秩为 } k \text{ 的 } B.<br>
+]<br>
+因此，( A_k ) 达到了下界 ( \sigma</em>{k+1} )，是最优解。</p>
+</li>
+</ul>
+<hr>
+<h5 id="2-Frobenius-范数的最优性"><strong>(2) Frobenius 范数的最优性</strong></h5>
+<ul>
+<li>
+<p><strong>Frobenius 范数的定义</strong>：<br>
+[<br>
+|A|<em>F = \sqrt{\sum</em>{i=1}^r \sigma_i^2}.<br>
+]<br>
+构造 ( A_k ) 时，截断后 ( k+1 ) 到 ( r ) 的奇异值被舍弃，因此误差为：<br>
+[<br>
+|A - A_k|<em>F = \sqrt{\sum</em>{i=k+1}^r \sigma_i^2}.<br>
+]</p>
+</li>
+<li>
+<p><strong>极值性证明</strong>：<br>
+由于 Frobenius 范数是各方向奇异值平方和的平方根，保留前 ( k ) 个最大奇异值会最小化剩余部分的平方和。对任意秩为 ( k ) 的 ( B )，有：<br>
+[<br>
+\sum_{i=k+1}^r \sigma_i^2 \leq |A - B|_F^2,<br>
+]<br>
+因此 ( A_k ) 是最优解。</p>
+</li>
+</ul>
+<hr>
+<h1>矩阵的2-范数等于其最大奇异值σ₁。</h1>
+<p>矩阵的2-范数定义为：</p>
+<p>[<br>
+|A|_2 = \sup \left{ \frac{|Ax|_2}{|x|_2} \mid x \neq 0 \right}<br>
+]</p>
+<p>或者等价地：</p>
+<p>[<br>
+|A|_2 = \max \left{ |Ax|_2 \mid |x|_2 = 1 \right}<br>
+]</p>
+<p>通过奇异值分解（SVD），矩阵A可以分解为 ( A = U\Sigma V^* )，其中U和V是酉矩阵，Σ是对角矩阵，对角线上的元素是奇异值σ₁ ≥ σ₂ ≥ … ≥ σₙ ≥ 0。</p>
+<p>考虑向量x经过矩阵A作用后的模长：</p>
+<p>[<br>
+|Ax|_2 = |U\Sigma V^* x|_2<br>
+]</p>
+<p>由于U和V是酉矩阵，不改变向量的模长，令 ( y = V^* x )，则 ( |y|_2 = |x|_2 )，因此：</p>
+<p>[<br>
+|Ax|_2 = |\Sigma y|_2<br>
+]</p>
+<p>对于单位向量x，y也是单位向量，因此：</p>
+<p>[<br>
+|\Sigma y|<em>2 = \sqrt{\sum</em>{i=1}^n \sigma_i^2 |y_i|^2}<br>
+]</p>
+<p>当y的分量集中在最大奇异值σ₁对应的位置时，例如y = (1, 0, …, 0)，此时：</p>
+<p>[<br>
+|\Sigma y|_2 = \sigma_1<br>
+]</p>
+<p>因此，矩阵A的2-范数即为最大奇异值σ₁。</p>
+<p>进一步验证，考虑矩阵A*A的最大特征值λ₁，其平方根即为最大奇异值σ₁。根据瑞利商，向量x的最大增长倍数为：</p>
+<p>[<br>
+\sqrt{\lambda_1} = \sigma_1<br>
+]</p>
+<p>因此，矩阵的2-范数等于其最大奇异值σ₁。</p>
+<h1>QR分解在线性最小二乘的应用</h1>
+<h3 id="问题描述"><strong>问题描述</strong></h3>
+<p>给定满秩矩阵 ( A \in \mathbb{R}^{m \times n} )（( m \geq n )），求线性最小二乘问题：<br>
+[<br>
+\min_{x \in \mathbb{R}^n} | Ax - b |_2^2<br>
+]<br>
+的解析解 ( x^* )。</p>
+<h3 id="方法-1：利用-QR-分解的正交补空间投影"><strong>方法 1：利用 QR 分解的正交补空间投影</strong></h3>
+<h4 id="1-QR-分解"><strong>1. QR 分解</strong></h4>
+<p>由于 ( A ) 是满秩的，可以进行 <strong>QR 分解</strong>：<br>
+[<br>
+A = QR<br>
+]<br>
+其中：</p>
+<ul>
+<li>( Q \in \mathbb{R}^{m \times n} ) 是 <strong>列正交矩阵</strong>（即 ( Q^\top Q = I_n )），</li>
+<li>( R \in \mathbb{R}^{n \times n} ) 是 <strong>上三角可逆矩阵</strong>（因为 ( A ) 满秩）。</li>
+</ul>
+<p>由于 ( m \geq n )，我们可以将 ( Q ) <strong>扩充</strong>成一个完整的正交矩阵：<br>
+[<br>
+[Q, \hat{Q}] \in \mathbb{R}^{m \times m}<br>
+]<br>
+其中：</p>
+<ul>
+<li>( \hat{Q} \in \mathbb{R}^{m \times (m - n)} ) 是 ( Q ) 的正交补（即 ( Q^\top \hat{Q} = 0 ) 且 ( \hat{Q}^\top \hat{Q} = I_{m-n} )）。</li>
+</ul>
+<h4 id="2-残差范数的分解"><strong>2. 残差范数的分解</strong></h4>
+<p>利用 ( [Q, \hat{Q}] ) 的正交性（( [Q, \hat{Q}]^\top [Q, \hat{Q}] = I_m )），残差范数可以写成：<br>
+[<br>
+| Ax - b |_2^2 = | [Q, \hat{Q}]^\top (Ax - b) |_2^2<br>
+]<br>
+因为正交变换不改变范数。</p>
+<p>代入 ( A = QR )：<br>
+[<br>
+= | [Q, \hat{Q}]^\top (QRx - b) |_2^2<br>
+]</p>
+<h1>计算 ( [Q, \hat{Q}]^\top ) 与 ( QRx - b ) 的乘积：<br>
+[<br>
+[Q, \hat{Q}]^\top (QRx - b) =<br>
+\begin{bmatrix}<br>
+Q^\top (QRx - b) \<br>
+\hat{Q}^\top (QRx - b)<br>
+\end{bmatrix}</h1>
+<p>\begin{bmatrix}<br>
+Rx - Q^\top b \<br>
+-\hat{Q}^\top b<br>
+\end{bmatrix}<br>
+]<br>
+（因为 ( Q^\top Q = I )，而 ( \hat{Q}^\top Q = 0 )）</p>
+<p>所以：<br>
+[<br>
+| Ax - b |_2^2 = \left| \begin{bmatrix}<br>
+Rx - Q^\top b \<br>
+-\hat{Q}^\top b<br>
+\end{bmatrix} \right|_2^2 = | Rx - Q^\top b |_2^2 + | \hat{Q}^\top b |_2^2<br>
+]</p>
+<h4 id="3-最小化条件"><strong>3. 最小化条件</strong></h4>
+<p>由于 ( | \hat{Q}^\top b |_2^2 ) 与 ( x ) 无关，最小化 ( | Ax - b |_2^2 ) 等价于最小化 ( | Rx - Q^\top b |_2^2 )，而它的最小值是 0（因为 ( R ) 可逆）：<br>
+[<br>
+Rx = Q^\top b<br>
+]<br>
+因此，最小二乘解为：<br>
+[<br>
+x^* = R^{-1} Q^\top b<br>
+]</p>
+<hr>
+<h3 id="方法-2：利用正交投影分解"><strong>方法 2：利用正交投影分解</strong></h3>
+<h4 id="1-投影矩阵"><strong>1. 投影矩阵</strong></h4>
+<p>( QQ^\top ) 是 ( \text{Ran}(A) )（( A ) 的列空间）上的 <strong>正交投影矩阵</strong>，因为：</p>
+<ul>
+<li>( \text{Ran}(A) = \text{Ran}(Q) )（因为 ( A = QR )），</li>
+<li>( QQ^\top ) 将任意向量投影到 ( \text{Ran}(Q) )。</li>
+</ul>
+<p>类似地，( I - QQ^\top ) 是 ( \text{Ran}(A)^\perp )（( A ) 的列空间的正交补）上的投影矩阵。</p>
+<h4 id="2-分解-b"><strong>2. 分解 ( b )</strong></h4>
+<p>将 ( b ) 分解为：<br>
+[<br>
+b = QQ^\top b + (I - QQ^\top) b<br>
+]<br>
+其中：</p>
+<ul>
+<li>( QQ^\top b ) 是 ( b ) 在 ( \text{Ran}(A) ) 上的投影，</li>
+<li>( (I - QQ^\top) b ) 是 ( b ) 在 ( \text{Ran}(A)^\perp ) 上的投影。</li>
+</ul>
+<h4 id="3-残差范数的分解"><strong>3. 残差范数的分解</strong></h4>
+<p>残差 ( Ax - b ) 可以写成：<br>
+[<br>
+Ax - b = Ax - QQ^\top b - (I - QQ^\top) b<br>
+]<br>
+由于 ( Ax \in \text{Ran}(A) ) 和 ( (I - QQ^\top) b \in \text{Ran}(A)^\perp )，它们是正交的，所以：<br>
+[<br>
+| Ax - b |_2^2 = | Ax - QQ^\top b |_2^2 + | (I - QQ^\top) b |_2^2<br>
+]</p>
+<p>由于 ( A = QR )，且 ( QQ^\top b ) 是 ( b ) 在 ( \text{Ran}(A) ) 上的投影：<br>
+[<br>
+Ax - QQ^\top b = QRx - QQ^\top b<br>
+]<br>
+因为 ( \text{Ran}(QQ^\top) = \text{Ran}(Q) )，所以 ( QQ^\top b = Q c ) 对某个 ( c \in \mathbb{R}^n )。实际上：<br>
+[<br>
+QQ^\top b = Q (Q^\top b)<br>
+]<br>
+所以：<br>
+[<br>
+QRx - QQ^\top b = Q (Rx - Q^\top b)<br>
+]<br>
+因此：<br>
+[<br>
+| Ax - QQ^\top b |_2^2 = | Q (Rx - Q^\top b) |_2^2 = | Rx - Q^\top b |_2^2<br>
+]<br>
+（因为 ( Q ) 列正交）</p>
+<h4 id="4-最小化条件"><strong>4. 最小化条件</strong></h4>
+<p>最小化 ( | Ax - b |_2^2 ) 等价于最小化 ( | Rx - Q^\top b |_2^2 )，其最小值是 0：<br>
+[<br>
+Rx = Q^\top b<br>
+]<br>
+因此：<br>
+[<br>
+x^* = R^{-1} Q^\top b<br>
+]</p>
+<hr>
+<h3 id="方法-3：正规方程法"><strong>方法 3：正规方程法</strong></h3>
+<h4 id="1-正规方程"><strong>1. 正规方程</strong></h4>
+<p>最小二乘问题的解满足 <strong>正规方程</strong>：<br>
+[<br>
+A^\top A x = A^\top b<br>
+]</p>
+<h4 id="2-代入-QR-分解"><strong>2. 代入 QR 分解</strong></h4>
+<p>由于 ( A = QR )，代入正规方程：<br>
+[<br>
+(QR)^\top (QR) x = (QR)^\top b<br>
+]<br>
+[<br>
+R^\top Q^\top Q R x = R^\top Q^\top b<br>
+]<br>
+因为 ( Q^\top Q = I )：<br>
+[<br>
+R^\top R x = R^\top Q^\top b<br>
+]</p>
+<h4 id="3-解方程"><strong>3. 解方程</strong></h4>
+<p>由于 ( R ) 是可逆的，( R^\top ) 也是可逆的，可以两边左乘 ( (R^\top)^{-1} )：<br>
+[<br>
+R x = Q^\top b<br>
+]<br>
+因此：<br>
+[<br>
+x^* = R^{-1} Q^\top b<br>
+]</p>
+<hr>
+<h3 id="总结"><strong>总结</strong></h3>
+<p>三种方法最终都得到相同的最小二乘解：<br>
+[<br>
+x^* = R^{-1} Q^\top b<br>
+]<br>
+其中：</p>
+<ul>
+<li>( A = QR ) 是 ( A ) 的 <strong>QR 分解</strong>，</li>
+<li>( R ) 是上三角可逆矩阵，</li>
+<li>( Q ) 是列正交矩阵。</li>
+</ul>
+<h4 id="计算复杂度"><strong>计算复杂度</strong></h4>
+<ul>
+<li>QR 分解的计算量约为 ( 2mn^2 )（使用 Householder 变换时），</li>
+<li>当 ( m \gg n ) 时，比正规方程法（计算 ( A^\top A ) 需要 ( mn^2 )）稍慢，</li>
+<li>当 ( m = n ) 时，计算量几乎相同。</li>
+</ul>
+<h4 id="为什么-QR-分解方法更稳定？"><strong>为什么 QR 分解方法更稳定？</strong></h4>
+<ul>
+<li>直接计算 ( A^\top A ) 会导致数值不稳定（条件数 ( \kappa(A^\top A) = \kappa(A)^2 )），</li>
+<li>QR 分解方法避免了计算 ( A^\top A )，数值稳定性更好。</li>
+</ul>
+<h2 id="HouseHolder中的v">HouseHolder中的v</h2>
+<ul>
+<li><strong>( v ) 是反射方向的垂直向量</strong>，决定了反射超平面的方向，</li>
+<li><strong>( v = x - y )</strong>，其中 ( y ) 是目标向量（如 ( |x| e_1 )），</li>
+<li>Householder 变换通过 ( H = I - 2 \frac{v v^\top}{v^\top v} ) 实现反射，</li>
+<li>在 QR 分解中，Householder 变换逐步将 ( A ) 化为 ( R )，并构造正交矩阵 ( Q )。</li>
+</ul>
+<p><strong>数值稳定性</strong>：</p>
+<ul>
+<li>通常选择 ( v = x + \text{sign}(x_1) |x| e_1 ) 避免 ( v ) 接近零向量，</li>
+<li>Householder 变换比 Gram-Schmidt 更稳定，适合大规模数值计算。</li>
+<li></li>
+</ul>
+<h1>奇异值分解（SVD）法推导最小二乘解</h1>
+<h4 id="1-奇异值分解（SVD）的定义">1. <strong>奇异值分解（SVD）的定义</strong></h4>
+<p>对于列满秩矩阵 ( A \in \mathbb{R}^{m \times n} )（( m \geq n )），其奇异值分解为：<br>
+[<br>
+A = U \begin{bmatrix} \Sigma \ 0 \end{bmatrix} V^\top<br>
+]<br>
+其中：</p>
+<ul>
+<li>( U \in \mathbb{R}^{m \times m} ) 是正交矩阵（( U^\top U = I_m )），可以分块为 ( U = [U_n, \tilde{U}] )：
+<ul>
+<li>( U_n \in \mathbb{R}^{m \times n} )：前 ( n ) 列，对应非零奇异值。</li>
+<li>( \tilde{U} \in \mathbb{R}^{m \times (m - n)} )：后 ( m - n ) 列，对应零奇异值。</li>
+</ul>
+</li>
+<li>( \Sigma \in \mathbb{R}^{n \times n} ) 是对角矩阵，对角线元素为奇异值 ( \sigma_1 \geq \sigma_2 \geq \dots \geq \sigma_n &gt; 0 )（因为 ( A ) 列满秩）。</li>
+<li>( V \in \mathbb{R}^{n \times n} ) 是正交矩阵（( V^\top V = I_n )）。</li>
+</ul>
+<h4 id="2-残差范数的表达">2. <strong>残差范数的表达</strong></h4>
+<p>最小二乘问题的目标是最小化残差范数：<br>
+[<br>
+|Ax - b|_2^2 = \left| U \begin{bmatrix} \Sigma \ 0 \end{bmatrix} V^\top x - b \right|_2^2<br>
+]<br>
+利用正交矩阵的性质 ( |Uy|_2 = |y|_2 )，可以左乘 ( U^\top )：<br>
+[<br>
+|Ax - b|_2^2 = \left| \begin{bmatrix} \Sigma \ 0 \end{bmatrix} V^\top x - U^\top b \right|_2^2<br>
+]<br>
+将 ( U^\top b ) 分块为：<br>
+[<br>
+U^\top b = \begin{bmatrix} U_n^\top b \ \tilde{U}^\top b \end{bmatrix}<br>
+]<br>
+因此：<br>
+[<br>
+|Ax - b|_2^2 = \left| \begin{bmatrix} \Sigma V^\top x - U_n^\top b \ -\tilde{U}^\top b \end{bmatrix} \right|_2^2 = |\Sigma V^\top x - U_n^\top b|_2^2 + |\tilde{U}^\top b|_2^2<br>
+]</p>
+<h4 id="3-最小化残差范数">3. <strong>最小化残差范数</strong></h4>
+<ul>
+<li>第二项 ( |\tilde{U}^\top b|_2^2 ) 是固定的（与 ( x ) 无关）。</li>
+<li>第一项 ( |\Sigma V^\top x - U_n^\top b|_2^2 ) 可以最小化为零（因为 ( \Sigma ) 和 ( V ) 可逆）：<br>
+[<br>
+\Sigma V^\top x - U_n^\top b = 0 \implies \Sigma V^\top x = U_n^\top b<br>
+]<br>
+解得：<br>
+[<br>
+x = (V^\top)^{-1} \Sigma^{-1} U_n^\top b = V \Sigma^{-1} U_n^\top b<br>
+]<br>
+（因为 ( V ) 是正交矩阵，( V^{-1} = V^\top )）。</li>
+</ul>
+<h4 id="4-解的几何意义">4. <strong>解的几何意义</strong></h4>
+<ul>
+<li>( U_n^\top b ) 是 ( b ) 在 ( \text{Ran}(A) )（( A ) 的列空间）上的投影系数。</li>
+<li>( \Sigma^{-1} ) 对奇异值进行缩放，( V ) 将结果转换回原空间。</li>
+<li>( \tilde{U}^\top b ) 是 ( b ) 在 ( \text{Ran}(A)^\perp )（( A ) 的左零空间）上的分量，无法被 ( Ax ) 表示。</li>
+</ul>
+<h4 id="5-与QR分解法的对比">5. <strong>与QR分解法的对比</strong></h4>
+<ul>
+<li>QR分解法：( A = QR )，解为 ( x = R^{-1} Q^\top b )。</li>
+<li>SVD法：( A = U \begin{bmatrix} \Sigma \ 0 \end{bmatrix} V^\top )，解为 ( x = V \Sigma^{-1} U_n^\top b )。</li>
+<li>SVD法的优势：
+<ul>
+<li>数值稳定性更高（尤其当 ( A ) 接近秩亏时）。</li>
+<li>可以直接处理秩亏矩阵（通过截断小奇异值）。</li>
+</ul>
+</li>
+</ul>
+<h4 id="6-关键符号总结">6. <strong>关键符号总结</strong></h4>
+<ul>
+<li>( U_n )：对应非零奇异值的左奇异向量。</li>
+<li>( \tilde{U} )：对应零奇异值的左奇异向量。</li>
+<li>( \Sigma )：奇异值矩阵（对角矩阵）。</li>
+<li>( V )：右奇异向量矩阵。</li>
+<li>( U_n^\top b )：( b ) 在 ( \text{Ran}(A) ) 上的投影。</li>
+<li>( \tilde{U}^\top b )：( b ) 在 ( \text{Ran}(A)^\perp ) 上的投影。</li>
+</ul>
+<h4 id="7-最终解">7. <strong>最终解</strong></h4>
+<p>最小二乘解为：<br>
+[<br>
+x^* = V \Sigma^{-1} U_n^\top b<br>
+]</p>
+
+    </div>
+
+    
+    
+    
+
+      <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/notes.github.io/tags/%E5%85%B6%E4%BB%96/" rel="tag"># 其他</a>
+          </div>
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/notes.github.io/2025/06/23/%E6%9C%80%E5%B0%8F%E4%BA%8C%E4%B9%98%E6%B3%95%E7%AC%94%E8%AE%B0/" rel="prev" title="最小二乘法笔记">
+      <i class="fa fa-chevron-left"></i> 最小二乘法笔记
+    </a></div>
+      <div class="post-nav-item">
+    <a href="/notes.github.io/2025/06/23/noteRichardsoniteration/" rel="next" title="noteRichardsoniteration">
+      noteRichardsoniteration <i class="fa fa-chevron-right"></i>
+    </a></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+
+
+          </div>
+          
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%AE%9A%E7%90%86"><span class="nav-number">1.</span> <span class="nav-text">定理</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#1-A-A-%E7%9A%84%E7%89%B9%E5%BE%81%E5%80%BC%E6%98%AF-sigma-i-2-%EF%BC%8C%E5%AF%B9%E5%BA%94%E7%9A%84%E7%89%B9%E5%BE%81%E5%90%91%E9%87%8F%E6%98%AF-v-i"><span class="nav-number">1.1.</span> <span class="nav-text">(1) ( A^*A ) 的特征值是 ( \sigma_i^2 )，对应的特征向量是 ( v_i )</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#2-AA-%E7%9A%84%E7%89%B9%E5%BE%81%E5%80%BC%E6%98%AF-sigma-i-2-%E5%92%8C-m-n-%E4%B8%AA%E9%9B%B6%EF%BC%8C%E5%AF%B9%E5%BA%94%E7%9A%84%E7%89%B9%E5%BE%81%E5%90%91%E9%87%8F%E6%98%AF-u-i"><span class="nav-number">1.2.</span> <span class="nav-text">(2) ( AA^* ) 的特征值是 ( \sigma_i^2 ) 和 ( m-n ) 个零，对应的特征向量是 ( u_i )</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#3-A-2-sigma-1-A-F-sqrt-sigma-1-2-sigma-2-2-cdots-sigma-n-2"><span class="nav-number">1.3.</span> <span class="nav-text">(3) ( |A|_2 &#x3D; \sigma_1, |A|_F &#x3D; \sqrt{\sigma_1^2 + \sigma_2^2 + \cdots + \sigma_n^2} )</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#4-%E8%8B%A5-text-rank-A-r-leq-n-%EF%BC%8C%E5%88%99-text-Ran-A-text-span-u-1-u-2-ldots-u-r-%EF%BC%8C-text-Ker-A-text-span-v-r-1-v-r-2-ldots-v-n"><span class="nav-number">1.4.</span> <span class="nav-text">(4) 若 ( \text{rank}(A) &#x3D; r \leq n )，则 ( \text{Ran}(A) &#x3D; \text{span}{u_1, u_2, \ldots, u_r} )，( \text{Ker}(A) &#x3D; \text{span}{v_{r+1}, v_{r+2}, \ldots, v_n} )</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#5-%E8%AE%BE-x-in-mathbb-C-n-%E4%B8%94-x-2-1-%EF%BC%8C%E5%88%99-sigma-n-leq-Ax-2-leq-sigma-1"><span class="nav-number">1.5.</span> <span class="nav-text">(5) 设 ( x \in \mathbb{C}^n ) 且 ( |x|_2 &#x3D; 1 )，则 ( \sigma_n \leq |Ax|_2 \leq \sigma_1 )</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#6-%E9%85%89%E4%B8%8D%E5%8F%98%E6%80%A7-%E8%AE%BE-X-in-mathbb-C-m-times-m-%E5%92%8C-Y-in-mathbb-C-n-times-n-%E6%98%AF%E9%85%89%E7%9F%A9%E9%98%B5%EF%BC%8C%E5%88%99-sigma-i-X-AY-sigma-i-A"><span class="nav-number">1.6.</span> <span class="nav-text">(6) (酉不变性) 设 ( X \in \mathbb{C}^{m \times m} ) 和 ( Y \in \mathbb{C}^{n \times n} ) 是酉矩阵，则 ( \sigma_i(X^*AY) &#x3D; \sigma_i(A) )</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%BD%8E%E7%A7%A9%E9%80%BC%E8%BF%91%E5%AE%9A%E7%90%86%E7%9A%84%E8%AF%A6%E7%BB%86%E8%A7%A3%E9%87%8A"><span class="nav-number">2.</span> <span class="nav-text">低秩逼近定理的详细解释</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#1-%E5%AE%9A%E7%90%86%E9%99%88%E8%BF%B0"><span class="nav-number">2.1.</span> <span class="nav-text">1. 定理陈述</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#2-%E7%9B%B4%E8%A7%82%E8%A7%A3%E9%87%8A"><span class="nav-number">2.2.</span> <span class="nav-text">2. 直观解释</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#3-%E4%B8%BA%E4%BB%80%E4%B9%88-A-k-%E6%98%AF%E6%9C%80%E4%BC%98%E8%A7%A3%EF%BC%9F"><span class="nav-number">2.3.</span> <span class="nav-text">3. 为什么 ( A_k ) 是最优解？</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#1-2-%E8%8C%83%E6%95%B0%E7%9A%84%E6%9C%80%E4%BC%98%E6%80%A7"><span class="nav-number">2.3.1.</span> <span class="nav-text">(1) 2-范数的最优性</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#2-Frobenius-%E8%8C%83%E6%95%B0%E7%9A%84%E6%9C%80%E4%BC%98%E6%80%A7"><span class="nav-number">2.3.2.</span> <span class="nav-text">(2) Frobenius 范数的最优性</span></a></li></ol></li></ol></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link"><span class="nav-number"></span> <span class="nav-text">矩阵的2-范数等于其最大奇异值σ₁。</span></a></li><li class="nav-item nav-level-1"><a class="nav-link"><span class="nav-number"></span> <span class="nav-text">QR分解在线性最小二乘的应用</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E9%97%AE%E9%A2%98%E6%8F%8F%E8%BF%B0"><span class="nav-number">1.</span> <span class="nav-text">问题描述</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%96%B9%E6%B3%95-1%EF%BC%9A%E5%88%A9%E7%94%A8-QR-%E5%88%86%E8%A7%A3%E7%9A%84%E6%AD%A3%E4%BA%A4%E8%A1%A5%E7%A9%BA%E9%97%B4%E6%8A%95%E5%BD%B1"><span class="nav-number">2.</span> <span class="nav-text">方法 1：利用 QR 分解的正交补空间投影</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#1-QR-%E5%88%86%E8%A7%A3"><span class="nav-number">2.1.</span> <span class="nav-text">1. QR 分解</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#2-%E6%AE%8B%E5%B7%AE%E8%8C%83%E6%95%B0%E7%9A%84%E5%88%86%E8%A7%A3"><span class="nav-number">2.2.</span> <span class="nav-text">2. 残差范数的分解</span></a></li></ol></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link"><span class="nav-number"></span> <span class="nav-text">计算 ( [Q, \hat{Q}]^\top ) 与 ( QRx - b ) 的乘积：
+[
+[Q, \hat{Q}]^\top (QRx - b) &#x3D;
+\begin{bmatrix}
+Q^\top (QRx - b) \
+\hat{Q}^\top (QRx - b)
+\end{bmatrix}</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#3-%E6%9C%80%E5%B0%8F%E5%8C%96%E6%9D%A1%E4%BB%B6"><span class="nav-number">0.1.</span> <span class="nav-text">3. 最小化条件</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%96%B9%E6%B3%95-2%EF%BC%9A%E5%88%A9%E7%94%A8%E6%AD%A3%E4%BA%A4%E6%8A%95%E5%BD%B1%E5%88%86%E8%A7%A3"><span class="nav-number">1.</span> <span class="nav-text">方法 2：利用正交投影分解</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#1-%E6%8A%95%E5%BD%B1%E7%9F%A9%E9%98%B5"><span class="nav-number">1.1.</span> <span class="nav-text">1. 投影矩阵</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#2-%E5%88%86%E8%A7%A3-b"><span class="nav-number">1.2.</span> <span class="nav-text">2. 分解 ( b )</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#3-%E6%AE%8B%E5%B7%AE%E8%8C%83%E6%95%B0%E7%9A%84%E5%88%86%E8%A7%A3"><span class="nav-number">1.3.</span> <span class="nav-text">3. 残差范数的分解</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#4-%E6%9C%80%E5%B0%8F%E5%8C%96%E6%9D%A1%E4%BB%B6"><span class="nav-number">1.4.</span> <span class="nav-text">4. 最小化条件</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%96%B9%E6%B3%95-3%EF%BC%9A%E6%AD%A3%E8%A7%84%E6%96%B9%E7%A8%8B%E6%B3%95"><span class="nav-number">2.</span> <span class="nav-text">方法 3：正规方程法</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#1-%E6%AD%A3%E8%A7%84%E6%96%B9%E7%A8%8B"><span class="nav-number">2.1.</span> <span class="nav-text">1. 正规方程</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#2-%E4%BB%A3%E5%85%A5-QR-%E5%88%86%E8%A7%A3"><span class="nav-number">2.2.</span> <span class="nav-text">2. 代入 QR 分解</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#3-%E8%A7%A3%E6%96%B9%E7%A8%8B"><span class="nav-number">2.3.</span> <span class="nav-text">3. 解方程</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%80%BB%E7%BB%93"><span class="nav-number">3.</span> <span class="nav-text">总结</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E8%AE%A1%E7%AE%97%E5%A4%8D%E6%9D%82%E5%BA%A6"><span class="nav-number">3.1.</span> <span class="nav-text">计算复杂度</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E4%B8%BA%E4%BB%80%E4%B9%88-QR-%E5%88%86%E8%A7%A3%E6%96%B9%E6%B3%95%E6%9B%B4%E7%A8%B3%E5%AE%9A%EF%BC%9F"><span class="nav-number">3.2.</span> <span class="nav-text">为什么 QR 分解方法更稳定？</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#HouseHolder%E4%B8%AD%E7%9A%84v"><span class="nav-number"></span> <span class="nav-text">HouseHolder中的v</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link"><span class="nav-number"></span> <span class="nav-text">奇异值分解（SVD）法推导最小二乘解</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#1-%E5%A5%87%E5%BC%82%E5%80%BC%E5%88%86%E8%A7%A3%EF%BC%88SVD%EF%BC%89%E7%9A%84%E5%AE%9A%E4%B9%89"><span class="nav-number">0.1.</span> <span class="nav-text">1. 奇异值分解（SVD）的定义</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#2-%E6%AE%8B%E5%B7%AE%E8%8C%83%E6%95%B0%E7%9A%84%E8%A1%A8%E8%BE%BE"><span class="nav-number">0.2.</span> <span class="nav-text">2. 残差范数的表达</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#3-%E6%9C%80%E5%B0%8F%E5%8C%96%E6%AE%8B%E5%B7%AE%E8%8C%83%E6%95%B0"><span class="nav-number">0.3.</span> <span class="nav-text">3. 最小化残差范数</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#4-%E8%A7%A3%E7%9A%84%E5%87%A0%E4%BD%95%E6%84%8F%E4%B9%89"><span class="nav-number">0.4.</span> <span class="nav-text">4. 解的几何意义</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#5-%E4%B8%8EQR%E5%88%86%E8%A7%A3%E6%B3%95%E7%9A%84%E5%AF%B9%E6%AF%94"><span class="nav-number">0.5.</span> <span class="nav-text">5. 与QR分解法的对比</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#6-%E5%85%B3%E9%94%AE%E7%AC%A6%E5%8F%B7%E6%80%BB%E7%BB%93"><span class="nav-number">0.6.</span> <span class="nav-text">6. 关键符号总结</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#7-%E6%9C%80%E7%BB%88%E8%A7%A3"><span class="nav-number">0.7.</span> <span class="nav-text">7. 最终解</span></a></li></ol></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="Chen Zhan"
+      src="/notes.github.io/images/woshicaigou.jpg">
+  <p class="site-author-name" itemprop="name">Chen Zhan</p>
+  <div class="site-description" itemprop="description"></div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/notes.github.io/archives/">
+        
+          <span class="site-state-item-count">23</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-tags">
+        <span class="site-state-item-count">3</span>
+        <span class="site-state-item-name">标签</span>
+      </div>
+  </nav>
+</div>
+
+
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+
+<div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2025</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Chen Zhan</span>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://pisces.theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Pisces</a> 强力驱动
+  </div>
+
+        
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/notes.github.io/lib/anime.min.js"></script>
+  <script src="/notes.github.io/lib/velocity/velocity.min.js"></script>
+  <script src="/notes.github.io/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/notes.github.io/js/utils.js"></script>
+
+<script src="/notes.github.io/js/motion.js"></script>
+
+
+<script src="/notes.github.io/js/schemes/pisces.js"></script>
+
+
+<script src="/notes.github.io/js/next-boot.js"></script>
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+      
+<link rel="stylesheet" href="//cdn.jsdelivr.net/npm/katex@0/dist/katex.min.css">
+  <script src="//cdn.jsdelivr.net/npm/katex@0/dist/contrib/copy-tex.min.js"></script>
+  <link rel="stylesheet" href="//cdn.jsdelivr.net/npm/katex@0/dist/contrib/copy-tex.min.css">
+
+
+  
+
+</body>
+</html>
